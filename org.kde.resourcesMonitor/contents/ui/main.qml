@@ -26,9 +26,14 @@ Item {
     
     property bool vertical: (plasmoid.formFactor == PlasmaCore.Types.Vertical)
     
-    property int itemWidth: vertical ? parent.width : parent.height
-    property int itemHeight: vertical ? parent.width : parent.height
+    property bool verticalLayout: plasmoid.configuration.verticalLayout
+    property bool showCpuMonitor: plasmoid.configuration.showCpuMonitor
+    property bool showClock: plasmoid.configuration.showClock
+    property bool showRamMonitor: plasmoid.configuration.showRamMonitor
+    
     property int itemMargin: 5
+    property int itemWidth:  vertical ? ( verticalLayout ? parent.width : (parent.width - itemMargin) / 2 ) : ( verticalLayout ? (parent.height - itemMargin) / 2 : parent.height )
+    property int itemHeight: itemWidth
     property double fontPointSize: itemHeight * 0.2
     property int graphGranularity: 20
     
@@ -38,8 +43,8 @@ Item {
     Layout.minimumWidth: Layout.maximumWidth
     Layout.minimumHeight: Layout.maximumHeight
     
-    Layout.maximumWidth: itemWidth * 2 + itemMargin
-    Layout.maximumHeight: itemHeight
+    Layout.maximumWidth:  showCpuMonitor && showRamMonitor && !verticalLayout ? itemWidth*2 + itemMargin : itemWidth
+    Layout.maximumHeight: showCpuMonitor && showRamMonitor &&  verticalLayout ? itemWidth*2 + itemMargin : itemWidth
     
     Plasmoid.preferredRepresentation: Plasmoid.fullRepresentation
     
@@ -157,9 +162,13 @@ Item {
         swapPercentText.color = totalSwapProportion > 0.9 ? warningColor : theme.textColor
         swapPercentText.visible = !swapInfoText.visible && totalSwapProportion > 0
         
-        addGraphData(cpuGraphModel, totalCpuProportion * itemHeight, graphGranularity)
-        addGraphData(ramGraphModel, totalRamProportion * itemHeight, graphGranularity)
-        addGraphData(swapGraphModel, totalSwapProportion * itemHeight, graphGranularity)
+        if (showCpuMonitor) {
+            addGraphData(cpuGraphModel, totalCpuProportion * itemHeight, graphGranularity)
+        }
+        if (showRamMonitor) {
+            addGraphData(ramGraphModel, totalRamProportion * itemHeight, graphGranularity)
+            addGraphData(swapGraphModel, totalSwapProportion * itemHeight, graphGranularity)
+        }
     }
     
     function addGraphData(model, itemHeight, graphGranularity) {
@@ -179,10 +188,16 @@ Item {
         model.remove(0)
     }
     
+    onShowClockChanged: {
+        averageClockText.visible = showClock
+    }
+    
     Item {
         id: cpuMonitor
         width: itemWidth
         height: itemHeight
+        
+        visible: showCpuMonitor
         
         HistoryGraph {
             anchors.fill: parent
@@ -219,6 +234,7 @@ Item {
                 font.family: textFontFamily
                 color: theme.textColor
                 font.pointSize: fontPointSize
+                visible: showClock
             }
             
             Text {
@@ -251,7 +267,7 @@ Item {
             onEntered: {
                 cpuInfoText.visible = true
                 cpuPercentText.visible = false
-                averageClockInfoText.visible = true
+                averageClockInfoText.visible = showClock && true
                 averageClockText.visible = false
             }
             
@@ -259,7 +275,7 @@ Item {
                 cpuInfoText.visible = false
                 cpuPercentText.visible = true
                 averageClockInfoText.visible = false
-                averageClockText.visible = true
+                averageClockText.visible = showClock && true
             }
         }
     }
@@ -269,7 +285,11 @@ Item {
         width: itemWidth
         height: itemHeight
         anchors.left: parent.left
-        anchors.leftMargin: itemWidth + itemMargin
+        anchors.leftMargin: showCpuMonitor && !verticalLayout ? itemWidth + itemMargin : 0
+        anchors.top: parent.top
+        anchors.topMargin: showCpuMonitor && verticalLayout ? itemWidth + itemMargin : 0
+        
+        visible: showRamMonitor
         
         HistoryGraph {
             listViewModel: ramGraphModel

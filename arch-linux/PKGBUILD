@@ -2,7 +2,7 @@
 
 pkgname=plasma-applet-resources-monitor-git
 _pkgname=plasma-applet-resources-monitor
-pkgver=r1.xxxxxx
+pkgver=r1.a35a39e
 pkgrel=1
 pkgdesc="Plasmoid for Plasma 5. Shows information about CPU and RAM."
 arch=('any')
