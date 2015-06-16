@@ -1,8 +1,8 @@
 # Maintainer: Martin Kostolný <clearmartin at zoho dot com>
 
-pkgname=plasma-applet-resources-monitor-git
+pkgname=plasma5-applets-resources-monitor-git
 _pkgname=plasma-applet-resources-monitor
-pkgver=r1.a35a39e
+pkgver=r2.cc4cfaf
 pkgrel=1
 pkgdesc="Plasmoid for Plasma 5. Shows information about CPU and RAM."
 arch=('any')

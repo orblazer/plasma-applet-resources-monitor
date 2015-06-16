@@ -83,8 +83,8 @@ Item {
         property int swapUsedBytes: 0
         property double swapUsedProportion: 0
 
-        connectedSources: [memFree, memUsed, memApplication, swapUsed, swapFree, averageClock, totalLoad]
-
+        connectedSources: [memFree, memUsed, memApplication, swapUsed, swapFree, averageClock, totalLoad ]
+        
         onNewData: {
             if (data.value === undefined) {
                 return
@@ -146,6 +146,19 @@ Item {
         return Math.round(megaBytes / 1024 * 100) / 100 + 'G'
     }
     
+    function getHumanReadableClock(clockMhz) {
+        var clockNumber = clockMhz
+        if (clockNumber < 1000) {
+            return clockNumber + 'MHz'
+        }
+        clockNumber = clockNumber / 1000
+        var floatingPointCount = 100
+        if (clockNumber >= 10) {
+            floatingPointCount = 10
+        }
+        return Math.round(clockNumber * floatingPointCount) / floatingPointCount + 'GHz'
+    }
+    
     function allUsageProportionChanged() {
         
         var totalCpuProportion = dataSource.totalCpuLoad
@@ -154,7 +167,7 @@ Item {
         
         cpuPercentText.text = Math.round(totalCpuProportion * 100) + '%'
         cpuPercentText.color = totalCpuProportion > 0.9 ? warningColor : theme.textColor
-        averageClockText.text = dataSource.averageCpuClock + 'Hz'
+        averageClockText.text = getHumanReadableClock(dataSource.averageCpuClock)
         
         ramPercentText.text = getHumanReadableMemory(dataSource.ramUsedBytes)
         ramPercentText.color = totalRamProportion > 0.9 ? warningColor : theme.textColor
