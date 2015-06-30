@@ -57,8 +57,9 @@ Item {
     // We need to get the full path to KSysguard to be able to run it
     PlasmaCore.DataSource {
         id: apps
-        engine: "apps"
-        connectedSources: ["ksysguard.desktop"]
+        engine: 'apps'
+        property string ksysguardSource: 'org.kde.ksysguard.desktop'
+        connectedSources: [ ksysguardSource ]
     }
 
     PlasmaCore.DataSource {
@@ -392,7 +393,7 @@ Item {
         id: mouseArea
         anchors.fill: parent
         onClicked: {
-            kRun.openUrl(apps.data["ksysguard.desktop"].entryPath)
+            kRun.openUrl(apps.data[apps.ksysguardSource].entryPath)
         }
     }
     
