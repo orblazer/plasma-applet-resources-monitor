@@ -30,6 +30,7 @@ Item {
     property bool showCpuMonitor: plasmoid.configuration.showCpuMonitor
     property bool showClock: plasmoid.configuration.showClock
     property bool showRamMonitor: plasmoid.configuration.showRamMonitor
+    property bool enableHints: plasmoid.configuration.enableHints
     
     property int itemMargin: 5
     property int itemWidth:  vertical ? ( verticalLayout ? parent.width : (parent.width - itemMargin) / 2 ) : ( verticalLayout ? (parent.height - itemMargin) / 2 : parent.height )
@@ -276,7 +277,7 @@ Item {
         
         MouseArea {
             anchors.fill: parent
-            hoverEnabled: true
+            hoverEnabled: enableHints
             
             onEntered: {
                 cpuInfoText.visible = true
@@ -371,7 +372,7 @@ Item {
         
         MouseArea {
             anchors.fill: parent
-            hoverEnabled: true
+            hoverEnabled: enableHints
             
             onEntered: {
                 ramInfoText.visible = true

@@ -11,6 +11,7 @@ Item {
     property alias cfg_showClock: showClock.checked
     property alias cfg_showRamMonitor: showRamMonitor.checked
     property alias cfg_verticalLayout: verticalLayout.checked
+    property alias cfg_enableHints: enableHints.checked
 
     GridLayout {
         Layout.fillWidth: true
@@ -63,6 +64,12 @@ Item {
             id: verticalLayout
             Layout.columnSpan: 2
             text: i18n('Vertical layout')
+        }
+        
+        CheckBox {
+            id: enableHints
+            Layout.columnSpan: 2
+            text: i18n('Enable hints')
         }
 
     }
