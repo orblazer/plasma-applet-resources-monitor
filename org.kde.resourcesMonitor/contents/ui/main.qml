@@ -41,11 +41,8 @@ Item {
     property color warningColor: Qt.tint(theme.textColor, '#60FF0000')
     property var textFontFamily: theme.defaultFont.family
     
-    Layout.minimumWidth: Layout.maximumWidth
-    Layout.minimumHeight: Layout.maximumHeight
-    
-    Layout.maximumWidth:  showCpuMonitor && showRamMonitor && !verticalLayout ? itemWidth*2 + itemMargin : itemWidth
-    Layout.maximumHeight: showCpuMonitor && showRamMonitor &&  verticalLayout ? itemWidth*2 + itemMargin : itemWidth
+    Layout.preferredWidth:  showCpuMonitor && showRamMonitor && !verticalLayout ? itemWidth*2 + itemMargin : itemWidth
+    Layout.preferredHeight: showCpuMonitor && showRamMonitor &&  verticalLayout ? itemWidth*2 + itemMargin : itemWidth
     
     Plasmoid.preferredRepresentation: Plasmoid.fullRepresentation
     
