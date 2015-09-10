@@ -38,7 +38,7 @@ Item {
         
         delegate: Item {
             
-            property int rectHeight: Math.max(graphItemHeight, minBarHeight)
+            property double rectHeight: Math.max(graphItemHeight, minBarHeight)
             
             width: historyGraph.width / graphGranularity
             height: historyGraph.height

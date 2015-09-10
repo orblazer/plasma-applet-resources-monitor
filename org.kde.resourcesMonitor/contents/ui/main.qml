@@ -33,13 +33,15 @@ Item {
     property bool enableHints: plasmoid.configuration.enableHints
     
     property int itemMargin: 5
-    property int itemWidth:  vertical ? ( verticalLayout ? parent.width : (parent.width - itemMargin) / 2 ) : ( verticalLayout ? (parent.height - itemMargin) / 2 : parent.height )
-    property int itemHeight: itemWidth
+    property double parentWidth: parent === null ? 0 : parent.width
+    property double parentHeight: parent === null ? 0 : parent.height
+    property double itemWidth:  vertical ? ( verticalLayout ? parentWidth : (parentWidth - itemMargin) / 2 ) : ( verticalLayout ? (parentHeight - itemMargin) / 2 : parentHeight )
+    property double itemHeight: itemWidth
     property double fontPointSize: itemHeight * 0.2
     property int graphGranularity: 20
     
     property color warningColor: Qt.tint(theme.textColor, '#60FF0000')
-    property var textFontFamily: theme.defaultFont.family
+    property string textFontFamily: theme.defaultFont.family
     
     Layout.preferredWidth:  showCpuMonitor && showRamMonitor && !verticalLayout ? itemWidth*2 + itemMargin : itemWidth
     Layout.preferredHeight: showCpuMonitor && showRamMonitor &&  verticalLayout ? itemWidth*2 + itemMargin : itemWidth
