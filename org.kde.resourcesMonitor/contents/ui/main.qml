@@ -31,6 +31,7 @@ Item {
     property bool showClock: plasmoid.configuration.showClock
     property bool showRamMonitor: plasmoid.configuration.showRamMonitor
     property bool enableHints: plasmoid.configuration.enableHints
+    property bool enableShadows: plasmoid.configuration.enableShadows
     
     property int itemMargin: 5
     property double parentWidth: parent === null ? 0 : parent.width
@@ -269,6 +270,7 @@ Item {
         }
         
         DropShadow {
+        	visible: enableShadows
             anchors.fill: cpuTextContainer
             radius: 3
             samples: 8
@@ -364,6 +366,7 @@ Item {
         }
         
         DropShadow {
+            visible: enableShadows
             anchors.fill: ramTextContainer
             radius: 3
             samples: 8
