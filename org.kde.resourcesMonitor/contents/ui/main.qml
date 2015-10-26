@@ -19,6 +19,7 @@ import QtQuick.Layouts 1.1
 import QtGraphicalEffects 1.0
 import org.kde.plasma.plasmoid 2.0
 import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.plasma.components 2.0 as PlasmaComponents
 import org.kde.kio 1.0 as Kio
 
 Item {
@@ -48,6 +49,7 @@ Item {
     property double widgetHeight: showCpuMonitor && showRamMonitor &&  verticalLayout ? itemWidth*2 + itemMargin : itemWidth
     
     Layout.preferredWidth:  widgetWidth
+    Layout.maximumWidth: widgetWidth
     Layout.preferredHeight: widgetHeight
     Layout.maximumHeight: widgetHeight
     
@@ -228,40 +230,36 @@ Item {
             id: cpuTextContainer
             anchors.fill: parent
             
-            Text {
+            PlasmaComponents.Label {
                 id: cpuInfoText
                 anchors.right: parent.right
+                verticalAlignment: Text.AlignTop
                 text: 'CPU'
-                font.family: textFontFamily
                 color: theme.highlightColor
                 font.pointSize: fontPointSize
                 visible: false
             }
             
-            Text {
+            PlasmaComponents.Label {
                 id: cpuPercentText
                 anchors.right: parent.right
-                font.family: textFontFamily
-                color: theme.textColor
+                verticalAlignment: Text.AlignTop
+                text: '...'
                 font.pointSize: fontPointSize
             }
             
-            Text {
+            PlasmaComponents.Label {
                 id: averageClockText
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
-                font.family: textFontFamily
-                color: theme.textColor
                 font.pointSize: fontPointSize
                 visible: showClock
             }
             
-            Text {
+            PlasmaComponents.Label {
                 id: averageClockInfoText
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
-                font.family: textFontFamily
-                color: theme.textColor
                 font.pointSize: fontPointSize
                 text: 'Clock'
                 visible: false
@@ -325,38 +323,35 @@ Item {
             id: ramTextContainer
             anchors.fill: parent
             
-            Text {
+            PlasmaComponents.Label {
                 id: ramInfoText
                 text: 'RAM'
-                font.family: textFontFamily
                 color: theme.highlightColor
                 font.pointSize: fontPointSize
                 anchors.right: parent.right
+                verticalAlignment: Text.AlignTop
                 visible: false
             }
             
-            Text {
+            PlasmaComponents.Label {
                 id: ramPercentText
                 anchors.right: parent.right
-                font.family: textFontFamily
-                color: theme.textColor
+                verticalAlignment: Text.AlignTop
+                text: '...'
                 font.pointSize: fontPointSize
             }
             
-            Text {
+            PlasmaComponents.Label {
                 id: swapPercentText
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
-                font.family: textFontFamily
-                color: theme.textColor
                 font.pointSize: fontPointSize
             }
             
-            Text {
+            PlasmaComponents.Label {
                 id: swapInfoText
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
-                font.family: textFontFamily
                 color: '#FF0000'
                 font.pointSize: fontPointSize
                 text: 'Swap'
