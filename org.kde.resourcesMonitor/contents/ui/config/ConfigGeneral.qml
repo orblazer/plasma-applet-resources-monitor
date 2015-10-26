@@ -12,6 +12,7 @@ Item {
     property alias cfg_showRamMonitor: showRamMonitor.checked
     property alias cfg_verticalLayout: verticalLayout.checked
     property alias cfg_enableHints: enableHints.checked
+    property alias cfg_enableShadows: enableShadows.checked
 
     GridLayout {
         Layout.fillWidth: true
@@ -70,6 +71,12 @@ Item {
             id: enableHints
             Layout.columnSpan: 2
             text: i18n('Enable hints')
+        }
+
+        CheckBox {
+            id: enableShadows
+            Layout.columnSpan: 2
+            text: i18n('Drop shadows')
         }
 
     }

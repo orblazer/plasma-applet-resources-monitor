@@ -24,6 +24,9 @@
         <entry name="enableHints" type="Bool">
             <default>true</default>
         </entry>
+        <entry name="enableShadows" type="Bool">
+            <default>true</default>
+        </entry>
     </group>
     
 </kcfg>
