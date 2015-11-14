@@ -39,7 +39,7 @@ Item {
     property double parentHeight: parent === null ? 0 : parent.height
     property double itemWidth:  vertical ? ( verticalLayout ? parentWidth : (parentWidth - itemMargin) / 2 ) : ( verticalLayout ? (parentHeight - itemMargin) / 2 : parentHeight )
     property double itemHeight: itemWidth
-    property double fontPointSize: itemHeight * 0.2
+    property double fontPixelSize: itemHeight * 0.26
     property int graphGranularity: 20
     
     property color warningColor: Qt.tint(theme.textColor, '#60FF0000')
@@ -236,7 +236,7 @@ Item {
                 verticalAlignment: Text.AlignTop
                 text: 'CPU'
                 color: theme.highlightColor
-                font.pointSize: fontPointSize
+                font.pixelSize: fontPixelSize
                 visible: false
             }
             
@@ -245,14 +245,14 @@ Item {
                 anchors.right: parent.right
                 verticalAlignment: Text.AlignTop
                 text: '...'
-                font.pointSize: fontPointSize
+                font.pixelSize: fontPixelSize
             }
             
             PlasmaComponents.Label {
                 id: averageClockText
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
-                font.pointSize: fontPointSize
+                font.pixelSize: fontPixelSize
                 visible: showClock
             }
             
@@ -260,7 +260,7 @@ Item {
                 id: averageClockInfoText
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
-                font.pointSize: fontPointSize
+                font.pixelSize: fontPixelSize
                 text: 'Clock'
                 visible: false
             }
@@ -327,7 +327,7 @@ Item {
                 id: ramInfoText
                 text: 'RAM'
                 color: theme.highlightColor
-                font.pointSize: fontPointSize
+                font.pixelSize: fontPixelSize
                 anchors.right: parent.right
                 verticalAlignment: Text.AlignTop
                 visible: false
@@ -338,14 +338,14 @@ Item {
                 anchors.right: parent.right
                 verticalAlignment: Text.AlignTop
                 text: '...'
-                font.pointSize: fontPointSize
+                font.pixelSize: fontPixelSize
             }
             
             PlasmaComponents.Label {
                 id: swapPercentText
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
-                font.pointSize: fontPointSize
+                font.pixelSize: fontPixelSize
             }
             
             PlasmaComponents.Label {
@@ -353,7 +353,7 @@ Item {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
                 color: '#FF0000'
-                font.pointSize: fontPointSize
+                font.pixelSize: fontPixelSize
                 text: 'Swap'
                 visible: false
             }
