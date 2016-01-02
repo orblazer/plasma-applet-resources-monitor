@@ -8,6 +8,7 @@ Item {
     property alias cfg_showCpuMonitor: showCpuMonitor.checked
     property alias cfg_showClock: showClock.checked
     property alias cfg_showRamMonitor: showRamMonitor.checked
+    property alias cfg_memoryInPercent: memoryInPercent.checked
     property alias cfg_verticalLayout: verticalLayout.checked
     property alias cfg_enableHints: enableHints.checked
     property alias cfg_enableShadows: enableShadows.checked
@@ -51,6 +52,12 @@ Item {
             id: showRamMonitor
             Layout.columnSpan: 2
             text: i18n('Show RAM monitor')
+        }
+        
+        CheckBox {
+            id: memoryInPercent
+            Layout.columnSpan: 2
+            text: i18n('Memory in percentage')
         }
         
         Item {

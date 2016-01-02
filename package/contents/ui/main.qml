@@ -31,8 +31,10 @@ Item {
     property bool showCpuMonitor: plasmoid.configuration.showCpuMonitor
     property bool showClock: plasmoid.configuration.showClock
     property bool showRamMonitor: plasmoid.configuration.showRamMonitor
+    property bool memoryInPercent: plasmoid.configuration.memoryInPercent
     property bool enableHints: plasmoid.configuration.enableHints
     property bool enableShadows: plasmoid.configuration.enableShadows
+    property bool showMemoryInPercent: memoryInPercent
     
     property int itemMargin: 5
     property double parentWidth: parent === null ? 0 : parent.width
@@ -56,6 +58,10 @@ Item {
     Plasmoid.preferredRepresentation: Plasmoid.fullRepresentation
     
     anchors.fill: parent
+    
+    onShowMemoryInPercentChanged: {
+        allUsageProportionChanged()
+    }
     
     Kio.KRun {
         id: kRun
@@ -177,9 +183,9 @@ Item {
         cpuPercentText.color = totalCpuProportion > 0.9 ? warningColor : theme.textColor
         averageClockText.text = getHumanReadableClock(dataSource.averageCpuClock)
         
-        ramPercentText.text = getHumanReadableMemory(dataSource.ramUsedBytes)
+        ramPercentText.text = showMemoryInPercent ? Math.round(totalRamProportion * 100) + '%' : getHumanReadableMemory(dataSource.ramUsedBytes)
         ramPercentText.color = totalRamProportion > 0.9 ? warningColor : theme.textColor
-        swapPercentText.text = getHumanReadableMemory(dataSource.swapUsedBytes)
+        swapPercentText.text = showMemoryInPercent ? Math.round(totalSwapProportion * 100) + '%' : getHumanReadableMemory(dataSource.swapUsedBytes)
         swapPercentText.color = totalSwapProportion > 0.9 ? warningColor : theme.textColor
         swapPercentText.visible = !swapInfoText.visible && totalSwapProportion > 0
         
@@ -373,13 +379,17 @@ Item {
         
         MouseArea {
             anchors.fill: parent
-            hoverEnabled: enableHints
+            hoverEnabled: true
             
             onEntered: {
-                ramInfoText.visible = true
-                ramPercentText.visible = false
-                swapInfoText.visible = true
-                swapPercentText.visible = false
+                if (enableHints) {
+                    ramInfoText.visible = true
+                    ramPercentText.visible = false
+                    swapInfoText.visible = true
+                    swapPercentText.visible = false
+                } else {
+                    showMemoryInPercent = !memoryInPercent
+                }
             }
             
             onExited: {
@@ -387,6 +397,8 @@ Item {
                 ramPercentText.visible = true
                 swapInfoText.visible = false
                 swapPercentText.visible = true
+                
+                showMemoryInPercent = memoryInPercent
             }
         }
     }
