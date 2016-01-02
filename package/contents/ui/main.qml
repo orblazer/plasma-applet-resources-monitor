@@ -184,25 +184,25 @@ Item {
         swapPercentText.visible = !swapInfoText.visible && totalSwapProportion > 0
         
         if (showCpuMonitor) {
-            addGraphData(cpuGraphModel, totalCpuProportion * itemHeight, graphGranularity)
+            addGraphData(cpuGraphModel, totalCpuProportion, graphGranularity)
         }
         if (showRamMonitor) {
-            addGraphData(ramGraphModel, totalRamProportion * itemHeight, graphGranularity)
-            addGraphData(swapGraphModel, totalSwapProportion * itemHeight, graphGranularity)
+            addGraphData(ramGraphModel, totalRamProportion, graphGranularity)
+            addGraphData(swapGraphModel, totalSwapProportion, graphGranularity)
         }
     }
     
-    function addGraphData(model, itemHeight, graphGranularity) {
+    function addGraphData(model, graphItemPercent, graphGranularity) {
         
         // initial fill up
         while (model.count < graphGranularity) {
             model.append({
-                'graphItemHeight': 0
+                'graphItemPercent': 0
             })
         }
         
         var newItem = {
-            'graphItemHeight': itemHeight
+            'graphItemPercent': graphItemPercent
         }
         
         model.append(newItem)

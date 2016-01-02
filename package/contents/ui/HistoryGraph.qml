@@ -19,12 +19,10 @@ import QtQuick 2.2
 Item {
     id: historyGraph
     
-    width: parent.width
-    height: parent.height
+    anchors.fill: parent
     
     property var listViewModel
     property color barColor
-    property double minBarHeight: 0
     
     ListView {
         anchors.fill: parent
@@ -36,21 +34,13 @@ Item {
         
         model: listViewModel
         
-        delegate: Item {
-            
-            property double rectHeight: Math.max(graphItemHeight, minBarHeight)
-            
+        delegate: Rectangle {
             width: historyGraph.width / graphGranularity
-            height: historyGraph.height
-            
-            Rectangle {
-                width: parent.width
-                height: rectHeight
-                x: 0
-                y: parent.height - height
-                color: barColor
-                radius: 3
-            }
+            height: historyGraph.height * graphItemPercent
+            x: 0
+            y: parent.height - height
+            color: barColor
+            radius: 3
         }
     }
     
