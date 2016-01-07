@@ -243,6 +243,7 @@ Item {
                 text: 'CPU'
                 color: theme.highlightColor
                 font.pixelSize: fontPixelSize
+                font.pointSize: -1
                 visible: false
             }
             
@@ -252,6 +253,7 @@ Item {
                 verticalAlignment: Text.AlignTop
                 text: '...'
                 font.pixelSize: fontPixelSize
+                font.pointSize: -1
             }
             
             PlasmaComponents.Label {
@@ -259,6 +261,7 @@ Item {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
                 font.pixelSize: fontPixelSize
+                font.pointSize: -1
                 visible: showClock
             }
             
@@ -267,6 +270,7 @@ Item {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
                 font.pixelSize: fontPixelSize
+                font.pointSize: -1
                 text: 'Clock'
                 visible: false
             }
@@ -334,6 +338,7 @@ Item {
                 text: 'RAM'
                 color: theme.highlightColor
                 font.pixelSize: fontPixelSize
+                font.pointSize: -1
                 anchors.right: parent.right
                 verticalAlignment: Text.AlignTop
                 visible: false
@@ -345,6 +350,7 @@ Item {
                 verticalAlignment: Text.AlignTop
                 text: '...'
                 font.pixelSize: fontPixelSize
+                font.pointSize: -1
             }
             
             PlasmaComponents.Label {
@@ -352,6 +358,7 @@ Item {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
                 font.pixelSize: fontPixelSize
+                font.pointSize: -1
             }
             
             PlasmaComponents.Label {
@@ -360,6 +367,7 @@ Item {
                 anchors.right: parent.right
                 color: '#FF0000'
                 font.pixelSize: fontPixelSize
+                font.pointSize: -1
                 text: 'Swap'
                 visible: false
             }
