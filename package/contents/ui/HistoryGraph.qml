@@ -18,22 +18,22 @@ import QtQuick 2.2
 
 Item {
     id: historyGraph
-    
+
     anchors.fill: parent
-    
+
     property var listViewModel
     property color barColor
-    
+
     ListView {
         anchors.fill: parent
-        
+
         interactive: false
         orientation: Qt.Horizontal
         layoutDirection: Qt.LeftToRight
         spacing: 0
-        
+
         model: listViewModel
-        
+
         delegate: Rectangle {
             width: historyGraph.width / graphGranularity
             height: historyGraph.height * graphItemPercent
@@ -43,5 +43,5 @@ Item {
             radius: 3
         }
     }
-    
+
 }

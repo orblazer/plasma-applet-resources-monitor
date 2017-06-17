@@ -24,9 +24,9 @@ import org.kde.kio 1.0 as Kio
 
 Item {
     id: main
-    
+
     property bool vertical: (plasmoid.formFactor == PlasmaCore.Types.Vertical)
-    
+
     property bool verticalLayout: plasmoid.configuration.verticalLayout
     property bool showCpuMonitor: plasmoid.configuration.showCpuMonitor
     property bool showClock: plasmoid.configuration.showClock
@@ -35,7 +35,7 @@ Item {
     property bool enableHints: plasmoid.configuration.enableHints
     property bool enableShadows: plasmoid.configuration.enableShadows
     property bool showMemoryInPercent: memoryInPercent
-    
+
     property int itemMargin: 5
     property double parentWidth: parent === null ? 0 : parent.width
     property double parentHeight: parent === null ? 0 : parent.height
@@ -43,36 +43,42 @@ Item {
     property double itemHeight: itemWidth
     property double fontPixelSize: itemHeight * 0.26
     property int graphGranularity: 20
-    
+
     property color warningColor: Qt.tint(theme.textColor, '#60FF0000')
     property string textFontFamily: theme.defaultFont.family
-    
+
     property double widgetWidth:  showCpuMonitor && showRamMonitor && !verticalLayout ? itemWidth*2 + itemMargin : itemWidth
     property double widgetHeight: showCpuMonitor && showRamMonitor &&  verticalLayout ? itemWidth*2 + itemMargin : itemWidth
-    
+
     Layout.preferredWidth:  widgetWidth
     Layout.maximumWidth: widgetWidth
     Layout.preferredHeight: widgetHeight
     Layout.maximumHeight: widgetHeight
-    
+
     Plasmoid.preferredRepresentation: Plasmoid.fullRepresentation
-    
+
     anchors.fill: parent
-    
+
     onShowMemoryInPercentChanged: {
         allUsageProportionChanged()
     }
-    
+
     Kio.KRun {
         id: kRun
     }
-    
+
     // We need to get the full path to KSysguard to be able to run it
     PlasmaCore.DataSource {
         id: apps
         engine: 'apps'
         property string ksysguardSource: 'org.kde.ksysguard.desktop'
+        property string ksysguardEntryPath: ''
         connectedSources: [ ksysguardSource ]
+        onSourceConnected: {
+            if (source === ksysguardSource) {
+                ksysguardEntryPath = apps.data[ksysguardSource].entryPath
+            }
+        }
     }
 
     PlasmaCore.DataSource {
@@ -98,7 +104,7 @@ Item {
         property double swapUsedProportion: 0
 
         connectedSources: [memFree, memUsed, memApplication, swapUsed, swapFree, averageClock, totalLoad ]
-        
+
         onNewData: {
             if (data.value === undefined) {
                 return
@@ -121,7 +127,7 @@ Item {
         }
         interval: 1000 * plasmoid.configuration.updateInterval
     }
-    
+
     function fitMemoryUsage(usage) {
         var memFree = dataSource.data[dataSource.memFree]
         var memUsed = dataSource.data[dataSource.memUsed]
@@ -139,19 +145,19 @@ Item {
         }
         return (usage / (parseFloat(usage) + parseFloat(swapFree.value)))
     }
-    
+
     ListModel {
         id: cpuGraphModel
     }
-    
+
     ListModel {
         id: ramGraphModel
     }
-    
+
     ListModel {
         id: swapGraphModel
     }
-    
+
     function getHumanReadableMemory(memBytes) {
         var megaBytes = memBytes / 1024
         if (megaBytes <= 1024) {
@@ -159,7 +165,7 @@ Item {
         }
         return Math.round(megaBytes / 1024 * 100) / 100 + 'G'
     }
-    
+
     function getHumanReadableClock(clockMhz) {
         var clockNumber = clockMhz
         if (clockNumber < 1000) {
@@ -172,23 +178,23 @@ Item {
         }
         return Math.round(clockNumber * floatingPointCount) / floatingPointCount + 'GHz'
     }
-    
+
     function allUsageProportionChanged() {
-        
+
         var totalCpuProportion = dataSource.totalCpuLoad
         var totalRamProportion = dataSource.ramUsedProportion
         var totalSwapProportion = dataSource.swapUsedProportion
-        
+
         cpuPercentText.text = Math.round(totalCpuProportion * 100) + '%'
         cpuPercentText.color = totalCpuProportion > 0.9 ? warningColor : theme.textColor
         averageClockText.text = getHumanReadableClock(dataSource.averageCpuClock)
-        
+
         ramPercentText.text = showMemoryInPercent ? Math.round(totalRamProportion * 100) + '%' : getHumanReadableMemory(dataSource.ramUsedBytes)
         ramPercentText.color = totalRamProportion > 0.9 ? warningColor : theme.textColor
         swapPercentText.text = showMemoryInPercent ? Math.round(totalSwapProportion * 100) + '%' : getHumanReadableMemory(dataSource.swapUsedBytes)
         swapPercentText.color = totalSwapProportion > 0.9 ? warningColor : theme.textColor
         swapPercentText.visible = !swapInfoText.visible && totalSwapProportion > 0
-        
+
         if (showCpuMonitor) {
             addGraphData(cpuGraphModel, totalCpuProportion, graphGranularity)
         }
@@ -197,45 +203,45 @@ Item {
             addGraphData(swapGraphModel, totalSwapProportion, graphGranularity)
         }
     }
-    
+
     function addGraphData(model, graphItemPercent, graphGranularity) {
-        
+
         // initial fill up
         while (model.count < graphGranularity) {
             model.append({
                 'graphItemPercent': 0
             })
         }
-        
+
         var newItem = {
             'graphItemPercent': graphItemPercent
         }
-        
+
         model.append(newItem)
         model.remove(0)
     }
-    
+
     onShowClockChanged: {
         averageClockText.visible = showClock
     }
-    
+
     Item {
         id: cpuMonitor
         width: itemWidth
         height: itemHeight
-        
+
         visible: showCpuMonitor
-        
+
         HistoryGraph {
             anchors.fill: parent
             listViewModel: cpuGraphModel
             barColor: theme.highlightColor
         }
-        
+
         Item {
             id: cpuTextContainer
             anchors.fill: parent
-            
+
             PlasmaComponents.Label {
                 id: cpuInfoText
                 anchors.right: parent.right
@@ -246,7 +252,7 @@ Item {
                 font.pointSize: -1
                 visible: false
             }
-            
+
             PlasmaComponents.Label {
                 id: cpuPercentText
                 anchors.right: parent.right
@@ -255,7 +261,7 @@ Item {
                 font.pixelSize: fontPixelSize
                 font.pointSize: -1
             }
-            
+
             PlasmaComponents.Label {
                 id: averageClockText
                 anchors.verticalCenter: parent.verticalCenter
@@ -264,7 +270,7 @@ Item {
                 font.pointSize: -1
                 visible: showClock
             }
-            
+
             PlasmaComponents.Label {
                 id: averageClockInfoText
                 anchors.verticalCenter: parent.verticalCenter
@@ -274,9 +280,9 @@ Item {
                 text: 'Clock'
                 visible: false
             }
-        
+
         }
-        
+
         DropShadow {
         	visible: enableShadows
             anchors.fill: cpuTextContainer
@@ -287,18 +293,18 @@ Item {
             color: theme.backgroundColor
             source: cpuTextContainer
         }
-        
+
         MouseArea {
             anchors.fill: parent
             hoverEnabled: enableHints
-            
+
             onEntered: {
                 cpuInfoText.visible = true
                 cpuPercentText.visible = false
                 averageClockInfoText.visible = showClock && true
                 averageClockText.visible = false
             }
-            
+
             onExited: {
                 cpuInfoText.visible = false
                 cpuPercentText.visible = true
@@ -307,7 +313,7 @@ Item {
             }
         }
     }
-    
+
     Item {
         id: ramMonitor
         width: itemWidth
@@ -316,23 +322,23 @@ Item {
         anchors.leftMargin: showCpuMonitor && !verticalLayout ? itemWidth + itemMargin : 0
         anchors.top: parent.top
         anchors.topMargin: showCpuMonitor && verticalLayout ? itemWidth + itemMargin : 0
-        
+
         visible: showRamMonitor
-        
+
         HistoryGraph {
             listViewModel: ramGraphModel
             barColor: theme.highlightColor
         }
-        
+
         HistoryGraph {
             listViewModel: swapGraphModel
             barColor: '#FF0000'
         }
-        
+
         Item {
             id: ramTextContainer
             anchors.fill: parent
-            
+
             PlasmaComponents.Label {
                 id: ramInfoText
                 text: 'RAM'
@@ -343,7 +349,7 @@ Item {
                 verticalAlignment: Text.AlignTop
                 visible: false
             }
-            
+
             PlasmaComponents.Label {
                 id: ramPercentText
                 anchors.right: parent.right
@@ -352,7 +358,7 @@ Item {
                 font.pixelSize: fontPixelSize
                 font.pointSize: -1
             }
-            
+
             PlasmaComponents.Label {
                 id: swapPercentText
                 anchors.verticalCenter: parent.verticalCenter
@@ -360,7 +366,7 @@ Item {
                 font.pixelSize: fontPixelSize
                 font.pointSize: -1
             }
-            
+
             PlasmaComponents.Label {
                 id: swapInfoText
                 anchors.verticalCenter: parent.verticalCenter
@@ -371,9 +377,9 @@ Item {
                 text: 'Swap'
                 visible: false
             }
-            
+
         }
-        
+
         DropShadow {
             visible: enableShadows
             anchors.fill: ramTextContainer
@@ -384,11 +390,11 @@ Item {
             color: theme.backgroundColor
             source: ramTextContainer
         }
-        
+
         MouseArea {
             anchors.fill: parent
             hoverEnabled: true
-            
+
             onEntered: {
                 if (enableHints) {
                     ramInfoText.visible = true
@@ -399,24 +405,24 @@ Item {
                     showMemoryInPercent = !memoryInPercent
                 }
             }
-            
+
             onExited: {
                 ramInfoText.visible = false
                 ramPercentText.visible = true
                 swapInfoText.visible = false
                 swapPercentText.visible = true
-                
+
                 showMemoryInPercent = memoryInPercent
             }
         }
     }
-    
+
     MouseArea {
         id: mouseArea
         anchors.fill: parent
         onClicked: {
-            kRun.openUrl(apps.data[apps.ksysguardSource].entryPath)
+            kRun.openUrl(apps.ksysguardEntryPath)
         }
     }
-    
+
 }
