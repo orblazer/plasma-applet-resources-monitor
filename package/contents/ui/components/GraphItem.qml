@@ -102,7 +102,7 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: parent.right
             font.pointSize: -1
-            visible: secondLineValue != ''
+            visible: secondLineInfoText != ''
         }
     }
 

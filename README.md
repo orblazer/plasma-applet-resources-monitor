@@ -1,6 +1,6 @@
 # plasma-applet-resources-monitor (fork)
 
-Plasmoid for monitoring CPU and RAM.
+Plasmoid for monitoring CPU, memory and network traffic
 
 ## Why make an fork ?
 

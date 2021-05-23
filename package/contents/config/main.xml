@@ -22,6 +22,9 @@
         <entry name="showClock" type="Bool">
             <default>true</default>
         </entry>
+        <entry name="showNetMonitor" type="Bool">
+            <default>false</default>
+        </entry>
 
         <entry name="verticalLayout" type="Bool">
             <default>false</default>
@@ -35,6 +38,18 @@
         <entry name="fontScale" type="int">
             <default>26</default>
         </entry>
+
+        <group name="Data">
+            <entry name="networkSensorInterface" type="String">
+                <default>enp3s0</default>
+            </entry>
+            <entry name="downloadMaxKBs" type="Double">
+                <default></default>
+            </entry>
+            <entry name="uploadMaxKBs" type="Double">
+                <default></default>
+            </entry>
+        </group>
     </group>
 
 </kcfg>

@@ -30,6 +30,21 @@ function getHumanReadableClock(clockMhz) {
 }
 
 /**
+ * Convert rate kilo bytes in human readable value
+ * @param {number} rateKiBs the rate kilo bytes
+ * @returns the human readable kilo bites
+ */
+function getHumanReadableNetRate(rateKiBs) {
+  if (rateKiBs <= 1024) {
+    return rateKiBs + 'KB/s'
+  }
+  else if(rateKiBs <= 1048576) {
+    return Math.round((rateKiBs / 1024) * 100) / 100 + 'MB/s'
+  }
+  return Math.round((rateKiBs / 1048576) * 100) / 100 + 'GB/s'
+}
+
+/**
  * Add data in graph
  */
 function addGraphData(model, graphItemPercent, graphGranularity) {

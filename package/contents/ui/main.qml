@@ -37,20 +37,24 @@ Item {
     property bool showRamMonitor: plasmoid.configuration.showRamMonitor
     property bool memoryInPercent: plasmoid.configuration.memoryInPercent
     property bool showMemoryInPercent: memoryInPercent
+    property bool showNetMonitor: plasmoid.configuration.showNetMonitor
     property double fontScale: (plasmoid.configuration.fontScale / 100)
+    property int downloadMaxKBs: plasmoid.configuration.downloadMaxKBs
+    property int uploadMaxKBs: plasmoid.configuration.uploadMaxKBs
 
     property color warningColor: theme.neutralTextColor
     property int graphGranularity: 20
 
     // Component properties
+    property int containerCount: (showCpuMonitor?1:0) + (showRamMonitor?1:0) + (showNetMonitor?1:0)
     property int itemMargin: 5
     property double parentWidth: parent === null ? 0 : parent.width
     property double parentHeight: parent === null ? 0 : parent.height
     property double itemWidth:  vertical ? ( verticalLayout ? parentWidth : (parentWidth - itemMargin) / 2 ) : ( verticalLayout ? (parentHeight - itemMargin) / 2 : parentHeight )
     property double itemHeight: itemWidth
     property double fontPixelSize: itemHeight * fontScale
-    property double widgetWidth:  showCpuMonitor && showRamMonitor && !verticalLayout ? itemWidth*2 + itemMargin : itemWidth
-    property double widgetHeight: showCpuMonitor && showRamMonitor &&  verticalLayout ? itemWidth*2 + itemMargin : itemWidth
+    property double widgetWidth: !verticalLayout ? (itemWidth*containerCount + itemMargin*containerCount) : itemWidth
+    property double widgetHeight: verticalLayout ? (itemWidth*containerCount + itemMargin*containerCount) : itemWidth
 
     Layout.preferredWidth:  widgetWidth
     Layout.maximumWidth: widgetWidth
@@ -66,15 +70,12 @@ Item {
     }
 
     onFontPixelSizeChanged: {
-        cpuMonitor.firstLineInfoLabel.font.pixelSize = fontPixelSize
-        cpuMonitor.firstLineValueLabel.font.pixelSize = fontPixelSize
-        cpuMonitor.secondLineInfoLabel.font.pixelSize = fontPixelSize
-        cpuMonitor.secondLineValueLabel.font.pixelSize = fontPixelSize
-
-        ramMonitor.firstLineInfoLabel.font.pixelSize = fontPixelSize
-        ramMonitor.firstLineValueLabel.font.pixelSize = fontPixelSize
-        ramMonitor.secondLineInfoLabel.font.pixelSize = fontPixelSize
-        ramMonitor.secondLineValueLabel.font.pixelSize = fontPixelSize
+        for(var monitor of [cpuMonitor, ramMonitor, netMonitor]) {
+            monitor.firstLineInfoLabel.font.pixelSize = fontPixelSize
+            monitor.firstLineValueLabel.font.pixelSize = fontPixelSize
+            monitor.secondLineInfoLabel.font.pixelSize = fontPixelSize
+            monitor.secondLineValueLabel.font.pixelSize = fontPixelSize
+        }
     }
 
     // Graph data
@@ -93,6 +94,9 @@ Item {
         property string swap: "mem/swap/"
         property string swapUsed: swap + "used"
         property string swapFree: swap + "free"
+        property string networkInterface: "network/interfaces/" + plasmoid.configuration.networkSensorInterface + "/"
+        property string downloadTotal: networkInterface + "receiver/data"
+        property string uploadTotal: networkInterface + "transmitter/data"
 
         property double totalCpuLoad: .0
         property int averageCpuClock: 0
@@ -100,8 +104,12 @@ Item {
         property double ramUsedProportion: 0
         property int swapUsedBytes: 0
         property double swapUsedProportion: 0
+        property double downloadKBs: 0
+        property double uploadKBs: 0
+        property double downloadProportion: 0
+        property double uploadProportion: 0
 
-        connectedSources: [memFree, memUsed, memApplication, swapUsed, swapFree, averageClock, totalLoad ]
+        connectedSources: [memFree, memUsed, memApplication, swapUsed, swapFree, averageClock, totalLoad, downloadTotal, uploadTotal ]
 
         onNewData: {
             if (data.value === undefined) {
@@ -121,6 +129,14 @@ Item {
             else if (sourceName == averageClock) {
                 averageCpuClock = parseInt(data.value)
                 allUsageProportionChanged()
+            }
+            else if (sourceName == downloadTotal) {
+                downloadKBs = parseFloat(data.value)
+                downloadProportion = fitDownloadRate(data.value)
+            }
+            else if (sourceName == uploadTotal) {
+                uploadKBs = parseFloat(data.value)
+                uploadProportion = fitUploadRate(data.value)
             }
         }
         interval: 1000 * plasmoid.configuration.updateInterval
@@ -144,6 +160,20 @@ Item {
         return (usage / (parseFloat(usage) + parseFloat(swapFree.value)))
     }
 
+    function fitDownloadRate(rate) {
+        if (!downloadMaxKBs) {
+            return 0
+        }
+        return (rate / downloadMaxKBs)
+    }
+
+    function fitUploadRate(rate) {
+        if (!uploadMaxKBs) {
+            return 0
+        }
+        return (rate / uploadMaxKBs)
+    }
+
     ListModel {
         id: cpuGraphModel
     }
@@ -156,27 +186,48 @@ Item {
         id: swapGraphModel
     }
 
+    ListModel {
+        id: uploadGraphModel
+    }
+
+    ListModel {
+        id: downloadGraphModel
+    }
+
     function allUsageProportionChanged() {
-        var totalCpuProportion = dataSource.totalCpuLoad
-        var totalRamProportion = dataSource.ramUsedProportion
-        var totalSwapProportion = dataSource.swapUsedProportion
-
-        cpuMonitor.firstLineValueLabel.text = Math.round(totalCpuProportion * 100) + '%'
-        cpuMonitor.firstLineValueLabel.color = totalCpuProportion > 0.9 ? warningColor : theme.textColor
-        cpuMonitor.secondLineValueLabel.text = Functions.getHumanReadableClock(dataSource.averageCpuClock)
-
-        ramMonitor.firstLineValueLabel.text = showMemoryInPercent ? Math.round(totalRamProportion * 100) + '%' : Functions.getHumanReadableMemory(dataSource.ramUsedBytes)
-        ramMonitor.firstLineValueLabel.color = totalRamProportion > 0.9 ? warningColor : theme.textColor
-        ramMonitor.secondLineValueLabel.text = showMemoryInPercent ? Math.round(totalSwapProportion * 100) + '%' : Functions.getHumanReadableMemory(dataSource.swapUsedBytes)
-        ramMonitor.secondLineValueLabel.color = totalSwapProportion > 0.9 ? warningColor : theme.textColor
-        ramMonitor.secondLineValueLabel.visible = !ramMonitor.secondLineInfoLabel.visible && totalSwapProportion > 0
-
         if (showCpuMonitor) {
+            var totalCpuProportion = dataSource.totalCpuLoad
+
+            cpuMonitor.firstLineValueLabel.text = Math.round(totalCpuProportion * 100) + '%'
+            cpuMonitor.firstLineValueLabel.color = totalCpuProportion > 0.9 ? warningColor : theme.textColor
+            cpuMonitor.secondLineValueLabel.text = Functions.getHumanReadableClock(dataSource.averageCpuClock)
+
             Functions.addGraphData(cpuGraphModel, totalCpuProportion, graphGranularity)
         }
+
         if (showRamMonitor) {
+            var totalRamProportion = dataSource.ramUsedProportion
+            var totalSwapProportion = dataSource.swapUsedProportion
+
             Functions.addGraphData(ramGraphModel, totalRamProportion, graphGranularity)
             Functions.addGraphData(swapGraphModel, totalSwapProportion, graphGranularity)
+
+            ramMonitor.firstLineValueLabel.text = showMemoryInPercent ? Math.round(totalRamProportion * 100) + '%' : Functions.getHumanReadableMemory(dataSource.ramUsedBytes)
+            ramMonitor.firstLineValueLabel.color = totalRamProportion > 0.9 ? warningColor : theme.textColor
+            ramMonitor.secondLineValueLabel.text = showMemoryInPercent ? Math.round(totalSwapProportion * 100) + '%' : Functions.getHumanReadableMemory(dataSource.swapUsedBytes)
+            ramMonitor.secondLineValueLabel.color = totalSwapProportion > 0.9 ? warningColor : theme.textColor
+            ramMonitor.secondLineValueLabel.visible = !ramMonitor.secondLineInfoLabel.visible && totalSwapProportion > 0
+        }
+
+        if (showNetMonitor) {
+            var totalDownloadProportion = dataSource.downloadProportion
+            var totalUploadProportion = dataSource.uploadProportion
+
+            Functions.addGraphData(uploadGraphModel, totalUploadProportion, graphGranularity)
+            Functions.addGraphData(downloadGraphModel, totalDownloadProportion, graphGranularity)
+
+            netMonitor.firstLineValueLabel.text = Functions.getHumanReadableNetRate(dataSource.downloadKBs)
+            netMonitor.secondLineValueLabel.text = Functions.getHumanReadableNetRate(dataSource.uploadKBs)
         }
     }
 
@@ -216,6 +267,24 @@ Item {
         firstGraphModel: ramGraphModel
         secondGraphModel: swapGraphModel
         secondGraphBarColor: theme.negativeTextColor
+    }
+
+    GraphItem {
+        id: netMonitor
+        width: itemWidth
+        height: itemHeight
+        anchors.left: parent.left
+        anchors.leftMargin: (showCpuMonitor && !verticalLayout ? itemWidth + itemMargin: 0) + (showRamMonitor && !verticalLayout ? itemWidth + itemMargin : 0)
+        anchors.top: parent.top
+        anchors.topMargin: (showCpuMonitor && verticalLayout ? itemWidth + itemMargin: 0) + (showRamMonitor && verticalLayout ? itemWidth + itemMargin : 0)
+
+        visible: showNetMonitor
+        firstLineInfoText: 'Down'
+        secondLineInfoText: 'Up'
+        secondLineInfoTextColor: theme.positiveTextColor
+        firstGraphModel: downloadGraphModel
+        secondGraphModel: uploadGraphModel
+        secondGraphBarColor: theme.positiveTextColor
     }
 
     // Click action
