@@ -76,14 +76,6 @@ Item {
         ramMonitor.secondLineValueLabel.font.pixelSize = fontPixelSize
     }
 
-    // We need to get the full path to KSysguard to be able to run it
-    PlasmaCore.DataSource {
-        id: apps
-        engine: 'apps'
-        property string ksysguardSource: 'org.kde.ksysguard.desktop'
-        connectedSources: [ ksysguardSource ]
-    }
-
     // Graph data
 
     PlasmaCore.DataSource {
@@ -230,7 +222,7 @@ Item {
         id: mouseArea
         anchors.fill: parent
         onClicked: {
-            kRun.openUrl(apps.data[apps.ksysguardSource].entryPath)
+            kRun.openService("org.kde.ksysguard")
         }
     }
 
