@@ -39,7 +39,7 @@ Item {
             width: historyGraph.width / graphGranularity
             height: historyGraph.height * graphItemPercent
             x: 0
-            y: panel.height - height
+            y: listView.height - height
             color: barColor
             radius: 3
         }
