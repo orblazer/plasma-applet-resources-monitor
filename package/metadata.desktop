@@ -1,15 +1,16 @@
 [Desktop Entry]
 Encoding=UTF-8
-Name=Resources Monitor
-Comment=Plasmoid for monitoring CPU and memory
+Name=Resources Monitor (fork)
+Name[fr]=Moniteur des ressources (fork)
+Comment=Plasmoid for monitoring CPU and memory. This is an fork from Resources Monitor by Kotelnik
 Type=Service
 X-KDE-ParentApp=
-X-KDE-PluginInfo-Author=Kotelnik
+X-KDE-PluginInfo-Author=Kotelnik,orblazer
 X-KDE-PluginInfo-Email=clearmartin@seznam.cz
 X-KDE-PluginInfo-License=GPL2
-X-KDE-PluginInfo-Name=org.kde.resourcesMonitor
-X-KDE-PluginInfo-Version=0.1
-X-KDE-PluginInfo-Website=https://github.com/kotelnik/plasma-applet-resources-monitor
+X-KDE-PluginInfo-Name=org.kde.resourcesMonitor-fork
+X-KDE-PluginInfo-Version=1.0
+X-KDE-PluginInfo-Website=https://github.com/orblazer/plasma-applet-resources-monitor
 X-KDE-ServiceTypes=Plasma/Applet
 X-Plasma-API=declarativeappletscript
 X-Plasma-MainScript=ui/main.qml
