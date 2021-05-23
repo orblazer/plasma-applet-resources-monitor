@@ -3,20 +3,23 @@ import QtQuick.Controls 1.3
 import QtQuick.Layouts 1.1
 
 Item {
-    
+
     property alias cfg_updateInterval: updateIntervalSpinBox.value
+
     property alias cfg_showCpuMonitor: showCpuMonitor.checked
     property alias cfg_showClock: showClock.checked
     property alias cfg_showRamMonitor: showRamMonitor.checked
     property alias cfg_memoryInPercent: memoryInPercent.checked
+
     property alias cfg_verticalLayout: verticalLayout.checked
     property alias cfg_enableHints: enableHints.checked
     property alias cfg_enableShadows: enableShadows.checked
+    property alias cfg_fontScale: fontScale.value
 
     GridLayout {
         Layout.fillWidth: true
         columns: 2
-        
+
         Label {
             text: i18n('Update interval:')
             Layout.alignment: Qt.AlignRight
@@ -28,50 +31,65 @@ Item {
             minimumValue: 0.1
             suffix: i18nc('Abbreviation for seconds', 's')
         }
-        
+
+        Label {
+            text: i18n('Font scale:')
+            Layout.alignment: Qt.AlignRight
+        }
+        SpinBox {
+            id: fontScale
+            minimumValue: 1
+            maximumValue: 100
+            suffix: i18nc('Percent', '%')
+        }
+
+        // Charts
+
         Item {
             width: 2
             height: 10
             Layout.columnSpan: 2
         }
-        
+
         CheckBox {
             id: showCpuMonitor
             Layout.columnSpan: 2
             text: i18n('Show CPU monitor')
         }
-        
+
         CheckBox {
             id: showClock
             Layout.columnSpan: 2
             text: i18n('Show clock')
             enabled: showCpuMonitor.checked
         }
-        
+
         CheckBox {
             id: showRamMonitor
             Layout.columnSpan: 2
             text: i18n('Show RAM monitor')
         }
-        
+
         CheckBox {
             id: memoryInPercent
             Layout.columnSpan: 2
             text: i18n('Memory in percentage')
         }
-        
+
+        // Layout
+
         Item {
             width: 2
             height: 10
             Layout.columnSpan: 2
         }
-        
+
         CheckBox {
             id: verticalLayout
             Layout.columnSpan: 2
             text: i18n('Vertical layout')
         }
-        
+
         CheckBox {
             id: enableHints
             Layout.columnSpan: 2
@@ -83,7 +101,6 @@ Item {
             Layout.columnSpan: 2
             text: i18n('Drop shadows')
         }
-
     }
-    
+
 }

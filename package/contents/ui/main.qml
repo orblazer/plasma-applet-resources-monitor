@@ -37,6 +37,7 @@ Item {
     property bool showRamMonitor: plasmoid.configuration.showRamMonitor
     property bool memoryInPercent: plasmoid.configuration.memoryInPercent
     property bool showMemoryInPercent: memoryInPercent
+    property double fontScale: (plasmoid.configuration.fontScale / 100)
 
     property color warningColor: theme.neutralTextColor
     property int graphGranularity: 20
@@ -47,7 +48,7 @@ Item {
     property double parentHeight: parent === null ? 0 : parent.height
     property double itemWidth:  vertical ? ( verticalLayout ? parentWidth : (parentWidth - itemMargin) / 2 ) : ( verticalLayout ? (parentHeight - itemMargin) / 2 : parentHeight )
     property double itemHeight: itemWidth
-    property double fontPixelSize: itemHeight * 0.26
+    property double fontPixelSize: itemHeight * fontScale
     property double widgetWidth:  showCpuMonitor && showRamMonitor && !verticalLayout ? itemWidth*2 + itemMargin : itemWidth
     property double widgetHeight: showCpuMonitor && showRamMonitor &&  verticalLayout ? itemWidth*2 + itemMargin : itemWidth
 
