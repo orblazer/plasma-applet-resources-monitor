@@ -37,6 +37,7 @@ Item {
     property bool showRamMonitor: plasmoid.configuration.showRamMonitor
     property bool memoryInPercent: plasmoid.configuration.memoryInPercent
     property bool showMemoryInPercent: memoryInPercent
+    property bool memoryUseAllocated: plasmoid.configuration.memoryUseAllocated
     property bool showNetMonitor: plasmoid.configuration.showNetMonitor
     property double fontScale: (plasmoid.configuration.fontScale / 100)
     property int downloadMaxKBs: plasmoid.configuration.downloadMaxKBs
@@ -89,7 +90,7 @@ Item {
         property string totalLoad: cpuSystem + "TotalLoad"
         property string memPhysical: "mem/physical/"
         property string memFree: memPhysical + "free"
-        property string memApplication: memPhysical + "application"
+        property string memApplication: memPhysical + (memoryUseAllocated ? "allocated" : "application")
         property string memUsed: memPhysical + "used"
         property string swap: "mem/swap/"
         property string swapUsed: swap + "used"

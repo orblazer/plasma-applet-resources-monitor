@@ -4,6 +4,7 @@ import QtQuick.Layouts 1.1
 
 Item {
 
+    property alias cfg_memoryUseAllocated: memoryUseAllocated.checked
     property alias cfg_networkSensorInterface: networkSensorInterface.text
     property alias cfg_downloadMaxKBs: downloadMaxKBs.value
     property alias cfg_uploadMaxKBs: uploadMaxKBs.value
@@ -11,6 +12,18 @@ Item {
     GridLayout {
         Layout.fillWidth: true
         columns: 2
+
+        CheckBox {
+            id: memoryUseAllocated
+            Layout.columnSpan: 2
+            text: i18n('Use allocated memory instead of application')
+        }
+
+        Item {
+            width: 2
+            height: 10
+            Layout.columnSpan: 2
+        }
 
         Label {
             text: i18n('Network sensor interface')
