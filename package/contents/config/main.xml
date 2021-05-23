@@ -26,19 +26,6 @@
             <default>false</default>
         </entry>
 
-        <entry name="verticalLayout" type="Bool">
-            <default>false</default>
-        </entry>
-        <entry name="enableHints" type="Bool">
-            <default>true</default>
-        </entry>
-        <entry name="enableShadows" type="Bool">
-            <default>true</default>
-        </entry>
-        <entry name="fontScale" type="int">
-            <default>26</default>
-        </entry>
-
         <group name="Data">
             <entry name="networkSensorInterface" type="String">
                 <default>enp3s0</default>
@@ -48,6 +35,21 @@
             </entry>
             <entry name="uploadMaxKBs" type="Double">
                 <default></default>
+            </entry>
+        </group>
+
+        <group name="Appearance">
+            <entry name="verticalLayout" type="Bool">
+                <default>false</default>
+            </entry>
+            <entry name="enableHints" type="Bool">
+                <default>true</default>
+            </entry>
+            <entry name="enableShadows" type="Bool">
+                <default>true</default>
+            </entry>
+            <entry name="fontScale" type="int">
+                <default>26</default>
             </entry>
         </group>
     </group>

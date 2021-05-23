@@ -12,11 +12,6 @@ Item {
     property alias cfg_memoryInPercent: memoryInPercent.checked
     property alias cfg_showNetMonitor: showNetMonitor.checked
 
-    property alias cfg_verticalLayout: verticalLayout.checked
-    property alias cfg_enableHints: enableHints.checked
-    property alias cfg_enableShadows: enableShadows.checked
-    property alias cfg_fontScale: fontScale.value
-
     GridLayout {
         Layout.fillWidth: true
         columns: 2
@@ -31,17 +26,6 @@ Item {
             stepSize: 0.1
             minimumValue: 0.1
             suffix: i18nc('Abbreviation for seconds', 's')
-        }
-
-        Label {
-            text: i18n('Font scale:')
-            Layout.alignment: Qt.AlignRight
-        }
-        SpinBox {
-            id: fontScale
-            minimumValue: 1
-            maximumValue: 100
-            suffix: i18nc('Percent', '%')
         }
 
         // Charts
@@ -75,38 +59,13 @@ Item {
             id: memoryInPercent
             Layout.columnSpan: 1
             text: i18n('Memory in percentage')
+            enabled: showRamMonitor.checked
         }
 
         CheckBox {
             id: showNetMonitor
             Layout.columnSpan: 1
             text: i18n('Show network monitor')
-        }
-
-        // Layout
-
-        Item {
-            width: 2
-            height: 10
-            Layout.columnSpan: 2
-        }
-
-        CheckBox {
-            id: verticalLayout
-            Layout.columnSpan: 2
-            text: i18n('Vertical layout')
-        }
-
-        CheckBox {
-            id: enableHints
-            Layout.columnSpan: 2
-            text: i18n('Enable hints')
-        }
-
-        CheckBox {
-            id: enableShadows
-            Layout.columnSpan: 2
-            text: i18n('Drop shadows')
         }
     }
 
