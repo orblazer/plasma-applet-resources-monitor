@@ -39,9 +39,9 @@ function getHumanReadableNetRate(rateKiBs) {
     return rateKiBs + 'KB/s'
   }
   else if(rateKiBs <= 1048576) {
-    return Math.round((rateKiBs / 1024) * 100) / 100 + 'MB/s'
+    return Math.round((rateKiBs / 1024) * 10) / 10 + 'MB/s'
   }
-  return Math.round((rateKiBs / 1048576) * 100) / 100 + 'GB/s'
+  return Math.round((rateKiBs / 1048576) * 10) / 10 + 'GB/s'
 }
 
 /**
