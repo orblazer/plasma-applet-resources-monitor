@@ -10,6 +10,7 @@ Kirigami.FormLayout {
     property alias cfg_enableHints: enableHints.checked
     property alias cfg_enableShadows: enableShadows.checked
     property alias cfg_fontScale: fontScale.value
+    property string cfg_placement: ''
 
     property alias cfg_customWarningColor: warningColor.checked
     property alias cfg_warningColor: warningColor.value
@@ -61,6 +62,34 @@ Kirigami.FormLayout {
     QtControls.CheckBox {
         id: enableShadows
         text: i18n('Drop shadows')
+    }
+
+    QtControls.ComboBox {
+        id: placement
+        Kirigami.FormData.label: i18n('Placement:')
+        textRole: 'label'
+        model: [{
+            'label': i18n('Top/Left'),
+            'name': 'top-left'
+        }, {
+            'label': i18n('Top/Right'),
+            'name': 'top-right'
+        }, {
+            'label': i18n('Bottom/Left'),
+            'name': 'bottom-left'
+        }, {
+            'label': i18n('Bottom/Right'),
+            'name': 'bottom-right'
+        }]
+        onCurrentIndexChanged: cfg_placement = model[currentIndex]['name']
+
+        Component.onCompleted: {
+            for (var i = 0; i < model.length; i++) {
+                if (model[i]['name'] === plasmoid.configuration.placement) {
+                    placement.currentIndex = i;
+                }
+            }
+        }
     }
 
     // Colors

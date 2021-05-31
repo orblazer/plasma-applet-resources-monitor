@@ -37,13 +37,14 @@ Item {
     property color secondLineInfoTextColor: theme.textColor
     property string secondLineValue: ''
     property bool enableShadows: plasmoid.configuration.enableShadows
-    property bool enableHints: plasmoid.configuration.enableHints
+    property string placement: plasmoid.configuration.placement // Values: top-right, top-left, bottom-right, bottom-left
 
     // Graph properties
     property var firstGraphModel
     property color firstGraphBarColor: theme.highlightColor
     property var secondGraphModel
     property color secondGraphBarColor: theme.textColor
+
 
     HistoryGraph {
         listViewModel: firstGraphModel
@@ -59,6 +60,7 @@ Item {
     Item {
         id: textContainer
         anchors.fill: parent
+        state: placement
 
         // First line
         PlasmaComponents.Label {
@@ -67,8 +69,7 @@ Item {
             text: firstLineInfoText
             color: firstLineInfoTextColor
 
-            anchors.right: parent.right
-            verticalAlignment: Text.AlignTop
+            verticalAlignment: Text.AlignBottom
             font.pointSize: -1
             visible: false
         }
@@ -77,8 +78,8 @@ Item {
 
             text: firstLineValue
 
-            anchors.right: parent.right
-            verticalAlignment: Text.AlignTop
+            verticalAlignment: Text.AlignBottom
+            anchors.top: firstLineInfoLabel.top
             font.pointSize: -1
         }
 
@@ -89,8 +90,7 @@ Item {
             text: secondLineInfoText
             color: secondLineInfoTextColor
 
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.right: parent.right
+            verticalAlignment: Text.AlignTop
             font.pointSize: -1
             visible: false
         }
@@ -99,11 +99,102 @@ Item {
 
             text: secondLineValue
 
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.right: parent.right
+            anchors.top: secondLineInfoLabel.top
+            verticalAlignment: Text.AlignTop
             font.pointSize: -1
             visible: secondLineInfoText != ''
         }
+
+        states: [
+            State {
+                name: 'top-left'
+                AnchorChanges {
+                    target: firstLineInfoLabel
+                    anchors.left: textContainer.left
+                    anchors.top: textContainer.top
+                }
+                AnchorChanges {
+                    target: firstLineValueLabel
+                    anchors.left: textContainer.left
+                }
+
+                AnchorChanges {
+                    target: secondLineInfoLabel
+                    anchors.left: textContainer.left
+                    anchors.top: firstLineInfoLabel.bottom
+                }
+                AnchorChanges {
+                    target: secondLineValueLabel
+                    anchors.left: textContainer.left
+                }
+            },
+            State {
+                name: 'top-right'
+                AnchorChanges {
+                    target: firstLineInfoLabel
+                    anchors.right: textContainer.right
+                    anchors.top: textContainer.top
+                }
+                AnchorChanges {
+                    target: firstLineValueLabel
+                    anchors.right: textContainer.right
+                }
+
+                AnchorChanges {
+                    target: secondLineInfoLabel
+                    anchors.right: textContainer.right
+                    anchors.top: firstLineInfoLabel.bottom
+                }
+                AnchorChanges {
+                    target: secondLineValueLabel
+                    anchors.right: textContainer.right
+                }
+            },
+            State {
+                name: 'bottom-left'
+                AnchorChanges {
+                    target: firstLineInfoLabel
+                    anchors.left: textContainer.left
+                    anchors.bottom: secondLineInfoLabel.top
+                }
+                AnchorChanges {
+                    target: firstLineValueLabel
+                    anchors.left: textContainer.left
+                }
+
+                AnchorChanges {
+                    target: secondLineInfoLabel
+                    anchors.left: textContainer.left
+                    anchors.bottom: textContainer.bottom
+                }
+                AnchorChanges {
+                    target: secondLineValueLabel
+                    anchors.left: textContainer.left
+                }
+            },
+            State {
+                name: 'bottom-right'
+                AnchorChanges {
+                    target: firstLineInfoLabel
+                    anchors.right: textContainer.right
+                    anchors.bottom: secondLineInfoLabel.top
+                }
+                AnchorChanges {
+                    target: firstLineValueLabel
+                    anchors.right: textContainer.right
+                }
+
+                AnchorChanges {
+                    target: secondLineInfoLabel
+                    anchors.right: textContainer.right
+                    anchors.bottom: textContainer.bottom
+                }
+                AnchorChanges {
+                    target: secondLineValueLabel
+                    anchors.right: textContainer.right
+                }
+            }
+        ]
     }
 
     DropShadow {

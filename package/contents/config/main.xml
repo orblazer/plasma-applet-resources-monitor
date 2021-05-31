@@ -54,6 +54,9 @@
             <entry name="fontScale" type="int">
                 <default>26</default>
             </entry>
+            <entry name="placement" type="string">
+                <default>top-right</default>
+            </entry>
 
             <entry name="customWarningColor" type="Bool">
                 <default>false</default>
