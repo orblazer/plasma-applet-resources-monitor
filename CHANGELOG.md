@@ -1,3 +1,20 @@
+# [2.1.0](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.0.0...v2.1.0) (2021-05-31)
+
+
+### Bug Fixes
+
+* **text:** no show value is swap is empty ([ae63d16](https://github.com/orblazer/plasma-applet-resources-monitor/commit/ae63d16f75f06c2cccbe549056c27497fbb1a969))
+
+
+### Features
+
+* **config:** add option for change text placement ([58875e3](https://github.com/orblazer/plasma-applet-resources-monitor/commit/58875e3c1b33aae8fb2d58f41c4c0e44379293c7))
+* **config:** add option for custom colors ([8665fe0](https://github.com/orblazer/plasma-applet-resources-monitor/commit/8665fe0cf4b619d2a79b58e2b24a3f195c83b1e6))
+* **config:** allow differents text displayment ([3a7e73e](https://github.com/orblazer/plasma-applet-resources-monitor/commit/3a7e73e65ecdade9ba48a02660c8c72013d3a757))
+* **dev:** automatize release ([68c14eb](https://github.com/orblazer/plasma-applet-resources-monitor/commit/68c14eb133afb5f4ce02eed626a74113bdedb7d2))
+
+
+
 # [](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.0.0...v) (2021-05-23)
 
 # [2.0.0](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v1.0.5...v2.0.0) (2021-05-23)
