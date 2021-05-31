@@ -1,10 +1,12 @@
 import QtQuick 2.2
-import QtQuick.Controls 1.3
-import QtQuick.Layouts 1.1
+import QtQuick.Controls 2.15 as QtControls
+import QtQuick.Layouts 1.1 as QtLayouts
+import org.kde.kirigami 2.13 as Kirigami
 
-Item {
+import "../components"
 
-    property alias cfg_updateInterval: updateIntervalSpinBox.value
+Kirigami.FormLayout {
+    property alias cfg_updateInterval: updateIntervalSpinBox.realValue
 
     property alias cfg_showCpuMonitor: showCpuMonitor.checked
     property alias cfg_showClock: showClock.checked
@@ -12,61 +14,49 @@ Item {
     property alias cfg_memoryInPercent: memoryInPercent.checked
     property alias cfg_showNetMonitor: showNetMonitor.checked
 
-    GridLayout {
-        Layout.fillWidth: true
+    DoubleSpinBox {
+        id: updateIntervalSpinBox
+        Kirigami.FormData.label: i18n('Update interval:')
+        decimals: 1
+        realStepSize: 0.1
+        realFrom: 0.1
+        suffix: i18nc('Abbreviation for seconds', 's')
+    }
+
+    // Charts
+
+    Item {
+        Kirigami.FormData.isSection: true
+        Kirigami.FormData.label: i18n('Charts')
+    }
+
+    QtLayouts.GridLayout {
+        QtLayouts.Layout.fillWidth: true
         columns: 2
 
-        Label {
-            text: i18n('Update interval:')
-            Layout.alignment: Qt.AlignRight
-        }
-        SpinBox {
-            id: updateIntervalSpinBox
-            decimals: 1
-            stepSize: 0.1
-            minimumValue: 0.1
-            suffix: i18nc('Abbreviation for seconds', 's')
-        }
-
-        // Charts
-
-        Item {
-            width: 2
-            height: 10
-            Layout.columnSpan: 2
-        }
-
-        CheckBox {
+        QtControls.CheckBox {
             id: showCpuMonitor
-            Layout.columnSpan: 1
             text: i18n('Show CPU monitor')
         }
-
-        CheckBox {
+        QtControls.CheckBox {
             id: showClock
-            Layout.columnSpan: 1
             text: i18n('Show clock')
             enabled: showCpuMonitor.checked
         }
 
-        CheckBox {
+        QtControls.CheckBox {
             id: showRamMonitor
-            Layout.columnSpan: 1
             text: i18n('Show RAM monitor')
         }
-
-        CheckBox {
+        QtControls.CheckBox {
             id: memoryInPercent
-            Layout.columnSpan: 1
             text: i18n('Memory in percentage')
             enabled: showRamMonitor.checked
         }
 
-        CheckBox {
+        QtControls.CheckBox {
             id: showNetMonitor
-            Layout.columnSpan: 1
             text: i18n('Show network monitor')
         }
     }
-
 }
