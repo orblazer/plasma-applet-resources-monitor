@@ -47,7 +47,7 @@ Kirigami.FormLayout {
         to: 100000
         suffix: i18nc('Abbreviation for KB/s', ' KB/s')
     }
-    QtControls.SpinBox {
+    SpinBox {
         id: uploadMaxKBs
         Kirigami.FormData.label: i18n('Max upload speed:')
         stepSize: 10
