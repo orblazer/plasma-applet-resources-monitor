@@ -36,6 +36,7 @@ Item {
 
     // Settings properties
     property bool verticalLayout: plasmoid.configuration.verticalLayout
+
     property bool showCpuMonitor: plasmoid.configuration.showCpuMonitor
     property bool showClock: plasmoid.configuration.showClock
     property bool showRamMonitor: plasmoid.configuration.showRamMonitor
@@ -82,7 +83,7 @@ Item {
     }
 
     onFontPixelSizeChanged: {
-        for(var monitor of [cpuMonitor, ramMonitor, netMonitor]) {
+        for (var monitor of [cpuMonitor, ramMonitor, netMonitor]) {
             monitor.firstLineInfoLabel.font.pixelSize = fontPixelSize
             monitor.firstLineValueLabel.font.pixelSize = fontPixelSize
             monitor.secondLineInfoLabel.font.pixelSize = fontPixelSize
@@ -224,11 +225,14 @@ Item {
             Functions.addGraphData(ramGraphModel, totalRamProportion, graphGranularity)
             Functions.addGraphData(swapGraphModel, totalSwapProportion, graphGranularity)
 
-            ramMonitor.firstLineValueLabel.text = showMemoryInPercent ? Math.round(totalRamProportion * 100) + '%' : Functions.getHumanReadableMemory(dataSource.ramUsedBytes)
+            ramMonitor.firstLineValueLabel.text = showMemoryInPercent ? Math.round(totalRamProportion * 100) + '%'
+                : Functions.getHumanReadableMemory(dataSource.ramUsedBytes)
             ramMonitor.firstLineValueLabel.color = totalRamProportion > 0.9 ? warningColor : theme.textColor
-            ramMonitor.secondLineValueLabel.text = showMemoryInPercent ? Math.round(totalSwapProportion * 100) + '%' : Functions.getHumanReadableMemory(dataSource.swapUsedBytes)
+            ramMonitor.secondLineValueLabel.text = showMemoryInPercent ? Math.round(totalSwapProportion * 100) + '%'
+                : Functions.getHumanReadableMemory(dataSource.swapUsedBytes)
             ramMonitor.secondLineValueLabel.color = totalSwapProportion > 0.9 ? warningColor : theme.textColor
-            ramMonitor.secondLineValueLabel.visible = !ramMonitor.secondLineInfoLabel.visible && totalSwapProportion > 0
+            ramMonitor.secondLineValueLabel.visible = ramMonitor.secondLineValueLabel.enabled =
+                !ramMonitor.secondLineInfoLabel.visible && totalSwapProportion > 0
         }
 
         if (showNetMonitor) {

@@ -225,7 +225,7 @@ Item {
             case 'always':
             case 'hover-hints':
                 firstLineValueLabel.visible = true
-                secondLineValueLabel.visible = secondLineInfoText != ''
+                secondLineValueLabel.visible = secondLineInfoText != '' && secondLineValueLabel.enabled
                 break
         }
     }
@@ -238,7 +238,7 @@ Item {
             switch (displayment) {
                 case 'hover':
                     firstLineValueLabel.visible = true
-                    secondLineValueLabel.visible = secondLineInfoText != ''
+                    secondLineValueLabel.visible = secondLineInfoText != '' && secondLineValueLabel.enabled
                     break
                 case 'hover-hints':
                     firstLineInfoLabel.visible = true
@@ -263,7 +263,7 @@ Item {
 
                     if(secondLineInfoText != '') {
                         secondLineInfoLabel.visible = false
-                        secondLineValueLabel.visible = true
+                        secondLineValueLabel.visible = secondLineValueLabel.enabled
                     }
                     break
             }
