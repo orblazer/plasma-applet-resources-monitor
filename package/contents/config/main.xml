@@ -54,6 +54,40 @@
             <entry name="fontScale" type="int">
                 <default>26</default>
             </entry>
+
+            <entry name="customWarningColor" type="Bool">
+                <default>false</default>
+            </entry>
+            <entry name="warningColor" type="Color">
+            </entry>
+
+            <entry name="customCpuColor" type="Bool">
+                <default>false</default>
+            </entry>
+            <entry name="cpuColor" type="Color">
+            </entry>
+
+            <entry name="customRamColor" type="Bool">
+                <default>false</default>
+            </entry>
+            <entry name="ramColor" type="Color">
+            </entry>
+            <entry name="customSwapColor" type="Bool">
+                <default>false</default>
+            </entry>
+            <entry name="swapColor" type="Color">
+            </entry>
+
+            <entry name="customNetDownColor" type="Bool">
+                <default>false</default>
+            </entry>
+            <entry name="netDownColor" type="Color">
+            </entry>
+            <entry name="customNetUpColor" type="Bool">
+                <default>false</default>
+            </entry>
+            <entry name="netUpColor" type="Color">
+            </entry>
         </group>
     </group>
 

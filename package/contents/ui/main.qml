@@ -29,6 +29,10 @@ Item {
     id: main
 
     property bool vertical: (plasmoid.formFactor == PlasmaCore.Types.Vertical)
+    property color primaryColor: theme.highlightColor
+    property color negativeColor: theme.negativeTextColor
+    property color neutralColor: theme.neutralTextColor
+    property color positiveColor: theme.positiveTextColor
 
     // Settings properties
     property bool verticalLayout: plasmoid.configuration.verticalLayout
@@ -43,7 +47,14 @@ Item {
     property int downloadMaxKBs: plasmoid.configuration.downloadMaxKBs
     property int uploadMaxKBs: plasmoid.configuration.uploadMaxKBs
 
-    property color warningColor: theme.neutralTextColor
+    // Colors settings properties
+    property color cpuColor: plasmoid.configuration.customCpuColor ? plasmoid.configuration.cpuColor : primaryColor
+    property color ramColor: plasmoid.configuration.customRamColor ? plasmoid.configuration.ramColor : primaryColor
+    property color swapColor: plasmoid.configuration.customSwapColor ? plasmoid.configuration.swapColor : negativeColor
+    property color netDownColor: plasmoid.configuration.customNetDownColor ? plasmoid.configuration.netDownColor : primaryColor
+    property color netUpColor: plasmoid.configuration.customNetUpColor ? plasmoid.configuration.netUpColor : positiveColor
+    property color warningColor: plasmoid.configuration.customWarningColor ? plasmoid.configuration.warningColor : neutralColor
+
     property int graphGranularity: 20
 
     // Component properties
@@ -248,8 +259,10 @@ Item {
 
         visible: showCpuMonitor
         firstLineInfoText: 'CPU'
+        firstLineInfoTextColor: cpuColor
         secondLineInfoText: showClock ? 'Clock' : ''
         firstGraphModel: cpuGraphModel
+        firstGraphBarColor: cpuColor
     }
 
     GraphItem {
@@ -263,11 +276,13 @@ Item {
 
         visible: showRamMonitor
         firstLineInfoText: 'RAM'
+        firstLineInfoTextColor: ramColor
         secondLineInfoText: 'Swap'
-        secondLineInfoTextColor: theme.negativeTextColor
+        secondLineInfoTextColor: swapColor
         firstGraphModel: ramGraphModel
+        firstGraphBarColor: ramColor
         secondGraphModel: swapGraphModel
-        secondGraphBarColor: theme.negativeTextColor
+        secondGraphBarColor: swapColor
     }
 
     GraphItem {
@@ -281,11 +296,13 @@ Item {
 
         visible: showNetMonitor
         firstLineInfoText: 'Down'
+        firstLineInfoTextColor: netDownColor
         secondLineInfoText: 'Up'
-        secondLineInfoTextColor: theme.positiveTextColor
+        secondLineInfoTextColor: netUpColor
         firstGraphModel: downloadGraphModel
+        firstGraphBarColor: netDownColor
         secondGraphModel: uploadGraphModel
-        secondGraphBarColor: theme.positiveTextColor
+        secondGraphBarColor: netUpColor
     }
 
     // Click action
