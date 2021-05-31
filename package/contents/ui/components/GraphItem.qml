@@ -38,6 +38,7 @@ Item {
     property string secondLineValue: ''
     property bool enableShadows: plasmoid.configuration.enableShadows
     property string placement: plasmoid.configuration.placement // Values: top-right, top-left, bottom-right, bottom-left
+    property string displayment: plasmoid.configuration.displayment // Values: always, hover, hover-hints
 
     // Graph properties
     property var firstGraphModel
@@ -208,27 +209,63 @@ Item {
         source: textContainer
     }
 
+    // Action
+
+    onDisplaymentChanged: {
+        switch (displayment) {
+            case 'always':
+                firstLineInfoLabel.visible = secondLineInfoLabel.visible = false
+                break
+
+            case 'hover':
+                firstLineInfoLabel.visible = secondLineInfoLabel.visible = false
+                firstLineValueLabel.visible = secondLineValueLabel.visible = false
+                break
+
+            case 'always':
+            case 'hover-hints':
+                firstLineValueLabel.visible = true
+                secondLineValueLabel.visible = secondLineInfoText != ''
+                break
+        }
+    }
+
     MouseArea {
         anchors.fill: parent
-        hoverEnabled: enableHints
+        hoverEnabled: displayment !== 'always'
 
         onEntered: {
-            firstLineInfoLabel.visible = true
-            firstLineValueLabel.visible = false
+            switch (displayment) {
+                case 'hover':
+                    firstLineValueLabel.visible = true
+                    secondLineValueLabel.visible = secondLineInfoText != ''
+                    break
+                case 'hover-hints':
+                    firstLineInfoLabel.visible = true
+                    firstLineValueLabel.visible = false
 
-            if(secondLineInfoText != '') {
-                secondLineInfoLabel.visible = true
-                secondLineValueLabel.visible = false
+                    if(secondLineInfoText != '') {
+                        secondLineInfoLabel.visible = true
+                        secondLineValueLabel.visible = false
+                    }
+                    break
             }
         }
 
         onExited: {
-            firstLineInfoLabel.visible = false
-            firstLineValueLabel.visible = true
+            switch (displayment) {
+                case 'hover':
+                    firstLineValueLabel.visible = secondLineValueLabel.visible = false
+                    break
+                case 'hover-hints':
+                    firstLineInfoLabel.visible = false
+                    firstLineValueLabel.visible = true
 
-            if(secondLineInfoText != '') {
-                secondLineInfoLabel.visible = false
-                secondLineValueLabel.visible = true
+                    if(secondLineInfoText != '') {
+                        secondLineInfoLabel.visible = false
+                        secondLineValueLabel.visible = true
+                    }
+                    break
             }
         }
     }

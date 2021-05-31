@@ -7,10 +7,10 @@ import "../components"
 
 Kirigami.FormLayout {
     property alias cfg_verticalLayout: verticalLayout.checked
-    property alias cfg_enableHints: enableHints.checked
     property alias cfg_enableShadows: enableShadows.checked
     property alias cfg_fontScale: fontScale.value
     property string cfg_placement: ''
+    property string cfg_displayment: ''
 
     property alias cfg_customWarningColor: warningColor.checked
     property alias cfg_warningColor: warningColor.value
@@ -43,6 +43,11 @@ Kirigami.FormLayout {
         Kirigami.FormData.label: i18n('Text')
     }
 
+    QtControls.CheckBox {
+        id: enableShadows
+        text: i18n('Drop shadows')
+    }
+
     SpinBox {
         id: fontScale
         Kirigami.FormData.label: i18n('Font scale:')
@@ -51,17 +56,29 @@ Kirigami.FormLayout {
         suffix: i18nc('Percent', '%')
     }
 
-    Item {}
+    QtControls.ComboBox {
+        id: displayment
+        Kirigami.FormData.label: i18n('Text displayment:')
+        textRole: 'label'
+        model: [{
+            'label': i18n('Always'),
+            'name': 'always'
+        }, {
+            'label': i18n('On hover'),
+            'name': 'hover'
+        }, {
+            'label': i18n('Hints when hover'),
+            'name': 'hover-hints'
+        }]
+        onCurrentIndexChanged: cfg_displayment = model[currentIndex]['name']
 
-    QtControls.CheckBox {
-        id: enableHints
-        Kirigami.FormData.label: i18n('Info text:')
-        text: i18n('Enable hints')
-    }
-
-    QtControls.CheckBox {
-        id: enableShadows
-        text: i18n('Drop shadows')
+        Component.onCompleted: {
+            for (var i = 0; i < model.length; i++) {
+                if (model[i]['name'] === plasmoid.configuration.displayment) {
+                    displayment.currentIndex = i;
+                }
+            }
+        }
     }
 
     QtControls.ComboBox {
