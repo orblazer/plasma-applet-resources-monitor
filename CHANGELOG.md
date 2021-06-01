@@ -1,3 +1,18 @@
+## [2.1.2](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.1.1...v2.1.2) (2021-06-01)
+
+
+### Bug Fixes
+
+* **graph:** right toggle visibility ([6c99fc2](https://github.com/orblazer/plasma-applet-resources-monitor/commit/6c99fc25eda4ce449d79f504f0581f98816eeb85))
+* **graph:** use right placement ([fd65754](https://github.com/orblazer/plasma-applet-resources-monitor/commit/fd6575428f1aebc172b219ae6929905fcd49e5eb))
+
+
+### Features
+
+* **dev:** add script for real test ([25257b0](https://github.com/orblazer/plasma-applet-resources-monitor/commit/25257b0977a13729a37f5d03c0b2f2ebd733e1c3))
+
+
+
 ## [2.1.1](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.0.0...v2.1.1) (2021-05-31)
 
 
