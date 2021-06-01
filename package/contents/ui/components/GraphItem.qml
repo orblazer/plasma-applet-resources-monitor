@@ -231,6 +231,8 @@ Item {
         switch (displayment) {
             case 'always':
                 firstLineInfoLabel.visible = secondLineInfoLabel.visible = false
+                firstLineValueLabel.visible = true
+                secondLineValueLabel.visible = secondLineInfoText != '' && secondLineValueLabel.enabled
                 break
 
             case 'hover':
@@ -238,7 +240,6 @@ Item {
                 firstLineValueLabel.visible = secondLineValueLabel.visible = false
                 break
 
-            case 'always':
             case 'hover-hints':
                 firstLineValueLabel.visible = true
                 secondLineValueLabel.visible = secondLineInfoText != '' && secondLineValueLabel.enabled
