@@ -58,141 +58,157 @@ Item {
         barColor: secondGraphBarColor
     }
 
-    Item {
+    Column {
         id: textContainer
-        anchors.fill: parent
+        width: parent.width
         state: placement
 
         // First line
         PlasmaComponents.Label {
             id: firstLineInfoLabel
+            width: parent.width
+            height: contentHeight
 
             text: firstLineInfoText
             color: firstLineInfoTextColor
 
-            verticalAlignment: Text.AlignBottom
             font.pointSize: -1
             visible: false
         }
         PlasmaComponents.Label {
             id: firstLineValueLabel
+            width: parent.width
+            height: contentHeight
 
             text: firstLineValue
 
-            verticalAlignment: Text.AlignBottom
-            anchors.top: firstLineInfoLabel.top
             font.pointSize: -1
         }
 
         // Second line
         PlasmaComponents.Label {
             id: secondLineInfoLabel
+            width: parent.width
+            height: contentHeight
 
             text: secondLineInfoText
             color: secondLineInfoTextColor
 
-            verticalAlignment: Text.AlignTop
             font.pointSize: -1
             visible: false
         }
         PlasmaComponents.Label {
             id: secondLineValueLabel
+            width: parent.width
+            height: contentHeight
 
             text: secondLineValue
 
-            anchors.top: secondLineInfoLabel.top
-            verticalAlignment: Text.AlignTop
             font.pointSize: -1
             visible: secondLineInfoText != ''
         }
 
+        // States
         states: [
             State {
                 name: 'top-left'
                 AnchorChanges {
-                    target: firstLineInfoLabel
-                    anchors.left: textContainer.left
-                    anchors.top: textContainer.top
-                }
-                AnchorChanges {
-                    target: firstLineValueLabel
-                    anchors.left: textContainer.left
+                    target: textContainer
+                    anchors.top: parent.top
                 }
 
-                AnchorChanges {
-                    target: secondLineInfoLabel
-                    anchors.left: textContainer.left
-                    anchors.top: firstLineInfoLabel.bottom
+                PropertyChanges {
+                    target: firstLineInfoLabel
+                    horizontalAlignment: Text.AlignLeft
                 }
-                AnchorChanges {
+                PropertyChanges {
+                    target: firstLineValueLabel
+                    horizontalAlignment: Text.AlignLeft
+                }
+
+                PropertyChanges {
+                    target: secondLineInfoLabel
+                    horizontalAlignment: Text.AlignLeft
+                }
+                PropertyChanges {
                     target: secondLineValueLabel
-                    anchors.left: textContainer.left
+                    horizontalAlignment: Text.AlignLeft
                 }
             },
             State {
                 name: 'top-right'
                 AnchorChanges {
-                    target: firstLineInfoLabel
-                    anchors.right: textContainer.right
-                    anchors.top: textContainer.top
-                }
-                AnchorChanges {
-                    target: firstLineValueLabel
-                    anchors.right: textContainer.right
+                    target: textContainer
+                    anchors.top: parent.top
                 }
 
-                AnchorChanges {
-                    target: secondLineInfoLabel
-                    anchors.right: textContainer.right
-                    anchors.top: firstLineInfoLabel.bottom
+                PropertyChanges {
+                    target: firstLineInfoLabel
+                    horizontalAlignment: Text.AlignRight
                 }
-                AnchorChanges {
+                PropertyChanges {
+                    target: firstLineValueLabel
+                    horizontalAlignment: Text.AlignRight
+                }
+
+                PropertyChanges {
+                    target: secondLineInfoLabel
+                    horizontalAlignment: Text.AlignRight
+                }
+                PropertyChanges {
                     target: secondLineValueLabel
-                    anchors.right: textContainer.right
+                    horizontalAlignment: Text.AlignRight
                 }
             },
+
             State {
                 name: 'bottom-left'
                 AnchorChanges {
-                    target: firstLineInfoLabel
-                    anchors.left: textContainer.left
-                    anchors.bottom: secondLineInfoLabel.top
-                }
-                AnchorChanges {
-                    target: firstLineValueLabel
-                    anchors.left: textContainer.left
+                    target: textContainer
+                    anchors.bottom: parent.bottom
                 }
 
-                AnchorChanges {
-                    target: secondLineInfoLabel
-                    anchors.left: textContainer.left
-                    anchors.bottom: textContainer.bottom
+                PropertyChanges {
+                    target: firstLineInfoLabel
+                    horizontalAlignment: Text.AlignLeft
                 }
-                AnchorChanges {
+                PropertyChanges {
+                    target: firstLineValueLabel
+                    horizontalAlignment: Text.AlignLeft
+                }
+
+                PropertyChanges {
+                    target: secondLineInfoLabel
+                    horizontalAlignment: Text.AlignLeft
+                }
+                PropertyChanges {
                     target: secondLineValueLabel
-                    anchors.left: textContainer.left
+                    horizontalAlignment: Text.AlignLeft
                 }
             },
             State {
                 name: 'bottom-right'
                 AnchorChanges {
-                    target: firstLineInfoLabel
-                    anchors.right: textContainer.right
-                    anchors.bottom: secondLineInfoLabel.top
-                }
-                AnchorChanges {
-                    target: firstLineValueLabel
-                    anchors.right: textContainer.right
+                    target: textContainer
+                    anchors.bottom: parent.bottom
                 }
 
-                AnchorChanges {
-                    target: secondLineInfoLabel
-                    anchors.right: textContainer.right
-                    anchors.bottom: textContainer.bottom
+                PropertyChanges {
+                    target: firstLineInfoLabel
+                    horizontalAlignment: Text.AlignRight
                 }
-                AnchorChanges {
+                PropertyChanges {
+                    target: firstLineValueLabel
+                    horizontalAlignment: Text.AlignRight
+                }
+
+                PropertyChanges {
+                    target: secondLineInfoLabel
+                    horizontalAlignment: Text.AlignRight
+                }
+                PropertyChanges {
                     target: secondLineValueLabel
-                    anchors.right: textContainer.right
+                    horizontalAlignment: Text.AlignRight
                 }
             }
         ]
