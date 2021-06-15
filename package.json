@@ -12,6 +12,7 @@
   "license": "GPL-3.0-only",
   "scripts": {
     "prepare": "husky install",
+    "dev": "./scripts/test.sh",
     "pack": "node scripts/archive.js",
     "version": "npm run version:bump && npm run version:changelog",
     "version:bump": "node scripts/bump.js && git add package/metadata.desktop",
