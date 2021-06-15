@@ -1,3 +1,12 @@
+## [2.1.3](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.1.2...v2.1.3) (2021-06-15)
+
+
+### Bug Fixes
+
+* **config:** allow text editing in spin box ([42c7fb3](https://github.com/orblazer/plasma-applet-resources-monitor/commit/42c7fb379fea02d010e407f9923ee7b96a329604)), closes [#1](https://github.com/orblazer/plasma-applet-resources-monitor/issues/1)
+
+
+
 ## [2.1.2](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.1.1...v2.1.2) (2021-06-01)
 
 
