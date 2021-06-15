@@ -42,6 +42,7 @@ Kirigami.FormLayout {
     SpinBox {
         id: downloadMaxKBs
         Kirigami.FormData.label: i18n('Max download speed:')
+        QtLayouts.Layout.fillWidth: true
         stepSize: 10
         from: 10
         to: 100000
@@ -50,6 +51,7 @@ Kirigami.FormLayout {
     SpinBox {
         id: uploadMaxKBs
         Kirigami.FormData.label: i18n('Max upload speed:')
+        QtLayouts.Layout.fillWidth: true
         stepSize: 10
         from: 10
         to: 100000

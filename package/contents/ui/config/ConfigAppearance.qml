@@ -51,6 +51,7 @@ Kirigami.FormLayout {
     SpinBox {
         id: fontScale
         Kirigami.FormData.label: i18n('Font scale:')
+        QtLayouts.Layout.fillWidth: true
         from: 1
         to: 100
         suffix: i18nc('Percent', '%')
