@@ -31,11 +31,11 @@ RowLayout {
     }
     Button {
         onClicked: colorPicker.open()
-        enabled: checked
+        enabled: customized.checked
 
         implicitWidth: height * 2
         background: Rectangle {
-            color: checked ? colorPicker.currentColor : defaultColor
+            color: customized.checked ? colorPicker.currentColor : defaultColor
             radius: 2
         }
     }
