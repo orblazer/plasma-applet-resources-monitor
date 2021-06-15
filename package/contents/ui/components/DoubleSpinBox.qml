@@ -1,6 +1,8 @@
 import QtQuick 2.2
 import QtQuick.Controls 2.15
 
+import "./"
+
 SpinBox {
     property int decimals: 2
     property real realValue: 0.0
@@ -11,17 +13,42 @@ SpinBox {
 
     property real _factor: Math.pow(10, decimals)
 
-    id: spinbox
+    id: control
     stepSize: realStepSize * _factor
     value: realValue * _factor
     from: realFrom * _factor
     to: realTo * _factor
     validator: DoubleValidator {
-        bottom: Math.min(spinbox.from, spinbox.to) * spinbox._factor
-        top: Math.max(spinbox.from, spinbox.to) * spinbox._factor
+        locale: control.locale.name
+        bottom: Math.min(control.from, control.to) * control._factor
+        top: Math.max(control.from, control.to) * control._factor
     }
 
+    onValueChanged: {
+        realValue = value / _factor
+    }
+
+    valueFromText: function(value, locale) {
+        if (suffix.length > 0) {
+            return Number.fromLocaleString(locale, value.replace(' ' + suffix, '')) * _factor
+        } else {
+            return Number.fromLocaleString(locale, value) * _factor
+        }
+    }
     textFromValue: function(value, locale) {
-        return parseFloat(value * 1.0 / _factor).toFixed(decimals) + (suffix.length > 0 ? ' ' + suffix : '');
+        return parseFloat(value / _factor).toLocaleString(locale, 'f', decimals) + (suffix.length > 0 ? ' ' + suffix : '');
+    }
+
+    contentItem: SpinBoxTextInput {
+        z: 2
+        text: control.textFromValue(control.value, control.locale)
+
+        font: control.font
+        horizontalAlignment: Qt.AlignLeft
+        verticalAlignment: Qt.AlignVCenter
+
+        readOnly: !control.editable
+        validator: control.validator
+        inputMethodHints: Qt.ImhFormattedNumbersOnly
     }
 }
