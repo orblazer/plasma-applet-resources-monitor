@@ -1,3 +1,12 @@
+## [2.1.4](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.1.3...v2.1.4) (2021-06-15)
+
+
+### Bug Fixes
+
+* **config:** use right state for pick color ([d2a894d](https://github.com/orblazer/plasma-applet-resources-monitor/commit/d2a894d674e592aaa6bfee512e8a52df81674000))
+
+
+
 ## [2.1.3](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.1.2...v2.1.3) (2021-06-15)
 
 
