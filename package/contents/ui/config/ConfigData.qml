@@ -7,6 +7,7 @@ import "../components"
 
 Kirigami.FormLayout {
     property alias cfg_memoryUseAllocated: memoryUseAllocated.checked
+    property alias cfg_memorySwapGraph: memorySwapGraph.checked
     property alias cfg_networkSensorInterface: networkSensorInterface.text
     property alias cfg_downloadMaxKBs: downloadMaxKBs.value
     property alias cfg_uploadMaxKBs: uploadMaxKBs.value
@@ -20,6 +21,11 @@ Kirigami.FormLayout {
     QtControls.CheckBox {
         id: memoryUseAllocated
         text: i18n('Use allocated memory instead of application')
+    }
+
+    QtControls.CheckBox {
+        id: memorySwapGraph
+        text: i18n('Display memory swap graph')
     }
 
     Item {

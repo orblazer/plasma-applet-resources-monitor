@@ -43,6 +43,7 @@ Item {
     property bool memoryInPercent: plasmoid.configuration.memoryInPercent
     property bool showMemoryInPercent: memoryInPercent
     property bool memoryUseAllocated: plasmoid.configuration.memoryUseAllocated
+    property bool showSwapGraph: plasmoid.configuration.memorySwapGraph
     property bool showNetMonitor: plasmoid.configuration.showNetMonitor
     property double fontScale: (plasmoid.configuration.fontScale / 100)
     property int downloadMaxKBs: plasmoid.configuration.downloadMaxKBs
@@ -251,6 +252,10 @@ Item {
         cpuMonitor.secondLineValueLabel.visible = showClock
     }
 
+    onShowSwapGraphChanged: {
+        ramMonitor.secondLineValueLabel.visible = showSwapGraph
+    }
+
     onShowMemoryInPercentChanged: {
         allUsageProportionChanged()
     }
@@ -281,7 +286,7 @@ Item {
         visible: showRamMonitor
         firstLineInfoText: 'RAM'
         firstLineInfoTextColor: ramColor
-        secondLineInfoText: 'Swap'
+        secondLineInfoText: showSwapGraph ? 'Swap' : ''
         secondLineInfoTextColor: swapColor
         firstGraphModel: ramGraphModel
         firstGraphBarColor: ramColor
