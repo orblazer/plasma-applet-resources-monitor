@@ -9,6 +9,11 @@ Kirigami.FormLayout {
     property alias cfg_verticalLayout: verticalLayout.checked
     property alias cfg_enableShadows: enableShadows.checked
     property alias cfg_fontScale: fontScale.value
+    property alias cfg_customGraphWidth: graphWidth.checked
+    property alias cfg_graphWidth: graphWidth.value
+    property alias cfg_customGraphHeight: graphHeight.checked
+    property alias cfg_graphHeight: graphHeight.value
+    property alias cfg_graphMargin: graphMargin.value
     property string cfg_placement: ''
     property string cfg_displayment: ''
 
@@ -55,6 +60,29 @@ Kirigami.FormLayout {
         from: 1
         to: 100
         suffix: i18nc('Percent', '%')
+    }
+
+    CustomizableSize {
+        id: graphWidth
+        Kirigami.FormData.label: i18n('Graph width:')
+        QtLayouts.Layout.fillWidth: true
+        from: 1
+        to: 1000
+    }
+    CustomizableSize {
+        id: graphHeight
+        Kirigami.FormData.label: i18n('Graph height:')
+        QtLayouts.Layout.fillWidth: true
+        from: 1
+        to: 1000
+    }
+    SpinBox {
+        id: graphMargin
+        Kirigami.FormData.label: i18n('Graph margin:')
+        QtLayouts.Layout.fillWidth: true
+        suffix: i18nc('Pixels', 'px')
+        from: 1
+        to: 1000
     }
 
     QtControls.ComboBox {
