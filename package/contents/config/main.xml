@@ -34,7 +34,6 @@
                 <default>true</default>
             </entry>
             <entry name="networkSensorInterface" type="String">
-                <default>enp3s0</default>
             </entry>
             <entry name="downloadMaxKBs" type="Double">
                 <default></default>

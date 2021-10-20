@@ -35,7 +35,7 @@ Kirigami.FormLayout {
 
     QtControls.TextField {
         id: networkSensorInterface
-        Kirigami.FormData.label: i18n('Network interface:')
+        Kirigami.FormData.label: i18n('Specific network interface:')
         QtLayouts.Layout.fillWidth: true
         placeholderText: 'enp3s0'
         onTextChanged: cfg_networkSensorInterface = text
@@ -51,7 +51,7 @@ Kirigami.FormLayout {
         QtLayouts.Layout.fillWidth: true
         stepSize: 10
         from: 10
-        to: 100000
+        to: 10000000
         suffix: i18nc('Abbreviation for KB/s', ' KB/s')
     }
     SpinBox {
@@ -60,7 +60,7 @@ Kirigami.FormLayout {
         QtLayouts.Layout.fillWidth: true
         stepSize: 10
         from: 10
-        to: 100000
+        to: 10000000
         suffix: i18nc('Abbreviation for KB/s', ' KB/s')
     }
 }
