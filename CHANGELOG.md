@@ -1,3 +1,24 @@
+# [2.2.0](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.1.4...v2.2.0) (2021-10-20)
+
+
+### Bug Fixes
+
+* **config:** add specific height to color picker ([7d4d215](https://github.com/orblazer/plasma-applet-resources-monitor/commit/7d4d21548f768140656c165b53b3bf6f5ad6e624))
+
+
+### Features
+
+* **config:** add customizable graph sizes ([5257e1d](https://github.com/orblazer/plasma-applet-resources-monitor/commit/5257e1dd97e0f3a97dd7242d069ea52770b152e9)), closes [#4](https://github.com/orblazer/plasma-applet-resources-monitor/issues/4)
+* **config:** add possibility for hide swap ([4f5ccd9](https://github.com/orblazer/plasma-applet-resources-monitor/commit/4f5ccd9bf442d20d0f3dac1ec011a1a8a56fb0df)), closes [#3](https://github.com/orblazer/plasma-applet-resources-monitor/issues/3)
+* **data:** use regex for network interface when is not specified ([fc4856d](https://github.com/orblazer/plasma-applet-resources-monitor/commit/fc4856d90ab91e1279861b47a62e30fc296c41f3)), closes [#5](https://github.com/orblazer/plasma-applet-resources-monitor/issues/5)
+
+
+### Performance Improvements
+
+* **data:** connect source when is needed ([8fab442](https://github.com/orblazer/plasma-applet-resources-monitor/commit/8fab44297fdac64ad2de7b3ba5e1613563d02149))
+
+
+
 ## [2.1.4](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.1.3...v2.1.4) (2021-06-15)
 
 
