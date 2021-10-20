@@ -125,8 +125,6 @@ Item {
         property double downloadProportion: 0
         property double uploadProportion: 0
 
-        connectedSources: [memFree, memUsed, memApplication, swapUsed, swapFree, averageClock, totalLoad]
-
         onNewData: {
             if (data.value === undefined) {
                 return
@@ -156,25 +154,39 @@ Item {
             }
         }
         onSourceAdded: {
-            var match
-            if (plasmoid.configuration.networkSensorInterface === '') {
-                match = source.match(networkRegex)
-            } else {
-                match = source.match(new RegExp('/^network\/interfaces\/' +
-                    plasmoid.configuration.networkSensorInterface.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') +
-                    '\/(transmitter|receiver)\/data$/'))
+            if (showCpuMonitor && (source === totalLoad)) {
+                dataSource.connectSource(source)
             }
+            if (showClock && (source === averageClock)) {
+                dataSource.connectSource(source)
+            }
+            if (showRamMonitor && (source === memFree || source === memUsed || source === memApplication)) {
+                dataSource.connectSource(source)
+            }
+            if (showSwapGraph && (source === swapUsed || source === swapFree)) {
+                dataSource.connectSource(source)
+            }
+            if (showNetMonitor) {
+                var match
+                if (plasmoid.configuration.networkSensorInterface === '') {
+                    match = source.match(networkRegex)
+                } else {
+                    match = source.match(new RegExp('/^network\/interfaces\/' +
+                        plasmoid.configuration.networkSensorInterface.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') +
+                        '\/(transmitter|receiver)\/data$/'))
+                }
 
-            if (match == null) {
-                return
-            }
+                if (match == null) {
+                    return
+                }
 
-            if (match[1] === 'receiver') {
-                downloadTotal = source
-            } else {
-                uploadTotal = source
+                if (match[1] === 'receiver') {
+                    downloadTotal = source
+                } else {
+                    uploadTotal = source
+                }
+                dataSource.connectSource(source)
             }
-            dataSource.connectSource(source)
         }
         interval: 1000 * plasmoid.configuration.updateInterval
     }
