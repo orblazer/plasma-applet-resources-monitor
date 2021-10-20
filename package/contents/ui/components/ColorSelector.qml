@@ -33,6 +33,7 @@ RowLayout {
         onClicked: colorPicker.open()
         enabled: customized.checked
 
+        height: customized.height
         implicitWidth: height * 2
         background: Rectangle {
             color: customized.checked ? colorPicker.currentColor : defaultColor
