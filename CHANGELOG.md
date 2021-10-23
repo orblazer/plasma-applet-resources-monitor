@@ -1,3 +1,12 @@
+## [2.2.1](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.2.0...v2.2.1) (2021-10-23)
+
+
+### Bug Fixes
+
+* **config:** downgrade versions for compatibility ([cf10516](https://github.com/orblazer/plasma-applet-resources-monitor/commit/cf105168f07ebf1e8a512ea3b7bac2913000e4a7)), closes [#2](https://github.com/orblazer/plasma-applet-resources-monitor/issues/2)
+
+
+
 # [2.2.0](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.1.4...v2.2.0) (2021-10-20)
 
 
