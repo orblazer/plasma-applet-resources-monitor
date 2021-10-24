@@ -45,6 +45,7 @@ Item {
     property bool showSwapGraph: plasmoid.configuration.memorySwapGraph
     property bool showNetMonitor: plasmoid.configuration.showNetMonitor
     property double fontScale: (plasmoid.configuration.fontScale / 100)
+    property string networkSensorInterface: plasmoid.configuration.networkSensorInterface
 
     // Colors settings properties
     property color cpuColor: plasmoid.configuration.customCpuColor ? plasmoid.configuration.cpuColor : primaryColor
@@ -103,8 +104,9 @@ Item {
         ramMonitor.secondLineValueLabel.visible = showSwapGraph
     }
     onShowNetMonitorChanged: dataSourceChanged()
-    property var dataSourceChanged: Functions.rateLimit(function () {
-        dataSource.sources.forEach(refreshSource)
+    onNetworkSensorInterfaceChanged: dataSourceChanged(true)
+    property var dataSourceChanged: Functions.rateLimit(function (clearNet = false) {
+        dataSource.sources.forEach(refreshSource, clearNet)
     }, 1)
 
     // Graph data
@@ -198,7 +200,7 @@ Item {
         }
     }
 
-    function refreshSource(source) {
+    function refreshSource(source, clearNet = false) {
         var needConnect = false
 
         if (source === dataSource.totalLoad) {
@@ -214,13 +216,17 @@ Item {
             needConnect = showSwapGraph
         }
         else if (dataSource.networkRegex.test(source)) {
+            if (clearNet) {
+                dataSource.disconnectSource(source)
+            }
+
             // Match network sources
             var match
-            if (plasmoid.configuration.networkSensorInterface === '') {
+            if (networkSensorInterface === '') {
                 match = source.match(dataSource.networkRegex)
             } else {
                 match = source.match(new RegExp('/^network\/interfaces\/' +
-                    plasmoid.configuration.networkSensorInterface.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') +
+                    networkSensorInterface.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') +
                     '\/(transmitter|receiver)\/data$/'))
             }
 
