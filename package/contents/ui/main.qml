@@ -92,13 +92,20 @@ Item {
         }
     }
 
+    onShowCpuMonitorChanged: dataSourceChanged()
     onShowClockChanged: {
+        dataSourceChanged()
         cpuMonitor.secondLineValueLabel.visible = showClock
     }
-
+    onShowRamMonitorChanged: dataSourceChanged()
     onShowSwapGraphChanged: {
+        dataSourceChanged()
         ramMonitor.secondLineValueLabel.visible = showSwapGraph
     }
+    onShowNetMonitorChanged: dataSourceChanged()
+    property var dataSourceChanged: Functions.rateLimit(function () {
+        dataSource.sources.forEach(refreshSource)
+    }, 1)
 
     // Graph data
 
@@ -187,48 +194,52 @@ Item {
             }
         }
         onSourceAdded: {
-            var needConnect = false
+            refreshSource(source)
+        }
+    }
 
-            if (source === dataSource.totalLoad) {
-                needConnect = showCpuMonitor
+    function refreshSource(source) {
+        var needConnect = false
+
+        if (source === dataSource.totalLoad) {
+            needConnect = showCpuMonitor
+        }
+        else if (source === dataSource.averageClock) {
+            needConnect = showClock
+        }
+        else if (source === dataSource.memFree || source === dataSource.memUsed || source === dataSource.memApplication) {
+            needConnect = showRamMonitor
+        }
+        else if (source === dataSource.swapUsed || source === dataSource.swapFree) {
+            needConnect = showSwapGraph
+        }
+        else if (dataSource.networkRegex.test(source)) {
+            // Match network sources
+            var match
+            if (plasmoid.configuration.networkSensorInterface === '') {
+                match = source.match(dataSource.networkRegex)
+            } else {
+                match = source.match(new RegExp('/^network\/interfaces\/' +
+                    plasmoid.configuration.networkSensorInterface.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') +
+                    '\/(transmitter|receiver)\/data$/'))
             }
-            else if (source === dataSource.averageClock) {
-                needConnect = showClock
-            }
-            else if (source === dataSource.memFree || source === dataSource.memUsed || source === dataSource.memApplication) {
-                needConnect = showRamMonitor
-            }
-            else if (source === dataSource.swapUsed || source === dataSource.swapFree) {
-                needConnect = showSwapGraph
-            }
-            else if (dataSource.networkRegex.test(source)) {
-                // Match network sources
-                var match
-                if (plasmoid.configuration.networkSensorInterface === '') {
-                    match = source.match(dataSource.networkRegex)
+
+            if (match != null) {
+                if (match[1] === 'receiver') {
+                    dataSource.downloadTotal = source
                 } else {
-                    match = source.match(new RegExp('/^network\/interfaces\/' +
-                        plasmoid.configuration.networkSensorInterface.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') +
-                        '\/(transmitter|receiver)\/data$/'))
+                    dataSource.uploadTotal = source
                 }
-
-                if (match != null) {
-                    if (match[1] === 'receiver') {
-                        dataSource.downloadTotal = source
-                    } else {
-                        dataSource.uploadTotal = source
-                    }
-                    needConnect = showNetMonitor
-                }
-            } else {
-                return
+                needConnect = showNetMonitor
             }
+        } else {
+            return
+        }
 
-            if (needConnect) {
-                dataSource.connectSource(source)
-            } else {
-                dataSource.disconnectSource(source)
-            }
+        if (needConnect) {
+            dataSource.connectSource(source)
+        } else {
+            dataSource.disconnectSource(source)
         }
     }
 

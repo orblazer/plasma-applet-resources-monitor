@@ -63,6 +63,24 @@ function addGraphData(model, graphItemPercent, graphGranularity) {
 
 
 /**
+ * Rate limit call of function
+ * @param {function} func The function want rate limit
+ * @param {number} [limit] The rate limit be seconds
+ * @returns The caller of 'func'
+ */
+function rateLimit(func, limit = 1) {
+  var limitStartTime = Date.now()
+
+  return function (...args) {
+    // magic to limit to x frames per second
+    if (Date.now() - limitStartTime >= limit) {
+      limitStartTime = limitStartTime + limit
+      func.apply(this, args)
+    }
+  }
+}
+
+/**
  * Get the usage int percent
  * @param {number} current The current usage
  * @param {number} max The maximum usage
