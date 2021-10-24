@@ -40,14 +40,11 @@ Item {
     property bool showCpuMonitor: plasmoid.configuration.showCpuMonitor
     property bool showClock: plasmoid.configuration.showClock
     property bool showRamMonitor: plasmoid.configuration.showRamMonitor
-    property bool memoryInPercent: plasmoid.configuration.memoryInPercent
-    property bool showMemoryInPercent: memoryInPercent
+    property bool showMemoryInPercent: plasmoid.configuration.memoryInPercent
     property bool memoryUseAllocated: plasmoid.configuration.memoryUseAllocated
     property bool showSwapGraph: plasmoid.configuration.memorySwapGraph
     property bool showNetMonitor: plasmoid.configuration.showNetMonitor
     property double fontScale: (plasmoid.configuration.fontScale / 100)
-    property int downloadMaxKBs: plasmoid.configuration.downloadMaxKBs
-    property int uploadMaxKBs: plasmoid.configuration.uploadMaxKBs
 
     // Colors settings properties
     property color cpuColor: plasmoid.configuration.customCpuColor ? plasmoid.configuration.cpuColor : primaryColor
@@ -84,6 +81,8 @@ Item {
         id: kRun
     }
 
+    // Bind settigns change
+
     onFontPixelSizeChanged: {
         for (var monitor of [cpuMonitor, ramMonitor, netMonitor]) {
             monitor.firstLineInfoLabel.font.pixelSize = fontPixelSize
@@ -93,11 +92,20 @@ Item {
         }
     }
 
+    onShowClockChanged: {
+        cpuMonitor.secondLineValueLabel.visible = showClock
+    }
+
+    onShowSwapGraphChanged: {
+        ramMonitor.secondLineValueLabel.visible = showSwapGraph
+    }
+
     // Graph data
 
     PlasmaCore.DataSource {
         id: dataSource
         engine: "systemmonitor"
+        interval: 1000 * plasmoid.configuration.updateInterval
 
         property var networkRegex: /^network\/interfaces\/(?!lo|bridge|usbus|bond).*\/(transmitter|receiver)\/data$/
 
@@ -114,81 +122,114 @@ Item {
         property string downloadTotal: ""
         property string uploadTotal: ""
 
-        property double totalCpuLoad: .0
-        property int averageCpuClock: 0
-        property int ramUsedBytes: 0
-        property double ramUsedProportion: 0
-        property int swapUsedBytes: 0
-        property double swapUsedProportion: 0
-        property double downloadKBs: 0
-        property double uploadKBs: 0
-        property double downloadProportion: 0
-        property double uploadProportion: 0
-
         onNewData: {
             if (data.value === undefined) {
                 return
             }
-            if (sourceName == memApplication) {
-                ramUsedBytes = parseInt(data.value)
-                ramUsedProportion = fitMemoryUsage(data.value)
+
+            var value, fitedValue
+            // CPU usage
+            if (sourceName == totalLoad) {
+                value = data.value / 100
+
+                cpuMonitor.firstLineValueLabel.text = Math.round(value * 100) + '%'
+                cpuMonitor.firstLineValueLabel.color = value > 0.9 ? warningColor : theme.textColor
+
+                Functions.addGraphData(cpuGraphModel, value, graphGranularity)
             }
-            else if (sourceName == swapUsed) {
-                swapUsedBytes = parseInt(data.value)
-                swapUsedProportion = fitSwapUsage(data.value)
-            }
-            else if (sourceName == totalLoad) {
-                totalCpuLoad = data.value / 100
-            }
+            // CPU clock
             else if (sourceName == averageClock) {
-                averageCpuClock = parseInt(data.value)
-                allUsageProportionChanged()
+                value = parseInt(data.value)
+
+                cpuMonitor.secondLineValueLabel.text = Functions.getHumanReadableClock(value)
             }
+            // Memory usage
+            else if (sourceName == memApplication) {
+                value = parseInt(data.value)
+                fitedValue = fitMemoryUsage(data.value)
+
+                ramMonitor.firstLineValueLabel.text = showMemoryInPercent ? Math.round(fitedValue * 100) + '%'
+                    : Functions.getHumanReadableMemory(value)
+                ramMonitor.firstLineValueLabel.color = fitedValue > 0.9 ? warningColor : theme.textColor
+
+                Functions.addGraphData(ramGraphModel, fitedValue, graphGranularity)
+            }
+            // Swap usage
+            else if (sourceName == swapUsed) {
+                value = parseInt(data.value)
+                fitedValue = fitSwapUsage(data.value)
+
+                ramMonitor.secondLineValueLabel.text = showMemoryInPercent ? Math.round(fitedValue * 100) + '%'
+                    : Functions.getHumanReadableMemory(value)
+                ramMonitor.secondLineValueLabel.color = fitedValue > 0.9 ? warningColor : theme.textColor
+                ramMonitor.secondLineValueLabel.visible = ramMonitor.secondLineValueLabel.enabled =
+                    !ramMonitor.secondLineInfoLabel.visible && fitedValue > 0
+
+                Functions.addGraphData(swapGraphModel, fitedValue, graphGranularity)
+            }
+            // Net download
             else if (sourceName == downloadTotal) {
-                downloadKBs = parseFloat(data.value)
-                downloadProportion = fitDownloadRate(data.value)
+                value = parseFloat(data.value)
+                fitedValue = Functions.getPercentUsage(data.value, plasmoid.configuration.downloadMaxKBs)
+
+                netMonitor.firstLineValueLabel.text = Functions.getHumanReadableNetRate(value)
+
+                Functions.addGraphData(downloadGraphModel, fitedValue, graphGranularity)
             }
+            // Net upload
             else if (sourceName == uploadTotal) {
-                uploadKBs = parseFloat(data.value)
-                uploadProportion = fitUploadRate(data.value)
+                value = parseFloat(data.value)
+                fitedValue = Functions.getPercentUsage(data.value, plasmoid.configuration.uploadMaxKBs)
+
+                netMonitor.secondLineValueLabel.text = Functions.getHumanReadableNetRate(value)
+
+                Functions.addGraphData(uploadGraphModel, fitedValue, graphGranularity)
             }
         }
         onSourceAdded: {
-            if (showCpuMonitor && (source === totalLoad)) {
-                dataSource.connectSource(source)
+            var needConnect = false
+
+            if (source === dataSource.totalLoad) {
+                needConnect = showCpuMonitor
             }
-            if (showClock && (source === averageClock)) {
-                dataSource.connectSource(source)
+            else if (source === dataSource.averageClock) {
+                needConnect = showClock
             }
-            if (showRamMonitor && (source === memFree || source === memUsed || source === memApplication)) {
-                dataSource.connectSource(source)
+            else if (source === dataSource.memFree || source === dataSource.memUsed || source === dataSource.memApplication) {
+                needConnect = showRamMonitor
             }
-            if (showSwapGraph && (source === swapUsed || source === swapFree)) {
-                dataSource.connectSource(source)
+            else if (source === dataSource.swapUsed || source === dataSource.swapFree) {
+                needConnect = showSwapGraph
             }
-            if (showNetMonitor) {
+            else if (dataSource.networkRegex.test(source)) {
+                // Match network sources
                 var match
                 if (plasmoid.configuration.networkSensorInterface === '') {
-                    match = source.match(networkRegex)
+                    match = source.match(dataSource.networkRegex)
                 } else {
                     match = source.match(new RegExp('/^network\/interfaces\/' +
                         plasmoid.configuration.networkSensorInterface.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') +
                         '\/(transmitter|receiver)\/data$/'))
                 }
 
-                if (match == null) {
-                    return
+                if (match != null) {
+                    if (match[1] === 'receiver') {
+                        dataSource.downloadTotal = source
+                    } else {
+                        dataSource.uploadTotal = source
+                    }
+                    needConnect = showNetMonitor
                 }
+            } else {
+                return
+            }
 
-                if (match[1] === 'receiver') {
-                    downloadTotal = source
-                } else {
-                    uploadTotal = source
-                }
+            if (needConnect) {
                 dataSource.connectSource(source)
+            } else {
+                dataSource.disconnectSource(source)
             }
         }
-        interval: 1000 * plasmoid.configuration.updateInterval
     }
 
     function fitMemoryUsage(usage) {
@@ -197,8 +238,7 @@ Item {
         if (!memFree || !memUsed) {
             return 0
         }
-        return (usage / (parseFloat(memFree.value) +
-                         parseFloat(memUsed.value)))
+        return Functions.getPercentUsage(usage, parseFloat(memFree.value) + parseFloat(memUsed.value))
     }
 
     function fitSwapUsage(usage) {
@@ -206,21 +246,7 @@ Item {
         if (!swapFree) {
             return 0
         }
-        return (usage / (parseFloat(usage) + parseFloat(swapFree.value)))
-    }
-
-    function fitDownloadRate(rate) {
-        if (!downloadMaxKBs) {
-            return 0
-        }
-        return (rate / downloadMaxKBs)
-    }
-
-    function fitUploadRate(rate) {
-        if (!uploadMaxKBs) {
-            return 0
-        }
-        return (rate / uploadMaxKBs)
+        return Functions.getPercentUsage(usage, parseFloat(usage) + parseFloat(swapFree.value))
     }
 
     ListModel {
@@ -241,58 +267,6 @@ Item {
 
     ListModel {
         id: downloadGraphModel
-    }
-
-    function allUsageProportionChanged() {
-        if (showCpuMonitor) {
-            var totalCpuProportion = dataSource.totalCpuLoad
-
-            cpuMonitor.firstLineValueLabel.text = Math.round(totalCpuProportion * 100) + '%'
-            cpuMonitor.firstLineValueLabel.color = totalCpuProportion > 0.9 ? warningColor : theme.textColor
-            cpuMonitor.secondLineValueLabel.text = Functions.getHumanReadableClock(dataSource.averageCpuClock)
-
-            Functions.addGraphData(cpuGraphModel, totalCpuProportion, graphGranularity)
-        }
-
-        if (showRamMonitor) {
-            var totalRamProportion = dataSource.ramUsedProportion
-            var totalSwapProportion = dataSource.swapUsedProportion
-
-            Functions.addGraphData(ramGraphModel, totalRamProportion, graphGranularity)
-            Functions.addGraphData(swapGraphModel, totalSwapProportion, graphGranularity)
-
-            ramMonitor.firstLineValueLabel.text = showMemoryInPercent ? Math.round(totalRamProportion * 100) + '%'
-                : Functions.getHumanReadableMemory(dataSource.ramUsedBytes)
-            ramMonitor.firstLineValueLabel.color = totalRamProportion > 0.9 ? warningColor : theme.textColor
-            ramMonitor.secondLineValueLabel.text = showMemoryInPercent ? Math.round(totalSwapProportion * 100) + '%'
-                : Functions.getHumanReadableMemory(dataSource.swapUsedBytes)
-            ramMonitor.secondLineValueLabel.color = totalSwapProportion > 0.9 ? warningColor : theme.textColor
-            ramMonitor.secondLineValueLabel.visible = ramMonitor.secondLineValueLabel.enabled =
-                !ramMonitor.secondLineInfoLabel.visible && totalSwapProportion > 0
-        }
-
-        if (showNetMonitor) {
-            var totalDownloadProportion = dataSource.downloadProportion
-            var totalUploadProportion = dataSource.uploadProportion
-
-            Functions.addGraphData(uploadGraphModel, totalUploadProportion, graphGranularity)
-            Functions.addGraphData(downloadGraphModel, totalDownloadProportion, graphGranularity)
-
-            netMonitor.firstLineValueLabel.text = Functions.getHumanReadableNetRate(dataSource.downloadKBs)
-            netMonitor.secondLineValueLabel.text = Functions.getHumanReadableNetRate(dataSource.uploadKBs)
-        }
-    }
-
-    onShowClockChanged: {
-        cpuMonitor.secondLineValueLabel.visible = showClock
-    }
-
-    onShowSwapGraphChanged: {
-        ramMonitor.secondLineValueLabel.visible = showSwapGraph
-    }
-
-    onShowMemoryInPercentChanged: {
-        allUsageProportionChanged()
     }
 
     // Components

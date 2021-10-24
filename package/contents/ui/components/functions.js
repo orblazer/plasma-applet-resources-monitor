@@ -60,3 +60,17 @@ function addGraphData(model, graphItemPercent, graphGranularity) {
   })
   model.remove(0)
 }
+
+
+/**
+ * Get the usage int percent
+ * @param {number} current The current usage
+ * @param {number} max The maximum usage
+ * @returns The percent of usage
+ */
+function getPercentUsage(current, max) {
+  if (!max) {
+      return 0
+  }
+  return (current / max)
+}
