@@ -1,3 +1,12 @@
+## [2.2.2-hotfix.1](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.2.2...v2.2.2-hotfix.1) (2021-10-24)
+
+
+### Bug Fixes
+
+* **data:** update source when interface is updated ([1b06863](https://github.com/orblazer/plasma-applet-resources-monitor/commit/1b06863b47337bfa74d071a940560f442b30ff1f))
+
+
+
 ## [2.2.2](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.2.1...v2.2.2) (2021-10-24)
 
 
