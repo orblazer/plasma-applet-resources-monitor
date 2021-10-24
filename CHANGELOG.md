@@ -1,3 +1,17 @@
+## [2.2.2](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.2.1...v2.2.2) (2021-10-24)
+
+
+### Bug Fixes
+
+* **data:** connect source when config is update ([0e89d8d](https://github.com/orblazer/plasma-applet-resources-monitor/commit/0e89d8dbbb43b4bd9bbb4b0131c7aceda4c812f4)), closes [#7](https://github.com/orblazer/plasma-applet-resources-monitor/issues/7)
+
+
+### Performance Improvements
+
+* **data:** use better way to update source values ([c636423](https://github.com/orblazer/plasma-applet-resources-monitor/commit/c6364235e5a5466b4b8cc2823e1ae8ca02fb0482))
+
+
+
 ## [2.2.1](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.2.0...v2.2.1) (2021-10-23)
 
 
