@@ -25,88 +25,88 @@
         <entry name="showNetMonitor" type="Bool">
             <default>false</default>
         </entry>
+    </group>
 
-        <group name="Data">
-            <entry name="memoryUseAllocated" type="Bool">
-                <default>false</default>
-            </entry>
-            <entry name="memorySwapGraph" type="Bool">
-                <default>true</default>
-            </entry>
-            <entry name="networkSensorInterface" type="String">
-            </entry>
-            <entry name="downloadMaxKBs" type="Double">
-                <default></default>
-            </entry>
-            <entry name="uploadMaxKBs" type="Double">
-                <default></default>
-            </entry>
-        </group>
+    <group name="Data">
+        <entry name="memoryUseAllocated" type="Bool">
+            <default>false</default>
+        </entry>
+        <entry name="memorySwapGraph" type="Bool">
+            <default>true</default>
+        </entry>
+        <entry name="networkSensorInterface" type="String">
+        </entry>
+        <entry name="downloadMaxKBs" type="Double">
+            <default></default>
+        </entry>
+        <entry name="uploadMaxKBs" type="Double">
+            <default></default>
+        </entry>
+    </group>
 
-        <group name="Appearance">
-            <entry name="verticalLayout" type="Bool">
-                <default>false</default>
-            </entry>
-            <entry name="enableShadows" type="Bool">
-                <default>true</default>
-            </entry>
-            <entry name="fontScale" type="int">
-                <default>26</default>
-            </entry>
-            <entry name="customGraphWidth" type="Bool">
-                <default>false</default>
-            </entry>
-            <entry name="graphWidth" type="int">
-            </entry>
-            <entry name="customGraphHeight" type="Bool">
-                <default>false</default>
-            </entry>
-            <entry name="graphHeight" type="int">
-            </entry>
-            <entry name="graphMargin" type="int">
-                <default>15</default>
-            </entry>
-            <entry name="displayment" type="string">
-                <default>hover-hints</default>
-            </entry>
-            <entry name="placement" type="string">
-                <default>top-right</default>
-            </entry>
+    <group name="Appearance">
+        <entry name="verticalLayout" type="Bool">
+            <default>false</default>
+        </entry>
+        <entry name="enableShadows" type="Bool">
+            <default>true</default>
+        </entry>
+        <entry name="fontScale" type="Int">
+            <default>26</default>
+        </entry>
+        <entry name="customGraphWidth" type="Bool">
+            <default>false</default>
+        </entry>
+        <entry name="graphWidth" type="Int">
+        </entry>
+        <entry name="customGraphHeight" type="Bool">
+            <default>false</default>
+        </entry>
+        <entry name="graphHeight" type="Int">
+        </entry>
+        <entry name="graphMargin" type="Int">
+            <default>15</default>
+        </entry>
+        <entry name="displayment" type="String">
+            <default>hover-hints</default>
+        </entry>
+        <entry name="placement" type="String">
+            <default>top-right</default>
+        </entry>
 
-            <entry name="customWarningColor" type="Bool">
-                <default>false</default>
-            </entry>
-            <entry name="warningColor" type="Color">
-            </entry>
+        <entry name="customWarningColor" type="Bool">
+            <default>false</default>
+        </entry>
+        <entry name="warningColor" type="Color">
+        </entry>
 
-            <entry name="customCpuColor" type="Bool">
-                <default>false</default>
-            </entry>
-            <entry name="cpuColor" type="Color">
-            </entry>
+        <entry name="customCpuColor" type="Bool">
+            <default>false</default>
+        </entry>
+        <entry name="cpuColor" type="Color">
+        </entry>
 
-            <entry name="customRamColor" type="Bool">
-                <default>false</default>
-            </entry>
-            <entry name="ramColor" type="Color">
-            </entry>
-            <entry name="customSwapColor" type="Bool">
-                <default>false</default>
-            </entry>
-            <entry name="swapColor" type="Color">
-            </entry>
+        <entry name="customRamColor" type="Bool">
+            <default>false</default>
+        </entry>
+        <entry name="ramColor" type="Color">
+        </entry>
+        <entry name="customSwapColor" type="Bool">
+            <default>false</default>
+        </entry>
+        <entry name="swapColor" type="Color">
+        </entry>
 
-            <entry name="customNetDownColor" type="Bool">
-                <default>false</default>
-            </entry>
-            <entry name="netDownColor" type="Color">
-            </entry>
-            <entry name="customNetUpColor" type="Bool">
-                <default>false</default>
-            </entry>
-            <entry name="netUpColor" type="Color">
-            </entry>
-        </group>
+        <entry name="customNetDownColor" type="Bool">
+            <default>false</default>
+        </entry>
+        <entry name="netDownColor" type="Color">
+        </entry>
+        <entry name="customNetUpColor" type="Bool">
+            <default>false</default>
+        </entry>
+        <entry name="netUpColor" type="Color">
+        </entry>
     </group>
 
 </kcfg>
