@@ -1,11 +1,10 @@
 import QtQuick 2.2
-import QtQuick.Controls 2.12
-import QtQuick.Layouts 1.1
-import QtQuick.Dialogs 1.0
+import QtQuick.Controls 2.12 as QtControls
+import QtQuick.Layouts 1.1 as QtLayouts
 
-import "./"
+import "./" as RMControls
 
-RowLayout {
+QtLayouts.RowLayout {
     id: customizableSize
 
     // Aliases
@@ -16,24 +15,23 @@ RowLayout {
     property alias to: spinBox.to
     property alias stepSize: spinBox.stepSize
 
-    // Properties
-    property string label
-    property string dialogTitle
-
     // Components
-    CheckBox {
+    QtControls.CheckBox {
         id: customized
 
-        Accessible.name: ToolTip.text
-        ToolTip {
+        Accessible.name: QtControls.ToolTip.text
+        QtControls.ToolTip {
             text: i18n("Check for use customized graph width")
         }
     }
-    SpinBox {
+    RMControls.SpinBox {
         id: spinBox
 
         enabled: customized.checked
-        suffix: i18nc('Pixels', 'px')
-        Layout.fillWidth: true
+        QtLayouts.Layout.fillWidth: true
+
+        textFromValue: function(value) {
+            return valueToText(value) + ' px'
+        }
     }
 }

@@ -2,18 +2,20 @@ import QtQuick 2.2
 import QtQuick.Controls 2.12 as QtControls
 import QtQuick.Layouts 1.1 as QtLayouts
 import org.kde.kirigami 2.6 as Kirigami
+import org.kde.plasma.components 2.0 as PlasmaComponents
 
-import "../components"
+import "../controls" as RMControls
 
-Kirigami.FormLayout {
+QtLayouts.ColumnLayout {
     property alias cfg_verticalLayout: verticalLayout.checked
-    property alias cfg_enableShadows: enableShadows.checked
-    property alias cfg_fontScale: fontScale.value
     property alias cfg_customGraphWidth: graphWidth.checked
     property alias cfg_graphWidth: graphWidth.value
     property alias cfg_customGraphHeight: graphHeight.checked
     property alias cfg_graphHeight: graphHeight.value
     property alias cfg_graphMargin: graphMargin.value
+
+    property alias cfg_enableShadows: enableShadows.checked
+    property alias cfg_fontScale: fontScale.value
     property string cfg_placement: ''
     property string cfg_displayment: ''
 
@@ -36,158 +38,191 @@ Kirigami.FormLayout {
     property color positiveColor: theme.positiveTextColor
 
 
-    QtControls.CheckBox {
-        id: verticalLayout
-        text: i18n('Vertical layout')
-    }
+    PlasmaComponents.TabBar {
+        id: bar
 
-    // Text
-
-    Item {
-        Kirigami.FormData.isSection: true
-        Kirigami.FormData.label: i18n('Text')
-    }
-
-    QtControls.CheckBox {
-        id: enableShadows
-        text: i18n('Drop shadows')
-    }
-
-    SpinBox {
-        id: fontScale
-        Kirigami.FormData.label: i18n('Font scale:')
-        QtLayouts.Layout.fillWidth: true
-        from: 1
-        to: 100
-        suffix: i18nc('Percent', '%')
-    }
-
-    CustomizableSize {
-        id: graphWidth
-        Kirigami.FormData.label: i18n('Graph width:')
-        QtLayouts.Layout.fillWidth: true
-        from: 1
-        to: 1000
-    }
-    CustomizableSize {
-        id: graphHeight
-        Kirigami.FormData.label: i18n('Graph height:')
-        QtLayouts.Layout.fillWidth: true
-        from: 1
-        to: 1000
-    }
-    SpinBox {
-        id: graphMargin
-        Kirigami.FormData.label: i18n('Graph margin:')
-        QtLayouts.Layout.fillWidth: true
-        suffix: i18nc('Pixels', 'px')
-        from: 1
-        to: 1000
-    }
-
-    QtControls.ComboBox {
-        id: displayment
-        Kirigami.FormData.label: i18n('Text displayment:')
-        textRole: 'label'
-        model: [{
-            'label': i18n('Always'),
-            'name': 'always'
-        }, {
-            'label': i18n('On hover'),
-            'name': 'hover'
-        }, {
-            'label': i18n('Hints when hover'),
-            'name': 'hover-hints'
-        }]
-        onCurrentIndexChanged: cfg_displayment = model[currentIndex]['name']
-
-        Component.onCompleted: {
-            for (var i = 0; i < model.length; i++) {
-                if (model[i]['name'] === plasmoid.configuration.displayment) {
-                    displayment.currentIndex = i;
-                }
-            }
+        PlasmaComponents.TabButton {
+            tab: graphPage
+            text: i18n('Graph')
+        }
+        PlasmaComponents.TabButton {
+            tab: textPage
+            iconSource: 'dialog-text-and-font'
+            text: i18n('Text')
+        }
+        PlasmaComponents.TabButton {
+            tab: colorsPage
+            iconSource: 'preferences-desktop-color'
+            text: i18n('Colors')
         }
     }
 
-    QtControls.ComboBox {
-        id: placement
-        Kirigami.FormData.label: i18n('Placement:')
-        textRole: 'label'
-        model: [{
-            'label': i18n('Top/Left'),
-            'name': 'top-left'
-        }, {
-            'label': i18n('Top/Right'),
-            'name': 'top-right'
-        }, {
-            'label': i18n('Bottom/Left'),
-            'name': 'bottom-left'
-        }, {
-            'label': i18n('Bottom/Right'),
-            'name': 'bottom-right'
-        }]
-        onCurrentIndexChanged: cfg_placement = model[currentIndex]['name']
+    PlasmaComponents.TabGroup {
+        QtLayouts.Layout.fillWidth: true
+        QtLayouts.Layout.fillHeight: true
 
-        Component.onCompleted: {
-            for (var i = 0; i < model.length; i++) {
-                if (model[i]['name'] === plasmoid.configuration.placement) {
-                    placement.currentIndex = i;
+        // Graph
+        Kirigami.FormLayout {
+            id: graphPage
+            wideMode: true
+
+            QtControls.CheckBox {
+                id: verticalLayout
+                text: i18n('Vertical layout')
+            }
+
+            RMControls.CustomizableSize {
+                id: graphWidth
+                Kirigami.FormData.label: i18n('Graph width:')
+                QtLayouts.Layout.fillWidth: true
+                from: 1
+                to: 1000
+            }
+            RMControls.CustomizableSize {
+                id: graphHeight
+                Kirigami.FormData.label: i18n('Graph height:')
+                QtLayouts.Layout.fillWidth: true
+                from: 1
+                to: 1000
+            }
+            RMControls.SpinBox {
+                id: graphMargin
+                Kirigami.FormData.label: i18n('Graph margin:')
+                QtLayouts.Layout.fillWidth: true
+                from: 1
+                to: 1000
+
+                textFromValue: function(value) {
+                    return valueToText(value) + ' px'
                 }
             }
         }
-    }
 
-    // Colors
+        // Text
+        Kirigami.FormLayout {
+            id: textPage
+            wideMode: true
 
-    Item {
-        Kirigami.FormData.isSection: true
-        Kirigami.FormData.label: i18n('Colors')
-    }
+            QtControls.CheckBox {
+                id: enableShadows
+                text: i18n('Drop shadows')
+            }
 
-    ColorSelector {
-        id: warningColor
-        Kirigami.FormData.label: i18n('Warning color:')
+            RMControls.SpinBox {
+                id: fontScale
+                Kirigami.FormData.label: i18n('Font scale:')
+                QtLayouts.Layout.fillWidth: true
+                from: 1
+                to: 100
 
-        dialogTitle: i18n('Choose warning color')
-        defaultColor: neutralColor
-    }
+                textFromValue: function(value) {
+                    return valueToText(value) + '%'
+                }
+            }
 
-    ColorSelector {
-        id: cpuColor
-        Kirigami.FormData.label: i18n('CPU color:')
+            QtControls.ComboBox {
+                id: displayment
+                Kirigami.FormData.label: i18n('Text displayment:')
+                textRole: 'label'
+                model: [{
+                    'label': i18n('Always'),
+                    'name': 'always'
+                }, {
+                    'label': i18n('On hover'),
+                    'name': 'hover'
+                }, {
+                    'label': i18n('Hints when hover'),
+                    'name': 'hover-hints'
+                }]
+                onCurrentIndexChanged: cfg_displayment = model[currentIndex]['name']
 
-        dialogTitle: i18n('Choose CPU graph color')
-        defaultColor: primaryColor
-    }
+                Component.onCompleted: {
+                    for (var i = 0; i < model.length; i++) {
+                        if (model[i]['name'] === plasmoid.configuration.displayment) {
+                            displayment.currentIndex = i;
+                        }
+                    }
+                }
+            }
 
-    ColorSelector {
-        id: ramColor
-        Kirigami.FormData.label: i18n('RAM color:')
+            QtControls.ComboBox {
+                id: placement
+                Kirigami.FormData.label: i18n('Placement:')
+                textRole: 'label'
+                model: [{
+                    'label': i18n('Top/Left'),
+                    'name': 'top-left'
+                }, {
+                    'label': i18n('Top/Right'),
+                    'name': 'top-right'
+                }, {
+                    'label': i18n('Bottom/Left'),
+                    'name': 'bottom-left'
+                }, {
+                    'label': i18n('Bottom/Right'),
+                    'name': 'bottom-right'
+                }]
+                onCurrentIndexChanged: cfg_placement = model[currentIndex]['name']
 
-        dialogTitle: i18n('Choose RAM graph color')
-        defaultColor: primaryColor
-    }
-    ColorSelector {
-        id: swapColor
-        Kirigami.FormData.label: i18n('Swap color:')
+                Component.onCompleted: {
+                    for (var i = 0; i < model.length; i++) {
+                        if (model[i]['name'] === plasmoid.configuration.placement) {
+                            placement.currentIndex = i;
+                        }
+                    }
+                }
+            }
+        }
 
-        dialogTitle: i18n('Choose Swap graph color')
-        defaultColor: negativeColor
-    }
+        // Colors
+        Kirigami.FormLayout {
+            id: colorsPage
 
-    ColorSelector {
-        id: netDownColor
-        Kirigami.FormData.label: i18n('Network Download color:')
+            RMControls.ColorSelector {
+                id: warningColor
+                Kirigami.FormData.label: i18n('Warning color:')
 
-        dialogTitle: i18n('Choose Network Download graph color')
-        defaultColor: primaryColor
-    }
-    ColorSelector {
-        id: netUpColor
-        Kirigami.FormData.label: i18n('Network Upload color:')
+                dialogTitle: i18n('Choose warning color')
+                defaultColor: neutralColor
+            }
 
-        dialogTitle: i18n('Choose Network Upload graph color')
-        defaultColor: positiveColor
+            RMControls.ColorSelector {
+                id: cpuColor
+                Kirigami.FormData.label: i18n('CPU color:')
+
+                dialogTitle: i18n('Choose CPU graph color')
+                defaultColor: primaryColor
+            }
+
+            RMControls.ColorSelector {
+                id: ramColor
+                Kirigami.FormData.label: i18n('RAM color:')
+
+                dialogTitle: i18n('Choose RAM graph color')
+                defaultColor: primaryColor
+            }
+            RMControls.ColorSelector {
+                id: swapColor
+                Kirigami.FormData.label: i18n('Swap color:')
+
+                dialogTitle: i18n('Choose Swap graph color')
+                defaultColor: negativeColor
+            }
+
+            RMControls.ColorSelector {
+                id: netDownColor
+                Kirigami.FormData.label: i18n('Network Download color:')
+
+                dialogTitle: i18n('Choose Network Download graph color')
+                defaultColor: primaryColor
+            }
+            RMControls.ColorSelector {
+                id: netUpColor
+                Kirigami.FormData.label: i18n('Network Upload color:')
+
+                dialogTitle: i18n('Choose Network Upload graph color')
+                defaultColor: positiveColor
+            }
+        }
     }
 }
