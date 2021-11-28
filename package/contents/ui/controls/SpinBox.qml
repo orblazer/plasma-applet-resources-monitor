@@ -8,7 +8,7 @@ RMControls.SpinBox {
     stepSize: 5
 
     textFromValue: function(value) {
-        return valueToText(value) + ' px'
+        return valueToText(value) + " px"
     }
 }
 // Double
@@ -19,7 +19,7 @@ RMControls.SpinBox {
     stepSize: Math.round(0.5 * factor)
 
     textFromValue: function(value) {
-        return valueToText(value) + ' m'
+        return valueToText(value) + " m"
     }
 }
  */
@@ -59,8 +59,8 @@ QQC2.SpinBox {
     textFromValue: valueToText
     valueFromText: function(text) {
         var text2 = text
-            .replace(/[^\-\.\d]/g, '') // Remove non digit characters
-            .replace(/\.+/g, '.') // Allow user to type '.' instead of RightArrow to enter to decimals
+            .replace(/[^\-\.\d]/g, "") // Remove non digit characters
+            .replace(/\.+/g, ".") // Allow user to type "." instead of RightArrow to enter to decimals
         var val = parseInt(text2)
         if (isNaN(val)) {
             val = -0
@@ -88,20 +88,20 @@ QQC2.SpinBox {
     }
 
     function fixMinus(str) {
-        var minusIndex = str.indexOf('-')
+        var minusIndex = str.indexOf("-")
         if (minusIndex >= 0) {
             var a = str.substr(0, minusIndex)
             var b = str.substr(minusIndex+1)
-            return '-' + a + b
+            return "-" + a + b
         } else {
             return str
         }
     }
     function fixDecimals(str) {
-        var periodIndex = str.indexOf('.')
+        var periodIndex = str.indexOf(".")
         var a = str.substr(0, periodIndex+1)
         var b = str.substr(periodIndex+1)
-        return a + b.replace(/\.+/g, '') // Remove extra periods
+        return a + b.replace(/\.+/g, "") // Remove extra periods
     }
 
     function fixText(str) {
@@ -111,7 +111,7 @@ QQC2.SpinBox {
     function onTextEdited() {
         var oldText = spinBox.contentItem.text
         oldText = fixText(oldText)
-        var oldPeriodIndex = oldText.indexOf('.')
+        var oldPeriodIndex = oldText.indexOf(".")
         if (oldPeriodIndex == -1) {
             oldPeriodIndex = oldText.length
         }
@@ -123,7 +123,7 @@ QQC2.SpinBox {
 
         var newText = spinBox.contentItem.text
         newText = fixText(newText)
-        var newPeriodIndex = newText.indexOf('.')
+        var newPeriodIndex = newText.indexOf(".")
         if (newPeriodIndex == -1) {
             newPeriodIndex = newText.length
         }

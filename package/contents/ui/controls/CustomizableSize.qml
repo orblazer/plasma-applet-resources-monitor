@@ -31,7 +31,7 @@ QtLayouts.RowLayout {
         QtLayouts.Layout.fillWidth: true
 
         textFromValue: function(value) {
-            return valueToText(value) + ' px'
+            return valueToText(value) + " px"
         }
     }
 }

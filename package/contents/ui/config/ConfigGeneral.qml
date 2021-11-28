@@ -24,7 +24,7 @@ QtLayouts.ColumnLayout {
 
         RMControls.SpinBox {
             id: updateInterval
-            Kirigami.FormData.label: i18n('Update interval:')
+            Kirigami.FormData.label: i18n("Update interval:")
             QtLayouts.Layout.fillWidth: true
 
             decimals: 1
@@ -33,14 +33,14 @@ QtLayouts.ColumnLayout {
             stepSize: Math.round(0.1 * factor)
 
             textFromValue: function(value) {
-                return i18np('%1 second', '%1 seconds', valueToText(value))
+                return i18n("%1 seconds", valueToText(value))
             }
         }
     }
 
     // Charts
     PlasmaComponents.Label {
-        text: i18n('Charts')
+        text: i18n("Charts")
         font.pointSize: PlasmaCore.Theme.defaultFont.pointSize * 1.2
     }
 
@@ -53,28 +53,28 @@ QtLayouts.ColumnLayout {
         // CPU
         QtControls.CheckBox {
             id: showCpuMonitor
-            text: i18n('Show CPU monitor')
+            text: i18n("Show CPU monitor")
         }
         QtControls.CheckBox {
             id: showClock
-            text: i18n('Show clock')
+            text: i18n("Show CPU clock")
             enabled: showCpuMonitor.checked
         }
 
         // Memory
         QtControls.CheckBox {
             id: showRamMonitor
-            text: i18n('Show RAM monitor')
+            text: i18n("Show memory monitor")
         }
         QtControls.CheckBox {
             id: memoryInPercent
-            text: i18n('Memory in percentage')
+            text: i18n("Memory in percentage")
             enabled: showRamMonitor.checked
         }
 
         QtControls.CheckBox {
             id: showNetMonitor
-            text: i18n('Show network monitor')
+            text: i18n("Show network monitor")
         }
     }
 

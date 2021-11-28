@@ -1,0 +1,223 @@
+# Translation of resourcesMonitor-fork in LANGUAGE
+# Copyright (C) 2021
+# This file is distributed under the same license as the resourcesMonitor-fork package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: resourcesMonitor-fork\n"
+"Report-Msgid-Bugs-To: https://github.com/orblazer/plasma-applet-resources-monitor\n"
+"POT-Creation-Date: 2021-11-28 21:00+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/metadata.desktop
+msgid "Resources Monitor (fork)"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/metadata.desktop
+msgid "Plasmoid for monitoring CPU, memory and network traffic. This is an fork from \"Resources Monitor\" by Kotelnik"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+msgid "Graph"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+msgid "Text"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+msgid "Colors"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+msgid "Vertical layout"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+msgid "Width:"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+msgid "Height:"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+msgid "Margin:"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+msgid "Drop shadows"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+msgid "Font scale:"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+msgid "Text displayment:"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+msgid "Always"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+msgid "On hover"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+msgid "Hints when hover"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+msgid "Placement:"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+msgid "Top left"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+msgid "Top right"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+msgid "Bottom left"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+msgid "Bottom right"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+msgid "Warning color:"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+msgid "Choose warning color"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+msgid "CPU color:"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+msgid "Choose CPU graph color"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+msgid "Memory color:"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+msgid "Choose memory graph color"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+msgid "Swap color:"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+msgid "Choose Swap graph color"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+msgid "Network receiving color:"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+msgid "Choose network receiving graph color"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+msgid "Network sending color:"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+msgid "Choose network sending graph color"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
+msgid "Memory"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
+msgid "Network"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
+msgid "Use allocated memory instead of application"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
+msgid "Display memory swap graph"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
+msgid "Specific network interface:"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
+msgid "The network interface name (could pass \"all\" for every interfaces)"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
+msgid "Max receiving speed:"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
+msgctxt "Abbreviation for KB/s"
+msgid "%1 KB/s"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
+msgid "Max sending speed:"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
+msgid "Update interval:"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
+msgid "%1 seconds"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
+msgid "Charts"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
+msgid "Show CPU monitor"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
+msgid "Show CPU clock"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
+msgid "Show memory monitor"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
+msgid "Memory in percentage"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
+msgid "Show network monitor"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/controls/ColorSelector.qml
+msgid "Check for use customized color"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/controls/CustomizableSize.qml
+msgid "Check for use customized graph width"
+msgstr ""

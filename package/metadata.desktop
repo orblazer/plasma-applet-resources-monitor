@@ -1,7 +1,6 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=Resources Monitor (fork)
-Name[fr]=Moniteur des ressources (fork)
 Comment=Plasmoid for monitoring CPU, memory and network traffic. This is an fork from "Resources Monitor" by Kotelnik
 Type=Service
 X-KDE-ParentApp=
@@ -17,5 +16,5 @@ X-Plasma-MainScript=ui/main.qml
 X-Plasma-RemoteLocation=
 X-KDE-PluginInfo-Category=System Information
 Icon=utilities-system-monitor
-#prefix for Icon is: /usr/share/icons/breeze/actions/toolbar/
-#copy this file into ~/.local/share/kservices5
+Name[fr]=Moniteur des ressources (fork)
+Comment[fr]=Plasmoid pour surveiller l'utilisation du CPU, de la mémoire et du traffic réseau. Ceci est un fork de "Resources Monitor" de Kotelnik

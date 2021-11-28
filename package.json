@@ -13,6 +13,8 @@
   "scripts": {
     "prepare": "husky install",
     "dev": "./scripts/test.sh",
+    "i18n:merge": "./scripts/translate-merge.sh",
+    "i18n:build": "./scripts/translate-build.sh",
     "pack": "node scripts/archive.js",
     "version": "npm run version:bump && npm run version:changelog",
     "version:bump": "node scripts/bump.js && git add package/metadata.desktop",

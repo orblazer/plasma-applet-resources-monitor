@@ -16,8 +16,8 @@ QtLayouts.ColumnLayout {
 
     property alias cfg_enableShadows: enableShadows.checked
     property alias cfg_fontScale: fontScale.value
-    property string cfg_placement: ''
-    property string cfg_displayment: ''
+    property string cfg_placement: ""
+    property string cfg_displayment: ""
 
     property alias cfg_customWarningColor: warningColor.checked
     property alias cfg_warningColor: warningColor.value
@@ -43,17 +43,17 @@ QtLayouts.ColumnLayout {
 
         PlasmaComponents.TabButton {
             tab: graphPage
-            text: i18n('Graph')
+            text: i18n("Graph")
         }
         PlasmaComponents.TabButton {
             tab: textPage
-            iconSource: 'dialog-text-and-font'
-            text: i18n('Text')
+            iconSource: "dialog-text-and-font"
+            text: i18n("Text")
         }
         PlasmaComponents.TabButton {
             tab: colorsPage
-            iconSource: 'preferences-desktop-color'
-            text: i18n('Colors')
+            iconSource: "preferences-desktop-color"
+            text: i18n("Colors")
         }
     }
 
@@ -68,32 +68,32 @@ QtLayouts.ColumnLayout {
 
             QtControls.CheckBox {
                 id: verticalLayout
-                text: i18n('Vertical layout')
+                text: i18n("Vertical layout")
             }
 
             RMControls.CustomizableSize {
                 id: graphWidth
-                Kirigami.FormData.label: i18n('Graph width:')
+                Kirigami.FormData.label: i18n("Width:")
                 QtLayouts.Layout.fillWidth: true
                 from: 1
                 to: 1000
             }
             RMControls.CustomizableSize {
                 id: graphHeight
-                Kirigami.FormData.label: i18n('Graph height:')
+                Kirigami.FormData.label: i18n("Height:")
                 QtLayouts.Layout.fillWidth: true
                 from: 1
                 to: 1000
             }
             RMControls.SpinBox {
                 id: graphMargin
-                Kirigami.FormData.label: i18n('Graph margin:')
+                Kirigami.FormData.label: i18n("Margin:")
                 QtLayouts.Layout.fillWidth: true
                 from: 1
                 to: 1000
 
                 textFromValue: function(value) {
-                    return valueToText(value) + ' px'
+                    return valueToText(value) + " px"
                 }
             }
         }
@@ -105,40 +105,40 @@ QtLayouts.ColumnLayout {
 
             QtControls.CheckBox {
                 id: enableShadows
-                text: i18n('Drop shadows')
+                text: i18n("Drop shadows")
             }
 
             RMControls.SpinBox {
                 id: fontScale
-                Kirigami.FormData.label: i18n('Font scale:')
+                Kirigami.FormData.label: i18n("Font scale:")
                 QtLayouts.Layout.fillWidth: true
                 from: 1
                 to: 100
 
                 textFromValue: function(value) {
-                    return valueToText(value) + '%'
+                    return valueToText(value) + "%"
                 }
             }
 
             QtControls.ComboBox {
                 id: displayment
-                Kirigami.FormData.label: i18n('Text displayment:')
-                textRole: 'label'
+                Kirigami.FormData.label: i18n("Text displayment:")
+                textRole: "label"
                 model: [{
-                    'label': i18n('Always'),
-                    'name': 'always'
+                    "label": i18n("Always"),
+                    "name": "always"
                 }, {
-                    'label': i18n('On hover'),
-                    'name': 'hover'
+                    "label": i18n("On hover"),
+                    "name": "hover"
                 }, {
-                    'label': i18n('Hints when hover'),
-                    'name': 'hover-hints'
+                    "label": i18n("Hints when hover"),
+                    "name": "hover-hints"
                 }]
-                onCurrentIndexChanged: cfg_displayment = model[currentIndex]['name']
+                onCurrentIndexChanged: cfg_displayment = model[currentIndex]["name"]
 
                 Component.onCompleted: {
                     for (var i = 0; i < model.length; i++) {
-                        if (model[i]['name'] === plasmoid.configuration.displayment) {
+                        if (model[i]["name"] === plasmoid.configuration.displayment) {
                             displayment.currentIndex = i;
                         }
                     }
@@ -147,26 +147,26 @@ QtLayouts.ColumnLayout {
 
             QtControls.ComboBox {
                 id: placement
-                Kirigami.FormData.label: i18n('Placement:')
-                textRole: 'label'
+                Kirigami.FormData.label: i18n("Placement:")
+                textRole: "label"
                 model: [{
-                    'label': i18n('Top/Left'),
-                    'name': 'top-left'
+                    "label": i18n("Top left"),
+                    "name": "top-left"
                 }, {
-                    'label': i18n('Top/Right'),
-                    'name': 'top-right'
+                    "label": i18n("Top right"),
+                    "name": "top-right"
                 }, {
-                    'label': i18n('Bottom/Left'),
-                    'name': 'bottom-left'
+                    "label": i18n("Bottom left"),
+                    "name": "bottom-left"
                 }, {
-                    'label': i18n('Bottom/Right'),
-                    'name': 'bottom-right'
+                    "label": i18n("Bottom right"),
+                    "name": "bottom-right"
                 }]
-                onCurrentIndexChanged: cfg_placement = model[currentIndex]['name']
+                onCurrentIndexChanged: cfg_placement = model[currentIndex]["name"]
 
                 Component.onCompleted: {
                     for (var i = 0; i < model.length; i++) {
-                        if (model[i]['name'] === plasmoid.configuration.placement) {
+                        if (model[i]["name"] === plasmoid.configuration.placement) {
                             placement.currentIndex = i;
                         }
                     }
@@ -180,47 +180,47 @@ QtLayouts.ColumnLayout {
 
             RMControls.ColorSelector {
                 id: warningColor
-                Kirigami.FormData.label: i18n('Warning color:')
+                Kirigami.FormData.label: i18n("Warning color:")
 
-                dialogTitle: i18n('Choose warning color')
+                dialogTitle: i18n("Choose warning color")
                 defaultColor: neutralColor
             }
 
             RMControls.ColorSelector {
                 id: cpuColor
-                Kirigami.FormData.label: i18n('CPU color:')
+                Kirigami.FormData.label: i18n("CPU color:")
 
-                dialogTitle: i18n('Choose CPU graph color')
+                dialogTitle: i18n("Choose CPU graph color")
                 defaultColor: primaryColor
             }
 
             RMControls.ColorSelector {
                 id: ramColor
-                Kirigami.FormData.label: i18n('RAM color:')
+                Kirigami.FormData.label: i18n("Memory color:")
 
-                dialogTitle: i18n('Choose RAM graph color')
+                dialogTitle: i18n("Choose memory graph color")
                 defaultColor: primaryColor
             }
             RMControls.ColorSelector {
                 id: swapColor
-                Kirigami.FormData.label: i18n('Swap color:')
+                Kirigami.FormData.label: i18n("Swap color:")
 
-                dialogTitle: i18n('Choose Swap graph color')
+                dialogTitle: i18n("Choose Swap graph color")
                 defaultColor: negativeColor
             }
 
             RMControls.ColorSelector {
                 id: netDownColor
-                Kirigami.FormData.label: i18n('Network Download color:')
+                Kirigami.FormData.label: i18n("Network receiving color:")
 
-                dialogTitle: i18n('Choose Network Download graph color')
+                dialogTitle: i18n("Choose network receiving graph color")
                 defaultColor: primaryColor
             }
             RMControls.ColorSelector {
                 id: netUpColor
-                Kirigami.FormData.label: i18n('Network Upload color:')
+                Kirigami.FormData.label: i18n("Network sending color:")
 
-                dialogTitle: i18n('Choose Network Upload graph color')
+                dialogTitle: i18n("Choose network sending graph color")
                 defaultColor: positiveColor
             }
         }

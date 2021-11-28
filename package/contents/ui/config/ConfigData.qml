@@ -18,13 +18,13 @@ QtLayouts.ColumnLayout {
 
         PlasmaComponents.TabButton {
             tab: memoryPage
-            iconSource: 'memory-symbolic'
-            text: i18n('Memory')
+            iconSource: "memory-symbolic"
+            text: i18n("Memory")
         }
         PlasmaComponents.TabButton {
             tab: networkPage
-            iconSource: 'preferences-system-network'
-            text: i18n('Network')
+            iconSource: "preferences-system-network"
+            text: i18n("Network")
         }
     }
 
@@ -38,12 +38,12 @@ QtLayouts.ColumnLayout {
 
             PlasmaComponents.CheckBox {
                 id: memoryUseAllocated
-                text: i18n('Use allocated memory instead of application')
+                text: i18n("Use allocated memory instead of application")
             }
 
             PlasmaComponents.CheckBox {
                 id: memorySwapGraph
-                text: i18n('Display memory swap graph')
+                text: i18n("Display memory swap graph")
             }
         }
 
@@ -54,9 +54,9 @@ QtLayouts.ColumnLayout {
 
             QtControls.TextField {
                 id: networkSensorInterface
-                Kirigami.FormData.label: i18n('Specific network interface:')
+                Kirigami.FormData.label: i18n("Specific network interface:")
                 QtLayouts.Layout.fillWidth: true
-                placeholderText: 'enp3s0'
+                placeholderText: "enp3s0"
 
                 Accessible.name: QtControls.ToolTip.text
                 QtControls.ToolTip {
@@ -65,26 +65,26 @@ QtLayouts.ColumnLayout {
             }
             RMControls.SpinBox {
                 id: downloadMaxKBs
-                Kirigami.FormData.label: i18n('Max download speed:')
+                Kirigami.FormData.label: i18n("Max receiving speed:")
                 QtLayouts.Layout.fillWidth: true
                 stepSize: 10
                 from: 10
                 to: 10000000
 
                 textFromValue: function(value) {
-                    return i18nc('Abbreviation for KB/s', '%1 KB/s', valueToText(value))
+                    return i18nc("Abbreviation for KB/s", "%1 KB/s", valueToText(value))
                 }
             }
             RMControls.SpinBox {
                 id: uploadMaxKBs
-                Kirigami.FormData.label: i18n('Max upload speed:')
+                Kirigami.FormData.label: i18n("Max sending speed:")
                 QtLayouts.Layout.fillWidth: true
                 stepSize: 10
                 from: 10
                 to: 10000000
 
                 textFromValue: function(value) {
-                    return i18nc('Abbreviation for KB/s', '%1 KB/s', valueToText(value))
+                    return i18nc("Abbreviation for KB/s", "%1 KB/s", valueToText(value))
                 }
             }
         }
