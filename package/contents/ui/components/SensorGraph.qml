@@ -14,6 +14,7 @@ Item {
     property alias colors: plotter.colors
 	property alias stacked: plotter.stacked
 	property alias defaultsMax: plotter.defaultsMax
+	property alias fillOpacity: plotter.fillOpacity
     property alias firstLineLabel: firstLineLabel
     property alias secondLineLabel: secondLineLabel
 

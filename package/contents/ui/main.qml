@@ -81,7 +81,7 @@ Item {
 
     onGraphFillOpacityChanged: {
         for (var monitor of [cpuGraph, ramGraph, netGraph]) {
-            monitor.plotter.fillOpacity = graphFillOpacity
+            monitor.fillOpacity = graphFillOpacity
         }
     }
 
