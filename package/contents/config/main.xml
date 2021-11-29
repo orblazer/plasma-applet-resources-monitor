@@ -34,13 +34,13 @@
         <entry name="memorySwapGraph" type="Bool">
             <default>true</default>
         </entry>
-        <entry name="networkSensorInterface" type="String">
+        <entry name="ignoredNetworkInterfaces" type="StringList">
         </entry>
-        <entry name="downloadMaxKBs" type="Double">
-            <default></default>
+        <entry name="downloadMaxKbps" type="Int">
+            <default>100000</default>
         </entry>
-        <entry name="uploadMaxKBs" type="Double">
-            <default></default>
+        <entry name="uploadMaxKbps" type="Int">
+            <default>100000</default>
         </entry>
     </group>
 

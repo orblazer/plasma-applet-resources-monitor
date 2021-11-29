@@ -9,7 +9,7 @@ Item {
 
   // Config
   readonly property bool memoryUseAllocated: plasmoid.configuration.memoryUseAllocated
-  readonly property var networkSensorInterface: plasmoid.configuration.networkSensorInterface
+  readonly property var ignoredNetworkInterfaces: plasmoid.configuration.ignoredNetworkInterfaces
   readonly property int networkReceivingTotal: plasmoid.configuration.downloadMaxKbps
   readonly property int networkSendingTotal: plasmoid.configuration.uploadMaxKbps
 
@@ -147,7 +147,7 @@ Item {
       var match = source.match(networkRegex)
       if (match) {
         // Skip ignored interface
-        if (networkSensorInterface !== "" && networkSensorInterface !== match[1]) {
+        if (ignoredNetworkInterfaces.indexOf(match[1]) !== -1) {
           return
         }
 
@@ -174,6 +174,45 @@ Item {
     function fitSwapUsage(usage) {
         return Functions.getPercentUsage(usage, (parseFloat(usage) +
           parseFloat(dataSource.data[sensors.swapFree].value)))
+    }
+  }
+
+  // Sync sources with ignored network interfaces
+  onIgnoredNetworkInterfacesChanged:  {
+    var i, match
+
+    // Clear old sources
+    for (i = 0; i < sensors.transmitterNetworkList.length; i++) {
+      dataSource.disconnectSource(sensors.transmitterNetworkList[i])
+    }
+    sensors.transmitterNetworkList = []
+    for (i = 0; i < sensors.receiverNetworkList.length; i++) {
+      dataSource.disconnectSource(sensors.receiverNetworkList[i])
+    }
+    sensors.receiverNetworkList = []
+
+    // Connect new sources
+    for (i = 0; i < dataSource.sources.length; i++) {
+      if (match = dataSource.sources[i].match(dataSource.networkRegex)) {
+        // Skip ignored interface
+        if (ignoredNetworkInterfaces.indexOf(match[1]) !== -1) {
+          return
+        }
+        var source = dataSource.sources[i]
+
+        // Add if not seen before
+        if (match[2] === "transmitter") {
+          if (sensors.transmitterNetworkList.indexOf(source) === -1) {
+            sensors.transmitterNetworkList.push(source)
+          }
+        } else {
+          if (sensors.receiverNetworkList.indexOf(source) === -1) {
+            sensors.receiverNetworkList.push(source)
+          }
+        }
+
+        dataSource.connectSource(source)
+      }
     }
   }
 
