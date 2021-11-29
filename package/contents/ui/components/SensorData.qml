@@ -8,10 +8,10 @@ Item {
   id: sensorData
 
   // Config
-  readonly property bool memoryUseAllocated: plasmoid.configuration.memoryUseAllocated
+  readonly property bool _memoryUseAllocated: plasmoid.configuration.memoryUseAllocated
   readonly property var ignoredNetworkInterfaces: plasmoid.configuration.ignoredNetworkInterfaces
-  readonly property int networkReceivingTotal: plasmoid.configuration.downloadMaxKbps
-  readonly property int networkSendingTotal: plasmoid.configuration.uploadMaxKbps
+  readonly property double networkReceivingTotal: plasmoid.configuration.downloadMaxKiBps
+  readonly property double networkSendingTotal: plasmoid.configuration.uploadMaxKiBps
 
   readonly property alias sensors: sensors
   QtObject {
@@ -25,7 +25,7 @@ Item {
     // Memory sensor
     readonly property string _memPhysical: "mem/physical/"
     readonly property string memFree: _memPhysical + "free"
-    readonly property string memApplication: _memPhysical + (memoryUseAllocated ? "allocated" : "application")
+    readonly property string memApplication: _memPhysical + (_memoryUseAllocated ? "allocated" : "application")
     readonly property string memUsed: _memPhysical + "used"
     readonly property string _swap: "mem/swap/"
     readonly property string swapUsed: _swap + "used"
@@ -101,7 +101,7 @@ Item {
           dataSource.connectSource(sensor)
       }
 
-      total += getData(sensor) * 8.192
+      total += getData(sensor)
     }
     return total
   }
@@ -114,7 +114,7 @@ Item {
           dataSource.connectSource(sensor)
       }
 
-      total += getData(sensor) * 8.192
+      total += getData(sensor)
     }
     return total
   }

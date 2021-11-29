@@ -42,6 +42,7 @@ Item {
     property bool showMemoryInPercent: plasmoid.configuration.memoryInPercent
     property bool showSwapGraph: plasmoid.configuration.memorySwapGraph
     property bool showNetMonitor: plasmoid.configuration.showNetMonitor
+    property bool networkInKilobit: plasmoid.configuration.networkInKilobit
     property double fontScale: (plasmoid.configuration.fontScale / 100)
     property double graphFillOpacity: (plasmoid.configuration.graphFillOpacity / 100)
 
@@ -200,7 +201,11 @@ Item {
         secondLabelColor: netUpColor
 
         function formatLabel(value, units) {
-            return Functions.humanReadableBits(value * 1000)
+            if (networkInKilobit) {
+                return Functions.humanReadableBits(value * 8192)
+            } else {
+                return humanReadableBytes(value) + '/s'
+            }
         }
     }
 
@@ -217,7 +222,7 @@ Item {
 
     function humanReadableBytes(value) {
         if (isNaN(parseInt(value))) {
-            return ''
+            return '0 B'
         }
 
 		// https://github.com/KDE/kcoreaddons/blob/master/src/lib/util/kformat.h

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: resourcesMonitor-fork\n"
 "Report-Msgid-Bugs-To: https://github.com/orblazer/plasma-applet-resources-monitor\n"
-"POT-Creation-Date: 2021-11-29 14:58+0100\n"
+"POT-Creation-Date: 2021-11-29 17:24+0100\n"
 "PO-Revision-Date: 2021-11-29 13:57+0100\n"
 "Last-Translator: orblazer\n"
 "Language: fr\n"
@@ -163,6 +163,10 @@ msgstr "Afficher le graphique du Swap"
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
 msgid "Network interfaces:"
 msgstr "Interfaces réseau :"
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
+msgid "Speed in kilobit (Kbps)"
+msgstr "Vitesse en kilobit (kbps)"
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
 msgid "Max receiving speed:"

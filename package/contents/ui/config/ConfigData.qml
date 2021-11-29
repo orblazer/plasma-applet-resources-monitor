@@ -15,37 +15,76 @@ QtLayouts.ColumnLayout {
 
     property alias cfg_memoryUseAllocated: memoryUseAllocated.checked
     property alias cfg_memorySwapGraph: memorySwapGraph.checked
-    property int cfg_downloadMaxKbps: 0
-    property int cfg_uploadMaxKbps: 0
+    property alias cfg_networkInKilobit: networkInKilobit.checked
+    property double cfg_downloadMaxKiBps: 0.0
+    property double cfg_uploadMaxKiBps: 0.0
 
-    readonly property var networkSpeedOptions: [
+    readonly property var networkKiBpsSpeedOptions: [
         {
             "label": i18n("Custom"),
-            "value": -1
+            "value": -1.0
+        },{
+            "label": "100 KiB/s",
+            "value": 100.0
+        }, {
+            "label": "1 MiB/s",
+            "value": 1000.0
+        }, {
+            "label": "10 MiB/s",
+            "value": 10000.0
+        }, {
+            "label": "100 MiB/s",
+            "value": 100000.0
+        }, {
+            "label": "1 GiB/s",
+            "value": 1000000.0
+        }, {
+            "label": "2.5 GiB/s",
+            "value": 2500000.0
+        }, {
+            "label": "5 GiB/s",
+            "value": 5000000.0
+        }, {
+            "label": "10 GiB/s",
+            "value": 10000000.0
+        }
+    ]
+    readonly property var networkKbpsSpeedOptions: [
+        {
+            "label": i18n("Custom"),
+            "value": -1.0
         },{
             "label": "100 Kbps",
-            "value": 100
+            "value": 12.207,
+            "rawValue": 0.1
         }, {
             "label": "1 Mbps",
-            "value": 1000
+            "value": 122.07,
+            "rawValue": 1.0
         }, {
             "label": "10 Mbps",
-            "value": 10000
+            "value": 1220.7,
+            "rawValue": 10.0
         }, {
             "label": "100 Mbps",
-            "value": 100000
+            "value": 12207.0,
+            "rawValue": 100.0
         }, {
             "label": "1 Gbps",
-            "value": 1000000
+            "value": 122070.0,
+            "rawValue": 1000.0
         }, {
             "label": "2.5 Gbps",
-            "value": 2500000
+            "value": 305176.0,
+            "rawValue": 2500.0
         }, {
             "label": "5 Gbps",
-            "value": 5000000
+            "value": 610352.0,
+            "rawValue": 5000.0
         }, {
             "label": "10 Gbps",
-            "value": 10000000
+            "value": 1221000.0,
+            "rawValue": 10000.0
         }
     ]
 
@@ -67,14 +106,6 @@ QtLayouts.ColumnLayout {
             networkInterfaces = newList
             networkInterfacesChanged()
         }
-    }
-
-    // Sync data
-    onCfg_downloadMaxKbpsChanged: {
-        customDownloadMaxSpeed.valueReal = cfg_downloadMaxKbps / 1000
-    }
-    onCfg_uploadMaxKbpsChanged: {
-        customDownloadMaxSpeed.valueReal = cfg_uploadMaxKbps / 1000
     }
 
     // Tab bar
@@ -157,24 +188,32 @@ QtLayouts.ColumnLayout {
                 }
             }
 
+            QtControls.CheckBox {
+                id: networkInKilobit
+                text: i18n("Speed in kilobit (Kbps)")
+                onCheckedChanged: {
+                    downloadMaxSpeed.model = checked ? networkKbpsSpeedOptions : networkKiBpsSpeedOptions
+                    // uploadMaxSpeed.model = checked ? networkKbpsSpeedOptions : networkKiBpsSpeedOptions
+                }
+            }
+
             // Receiving speed
             QtControls.ComboBox {
                 id: downloadMaxSpeed
                 Kirigami.FormData.label: i18n("Max receiving speed:")
                 textRole: "label"
-                model: networkSpeedOptions
+                model: cfg_networkInKilobit ? networkKbpsSpeedOptions : networkKiBpsSpeedOptions
 
                 onCurrentIndexChanged: {
                     var current = model[currentIndex]
                     if (current && current.value !== -1) {
-                        cfg_downloadMaxKbps = current.value
-                        dataPage.configurationChanged()
+                        customDownloadMaxSpeed.valueReal = current.rawValue
                     }
                 }
 
                 Component.onCompleted: {
                     for (var i = 0; i < model.length; i++) {
-                        if (model[i]["value"] === plasmoid.configuration.downloadMaxKbps) {
+                        if (model[i]["value"] === plasmoid.configuration.downloadMaxKiBps) {
                             downloadMaxSpeed.currentIndex = i;
                             return
                         }
@@ -193,15 +232,18 @@ QtLayouts.ColumnLayout {
                 visible: downloadMaxSpeed.currentIndex === 0
 
                 textFromValue: function(value) {
-                    return valueToText(value) + " Mbps"
+                    return valueToText(value) + (cfg_networkInKilobit ? " Mbps" : " MiB/s")
                 }
 
                 onValueChanged: {
-                    cfg_downloadMaxKbps = Math.round(valueReal * 1000)
+                    var value = valueReal / (cfg_networkInKilobit ? 8.192 : 1)
+
+                    cfg_downloadMaxKiBps = Math.round(value * 1000)
                     dataPage.configurationChanged()
                 }
                 Component.onCompleted: {
-                    valueReal = plasmoid.configuration.downloadMaxKbps / 1000
+                    var value = parseFloat(plasmoid.configuration.downloadMaxKiBps) * (cfg_networkInKilobit ? 8.192 : 1)
+                    valueReal = value / 1000
                 }
             }
 
@@ -210,19 +252,18 @@ QtLayouts.ColumnLayout {
                 id: uploadMaxSpeed
                 Kirigami.FormData.label: i18n("Max sending speed:")
                 textRole: "label"
-                model: networkSpeedOptions
+                model: cfg_networkInKilobit ? networkKbpsSpeedOptions : networkKiBpsSpeedOptions
 
                 onCurrentIndexChanged: {
                     var current = model[currentIndex]
                     if (current && current.value !== -1) {
-                        cfg_uploadMaxKbps = current.value
-                        dataPage.configurationChanged()
+                        customUploadMaxSpeed.valueReal = current.rawValue
                     }
                 }
 
                 Component.onCompleted: {
                     for (var i = 0; i < model.length; i++) {
-                        if (model[i]["value"] === plasmoid.configuration.uploadMaxKbps) {
+                        if (model[i]["value"] === plasmoid.configuration.uploadMaxKiBps) {
                             uploadMaxSpeed.currentIndex = i;
                             return
                         }
@@ -241,15 +282,18 @@ QtLayouts.ColumnLayout {
                 visible: uploadMaxSpeed.currentIndex === 0
 
                 textFromValue: function(value) {
-                    return valueToText(value) + " Mbps"
+                    return valueToText(value) + (cfg_networkInKilobit ? " Mbps" : " MiB/s")
                 }
 
-                onValueRealChanged: {
-                    cfg_uploadMaxKbps = Math.round(valueReal * 1000)
+                onValueChanged: {
+                    var value = valueReal / (cfg_networkInKilobit ? 8.192 : 1)
+
+                    cfg_uploadMaxKiBps = Math.round(value * 1000)
                     dataPage.configurationChanged()
                 }
                 Component.onCompleted: {
-                    valueReal = plasmoid.configuration.uploadMaxKbps / 1000
+                    var value = parseFloat(plasmoid.configuration.uploadMaxKiBps) * (cfg_networkInKilobit ? 8.192 : 1)
+                    valueReal = value / 1000
                 }
             }
         }

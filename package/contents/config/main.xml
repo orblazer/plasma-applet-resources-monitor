@@ -36,11 +36,14 @@
         </entry>
         <entry name="ignoredNetworkInterfaces" type="StringList">
         </entry>
-        <entry name="downloadMaxKbps" type="Int">
-            <default>100000</default>
+        <entry name="networkInKilobit" type="Bool">
+            <default>false</default>
         </entry>
-        <entry name="uploadMaxKbps" type="Int">
-            <default>100000</default>
+        <entry name="downloadMaxKiBps" type="Double">
+            <default>100000.0</default>
+        </entry>
+        <entry name="uploadMaxKiBps" type="Double">
+            <default>100000.0</default>
         </entry>
     </group>
 
