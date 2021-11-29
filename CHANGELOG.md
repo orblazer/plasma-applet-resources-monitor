@@ -1,3 +1,20 @@
+# [2.4.0](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.3.0...v2.4.0) (2021-11-29)
+
+
+### Bug Fixes
+
+* **data:** hide clock when is not needed ([8154e06](https://github.com/orblazer/plasma-applet-resources-monitor/commit/8154e061cc65c29b457636c4de81fb4db677c1ce))
+* **data:** reconnect data when lost ([3441014](https://github.com/orblazer/plasma-applet-resources-monitor/commit/3441014ee3be0f55fa2331c6e83bbd6cd1cd8fff))
+* **graph:** use right way to apply fill opacity ([777e428](https://github.com/orblazer/plasma-applet-resources-monitor/commit/777e42836b33183fc5e698cdc7183d88a0819212))
+
+
+### Features
+
+* **data:** support kib/s and kbps for network ([fd0cc8a](https://github.com/orblazer/plasma-applet-resources-monitor/commit/fd0cc8aaf31bff9b1ca8d2e6624f2c121ea9b004))
+* **service:** runn new monitor ([6f2813d](https://github.com/orblazer/plasma-applet-resources-monitor/commit/6f2813d288f6fec57afca324733020b31ce0cddb)), closes [#6](https://github.com/orblazer/plasma-applet-resources-monitor/issues/6)
+
+
+
 # [2.3.0](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.2.2-hotfix.1...v2.3.0) (2021-11-29)
 
 
