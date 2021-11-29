@@ -209,7 +209,9 @@ Item {
         id: mouseArea
         anchors.fill: parent
         onClicked: {
-            kRun.openService("org.kde.ksysguard")
+            if (!kRun.openService("org.kde.plasma-systemmonitor")) {
+                kRun.openService("org.kde.ksysguard")
+            }
         }
     }
 
