@@ -58,7 +58,7 @@ Item {
     property double parentWidth: parent === null ? 0 : parent.width
     property double parentHeight: parent === null ? 0 : parent.height
     property double initWidth:  vertical ? ( verticalLayout ? parentWidth : (parentWidth - itemMargin) / 2 ) : ( verticalLayout ? (parentHeight - itemMargin) / 2 : parentHeight )
-    property double itemWidth: plasmoid.configuration.customGraphWidth ? plasmoid.configuration.graphWidth : initWidth
+    property double itemWidth: plasmoid.configuration.customGraphWidth ? plasmoid.configuration.graphWidth : initWidth * 1.4
     property double itemHeight: plasmoid.configuration.customGraphHeight ? plasmoid.configuration.graphHeight : initWidth
     property double fontPixelSize: itemHeight * fontScale
     property double widgetWidth: !verticalLayout ? (itemWidth*containerCount + itemMargin*containerCount) : itemWidth

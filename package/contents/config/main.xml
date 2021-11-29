@@ -65,7 +65,7 @@
         <entry name="graphHeight" type="Int">
         </entry>
         <entry name="graphMargin" type="Int">
-            <default>15</default>
+            <default>10</default>
         </entry>
         <entry name="graphFillOpacity" type="Int">
             <default>25</default>
