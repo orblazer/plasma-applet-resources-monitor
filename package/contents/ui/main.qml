@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http: //www.gnu.org/licenses/>.
  */
-import QtQuick 2.2
+import QtQuick 2.7
 import QtQuick.Layouts 1.1
 import org.kde.plasma.plasmoid 2.0
 import org.kde.plasma.core 2.0 as PlasmaCore
@@ -134,7 +134,12 @@ Item {
         Connections {
             property string units: sensorData.getUnits(sensorData.sensors.averageClock)
             target: sensorData
+            enabled: showClock
             function onDataTick() {
+                if (!sensorData.isConnectedSource(sensorData.sensors.averageClock)) {
+					sensorData.connectSource(sensorData.sensors.averageClock)
+				}
+
                 // Update labels
                 if (cpuGraph.valueVisible) {
                     cpuGraph.secondLineLabel.text = cpuGraph.formatLabel(sensorData.getData(sensorData.sensors.averageClock), units)
