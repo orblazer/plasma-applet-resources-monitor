@@ -13,14 +13,13 @@ QtLayouts.ColumnLayout {
     property alias cfg_customGraphHeight: graphHeight.checked
     property alias cfg_graphHeight: graphHeight.value
     property alias cfg_graphMargin: graphMargin.value
+    property alias cfg_graphBackgroundOpacity: graphBackgroundOpacity.value
 
     property alias cfg_enableShadows: enableShadows.checked
     property alias cfg_fontScale: fontScale.value
     property string cfg_placement: ""
     property string cfg_displayment: ""
 
-    property alias cfg_customWarningColor: warningColor.checked
-    property alias cfg_warningColor: warningColor.value
     property alias cfg_customCpuColor: cpuColor.checked
     property alias cfg_cpuColor: cpuColor.value
     property alias cfg_customRamColor: ramColor.checked
@@ -94,6 +93,17 @@ QtLayouts.ColumnLayout {
 
                 textFromValue: function(value) {
                     return valueToText(value) + " px"
+                }
+            }
+            RMControls.SpinBox {
+                id: graphBackgroundOpacity
+                Kirigami.FormData.label: i18n("Background opacity:")
+                QtLayouts.Layout.fillWidth: true
+                from: 1
+                to: 100
+
+                textFromValue: function(value) {
+                    return valueToText(value) + "%"
                 }
             }
         }
@@ -177,14 +187,6 @@ QtLayouts.ColumnLayout {
         // Colors
         Kirigami.FormLayout {
             id: colorsPage
-
-            RMControls.ColorSelector {
-                id: warningColor
-                Kirigami.FormData.label: i18n("Warning color:")
-
-                dialogTitle: i18n("Choose warning color")
-                defaultColor: neutralColor
-            }
 
             RMControls.ColorSelector {
                 id: cpuColor

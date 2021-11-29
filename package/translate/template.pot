@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: resourcesMonitor-fork\n"
 "Report-Msgid-Bugs-To: https://github.com/orblazer/plasma-applet-resources-monitor\n"
-"POT-Creation-Date: 2021-11-28 21:00+0100\n"
+"POT-Creation-Date: 2021-11-29 14:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -51,6 +51,10 @@ msgstr ""
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
 msgid "Margin:"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+msgid "Background opacity:"
 msgstr ""
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
@@ -98,14 +102,6 @@ msgid "Bottom right"
 msgstr ""
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
-msgid "Warning color:"
-msgstr ""
-
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
-msgid "Choose warning color"
-msgstr ""
-
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
 msgid "CPU color:"
 msgstr ""
 
@@ -146,6 +142,10 @@ msgid "Choose network sending graph color"
 msgstr ""
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
+msgid "Custom"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
 msgid "Memory"
 msgstr ""
 
@@ -162,11 +162,7 @@ msgid "Display memory swap graph"
 msgstr ""
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
-msgid "Specific network interface:"
-msgstr ""
-
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
-msgid "The network interface name (could pass \"all\" for every interfaces)"
+msgid "Network interfaces:"
 msgstr ""
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
@@ -174,12 +170,15 @@ msgid "Max receiving speed:"
 msgstr ""
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
-msgctxt "Abbreviation for KB/s"
-msgid "%1 KB/s"
+msgid "Custom max receiving speed:"
 msgstr ""
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
 msgid "Max sending speed:"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
+msgid "Custom max sending speed:"
 msgstr ""
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
@@ -220,4 +219,16 @@ msgstr ""
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/controls/CustomizableSize.qml
 msgid "Check for use customized graph width"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/main.qml
+msgid "⏲ Clock"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/main.qml
+msgid "⇘ Down"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/main.qml
+msgid "⇗ Up"
 msgstr ""

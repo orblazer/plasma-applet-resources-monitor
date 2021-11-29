@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: resourcesMonitor-fork\n"
 "Report-Msgid-Bugs-To: https://github.com/orblazer/plasma-applet-resources-monitor\n"
-"POT-Creation-Date: 2021-11-28 21:00+0100\n"
-"PO-Revision-Date: 2021-11-28 19:25+0100\n"
+"POT-Creation-Date: 2021-11-29 14:58+0100\n"
+"PO-Revision-Date: 2021-11-29 13:57+0100\n"
 "Last-Translator: orblazer\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -51,6 +51,10 @@ msgstr "Hauteur :"
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
 msgid "Margin:"
 msgstr "Marge :"
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+msgid "Background opacity:"
+msgstr ""
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
 msgid "Drop shadows"
@@ -97,14 +101,6 @@ msgid "Bottom right"
 msgstr "En bas à droite"
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
-msgid "Warning color:"
-msgstr "Couleur d'avertissement :"
-
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
-msgid "Choose warning color"
-msgstr "Choisissez la couleur d'avertissement"
-
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
 msgid "CPU color:"
 msgstr "Couleur du CPU :"
 
@@ -145,6 +141,10 @@ msgid "Choose network sending graph color"
 msgstr "Choisissez la couleur du graphique du traffic sortant"
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
+msgid "Custom"
+msgstr "Personnalisée"
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
 msgid "Memory"
 msgstr "Mémoire"
 
@@ -161,25 +161,24 @@ msgid "Display memory swap graph"
 msgstr "Afficher le graphique du Swap"
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
-msgid "Specific network interface:"
-msgstr "Interface réseau spécifique :"
-
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
-msgid "The network interface name (could pass \"all\" for every interfaces)"
-msgstr "Nom de l'interface réseau (peut passer \"all\" pour toutes les interfaces)"
+msgid "Network interfaces:"
+msgstr "Interfaces réseau :"
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
 msgid "Max receiving speed:"
 msgstr "Vitesse de réception maximale :"
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
-msgctxt "Abbreviation for KB/s"
-msgid "%1 KB/s"
-msgstr "%1 KB/s"
+msgid "Custom max receiving speed:"
+msgstr "Vitesse de réception maximale personnalisée"
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
 msgid "Max sending speed:"
 msgstr "Vitesse d'envoi maximale :"
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
+msgid "Custom max sending speed:"
+msgstr "Vitesse d'envoi maximale personnalisée"
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
 msgid "Update interval:"
@@ -220,3 +219,18 @@ msgstr "Cocher pour utiliser une couleur personnalisée"
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/controls/CustomizableSize.qml
 msgid "Check for use customized graph width"
 msgstr "Cocher pour l'utilisation d'une largeur de graphique personnalisée"
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/main.qml
+msgid "⏲ Clock"
+msgstr "⏲ Horl."
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/main.qml
+msgid "⇘ Down"
+msgstr "⇘ Tél."
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/main.qml
+msgid "⇗ Up"
+msgstr "⇗ Env."
+
+#~ msgid "Fill opacity:"
+#~ msgstr "Opacité du remplissage :"
