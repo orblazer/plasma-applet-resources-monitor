@@ -97,6 +97,7 @@ Item {
         if (showClock) {
             sensorData.dataSource.connectSource(sensorData.sensors.averageClock)
         } else {
+            cpuGraph.secondLineLabel.visible = false
             sensorData.dataSource.disconnectSource(sensorData.sensors.averageClock)
         }
     }
