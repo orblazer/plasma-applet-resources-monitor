@@ -1,3 +1,18 @@
+# [2.3.0](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.2.2-hotfix.1...v2.3.0) (2021-11-29)
+
+
+### Bug Fixes
+
+* **config:** use right xml struct and property types ([9b0f250](https://github.com/orblazer/plasma-applet-resources-monitor/commit/9b0f250bd4e5b3c6e169dcd4c920bbb34b40ccf5))
+
+
+### Features
+
+* **config:** use tabs for data config ([19a3ea8](https://github.com/orblazer/plasma-applet-resources-monitor/commit/19a3ea878a89db236ccc50e2170f4784e46dc3a7))
+* **i18n:** add french translation and improve en texts ([16fa7a8](https://github.com/orblazer/plasma-applet-resources-monitor/commit/16fa7a8b5b0b5ea097da2cc1af078ef3758b3f65))
+
+
+
 ## [2.2.2-hotfix.1](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.2.2...v2.2.2-hotfix.1) (2021-10-24)
 
 
