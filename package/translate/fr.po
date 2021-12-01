@@ -1,7 +1,7 @@
 # Translation of resourcesMonitor-fork in french
 # Copyright (C) 2021
 # This file is distributed under the same license as the resourcesMonitor-fork package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# orblazer, 2021.
 #
 #, fuzzy
 msgid ""
