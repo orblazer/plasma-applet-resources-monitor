@@ -9,8 +9,7 @@ packageRoot=$(realpath "$(dirname "${BASH_SOURCE[0]}")/../package") # Root of tr
 DIR="$packageRoot/translate"
 plasmoidName=`kreadconfig5 --file="$DIR/../metadata.desktop" --group="Desktop Entry" --key="X-KDE-PluginInfo-Name"`
 widgetName="${plasmoidName##*.}" # Strip namespace
-website=`kreadconfig5 --file="$DIR/../metadata.desktop" --group="Desktop Entry" --key="X-KDE-PluginInfo-Website"`
-bugAddress="$website"
+bugAddress=`kreadconfig5 --file="$DIR/../metadata.desktop" --group="Desktop Entry" --key="X-KDE-PluginInfo-Website"`
 
 cd $DIR
 
@@ -106,6 +105,7 @@ else
 	mv "template.pot.new" "template.pot"
 fi
 
+# Count line in template
 potMessageCount=`expr $(grep -Pzo 'msgstr ""\n(\n|$)' "template.pot" | grep -c 'msgstr ""')`
 echo "|  Locale  |  Lines  | % Done|" > "./Status.md"
 echo "|----------|---------|-------|" >> "./Status.md"
@@ -143,6 +143,7 @@ for cat in $catalogs; do
 	sed -i 's/# Translation of '"${widgetName}"' in LANGUAGE/'"# Translation of ${widgetName} in ${catLocale}"'/' "$cat.new"
 	sed -i 's/# Copyright (C) YEAR THE PACKAGE'"'"'S COPYRIGHT HOLDER/'"# Copyright (C) $(date +%Y)"'/' "$cat.new"
 
+	# Count line in po file
 	poEmptyMessageCount=`expr $(grep -Pzo 'msgstr ""\n(\n|$)' "$cat.new" | grep -c 'msgstr ""')`
 	poMessagesDoneCount=`expr $potMessageCount - $poEmptyMessageCount`
 	poCompletion=`perl -e "printf(\"%d\", $poMessagesDoneCount * 100 / $potMessageCount)"`
@@ -155,68 +156,8 @@ done
 echo "[merge] Done merging messages"
 
 #---
-echo "[merge] Updating .desktop file"
-
-# Generate LINGUAS for msgfmt
-if [ -f "$DIR/LINGUAS" ]; then
-	rm "$DIR/LINGUAS"
-fi
-touch "$DIR/LINGUAS"
-for cat in $catalogs; do
-	catLocale=`basename ${cat%.*}`
-	echo "${catLocale}" >> "$DIR/LINGUAS"
-done
-
-cp -f "$DIR/../metadata.desktop" "$DIR/template.desktop"
-sed -i '/^Name\[/ d; /^GenericName\[/ d; /^Comment\[/ d; /^Keywords\[/ d' "$DIR/template.desktop"
-
-msgfmt \
-	--desktop \
-	--template="$DIR/template.desktop" \
-	-d "$DIR/" \
-	-o "$DIR/new.desktop"
-
-# Delete empty msgid messages that used the po header
-if [ ! -z "$(grep '^Name=$' "$DIR/new.desktop")" ]; then
-	echo "[merge] Name in metadata.desktop is empty!"
-	sed -i '/^Name\[/ d' "$DIR/new.desktop"
-fi
-if [ ! -z "$(grep '^GenericName=$' "$DIR/new.desktop")" ]; then
-	echo "[merge] GenericName in metadata.desktop is empty!"
-	sed -i '/^GenericName\[/ d' "$DIR/new.desktop"
-fi
-if [ ! -z "$(grep '^Comment=$' "$DIR/new.desktop")" ]; then
-	echo "[merge] Comment in metadata.desktop is empty!"
-	sed -i '/^Comment\[/ d' "$DIR/new.desktop"
-fi
-if [ ! -z "$(grep '^Keywords=$' "$DIR/new.desktop")" ]; then
-	echo "[merge] Keywords in metadata.desktop is empty!"
-	sed -i '/^Keywords\[/ d' "$DIR/new.desktop"
-fi
-
-# Place translations at the bottom of the desktop file.
-translatedLines=`cat "$DIR/new.desktop" | grep "]="`
-if [ ! -z "${translatedLines}" ]; then
-	sed -i '/^Name\[/ d; /^GenericName\[/ d; /^Comment\[/ d; /^Keywords\[/ d' "$DIR/new.desktop"
-	if [ "$(tail -c 1 "$DIR/new.desktop" | wc -l)" != "1" ]; then
-		# Does not end with 1 empty lines, so add an empty line.
-		echo "" >> "$DIR/new.desktop"
-	fi
-	echo "${translatedLines}" >> "$DIR/new.desktop"
-fi
-
-# Cleanup
-mv "$DIR/new.desktop" "$DIR/../metadata.desktop"
-rm "$DIR/template.desktop"
-rm "$DIR/LINGUAS"
-
-#---
 # Populate README.md
 echo "[merge] Updating translate/README.md"
-sed -i -E 's`share\/plasma\/plasmoids\/(.+)\/translate`share/plasma/plasmoids/'"${plasmoidName}"'/translate`' ./README.md
-if [[ "$website" == *"github.com"* ]]; then
-	sed -i -E 's`\[new issue\]\(https:\/\/github\.com\/(.+)\/(.+)\/issues\/new\)`[new issue]('"${website}"'/issues/new)`' ./README.md
-fi
 sed -i '/^|/ d' ./README.md # Remove status table from README
 cat ./Status.md >> ./README.md
 rm ./Status.md
