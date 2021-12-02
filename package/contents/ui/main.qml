@@ -144,7 +144,8 @@ Item {
 
                 // Update labels
                 if (cpuGraph.valueVisible) {
-                    cpuGraph.secondLineLabel.text = cpuGraph.formatLabel(sensorData.getData(sensorData.sensors.averageClock), units)
+                    cpuGraph.secondLineLabel.text = cpuGraph.secondLineLabel.lastValue = cpuGraph.formatLabel(
+                        sensorData.getData(sensorData.sensors.averageClock), units)
                     cpuGraph.secondLineLabel.visible = true
                 }
             }

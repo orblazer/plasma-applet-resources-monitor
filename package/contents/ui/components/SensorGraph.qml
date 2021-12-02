@@ -159,6 +159,7 @@ Item {
                 id: secondLineLabel
                 width: parent.width
                 height: contentHeight
+                property string lastValue: ''
 
                 text: secondLabel
                 color: secondLabelColor
@@ -259,7 +260,7 @@ Item {
                 if (plotter.values.length > 1) {
                     secondLineLabel.text = formatLabel(plotter.values[1], sensorGraph.secondSensorUnits)
                     secondLineLabel.visible = true
-                } else {
+                } else if (!secondLineLabel.keepVisible) {
                      secondLineLabel.text = ''
                      secondLineLabel.visible = false
                 }
@@ -306,7 +307,10 @@ Item {
                     firstLineLabel.text = formatLabel(plotter.values[0], sensorGraph.firstSensorUnits)
                     if (plotter.values.length > 1) {
                         secondLineLabel.text = formatLabel(plotter.values[1], sensorGraph.secondSensorUnits)
-                        secondLineLabel.visible = (plotter.values[1] !== 0 || secondLabelWhenZero) ? true : false
+                        secondLineLabel.visible = plotter.values[1] !== 0 || secondLabelWhenZero
+                    } else if (secondLineLabel.lastValue != 0 && secondLabelWhenZero) {
+                        secondLineLabel.text = secondLineLabel.lastValue
+                        secondLineLabel.visible = true
                     } else {
                         secondLineLabel.text = ''
                         secondLineLabel.visible = false
