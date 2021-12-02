@@ -11,12 +11,30 @@ QtLayouts.ColumnLayout {
     spacing: Kirigami.Units.largeSpacing
 
     property alias cfg_updateInterval: updateInterval.valueReal
+    property alias cfg_actionService: customActionService.text
 
     property alias cfg_showCpuMonitor: showCpuMonitor.checked
     property alias cfg_showClock: showClock.checked
     property alias cfg_showRamMonitor: showRamMonitor.checked
     property alias cfg_memoryInPercent: memoryInPercent.checked
     property alias cfg_showNetMonitor: showNetMonitor.checked
+
+    // TODO: find way to use `.desktop` transltation for programs
+    readonly property var actionServiceOptions: [
+        {
+            "label": i18n("Custom"),
+            "value": ""
+        }, {
+            "label": i18n("Plasma System Monitor"),
+            "value": "org.kde.plasma-systemmonitor"
+        }, {
+            "label": "KSysGuard",
+            "value": "org.kde.ksysguard"
+        }, {
+            "label": i18n("System Monitor"),
+            "value": "org.kde.systemmonitor"
+        }
+    ]
 
 
     Kirigami.FormLayout {
@@ -35,6 +53,47 @@ QtLayouts.ColumnLayout {
             textFromValue: function(value) {
                 return i18n("%1 seconds", valueToText(value))
             }
+        }
+
+        // click action
+        PlasmaComponents.Label {
+            text: i18n("Click action")
+            font.pointSize: PlasmaCore.Theme.defaultFont.pointSize * 1.2
+        }
+
+        QtControls.ComboBox {
+            id: actionService
+            Kirigami.FormData.label: i18n("Program:")
+            textRole: "label"
+            model: actionServiceOptions
+            QtLayouts.Layout.fillWidth: true
+
+            onCurrentIndexChanged: {
+                var current = model[currentIndex]
+                if (current && current.value !== "") {
+                    customActionService.text = current.value
+                }
+            }
+
+            Component.onCompleted: {
+                for (var i = 0; i < model.length; i++) {
+                    if (model[i]["value"] === plasmoid.configuration.actionService) {
+                        actionService.currentIndex = i;
+                        return
+                    }
+                }
+
+                actionService.currentIndex = 0 // Custom
+            }
+        }
+        QtControls.TextField {
+            id: customActionService
+            Kirigami.FormData.label: i18n("Custom program:")
+            QtLayouts.Layout.fillWidth: true
+            visible: actionService.currentIndex === 0
+        }
+        PlasmaComponents.Label {
+            text: i18n("NOTE: The is name should same as filename\nin \"%1\"", "/usr/share/applications/")
         }
     }
 

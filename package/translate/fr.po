@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: resourcesMonitor-fork\n"
 "Report-Msgid-Bugs-To: https://github.com/orblazer/plasma-applet-resources-monitor\n"
-"POT-Creation-Date: 2021-12-02 12:57+0100\n"
+"POT-Creation-Date: 2021-12-02 13:42+0100\n"
 "PO-Revision-Date: 2021-12-02 13:01+0100\n"
 "Last-Translator: orblazer\n"
 "Language: fr\n"
@@ -152,7 +152,7 @@ msgstr "Couleur du traffic sortant :"
 msgid "Choose network sending graph color"
 msgstr "Choisissez la couleur du graphique du traffic sortant"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
 msgid "Custom"
 msgstr "Personnalisée"
 
@@ -197,12 +197,41 @@ msgid "Custom max sending speed:"
 msgstr "Vitesse d'envoi maximale personnalisée"
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
+msgid "Plasma System Monitor"
+msgstr "Surveillance du système Plasma"
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
+msgid "System Monitor"
+msgstr "Surveillance du système"
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
 msgid "Update interval:"
 msgstr "Intervalle d'actualisation :"
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
 msgid "%1 seconds"
 msgstr "%1 secondes"
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
+msgid "Click action"
+msgstr "Action du clique"
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
+msgid "Program:"
+msgstr "Programme"
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
+msgid "Custom program:"
+msgstr "Programme personnalisé"
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
+msgid ""
+"NOTE: The is name should same as filename\n"
+"in \"%1\""
+msgstr ""
+"NOTE: Le nom est doit être le même\n"
+"que celui du fichier dans\n"
+"\"%1\""
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
 msgid "Charts"

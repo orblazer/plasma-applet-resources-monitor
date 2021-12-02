@@ -10,6 +10,10 @@
             <default>1.0</default>
         </entry>
 
+        <entry name="actionService" type="String">
+            <default>org.kde.plasma-systemmonitor</default>
+        </entry>
+
         <entry name="showCpuMonitor" type="Bool">
             <default>true</default>
         </entry>

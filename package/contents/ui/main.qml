@@ -35,6 +35,7 @@ Item {
 
     // Settings properties
     property bool verticalLayout: plasmoid.configuration.verticalLayout
+    property string actionService: plasmoid.configuration.actionService
 
     property bool showCpuMonitor: plasmoid.configuration.showCpuMonitor
     property bool showClock: plasmoid.configuration.showClock
@@ -220,9 +221,7 @@ Item {
         id: mouseArea
         anchors.fill: parent
         onClicked: {
-            if (!kRun.openService("org.kde.plasma-systemmonitor")) {
-                kRun.openService("org.kde.ksysguard")
-            }
+            kRun.openService(actionService)
         }
     }
 
