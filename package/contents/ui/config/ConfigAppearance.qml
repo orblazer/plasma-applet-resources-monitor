@@ -13,7 +13,7 @@ QtLayouts.ColumnLayout {
     property alias cfg_customGraphHeight: graphHeight.checked
     property alias cfg_graphHeight: graphHeight.value
     property alias cfg_graphMargin: graphMargin.value
-    property alias cfg_graphBackgroundOpacity: graphBackgroundOpacity.value
+    property alias cfg_graphFillOpacity: graphFillOpacity.value
 
     property alias cfg_enableShadows: enableShadows.checked
     property alias cfg_fontScale: fontScale.value
@@ -96,8 +96,8 @@ QtLayouts.ColumnLayout {
                 }
             }
             RMControls.SpinBox {
-                id: graphBackgroundOpacity
-                Kirigami.FormData.label: i18n("Background opacity:")
+                id: graphFillOpacity
+                Kirigami.FormData.label: i18n("Fill opacity:")
                 QtLayouts.Layout.fillWidth: true
                 from: 1
                 to: 100

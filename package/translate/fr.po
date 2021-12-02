@@ -53,8 +53,8 @@ msgid "Margin:"
 msgstr "Marge :"
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
-msgid "Background opacity:"
-msgstr ""
+msgid "Fill opacity:"
+msgstr "Opacité du remplissage :"
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
 msgid "Drop shadows"
@@ -235,6 +235,3 @@ msgstr "⇘ Tél."
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/main.qml
 msgid "⇗ Up"
 msgstr "⇗ Env."
-
-#~ msgid "Fill opacity:"
-#~ msgstr "Opacité du remplissage :"

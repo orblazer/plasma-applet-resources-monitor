@@ -54,7 +54,7 @@ msgid "Margin:"
 msgstr ""
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
-msgid "Background opacity:"
+msgid "Fill opacity:"
 msgstr ""
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
