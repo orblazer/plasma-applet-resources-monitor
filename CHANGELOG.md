@@ -1,3 +1,23 @@
+# [2.5.0](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.4.0...v2.5.0) (2021-12-04)
+
+
+### Bug Fixes
+
+* **config:** use right way to configure fill opacity ([916c7f6](https://github.com/orblazer/plasma-applet-resources-monitor/commit/916c7f67f1ed65578a7c874a985be74e74b99494))
+* **data:** use 0 instead hard value for nan ([a310230](https://github.com/orblazer/plasma-applet-resources-monitor/commit/a31023093fa0614d6e9b71b308aa016e6e9c0ee2))
+* **graph:** correctly show the value of clock when hover ([43399c9](https://github.com/orblazer/plasma-applet-resources-monitor/commit/43399c9f45c8fd4c85f6d3c46d565e99db420c0e))
+* **i18n:** add missing config translation ([082df08](https://github.com/orblazer/plasma-applet-resources-monitor/commit/082df08e3ba5787f7aefe358cfa3875d8df848b8))
+
+
+### Features
+
+* **config:** add option for specify click action ([ae2e9c6](https://github.com/orblazer/plasma-applet-resources-monitor/commit/ae2e9c63ab734933eb2b31135539051371eab774)), closes [#12](https://github.com/orblazer/plasma-applet-resources-monitor/issues/12)
+* **config:** allow configure graph sample ([483b481](https://github.com/orblazer/plasma-applet-resources-monitor/commit/483b481f045dd819c75e40e162aac420d415b7a2)), closes [#13](https://github.com/orblazer/plasma-applet-resources-monitor/issues/13)
+* **data:** allow kilobyte for network unit ([3110650](https://github.com/orblazer/plasma-applet-resources-monitor/commit/3110650ebc655d53557632df1cbfcc7b66ee7987)), closes [#9](https://github.com/orblazer/plasma-applet-resources-monitor/issues/9)
+* **i18n:** add dutch lang ([90e6b17](https://github.com/orblazer/plasma-applet-resources-monitor/commit/90e6b17b13f3c1e19654bec19d89c8e297cef88e)), closes [#11](https://github.com/orblazer/plasma-applet-resources-monitor/issues/11)
+
+
+
 # [2.4.0](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.3.0...v2.4.0) (2021-11-29)
 
 
