@@ -7,6 +7,7 @@ import org.kde.plasma.components 2.0 as PlasmaComponents
 
 import "../components" as RMComponents
 import "../controls" as RMControls
+import "../components/functions.js" as Functions
 
 QtLayouts.ColumnLayout {
     id: dataPage
@@ -15,78 +16,11 @@ QtLayouts.ColumnLayout {
 
     property alias cfg_memoryUseAllocated: memoryUseAllocated.checked
     property alias cfg_memorySwapGraph: memorySwapGraph.checked
-    property alias cfg_networkInKilobit: networkInKilobit.checked
+
+    property var networkUnit: Functions.getNetworkUnit(plasmoid.configuration.networkUnit)
+    property var networkSpeedOptions: Functions.getSpeedOptions(plasmoid.configuration.networkUnit)
     property double cfg_downloadMaxKiBps: 0.0
     property double cfg_uploadMaxKiBps: 0.0
-
-    readonly property var networkKiBpsSpeedOptions: [
-        {
-            "label": i18n("Custom"),
-            "value": -1.0
-        },{
-            "label": "100 KiB/s",
-            "value": 100.0
-        }, {
-            "label": "1 MiB/s",
-            "value": 1000.0
-        }, {
-            "label": "10 MiB/s",
-            "value": 10000.0
-        }, {
-            "label": "100 MiB/s",
-            "value": 100000.0
-        }, {
-            "label": "1 GiB/s",
-            "value": 1000000.0
-        }, {
-            "label": "2.5 GiB/s",
-            "value": 2500000.0
-        }, {
-            "label": "5 GiB/s",
-            "value": 5000000.0
-        }, {
-            "label": "10 GiB/s",
-            "value": 10000000.0
-        }
-    ]
-    readonly property var networkKbpsSpeedOptions: [
-        {
-            "label": i18n("Custom"),
-            "value": -1.0
-        },{
-            "label": "100 Kbps",
-            "value": 12.207,
-            "rawValue": 0.1
-        }, {
-            "label": "1 Mbps",
-            "value": 122.07,
-            "rawValue": 1.0
-        }, {
-            "label": "10 Mbps",
-            "value": 1220.7,
-            "rawValue": 10.0
-        }, {
-            "label": "100 Mbps",
-            "value": 12207.0,
-            "rawValue": 100.0
-        }, {
-            "label": "1 Gbps",
-            "value": 122070.0,
-            "rawValue": 1000.0
-        }, {
-            "label": "2.5 Gbps",
-            "value": 305176.0,
-            "rawValue": 2500.0
-        }, {
-            "label": "5 Gbps",
-            "value": 610352.0,
-            "rawValue": 5000.0
-        }, {
-            "label": "10 Gbps",
-            "value": 1221000.0,
-            "rawValue": 10000.0
-        }
-    ]
 
     // Detect network interfaces
     RMComponents.SensorDetector {
@@ -188,21 +122,29 @@ QtLayouts.ColumnLayout {
                 }
             }
 
-            QtControls.CheckBox {
-                id: networkInKilobit
-                text: i18n("Speed in kilobit (Kbps)")
-                onCheckedChanged: {
-                    downloadMaxSpeed.model = checked ? networkKbpsSpeedOptions : networkKiBpsSpeedOptions
-                    // uploadMaxSpeed.model = checked ? networkKbpsSpeedOptions : networkKiBpsSpeedOptions
-                }
+            // Separator
+            Rectangle {
+                height: Kirigami.Units.largeSpacing * 2
+                color: "transparent"
+            }
+
+            PlasmaComponents.Label {
+                text: i18n("Maximum transfer speed")
+                font.pointSize: PlasmaCore.Theme.defaultFont.pointSize * 1.2
+            }
+
+            // Separator
+            Rectangle {
+                height: Kirigami.Units.largeSpacing
+                color: "transparent"
             }
 
             // Receiving speed
             QtControls.ComboBox {
                 id: downloadMaxSpeed
-                Kirigami.FormData.label: i18n("Max receiving speed:")
+                Kirigami.FormData.label: i18n("Receiving:")
                 textRole: "label"
-                model: cfg_networkInKilobit ? networkKbpsSpeedOptions : networkKiBpsSpeedOptions
+                model: networkSpeedOptions
 
                 onCurrentIndexChanged: {
                     var current = model[currentIndex]
@@ -224,7 +166,7 @@ QtLayouts.ColumnLayout {
             }
             RMControls.SpinBox {
                 id: customDownloadMaxSpeed
-                Kirigami.FormData.label: i18n("Custom max receiving speed:")
+                Kirigami.FormData.label: i18n("Custom value:")
                 QtLayouts.Layout.fillWidth: true
                 decimals: 3
                 stepSize: 1
@@ -232,27 +174,33 @@ QtLayouts.ColumnLayout {
                 visible: downloadMaxSpeed.currentIndex === 0
 
                 textFromValue: function(value) {
-                    return valueToText(value) + (cfg_networkInKilobit ? " Mbps" : " MiB/s")
+                    return valueToText(value) + " M" + networkUnit.suffix
                 }
 
                 onValueChanged: {
-                    var value = valueReal / (cfg_networkInKilobit ? 8.192 : 1)
+                    var value = valueReal / networkUnit.multiplier
 
                     cfg_downloadMaxKiBps = Math.round(value * 1000)
                     dataPage.configurationChanged()
                 }
                 Component.onCompleted: {
-                    var value = parseFloat(plasmoid.configuration.downloadMaxKiBps) * (cfg_networkInKilobit ? 8.192 : 1)
+                    var value = parseFloat(plasmoid.configuration.downloadMaxKiBps) * networkUnit.multiplier
                     valueReal = value / 1000
                 }
+            }
+
+            // Separator
+            Rectangle {
+                height: Kirigami.Units.largeSpacing
+                color: "transparent"
             }
 
             // Sending speed
             QtControls.ComboBox {
                 id: uploadMaxSpeed
-                Kirigami.FormData.label: i18n("Max sending speed:")
+                Kirigami.FormData.label: i18n("Sending:")
                 textRole: "label"
-                model: cfg_networkInKilobit ? networkKbpsSpeedOptions : networkKiBpsSpeedOptions
+                model: networkSpeedOptions
 
                 onCurrentIndexChanged: {
                     var current = model[currentIndex]
@@ -274,7 +222,7 @@ QtLayouts.ColumnLayout {
             }
             RMControls.SpinBox {
                 id: customUploadMaxSpeed
-                Kirigami.FormData.label: i18n("Custom max sending speed:")
+                Kirigami.FormData.label: i18n("Custom value:")
                 QtLayouts.Layout.fillWidth: true
                 decimals: 3
                 stepSize: 1
@@ -282,17 +230,17 @@ QtLayouts.ColumnLayout {
                 visible: uploadMaxSpeed.currentIndex === 0
 
                 textFromValue: function(value) {
-                    return valueToText(value) + (cfg_networkInKilobit ? " Mbps" : " MiB/s")
+                    return valueToText(value) + " M" + networkUnit.suffix
                 }
 
                 onValueChanged: {
-                    var value = valueReal / (cfg_networkInKilobit ? 8.192 : 1)
+                    var value = valueReal / networkUnit.multiplier
 
                     cfg_uploadMaxKiBps = Math.round(value * 1000)
                     dataPage.configurationChanged()
                 }
                 Component.onCompleted: {
-                    var value = parseFloat(plasmoid.configuration.uploadMaxKiBps) * (cfg_networkInKilobit ? 8.192 : 1)
+                    var value = parseFloat(plasmoid.configuration.uploadMaxKiBps) * networkUnit.multiplier
                     valueReal = value / 1000
                 }
             }

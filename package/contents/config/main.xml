@@ -9,6 +9,9 @@
         <entry name="updateInterval" type="Double">
             <default>1.0</default>
         </entry>
+        <entry name="networkUnit" type="String">
+            <default>kibibyte</default>
+        </entry>
 
         <entry name="actionService" type="String">
             <default>org.kde.plasma-systemmonitor</default>
@@ -39,9 +42,6 @@
             <default>true</default>
         </entry>
         <entry name="ignoredNetworkInterfaces" type="StringList">
-        </entry>
-        <entry name="networkInKilobit" type="Bool">
-            <default>false</default>
         </entry>
         <entry name="downloadMaxKiBps" type="Double">
             <default>100000.0</default>

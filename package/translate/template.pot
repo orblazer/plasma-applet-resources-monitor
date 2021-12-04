@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: resourcesMonitor-fork\n"
 "Report-Msgid-Bugs-To: https://github.com/orblazer/plasma-applet-resources-monitor\n"
-"POT-Creation-Date: 2021-12-04 19:18+0100\n"
+"POT-Creation-Date: 2021-12-04 21:18+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,6 +35,25 @@ msgstr ""
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/config/config.qml
 msgid "Appearance"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/components/functions.js
+msgctxt "kilobyte suffix"
+msgid "Bps"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/components/functions.js
+msgctxt "kilobit suffix"
+msgid "bps"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/components/functions.js
+msgctxt "kibibyte suffix"
+msgid "iB/s"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/components/functions.js
+msgid "Custom"
 msgstr ""
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
@@ -158,10 +177,6 @@ msgid "Choose network sending graph color"
 msgstr ""
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
-msgid "Custom"
-msgstr ""
-
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
 msgid "Memory"
 msgstr ""
 
@@ -182,23 +197,19 @@ msgid "Network interfaces:"
 msgstr ""
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
-msgid "Speed in kilobit (Kbps)"
+msgid "Maximum transfer speed"
 msgstr ""
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
-msgid "Max receiving speed:"
+msgid "Receiving:"
 msgstr ""
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
-msgid "Custom max receiving speed:"
+msgid "Custom value:"
 msgstr ""
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
-msgid "Max sending speed:"
-msgstr ""
-
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
-msgid "Custom max sending speed:"
+msgid "Sending:"
 msgstr ""
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
@@ -211,6 +222,22 @@ msgstr ""
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
 msgid "%1 seconds"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
+msgid "Network speed unit:"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
+msgid "Kibibyte (KiB/s)"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
+msgid "Kilobit (Kbps)"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
+msgid "Kilobyte (KBps)"
 msgstr ""
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml

@@ -15,6 +15,7 @@ QtLayouts.ColumnLayout {
     signal configurationChanged
 
     property alias cfg_updateInterval: updateInterval.valueReal
+    property string cfg_networkUnit: plasmoid.configuration.networkUnit
     property string cfg_actionService: plasmoid.configuration.actionService
 
     property alias cfg_showCpuMonitor: showCpuMonitor.checked
@@ -80,6 +81,41 @@ QtLayouts.ColumnLayout {
 
                     textFromValue: function(value) {
                         return i18n("%1 seconds", valueToText(value))
+                    }
+                }
+
+                QtControls.ComboBox {
+                    id: networkUnit
+                    Kirigami.FormData.label: i18n("Network speed unit:")
+                    textRole: "label"
+                    model: [{
+                        label: i18n("Kibibyte (KiB/s)"),
+                        value: "kibibyte"
+                    }, {
+                        label: i18n("Kilobit (Kbps)"),
+                        value: "kilobit"
+                    }, {
+                        label: i18n("Kilobyte (KBps)"),
+                        value: "kilobyte"
+                    }]
+
+                    onCurrentIndexChanged: {
+                        var current = model[currentIndex]
+                        if (current && current.value !== -1) {
+                            if (current.value !== cfg_networkUnit) {
+                                cfg_networkUnit = current.value
+                                page.configurationChanged()
+                            }
+                        }
+                    }
+
+                    Component.onCompleted: {
+                        for (var i = 0; i < model.length; i++) {
+                            if (model[i]["value"] === cfg_networkUnit) {
+                                currentIndex = i;
+                                return
+                            }
+                        }
                     }
                 }
             }
