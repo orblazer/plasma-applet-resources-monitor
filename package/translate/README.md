@@ -25,3 +25,4 @@ Or if you know how to make a pull request
 |----------|---------|-------|
 | Template |      69 |       |
 | fr       |   69/69 |  100% |
+| nl       |   69/69 |  100% |

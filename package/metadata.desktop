@@ -17,4 +17,6 @@ X-Plasma-RemoteLocation=
 X-KDE-PluginInfo-Category=System Information
 Icon=utilities-system-monitor
 Name[fr]=Moniteur des ressources (fork)
+Name[nl]=Systeembronmonitor (afsplitsing)
 Comment[fr]=Plasmoid pour surveiller l'utilisation du CPU, de la mémoire et du traffic réseau. Ceci est un fork de "Resources Monitor" de Kotelnik
+Comment[nl]=Een plasmoid voor het monitoren van de cpu, het werkgeheugen en netwerkverkeer. Dit is een afsplitsing van ‘Resources Monitor’ van Kotelnik.
