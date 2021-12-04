@@ -35,6 +35,7 @@ Item {
 
     // Settings properties
     property bool verticalLayout: plasmoid.configuration.verticalLayout
+    property int sampleCount: plasmoid.configuration.sampleCount
     property string actionService: plasmoid.configuration.actionService
 
     property bool showCpuMonitor: plasmoid.configuration.showCpuMonitor
@@ -121,6 +122,7 @@ Item {
     // Graphs
     RMComponents.SensorGraph {
         id: cpuGraph
+        sampleSize: sampleCount
         sensors: [sensorData.sensors.totalLoad]
         colors: [cpuColor]
         defaultsMax: [100]
@@ -154,6 +156,7 @@ Item {
 
     RMComponents.SensorGraph {
         id: ramGraph
+        sampleSize: sampleCount
         sensors: [sensorData.sensors.memApplication, sensorData.sensors.swapUsed]
         colors: [ramColor, swapColor]
 
@@ -191,6 +194,7 @@ Item {
 
     RMComponents.SensorGraph {
         id: netGraph
+        sampleSize: sampleCount
         sensors: [sensorData.sensors.networkReceiver, sensorData.sensors.networkTransmitter]
         colors: [netDownColor, netUpColor]
         defaultsMax: [sensorData.networkReceivingTotal, sensorData.networkSendingTotal]

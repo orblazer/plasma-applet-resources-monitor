@@ -9,6 +9,7 @@ Item {
 	id: sensorGraph
 
     // Aliases
+    property alias sampleSize: plotter.sampleSize
     property alias sensors: plotter.sensors
     property alias values: plotter.values
     property alias colors: plotter.colors
@@ -45,7 +46,6 @@ Item {
         property var values: []
 
         property var colors: [theme.highlightColor]
-        // sampleSize: Math.floor(1 / sensorData.dataSource.interval) + 1
 
         horizontalGridLineCount: 0
 

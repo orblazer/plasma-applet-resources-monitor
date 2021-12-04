@@ -8,6 +8,7 @@ import "../controls" as RMControls
 
 QtLayouts.ColumnLayout {
     property alias cfg_verticalLayout: verticalLayout.checked
+    property alias cfg_sampleCount: sampleCount.value
     property alias cfg_customGraphWidth: graphWidth.checked
     property alias cfg_graphWidth: graphWidth.value
     property alias cfg_customGraphHeight: graphHeight.checked
@@ -68,6 +69,13 @@ QtLayouts.ColumnLayout {
             QtControls.CheckBox {
                 id: verticalLayout
                 text: i18n("Vertical layout")
+            }
+
+            RMControls.SpinBox {
+                id: sampleCount
+                Kirigami.FormData.label: i18n("Sample count:")
+                QtLayouts.Layout.fillWidth: true
+                from: 2
             }
 
             RMControls.CustomizableSize {

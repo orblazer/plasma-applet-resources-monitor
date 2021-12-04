@@ -55,6 +55,9 @@
         <entry name="verticalLayout" type="Bool">
             <default>false</default>
         </entry>
+        <entry name="sampleCount" type="Int">
+            <default>10</default>
+        </entry>
         <entry name="enableShadows" type="Bool">
             <default>true</default>
         </entry>

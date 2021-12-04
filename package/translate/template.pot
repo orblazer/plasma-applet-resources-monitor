@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: resourcesMonitor-fork\n"
 "Report-Msgid-Bugs-To: https://github.com/orblazer/plasma-applet-resources-monitor\n"
-"POT-Creation-Date: 2021-12-04 18:48+0100\n"
+"POT-Creation-Date: 2021-12-04 19:18+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -51,6 +51,10 @@ msgstr ""
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
 msgid "Vertical layout"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+msgid "Sample count:"
 msgstr ""
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
