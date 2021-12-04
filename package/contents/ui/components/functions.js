@@ -5,26 +5,34 @@
  * @returns The percent of usage
  */
 function getPercentUsage(current, max) {
-  var x = current / max
-  return isNaN(x) ? 0 : Math.min(x, 1)
+  var x = current / max;
+  return isNaN(x) ? 0 : Math.min(x, 1);
 }
 
 function humanReadableBits(value) {
   if (isNaN(parseInt(value))) {
-    return ''
+    return "";
   }
 
   if (value < 1000) {
-    return Math.max(value, 0) + ' bps'
+    return Math.max(value, 0) + " bps";
   }
 
-  var i = -1
-  var byteUnits = [' kbps', ' Mbps', ' Gbps', ' Tbps', 'Pbps', 'Ebps', 'Zbps', 'Ybps']
+  var i = -1;
+  var byteUnits = [
+    " Kbps",
+    " Mbps",
+    " Gbps",
+    " Tbps",
+    " Pbps",
+    " Ebps",
+    " Zbps",
+    " Ybps",
+  ];
   do {
-    value = value / 1000
-    i++
-  } while (value > 1000)
+    value = value / 1000;
+    i++;
+  } while (value > 1000);
 
-
-  return (Math.round(Math.max(value, 0) * 10) / 10) + byteUnits[i]
+  return Math.round(Math.max(value, 0) * 10) / 10 + byteUnits[i];
 }
