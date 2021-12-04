@@ -232,7 +232,7 @@ Item {
 
     function humanReadableBytes(value) {
         if (isNaN(parseInt(value))) {
-            return '0 B'
+            value = 0
         }
 
 		// https://github.com/KDE/kcoreaddons/blob/master/src/lib/util/kformat.h
