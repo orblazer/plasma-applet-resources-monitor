@@ -1,3 +1,13 @@
+## [2.5.1](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.5.0...v2.5.1) (2021-12-05)
+
+
+### Bug Fixes
+
+* **config:** use right way to apply filter ([0f83b0f](https://github.com/orblazer/plasma-applet-resources-monitor/commit/0f83b0fc63fe0aceff09f2b70867ec38d3ef59dd)), closes [#12](https://github.com/orblazer/plasma-applet-resources-monitor/issues/12)
+* **i18n:** add missing colon ([baa4dae](https://github.com/orblazer/plasma-applet-resources-monitor/commit/baa4dae54d03f7ed66458e070493fa0f2d30f688))
+
+
+
 # [2.5.0](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.4.0...v2.5.0) (2021-12-04)
 
 
