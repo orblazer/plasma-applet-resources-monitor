@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: resourcesMonitor-fork\n"
 "Report-Msgid-Bugs-To: https://github.com/orblazer/plasma-applet-resources-monitor\n"
-"POT-Creation-Date: 2021-12-05 12:09+0100\n"
+"POT-Creation-Date: 2021-12-05 13:56+0100\n"
 "PO-Revision-Date: 2021-12-05 12:09+0100\n"
 "Last-Translator: orblazer\n"
 "Language: fr\n"
@@ -16,281 +16,283 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/metadata.desktop
+#: ../metadata.desktop:4
 msgid "Resources Monitor (fork)"
 msgstr "Moniteur des ressources (fork)"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/metadata.desktop
+#: ../metadata.desktop:5
 msgid "Plasmoid for monitoring CPU, memory and network traffic. This is an fork from \"Resources Monitor\" by Kotelnik"
-msgstr "Plasmoid pour surveiller l'utilisation du CPU, de la mémoire et du traffic réseau. Ceci est un fork de \"Resources Monitor\" de Kotelnik"
+msgstr ""
+"Plasmoid pour surveiller l'utilisation du CPU, de la mémoire et du traffic réseau. Ceci est un fork de \"Resources "
+"Monitor\" de Kotelnik"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/config/config.qml /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
+#: ../contents/config/config.qml:6 ../contents/ui/config/ConfigGeneral.qml:57
 msgid "General"
 msgstr "Général"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/config/config.qml
+#: ../contents/config/config.qml:11
 msgid "Data"
 msgstr "Données"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/config/config.qml
+#: ../contents/config/config.qml:16
 msgid "Appearance"
 msgstr "Apparence"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/components/functions.js
+#: ../contents/ui/components/functions.js:16
 msgctxt "kilobyte suffix"
 msgid "Bps"
 msgstr "ops"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/components/functions.js
+#: ../contents/ui/components/functions.js:22
 msgctxt "kilobit suffix"
 msgid "bps"
 msgstr "bps"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/components/functions.js
+#: ../contents/ui/components/functions.js:28
 msgctxt "kibibyte suffix"
 msgid "iB/s"
 msgstr "io/s"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/components/functions.js
+#: ../contents/ui/components/functions.js:40
 msgid "Custom"
 msgstr "Personnalisée"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+#: ../contents/ui/config/ConfigAppearance.qml:46
 msgid "Graph"
 msgstr "Graphique"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+#: ../contents/ui/config/ConfigAppearance.qml:51
 msgid "Text"
 msgstr "Texte"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+#: ../contents/ui/config/ConfigAppearance.qml:56
 msgid "Colors"
 msgstr "Couleurs"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+#: ../contents/ui/config/ConfigAppearance.qml:71
 msgid "Vertical layout"
 msgstr "Disposition verticale"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+#: ../contents/ui/config/ConfigAppearance.qml:76
 msgid "Sample count:"
 msgstr "Nombre d'échantillons :"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+#: ../contents/ui/config/ConfigAppearance.qml:83
 msgid "Width:"
 msgstr "Largeur :"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+#: ../contents/ui/config/ConfigAppearance.qml:90
 msgid "Height:"
 msgstr "Hauteur :"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+#: ../contents/ui/config/ConfigAppearance.qml:97
 msgid "Margin:"
 msgstr "Marge :"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+#: ../contents/ui/config/ConfigAppearance.qml:108
 msgid "Fill opacity:"
 msgstr "Opacité du remplissage :"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+#: ../contents/ui/config/ConfigAppearance.qml:126
 msgid "Drop shadows"
 msgstr "Ombres portées"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+#: ../contents/ui/config/ConfigAppearance.qml:131
 msgid "Font scale:"
 msgstr "Taille de la police :"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+#: ../contents/ui/config/ConfigAppearance.qml:143
 msgid "Text displayment:"
 msgstr "Affichage du texte :"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+#: ../contents/ui/config/ConfigAppearance.qml:146
 msgid "Always"
 msgstr "Toujours"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+#: ../contents/ui/config/ConfigAppearance.qml:149
 msgid "On hover"
 msgstr "Au survol"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+#: ../contents/ui/config/ConfigAppearance.qml:152
 msgid "Hints when hover"
 msgstr "Indices au survol"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+#: ../contents/ui/config/ConfigAppearance.qml:168
 msgid "Placement:"
 msgstr "Placement :"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+#: ../contents/ui/config/ConfigAppearance.qml:171
 msgid "Top left"
 msgstr "En haut à gauche"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+#: ../contents/ui/config/ConfigAppearance.qml:174
 msgid "Top right"
 msgstr "En haut à droite"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+#: ../contents/ui/config/ConfigAppearance.qml:177
 msgid "Bottom left"
 msgstr "En bas à gauche"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+#: ../contents/ui/config/ConfigAppearance.qml:180
 msgid "Bottom right"
 msgstr "En bas à droite"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+#: ../contents/ui/config/ConfigAppearance.qml:201
 msgid "CPU color:"
 msgstr "Couleur du CPU :"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+#: ../contents/ui/config/ConfigAppearance.qml:203
 msgid "Choose CPU graph color"
 msgstr "Choisissez la couleur du graphique du CPU"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+#: ../contents/ui/config/ConfigAppearance.qml:209
 msgid "Memory color:"
 msgstr "Couleur de la mémoire"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+#: ../contents/ui/config/ConfigAppearance.qml:211
 msgid "Choose memory graph color"
 msgstr "Choisissez la couleur du graphique de la mémoire"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+#: ../contents/ui/config/ConfigAppearance.qml:216
 msgid "Swap color:"
 msgstr "Couleur du Swap :"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+#: ../contents/ui/config/ConfigAppearance.qml:218
 msgid "Choose Swap graph color"
 msgstr "Choisissez la couleur du graphique Swap"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+#: ../contents/ui/config/ConfigAppearance.qml:224
 msgid "Network receiving color:"
 msgstr "Couleur du traffic entrant :"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+#: ../contents/ui/config/ConfigAppearance.qml:226
 msgid "Choose network receiving graph color"
 msgstr "Choisissez la couleur du graphique du traffic entrant"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+#: ../contents/ui/config/ConfigAppearance.qml:231
 msgid "Network sending color:"
 msgstr "Couleur du traffic sortant :"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
+#: ../contents/ui/config/ConfigAppearance.qml:233
 msgid "Choose network sending graph color"
 msgstr "Choisissez la couleur du graphique du traffic sortant"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
+#: ../contents/ui/config/ConfigData.qml:52
 msgid "Memory"
 msgstr "Mémoire"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
+#: ../contents/ui/config/ConfigData.qml:57
 msgid "Network"
 msgstr "Réseau"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
+#: ../contents/ui/config/ConfigData.qml:72
 msgid "Use allocated memory instead of application"
 msgstr "Utiliser la mémoire allouée au lieu de l'application"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
+#: ../contents/ui/config/ConfigData.qml:77
 msgid "Display memory swap graph"
 msgstr "Afficher le graphique du Swap"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
+#: ../contents/ui/config/ConfigData.qml:88
 msgid "Network interfaces:"
 msgstr "Interfaces réseau :"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
+#: ../contents/ui/config/ConfigData.qml:132
 msgid "Maximum transfer speed"
 msgstr "Vitesse de transfert maximale"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
+#: ../contents/ui/config/ConfigData.qml:145
 msgid "Receiving:"
 msgstr "Réception :"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
+#: ../contents/ui/config/ConfigData.qml:169 ../contents/ui/config/ConfigData.qml:225
 msgid "Custom value:"
 msgstr "Valeur personnalisée :"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
+#: ../contents/ui/config/ConfigData.qml:201
 msgid "Sending:"
 msgstr "Envoi :"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
+#: ../contents/ui/config/ConfigGeneral.qml:62
 msgid "Click action"
 msgstr "Action du clique"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
+#: ../contents/ui/config/ConfigGeneral.qml:81
 msgid "Update interval:"
 msgstr "Intervalle d'actualisation :"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
+#: ../contents/ui/config/ConfigGeneral.qml:90
 msgid "%1 seconds"
 msgstr "%1 secondes"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
+#: ../contents/ui/config/ConfigGeneral.qml:102
 msgid "Charts"
 msgstr "Graphiques"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
+#: ../contents/ui/config/ConfigGeneral.qml:115
 msgid "Show CPU monitor"
 msgstr "Afficher le moniteur du CPU"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
+#: ../contents/ui/config/ConfigGeneral.qml:119
 msgid "Show CPU clock"
 msgstr "Afficher l'horloge du processeur"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
+#: ../contents/ui/config/ConfigGeneral.qml:126
 msgid "Show memory monitor"
 msgstr "Afficher le moniteur de mémoire"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
+#: ../contents/ui/config/ConfigGeneral.qml:130
 msgid "Memory in percentage"
 msgstr "Mémoire en pourcentage"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
+#: ../contents/ui/config/ConfigGeneral.qml:144
 msgid "Network visibility:"
 msgstr "Visibilité du réseau :"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
+#: ../contents/ui/config/ConfigGeneral.qml:148
 msgid "Disabled"
 msgstr "Désactivé"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
+#: ../contents/ui/config/ConfigGeneral.qml:151
 msgid "In kibibyte (KiB/s)"
 msgstr "En kibioctet (Kio/s)"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
+#: ../contents/ui/config/ConfigGeneral.qml:154
 msgid "In kilobit (Kbps)"
 msgstr "En kilobit (Kbps)"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
+#: ../contents/ui/config/ConfigGeneral.qml:157
 msgid "In kilobyte (KBps)"
 msgstr "En kilooctet (Kops)"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
+#: ../contents/ui/config/ConfigGeneral.qml:207
 msgid "Search an application:"
 msgstr "Chercher une application :"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
+#: ../contents/ui/config/ConfigGeneral.qml:209
 msgid "Application name"
 msgstr "Nom de l'application"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
+#: ../contents/ui/config/ConfigGeneral.qml:216
 msgid "Applications"
 msgstr "Applications"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/controls/ColorSelector.qml
+#: ../contents/ui/controls/ColorSelector.qml:29
 msgid "Check for use customized color"
 msgstr "Cocher pour utiliser une couleur personnalisée"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/controls/CustomizableSize.qml
+#: ../contents/ui/controls/CustomizableSize.qml:24
 msgid "Check for use customized graph width"
 msgstr "Cocher pour l'utilisation d'une largeur de graphique personnalisée"
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/main.qml
+#: ../contents/ui/main.qml:136
 msgid "⏲ Clock"
 msgstr "⏲ Horl."
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/main.qml
+#: ../contents/ui/main.qml:210
 msgid "⇘ Down"
 msgstr "⇘ Tél."
 
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/main.qml
+#: ../contents/ui/main.qml:212
 msgid "⇗ Up"
 msgstr "⇗ Env."

@@ -28,7 +28,7 @@ fi
 
 #---
 echo "[merge] Extracting messages"
-potArgs="--from-code=UTF-8 --width=200 --add-location=file"
+potArgs="--from-code=UTF-8 --width=120"
 
 find "${packageRoot}" -name '*.desktop' | sort > "${DIR}/infiles.list"
 xgettext \
@@ -75,6 +75,7 @@ xgettext \
 
 sed -i 's/# SOME DESCRIPTIVE TITLE./'"# Translation of ${widgetName} in LANGUAGE"'/' "template.pot.new"
 sed -i 's/# Copyright (C) YEAR THE PACKAGE'"'"'S COPYRIGHT HOLDER/'"# Copyright (C) $(date +%Y)"'/' "template.pot.new"
+sed -i "s#${packageRoot}#..#g" "template.pot.new"
 
 if [ -f "template.pot" ]; then
 	newPotDate=`grep "POT-Creation-Date:" template.pot.new | sed 's/.\{3\}$//'`
@@ -123,18 +124,11 @@ for cat in $catalogs; do
 	echo "[merge] $cat"
 	catLocale=`basename ${cat%.*}`
 
-	widthArg=""
-	catUsesGenerator=`grep "X-Generator:" "$cat"`
-	if [ -z "$catUsesGenerator" ]; then
-		widthArg="--width=400"
-	fi
-
 	cp "$cat" "$cat.new"
 	sed -i 's/"Content-Type: text\/plain; charset=CHARSET\\n"/"Content-Type: text\/plain; charset=UTF-8\\n"/' "$cat.new"
 
 	msgmerge \
-		${widthArg} \
-		--add-location=file \
+		--width=120 \
 		--no-fuzzy-matching \
 		-o "$cat.new" \
 		"$cat.new" "${DIR}/template.pot"
