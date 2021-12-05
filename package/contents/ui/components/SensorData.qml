@@ -9,9 +9,10 @@ Item {
 
   // Config
   readonly property bool _memoryUseAllocated: plasmoid.configuration.memoryUseAllocated
+  readonly property var networkDialect: Functions.getNetworkDialectInfo(plasmoid.configuration.networkUnit)
   readonly property var ignoredNetworkInterfaces: plasmoid.configuration.ignoredNetworkInterfaces
-  readonly property double networkReceivingTotal: plasmoid.configuration.downloadMaxKiBps
-  readonly property double networkSendingTotal: plasmoid.configuration.uploadMaxKiBps
+  readonly property double networkReceivingTotal: plasmoid.configuration.networkReceivingTotal
+  readonly property double networkSendingTotal: plasmoid.configuration.networkSendingTotal
 
   readonly property alias sensors: sensors
   QtObject {
@@ -50,19 +51,37 @@ Item {
   }
   function getData(key) {
       if (key === sensors.networkReceiver) {
-        return getNetworkReceiving()
+        return _getNetworkData(sensors.receiverNetworkList)
       }
       else if (key === sensors.networkTransmitter) {
-        return getNetworkSending()
+        return _getNetworkData(sensors.transmitterNetworkList)
+      }
+      return _getData(key)
+  }
+  function _getData(key) {
+    if (typeof dataSource.data[key] === 'undefined') {
+      return 0
+    }
+    var value = parseInt(dataSource.data[key].value)
+    return isNaN(value) ? 0 : value
+  }
+  function _getNetworkData(sensors = []) {
+    var total = 0
+    var i, sensor
+    for (i = 0; i < sensors.length; i++) {
+      sensor = sensors[i]
+      // Connect source if is disconnect
+      if (!isConnectedSource(sensor)) {
+          dataSource.connectSource(sensor)
       }
 
-      if (typeof dataSource.data[key] === 'undefined') return 0
-      if (typeof dataSource.data[key].value === 'undefined') return 0
-      return parseInt(dataSource.data[key].value)
+      total += _getData(sensor)
+    }
+    return total * networkDialect.KiBDiff // Return convected in dialect
   }
   function getUnits(key) {
       if (key === sensors.networkReceiver || key === sensors.networkTransmitter) {
-        return 'kbps'
+        return networkDialect.name
       }
 
       if (typeof dataSource.data[key] === 'undefined') return ''
@@ -90,34 +109,6 @@ Item {
   readonly property real swapUsed: getData(sensors.swapUsed)
   readonly property real swapFree: getData(sensors.swapFree)
   readonly property real swapTotal: swapUsed + swapFree
-
-  // Network
-  function getNetworkReceiving() {
-    var total = 0
-    var i, sensor
-    for (i = 0; i < sensors.receiverNetworkList.length; i++) {
-      sensor = sensors.receiverNetworkList[i]
-      if (!isConnectedSource(sensor)) {
-          dataSource.connectSource(sensor)
-      }
-
-      total += getData(sensor)
-    }
-    return total
-  }
-  function getNetworkSending() {
-    var total = 0
-     var i, sensor
-    for (i = 0; i < sensors.transmitterNetworkList.length; i++) {
-      sensor = sensors.transmitterNetworkList[i]
-      if (!isConnectedSource(sensor)) {
-          dataSource.connectSource(sensor)
-      }
-
-      total += getData(sensor)
-    }
-    return total
-  }
 
   // Tick when data source changed
   Timer {

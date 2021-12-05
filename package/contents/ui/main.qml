@@ -44,7 +44,6 @@ Item {
     property bool showMemoryInPercent: plasmoid.configuration.memoryInPercent
     property bool showSwapGraph: plasmoid.configuration.memorySwapGraph
     property bool showNetMonitor: plasmoid.configuration.showNetMonitor
-    property string networkUnit: plasmoid.configuration.networkUnit
     property double fontScale: (plasmoid.configuration.fontScale / 100)
     property double graphFillOpacity: (plasmoid.configuration.graphFillOpacity / 100)
 
@@ -187,7 +186,8 @@ Item {
             if (showMemoryInPercent) {
                 return Math.round(sensorData.memPercentage(value)) + "%"
             } else {
-                return humanReadableBytes(value)
+                // https://github.com/KDE/kcoreaddons/blob/master/src/lib/util/kformat.h
+                return KCoreAddons.Format.formatByteSize((value || 0) * 1024, 1)
             }
         }
     }
@@ -213,7 +213,7 @@ Item {
         secondLabelColor: netUpColor
 
         function formatLabel(value, units) {
-            return Functions.humanReadableNetworkSpeed(value, 1, plasmoid.configuration.networkUnit)
+            return Functions.formatByteValue(value * sensorData.networkDialect.multiplier, sensorData.networkDialect)
         }
     }
 
@@ -225,12 +225,4 @@ Item {
             kRun.openService(actionService)
         }
     }
-
-    function humanReadableBytes(value) {
-        if (isNaN(parseInt(value))) {
-            value = 0
-        }
-		// https://github.com/KDE/kcoreaddons/blob/master/src/lib/util/kformat.h
-		return KCoreAddons.Format.formatByteSize(value * 1024, 1, 10)
-	}
 }

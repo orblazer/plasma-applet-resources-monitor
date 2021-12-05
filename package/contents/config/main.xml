@@ -43,10 +43,10 @@
         </entry>
         <entry name="ignoredNetworkInterfaces" type="StringList">
         </entry>
-        <entry name="downloadMaxKiBps" type="Double">
+        <entry name="networkReceivingTotal" type="Double">
             <default>100000.0</default>
         </entry>
-        <entry name="uploadMaxKiBps" type="Double">
+        <entry name="networkSendingTotal" type="Double">
             <default>100000.0</default>
         </entry>
     </group>

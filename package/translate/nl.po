@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: resourcesMonitor-fork\n"
 "Report-Msgid-Bugs-To: https://github.com/orblazer/plasma-applet-resources-monitor\n"
-"POT-Creation-Date: 2021-12-05 13:56+0100\n"
+"POT-Creation-Date: 2021-12-05 19:54+0100\n"
 "PO-Revision-Date: 2021-12-05 12:15+0100\n"
 "Last-Translator: orblazer\n"
 "Language: nl\n"
@@ -39,174 +39,174 @@ msgstr "Gegevens"
 msgid "Appearance"
 msgstr "Uiterlijk"
 
-#: ../contents/ui/components/functions.js:16
+#: ../contents/ui/components/functions.js:31
 msgctxt "kilobyte suffix"
 msgid "Bps"
 msgstr "Bps"
 
-#: ../contents/ui/components/functions.js:22
+#: ../contents/ui/components/functions.js:39
 msgctxt "kilobit suffix"
 msgid "bps"
 msgstr "bps"
 
-#: ../contents/ui/components/functions.js:28
+#: ../contents/ui/components/functions.js:47
 msgctxt "kibibyte suffix"
 msgid "iB/s"
 msgstr "iB/s"
 
-#: ../contents/ui/components/functions.js:40
-msgid "Custom"
-msgstr "Aangepast"
-
-#: ../contents/ui/config/ConfigAppearance.qml:46
+#: ../contents/ui/config/ConfigAppearance.qml:45
 msgid "Graph"
 msgstr "Grafiek"
 
-#: ../contents/ui/config/ConfigAppearance.qml:51
+#: ../contents/ui/config/ConfigAppearance.qml:50
 msgid "Text"
 msgstr "Tekst"
 
-#: ../contents/ui/config/ConfigAppearance.qml:56
+#: ../contents/ui/config/ConfigAppearance.qml:55
 msgid "Colors"
 msgstr "Kleuren"
 
-#: ../contents/ui/config/ConfigAppearance.qml:71
+#: ../contents/ui/config/ConfigAppearance.qml:70
 msgid "Vertical layout"
 msgstr "Verticale indeling"
 
-#: ../contents/ui/config/ConfigAppearance.qml:76
+#: ../contents/ui/config/ConfigAppearance.qml:75
 msgid "Sample count:"
 msgstr "Aantal monsters:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:83
+#: ../contents/ui/config/ConfigAppearance.qml:82
 msgid "Width:"
 msgstr "Breedte:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:90
+#: ../contents/ui/config/ConfigAppearance.qml:89
 msgid "Height:"
 msgstr "Hoogte:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:97
+#: ../contents/ui/config/ConfigAppearance.qml:96
 msgid "Margin:"
 msgstr "Marge:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:108
+#: ../contents/ui/config/ConfigAppearance.qml:107
 msgid "Fill opacity:"
 msgstr "Ondoorzichtigheid vullen:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:131
+#: ../contents/ui/config/ConfigAppearance.qml:125
 msgid "Font scale:"
 msgstr "Tekstgrootte:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:143
+#: ../contents/ui/config/ConfigAppearance.qml:137
 msgid "Text displayment:"
 msgstr "Tekst tonen:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:146
+#: ../contents/ui/config/ConfigAppearance.qml:140
 msgid "Always"
 msgstr "Altijd"
 
-#: ../contents/ui/config/ConfigAppearance.qml:149
+#: ../contents/ui/config/ConfigAppearance.qml:143
 msgid "On hover"
 msgstr "Na aanwijzen"
 
-#: ../contents/ui/config/ConfigAppearance.qml:152
+#: ../contents/ui/config/ConfigAppearance.qml:146
 msgid "Hints when hover"
 msgstr "Tip tonen na aanwijzen"
 
-#: ../contents/ui/config/ConfigAppearance.qml:168
+#: ../contents/ui/config/ConfigAppearance.qml:162
 msgid "Placement:"
 msgstr "Locatie:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:171
+#: ../contents/ui/config/ConfigAppearance.qml:165
 msgid "Top left"
 msgstr "Linksboven"
 
-#: ../contents/ui/config/ConfigAppearance.qml:174
+#: ../contents/ui/config/ConfigAppearance.qml:168
 msgid "Top right"
 msgstr "Rechtboven"
 
-#: ../contents/ui/config/ConfigAppearance.qml:177
+#: ../contents/ui/config/ConfigAppearance.qml:171
 msgid "Bottom left"
 msgstr "Linksonder"
 
-#: ../contents/ui/config/ConfigAppearance.qml:180
+#: ../contents/ui/config/ConfigAppearance.qml:174
 msgid "Bottom right"
 msgstr "Rechtsonder"
 
-#: ../contents/ui/config/ConfigAppearance.qml:201
+#: ../contents/ui/config/ConfigAppearance.qml:195
 msgid "CPU color:"
 msgstr "CPU-kleur:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:203
+#: ../contents/ui/config/ConfigAppearance.qml:197
 msgid "Choose CPU graph color"
 msgstr "Kies de cpu-grafiekkleur"
 
-#: ../contents/ui/config/ConfigAppearance.qml:209
+#: ../contents/ui/config/ConfigAppearance.qml:203
 msgid "Memory color:"
 msgstr "Geheugenkleur:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:211
+#: ../contents/ui/config/ConfigAppearance.qml:205
 msgid "Choose memory graph color"
 msgstr "Kies de geheugengrafiekkleur"
 
-#: ../contents/ui/config/ConfigAppearance.qml:216
+#: ../contents/ui/config/ConfigAppearance.qml:210
 msgid "Swap color:"
 msgstr "Wisselgeheugenkleur:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:218
+#: ../contents/ui/config/ConfigAppearance.qml:212
 msgid "Choose Swap graph color"
 msgstr "Kies de wisselgeheugengrafiekkleur"
 
-#: ../contents/ui/config/ConfigAppearance.qml:224
+#: ../contents/ui/config/ConfigAppearance.qml:218
 msgid "Network receiving color:"
 msgstr "Kleur van netwerkverkeer (inkomend):"
 
-#: ../contents/ui/config/ConfigAppearance.qml:226
+#: ../contents/ui/config/ConfigAppearance.qml:220
 msgid "Choose network receiving graph color"
 msgstr "Kies de kleur van het inkomende netwerkverkeer"
 
-#: ../contents/ui/config/ConfigAppearance.qml:231
+#: ../contents/ui/config/ConfigAppearance.qml:225
 msgid "Network sending color:"
 msgstr "Kleur van netwerkverkeer (uitgaand):"
 
-#: ../contents/ui/config/ConfigAppearance.qml:233
+#: ../contents/ui/config/ConfigAppearance.qml:227
 msgid "Choose network sending graph color"
 msgstr "Kies de kleur van het uitgaande netwerkverkeer"
 
-#: ../contents/ui/config/ConfigData.qml:52
+#: ../contents/ui/config/ConfigData.qml:26
+msgid "Custom"
+msgstr "Aangepast"
+
+#: ../contents/ui/config/ConfigData.qml:82
 msgid "Memory"
 msgstr "Geheugen"
 
-#: ../contents/ui/config/ConfigData.qml:57
+#: ../contents/ui/config/ConfigData.qml:87
 msgid "Network"
 msgstr "Netwerk"
 
-#: ../contents/ui/config/ConfigData.qml:72
+#: ../contents/ui/config/ConfigData.qml:102
 msgid "Use allocated memory instead of application"
 msgstr "Toegewezen geheugen gebruiken in plaats van programma"
 
-#: ../contents/ui/config/ConfigData.qml:77
+#: ../contents/ui/config/ConfigData.qml:107
 msgid "Display memory swap graph"
 msgstr "Wisselgeheugengrafiek tonen"
 
-#: ../contents/ui/config/ConfigData.qml:88
+#: ../contents/ui/config/ConfigData.qml:118
 msgid "Network interfaces:"
 msgstr "Netwerkkaarten:"
 
-#: ../contents/ui/config/ConfigData.qml:132
+#: ../contents/ui/config/ConfigData.qml:162
 msgid "Maximum transfer speed"
 msgstr "Maximale overdrachtssnelheid"
 
-#: ../contents/ui/config/ConfigData.qml:145
+#: ../contents/ui/config/ConfigData.qml:175
 msgid "Receiving:"
 msgstr "Ontvangen"
 
-#: ../contents/ui/config/ConfigData.qml:169 ../contents/ui/config/ConfigData.qml:225
+#: ../contents/ui/config/ConfigData.qml:200 ../contents/ui/config/ConfigData.qml:256
 msgid "Custom value:"
 msgstr "Aangepaste waarde:"
 
-#: ../contents/ui/config/ConfigData.qml:201
+#: ../contents/ui/config/ConfigData.qml:232
 msgid "Sending:"
 msgstr "Verzending:"
 
@@ -282,7 +282,7 @@ msgstr "Kruis aan om een aangepaste kleur te gebruiken"
 msgid "Check for use customized graph width"
 msgstr "Kruis aan om een aangepaste grafiekbreedte te gebruiken"
 
-#: ../contents/ui/main.qml:136
+#: ../contents/ui/main.qml:135
 msgid "⏲ Clock"
 msgstr "⏲ Klok."
 
