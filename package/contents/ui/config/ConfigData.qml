@@ -97,12 +97,12 @@ QtLayouts.ColumnLayout {
         Kirigami.FormLayout {
             id: memoryPage
 
-            PlasmaComponents.CheckBox {
+            QtControls.CheckBox {
                 id: memoryUseAllocated
                 text: i18n("Use allocated memory instead of application")
             }
 
-            PlasmaComponents.CheckBox {
+            QtControls.CheckBox {
                 id: memorySwapGraph
                 text: i18n("Display memory swap graph")
             }
