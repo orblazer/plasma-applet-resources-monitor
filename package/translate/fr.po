@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: resourcesMonitor-fork\n"
 "Report-Msgid-Bugs-To: https://github.com/orblazer/plasma-applet-resources-monitor\n"
-"POT-Creation-Date: 2021-12-04 21:18+0100\n"
-"PO-Revision-Date: 2021-12-04 21:18+0100\n"
+"POT-Creation-Date: 2021-12-05 12:09+0100\n"
+"PO-Revision-Date: 2021-12-05 12:09+0100\n"
 "Last-Translator: orblazer\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -224,22 +224,6 @@ msgid "%1 seconds"
 msgstr "%1 secondes"
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
-msgid "Network speed unit:"
-msgstr "Unité de vitesse du réseau"
-
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
-msgid "Kibibyte (KiB/s)"
-msgstr "Kibioctet (Kio/s)"
-
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
-msgid "Kilobit (Kbps)"
-msgstr "Kilobit (Kbps)"
-
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
-msgid "Kilobyte (KBps)"
-msgstr "Kiloorctet (Kops)"
-
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
 msgid "Charts"
 msgstr "Graphiques"
 
@@ -260,8 +244,24 @@ msgid "Memory in percentage"
 msgstr "Mémoire en pourcentage"
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
-msgid "Show network monitor"
-msgstr "Afficher le moniteur réseau"
+msgid "Network visibility:"
+msgstr "Visibilité du réseau :"
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
+msgid "Disabled"
+msgstr "Désactivé"
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
+msgid "In kibibyte (KiB/s)"
+msgstr "En kibioctet (Kio/s)"
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
+msgid "In kilobit (Kbps)"
+msgstr "En kilobit (Kbps)"
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
+msgid "In kilobyte (KBps)"
+msgstr "En kilooctet (Kops)"
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
 msgid "Search an application:"

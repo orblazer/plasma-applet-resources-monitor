@@ -22,7 +22,7 @@ QtLayouts.ColumnLayout {
     property alias cfg_showClock: showClock.checked
     property alias cfg_showRamMonitor: showRamMonitor.checked
     property alias cfg_memoryInPercent: memoryInPercent.checked
-    property alias cfg_showNetMonitor: showNetMonitor.checked
+    property bool cfg_showNetMonitor: plasmoid.configuration.showNetMonitor.checked
 
     // Apps model
     RMComponents.AppsDetector {
@@ -84,25 +84,82 @@ QtLayouts.ColumnLayout {
                     }
                 }
 
+                // Separator
+                Rectangle {
+                    height: Kirigami.Units.largeSpacing * 2
+                    color: "transparent"
+                }
+
+                // Charts
+                PlasmaComponents.Label {
+                    text: i18n("Charts")
+                    font.pointSize: PlasmaCore.Theme.defaultFont.pointSize * 1.2
+                }
+
+                QtLayouts.GridLayout {
+                    QtLayouts.Layout.fillWidth: true
+                    columns: 2
+                    rowSpacing: Kirigami.Units.smallSpacing
+                    columnSpacing: Kirigami.Units.largeSpacing
+
+                    // CPU
+                    QtControls.CheckBox {
+                        id: showCpuMonitor
+                        text: i18n("Show CPU monitor")
+                    }
+                    QtControls.CheckBox {
+                        id: showClock
+                        text: i18n("Show CPU clock")
+                        enabled: showCpuMonitor.checked
+                    }
+
+                    // Memory
+                    QtControls.CheckBox {
+                        id: showRamMonitor
+                        text: i18n("Show memory monitor")
+                    }
+                    QtControls.CheckBox {
+                        id: memoryInPercent
+                        text: i18n("Memory in percentage")
+                        enabled: showRamMonitor.checked
+                    }
+                }
+
+                // Separator
+                Rectangle {
+                    height: Kirigami.Units.largeSpacing
+                    color: "transparent"
+                }
+
+                // Network
                 QtControls.ComboBox {
-                    id: networkUnit
-                    Kirigami.FormData.label: i18n("Network speed unit:")
+                    QtLayouts.Layout.fillWidth: true
+                    Kirigami.FormData.label: i18n("Network visibility:")
                     textRole: "label"
-                    model: [{
-                        label: i18n("Kibibyte (KiB/s)"),
-                        value: "kibibyte"
-                    }, {
-                        label: i18n("Kilobit (Kbps)"),
-                        value: "kilobit"
-                    }, {
-                        label: i18n("Kilobyte (KBps)"),
-                        value: "kilobyte"
-                    }]
+                    model: [
+                        {
+                            label: i18n("Disabled"),
+                            value: "none"
+                        }, {
+                            label: i18n("In kibibyte (KiB/s)"),
+                            value: "kibibyte"
+                        }, {
+                            label: i18n("In kilobit (Kbps)"),
+                            value: "kilobit"
+                        }, {
+                            label: i18n("In kilobyte (KBps)"),
+                            value: "kilobyte"
+                        }
+                    ]
 
                     onCurrentIndexChanged: {
                         var current = model[currentIndex]
-                        if (current && current.value !== -1) {
-                            if (current.value !== cfg_networkUnit) {
+                        if (current) {
+                            if (current.value === "none") {
+                                cfg_showNetMonitor = false
+                                page.configurationChanged()
+                            } else {
+                                cfg_showNetMonitor = true
                                 cfg_networkUnit = current.value
                                 page.configurationChanged()
                             }
@@ -110,53 +167,17 @@ QtLayouts.ColumnLayout {
                     }
 
                     Component.onCompleted: {
-                        for (var i = 0; i < model.length; i++) {
-                            if (model[i]["value"] === cfg_networkUnit) {
-                                currentIndex = i;
-                                return
+                        if (!plasmoid.configuration.showNetMonitor) {
+                            currentIndex = 0
+                        } else {
+                            for (var i = 0; i < model.length; i++) {
+                                if (model[i]["value"] === plasmoid.configuration.networkUnit) {
+                                    currentIndex = i
+                                    return
+                                }
                             }
                         }
                     }
-                }
-            }
-
-            // Charts
-            PlasmaComponents.Label {
-                text: i18n("Charts")
-                font.pointSize: PlasmaCore.Theme.defaultFont.pointSize * 1.2
-            }
-
-            QtLayouts.GridLayout {
-                QtLayouts.Layout.fillWidth: true
-                columns: 2
-                rowSpacing: Kirigami.Units.smallSpacing
-                columnSpacing: Kirigami.Units.largeSpacing
-
-                // CPU
-                QtControls.CheckBox {
-                    id: showCpuMonitor
-                    text: i18n("Show CPU monitor")
-                }
-                QtControls.CheckBox {
-                    id: showClock
-                    text: i18n("Show CPU clock")
-                    enabled: showCpuMonitor.checked
-                }
-
-                // Memory
-                QtControls.CheckBox {
-                    id: showRamMonitor
-                    text: i18n("Show memory monitor")
-                }
-                QtControls.CheckBox {
-                    id: memoryInPercent
-                    text: i18n("Memory in percentage")
-                    enabled: showRamMonitor.checked
-                }
-
-                QtControls.CheckBox {
-                    id: showNetMonitor
-                    text: i18n("Show network monitor")
                 }
             }
 
@@ -166,7 +187,7 @@ QtLayouts.ColumnLayout {
             }
         }
 
-        // CLick action
+        // Click action
         QtLayouts.ColumnLayout {
             id: clickPage
             spacing: Kirigami.Units.largeSpacing

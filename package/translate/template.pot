@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: resourcesMonitor-fork\n"
 "Report-Msgid-Bugs-To: https://github.com/orblazer/plasma-applet-resources-monitor\n"
-"POT-Creation-Date: 2021-12-04 21:18+0100\n"
+"POT-Creation-Date: 2021-12-05 12:09+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -225,22 +225,6 @@ msgid "%1 seconds"
 msgstr ""
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
-msgid "Network speed unit:"
-msgstr ""
-
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
-msgid "Kibibyte (KiB/s)"
-msgstr ""
-
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
-msgid "Kilobit (Kbps)"
-msgstr ""
-
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
-msgid "Kilobyte (KBps)"
-msgstr ""
-
-#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
 msgid "Charts"
 msgstr ""
 
@@ -261,7 +245,23 @@ msgid "Memory in percentage"
 msgstr ""
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
-msgid "Show network monitor"
+msgid "Network visibility:"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
+msgid "Disabled"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
+msgid "In kibibyte (KiB/s)"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
+msgid "In kilobit (Kbps)"
+msgstr ""
+
+#: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
+msgid "In kilobyte (KBps)"
 msgstr ""
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
