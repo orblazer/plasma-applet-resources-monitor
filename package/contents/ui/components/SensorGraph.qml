@@ -1,5 +1,4 @@
 import QtQuick 2.2
-import QtGraphicalEffects 1.0
 import org.kde.plasma.plasmoid 2.0
 import org.kde.plasma.components 2.0 as PlasmaComponents
 
@@ -27,7 +26,6 @@ Item {
     property color secondLabelColor: theme.textColor
     property bool secondLabelWhenZero: true
 
-    property bool enableShadows: plasmoid.configuration.enableShadows
     property string placement: plasmoid.configuration.placement // Values: top-right, top-left, bottom-right, bottom-left
     property string displayment: plasmoid.configuration.displayment // Values: always, hover, hover-hints
 
@@ -236,17 +234,6 @@ Item {
                     }
                 }
             ]
-        }
-
-        DropShadow {
-            visible: enableShadows
-            anchors.fill: textContainer
-            radius: 3
-            samples: 8
-            spread: 0.8
-            fast: true
-            color: theme.backgroundColor
-            source: textContainer
         }
     }
 

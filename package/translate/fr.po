@@ -93,10 +93,6 @@ msgstr "Marge :"
 msgid "Fill opacity:"
 msgstr "Opacité du remplissage :"
 
-#: ../contents/ui/config/ConfigAppearance.qml:126
-msgid "Drop shadows"
-msgstr "Ombres portées"
-
 #: ../contents/ui/config/ConfigAppearance.qml:131
 msgid "Font scale:"
 msgstr "Taille de la police :"

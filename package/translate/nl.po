@@ -94,10 +94,6 @@ msgstr "Marge:"
 msgid "Fill opacity:"
 msgstr "Ondoorzichtigheid vullen:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:126
-msgid "Drop shadows"
-msgstr "Vallende schaduwen"
-
 #: ../contents/ui/config/ConfigAppearance.qml:131
 msgid "Font scale:"
 msgstr "Tekstgrootte:"

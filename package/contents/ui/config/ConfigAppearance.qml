@@ -16,7 +16,6 @@ QtLayouts.ColumnLayout {
     property alias cfg_graphMargin: graphMargin.value
     property alias cfg_graphFillOpacity: graphFillOpacity.value
 
-    property alias cfg_enableShadows: enableShadows.checked
     property alias cfg_fontScale: fontScale.value
     property string cfg_placement: ""
     property string cfg_displayment: ""
@@ -120,11 +119,6 @@ QtLayouts.ColumnLayout {
         Kirigami.FormLayout {
             id: textPage
             wideMode: true
-
-            QtControls.CheckBox {
-                id: enableShadows
-                text: i18n("Drop shadows")
-            }
 
             RMControls.SpinBox {
                 id: fontScale

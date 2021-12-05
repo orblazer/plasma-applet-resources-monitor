@@ -93,10 +93,6 @@ msgstr ""
 msgid "Fill opacity:"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:126
-msgid "Drop shadows"
-msgstr ""
-
 #: ../contents/ui/config/ConfigAppearance.qml:131
 msgid "Font scale:"
 msgstr ""

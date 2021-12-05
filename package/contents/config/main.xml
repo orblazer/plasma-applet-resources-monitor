@@ -58,9 +58,6 @@
         <entry name="sampleCount" type="Int">
             <default>10</default>
         </entry>
-        <entry name="enableShadows" type="Bool">
-            <default>true</default>
-        </entry>
         <entry name="fontScale" type="Int">
             <default>26</default>
         </entry>

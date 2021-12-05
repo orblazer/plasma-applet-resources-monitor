@@ -23,6 +23,6 @@ Or if you know how to make a pull request
 
 |  Locale  |  Lines  | % Done|
 |----------|---------|-------|
-| Template |      69 |       |
-| fr       |   69/69 |  100% |
-| nl       |   69/69 |  100% |
+| Template |      68 |       |
+| fr       |   68/68 |  100% |
+| nl       |   68/68 |  100% |
