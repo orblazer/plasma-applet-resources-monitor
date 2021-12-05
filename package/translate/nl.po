@@ -213,11 +213,11 @@ msgstr "Ontvangen"
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
 msgid "Custom value:"
-msgstr "Aangepaste waarde"
+msgstr "Aangepaste waarde:"
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
 msgid "Sending:"
-msgstr "Verzending"
+msgstr "Verzending:"
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
 msgid "Click action"
@@ -273,7 +273,7 @@ msgstr "In kilobyte (KBps)"
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
 msgid "Search an application:"
-msgstr "Een toepassing zoeken"
+msgstr "Een toepassing zoeken:"
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
 msgid "Application name"

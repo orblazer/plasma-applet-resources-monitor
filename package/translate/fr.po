@@ -73,7 +73,7 @@ msgstr "Disposition verticale"
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
 msgid "Sample count:"
-msgstr "Nombre d'échantillons"
+msgstr "Nombre d'échantillons :"
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigAppearance.qml
 msgid "Width:"
@@ -201,15 +201,15 @@ msgstr "Vitesse de transfert maximale"
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
 msgid "Receiving:"
-msgstr "Réception"
+msgstr "Réception :"
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
 msgid "Custom value:"
-msgstr "Valeur personnalisée"
+msgstr "Valeur personnalisée :"
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigData.qml
 msgid "Sending:"
-msgstr "Envoi"
+msgstr "Envoi :"
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
 msgid "Click action"
@@ -265,7 +265,7 @@ msgstr "En kilooctet (Kops)"
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
 msgid "Search an application:"
-msgstr "Chercher une application"
+msgstr "Chercher une application :"
 
 #: /home/orblazer/dev/kde/plasma-applet-resources-monitor/package/contents/ui/config/ConfigGeneral.qml
 msgid "Application name"
