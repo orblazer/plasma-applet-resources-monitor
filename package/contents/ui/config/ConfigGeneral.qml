@@ -27,17 +27,24 @@ QtLayouts.ColumnLayout {
     // Apps model
     RMComponents.AppsDetector {
         id: appsModel
+
+        filterString: appsFilter.text
         filterCallback: function (index, value) {
-            var search = appsFilter.text.toLowerCase()
+            var search = filterString.toLowerCase()
+            if (search.length === 0) {
+                return true
+            }
 
             if (value.toLowerCase().indexOf(search) !== -1) {
                 return true
             }
-            if (datasource.get(index).menuId.replace(".desktop", "").toLowerCase().indexOf(search) !== -1) {
+            if (sourceModel.get(index).menuId.replace(".desktop", "").toLowerCase().indexOf(search) !== -1) {
                 return true
             }
             return false
         }
+
+        onFilterStringChanged: appsList.updateCurrentIndex()
     }
 
     // Tab bar
@@ -200,8 +207,7 @@ QtLayouts.ColumnLayout {
                     Kirigami.FormData.label: i18n("Search an application:")
                     QtLayouts.Layout.fillWidth: true
                     placeholderText: i18n("Application name")
-
-                    onTextChanged: appsList.updateCurrentIndex()
+                    inputMethodHints: Qt.ImhNoPredictiveText
                 }
             }
 
@@ -233,6 +239,7 @@ QtLayouts.ColumnLayout {
 
                         model: appsModel
                         clip: true
+                        interactive: true
 
                         highlight: PlasmaComponents.Highlight {
                         }
