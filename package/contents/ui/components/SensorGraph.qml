@@ -322,6 +322,7 @@ Item {
                     secondLineLabel.visible = secondLineLabel.text != ''
                     break
                 case 'hover-hints':
+                    valueVisible = false
                     firstLineLabel.text = label
                     firstLineLabel.color = labelColor
 
@@ -338,6 +339,7 @@ Item {
                     firstLineLabel.visible = secondLineLabel.visible = false
                     break
                 case 'hover-hints':
+                    valueVisible = true
                     firstLineLabel.color = secondLineLabel.color = textColor
 
                     firstLineLabel.text = formatLabel(plotter.values[0], sensorGraph.firstSensorUnits)
