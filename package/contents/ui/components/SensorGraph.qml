@@ -296,6 +296,16 @@ Item {
                 firstLineLabel.visible = secondLineLabel.visible = false
                 valueVisible = mouseArea.containsMouse
                 break
+
+            case 'always-hints':
+                valueVisible = false
+                firstLineLabel.text = label
+                firstLineLabel.color = labelColor
+
+                secondLineLabel.text = secondLabel
+                secondLineLabel.color = secondLabelColor
+                secondLineLabel.visible = secondLineLabel.text != '' && secondLineLabel.enabled
+                break
         }
     }
 
