@@ -170,40 +170,56 @@ Item {
 
   // Sync sources with ignored network interfaces
   onIgnoredNetworkInterfacesChanged:  {
-    var i, match
-
-    // Clear old sources
-    for (i = 0; i < sensors.transmitterNetworkList.length; i++) {
-      dataSource.disconnectSource(sensors.transmitterNetworkList[i])
-    }
-    sensors.transmitterNetworkList = []
-    for (i = 0; i < sensors.receiverNetworkList.length; i++) {
-      dataSource.disconnectSource(sensors.receiverNetworkList[i])
-    }
-    sensors.receiverNetworkList = []
-
-    // Connect new sources
+    var i, match, transmitterChangerd, receiverChanged
+    var transmitterNetworkList = sensors.transmitterNetworkList
+    var receiverNetworkList = sensors.receiverNetworkList
     for (i = 0; i < dataSource.sources.length; i++) {
       if (match = dataSource.sources[i].match(dataSource.networkRegex)) {
-        // Skip ignored interface
-        if (ignoredNetworkInterfaces.indexOf(match[1]) !== -1) {
-          return
-        }
         var source = dataSource.sources[i]
+
+        // Remove or skip ignored interfaces
+        if (ignoredNetworkInterfaces.indexOf(match[1]) !== -1) {
+          if (dataSource.connectedSources.indexOf(source) !== -1) {
+            if(match[2] === "transmitter") {
+              var index = transmitterNetworkList.indexOf(source)
+              if (index !== -1) {
+                transmitterChangerd = true
+                transmitterNetworkList.splice(index, 1)
+              }
+            } else {
+              var index = receiverNetworkList.indexOf(source)
+              if (index !== -1) {
+                transmitterChangerd = true
+                transmitterNetworkList.splice(index, 1)
+              }
+            }
+          }
+
+          continue
+        }
 
         // Add if not seen before
         if (match[2] === "transmitter") {
-          if (sensors.transmitterNetworkList.indexOf(source) === -1) {
-            sensors.transmitterNetworkList.push(source)
+          if (transmitterNetworkList.indexOf(source) === -1) {
+            transmitterChangerd = true
+            transmitterNetworkList.push(source)
           }
         } else {
-          if (sensors.receiverNetworkList.indexOf(source) === -1) {
-            sensors.receiverNetworkList.push(source)
+          if (receiverNetworkList.indexOf(source) === -1) {
+            receiverChanged = true
+            receiverNetworkList.push(source)
           }
         }
 
         dataSource.connectSource(source)
       }
+    }
+
+    if (transmitterChangerd) {
+      sensors.transmitterNetworkList = transmitterNetworkList
+    }
+    if (receiverChanged) {
+      sensors.receiverNetworkList = receiverNetworkList
     }
   }
 

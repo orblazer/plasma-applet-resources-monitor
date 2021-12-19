@@ -9,6 +9,7 @@ QtObject {
 
 	property string label: ''
 	property color color: '#000'
+	property string sensor: ''
 	property var values: []
 	property real max: 0
 	property real min: 0

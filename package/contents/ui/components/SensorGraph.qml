@@ -89,34 +89,42 @@ Item {
         }
 
         // Data
+        dataSets: []
+
 		Component {
 			id: plotDataComponent
 			RMComponents.PlotData {}
 		}
 		onSensorsChanged: {
 			var list = []
-			for (var i = 0; i < sensors.length; i++) {
-				if (!sensors[i]) {
+            var i, sensor
+			for (i = 0; i < sensors.length; i++) {
+                sensor = sensors[i]
+				if (!sensor) {
 					continue
 				}
-				if (!sensorData.isConnectedSource(sensors[i])) {
-					sensorData.connectSource(sensors[i])
+				if (!sensorData.isConnectedSource(sensor)) {
+					sensorData.connectSource(sensor)
 				}
 
                 // Hide wanted graph
-                if(hideSensorIndexs.indexOf(i) !== -1) {
+                if (hideSensorIndexs.indexOf(i) !== -1) {
                     continue
                 }
 
-				var item = plotDataComponent.createObject(plotter, {
-					color: plotter.colors[i % plotter.colors.length],
-				})
-				list.push(item)
+                // Retrieve or create plotData
+                if (dataSets[i] && dataSets[i].sensor === sensor) {
+                    list.push(dataSets[i])
+                } else {
+                    var item = plotDataComponent.createObject(plotter, {
+                        color: plotter.colors[i % plotter.colors.length],
+                        sensor: sensor
+                    })
+                    list.push(item)
+                }
 			}
 			dataSets = list
 		}
-
-		dataSets: []
 
         Connections {
 			target: sensorData
