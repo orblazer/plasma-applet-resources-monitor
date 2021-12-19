@@ -260,9 +260,8 @@ Item {
         DropShadow {
             visible: enableShadows
             anchors.fill: textContainer
-            radius: 3
-            samples: 8
-            spread: 0.8
+            radius: 1
+            spread: 1
             fast: true
             color: theme.backgroundColor
             source: textContainer
