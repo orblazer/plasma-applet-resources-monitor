@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: resourcesMonitor-fork\n"
 "Report-Msgid-Bugs-To: https://github.com/orblazer/plasma-applet-resources-monitor\n"
-"POT-Creation-Date: 2021-12-05 19:54+0100\n"
-"PO-Revision-Date: 2021-12-05 12:09+0100\n"
+"POT-Creation-Date: 2021-12-19 13:25+0100\n"
+"PO-Revision-Date: 2021-12-19 13:25+0100\n"
 "Last-Translator: orblazer\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -53,119 +53,123 @@ msgctxt "kibibyte suffix"
 msgid "iB/s"
 msgstr "io/s"
 
-#: ../contents/ui/config/ConfigAppearance.qml:45
+#: ../contents/ui/config/ConfigAppearance.qml:46
 msgid "Graph"
 msgstr "Graphique"
 
-#: ../contents/ui/config/ConfigAppearance.qml:50
+#: ../contents/ui/config/ConfigAppearance.qml:51
 msgid "Text"
 msgstr "Texte"
 
-#: ../contents/ui/config/ConfigAppearance.qml:55
+#: ../contents/ui/config/ConfigAppearance.qml:56
 msgid "Colors"
 msgstr "Couleurs"
 
-#: ../contents/ui/config/ConfigAppearance.qml:70
+#: ../contents/ui/config/ConfigAppearance.qml:71
 msgid "Vertical layout"
 msgstr "Disposition verticale"
 
-#: ../contents/ui/config/ConfigAppearance.qml:75
+#: ../contents/ui/config/ConfigAppearance.qml:76
 msgid "Sample count:"
 msgstr "Nombre d'échantillons :"
 
-#: ../contents/ui/config/ConfigAppearance.qml:82
+#: ../contents/ui/config/ConfigAppearance.qml:83
 msgid "Width:"
 msgstr "Largeur :"
 
-#: ../contents/ui/config/ConfigAppearance.qml:89
+#: ../contents/ui/config/ConfigAppearance.qml:90
 msgid "Height:"
 msgstr "Hauteur :"
 
-#: ../contents/ui/config/ConfigAppearance.qml:96
+#: ../contents/ui/config/ConfigAppearance.qml:97
 msgid "Margin:"
 msgstr "Marge :"
 
-#: ../contents/ui/config/ConfigAppearance.qml:107
+#: ../contents/ui/config/ConfigAppearance.qml:108
 msgid "Fill opacity:"
 msgstr "Opacité du remplissage :"
 
-#: ../contents/ui/config/ConfigAppearance.qml:125
+#: ../contents/ui/config/ConfigAppearance.qml:126
+msgid "Drop shadows"
+msgstr "Ombres portées"
+
+#: ../contents/ui/config/ConfigAppearance.qml:131
 msgid "Font scale:"
 msgstr "Taille de la police :"
 
-#: ../contents/ui/config/ConfigAppearance.qml:137
+#: ../contents/ui/config/ConfigAppearance.qml:143
 msgid "Text displayment:"
 msgstr "Affichage du texte :"
 
-#: ../contents/ui/config/ConfigAppearance.qml:140
+#: ../contents/ui/config/ConfigAppearance.qml:146
 msgid "Always"
 msgstr "Toujours"
 
-#: ../contents/ui/config/ConfigAppearance.qml:143
+#: ../contents/ui/config/ConfigAppearance.qml:149
 msgid "On hover"
 msgstr "Au survol"
 
-#: ../contents/ui/config/ConfigAppearance.qml:146
+#: ../contents/ui/config/ConfigAppearance.qml:152
 msgid "Hints when hover"
 msgstr "Indices au survol"
 
-#: ../contents/ui/config/ConfigAppearance.qml:162
+#: ../contents/ui/config/ConfigAppearance.qml:168
 msgid "Placement:"
 msgstr "Placement :"
 
-#: ../contents/ui/config/ConfigAppearance.qml:165
+#: ../contents/ui/config/ConfigAppearance.qml:171
 msgid "Top left"
 msgstr "En haut à gauche"
 
-#: ../contents/ui/config/ConfigAppearance.qml:168
+#: ../contents/ui/config/ConfigAppearance.qml:174
 msgid "Top right"
 msgstr "En haut à droite"
 
-#: ../contents/ui/config/ConfigAppearance.qml:171
+#: ../contents/ui/config/ConfigAppearance.qml:177
 msgid "Bottom left"
 msgstr "En bas à gauche"
 
-#: ../contents/ui/config/ConfigAppearance.qml:174
+#: ../contents/ui/config/ConfigAppearance.qml:180
 msgid "Bottom right"
 msgstr "En bas à droite"
 
-#: ../contents/ui/config/ConfigAppearance.qml:195
+#: ../contents/ui/config/ConfigAppearance.qml:201
 msgid "CPU color:"
 msgstr "Couleur du CPU :"
 
-#: ../contents/ui/config/ConfigAppearance.qml:197
+#: ../contents/ui/config/ConfigAppearance.qml:203
 msgid "Choose CPU graph color"
 msgstr "Choisissez la couleur du graphique du CPU"
 
-#: ../contents/ui/config/ConfigAppearance.qml:203
+#: ../contents/ui/config/ConfigAppearance.qml:209
 msgid "Memory color:"
 msgstr "Couleur de la mémoire"
 
-#: ../contents/ui/config/ConfigAppearance.qml:205
+#: ../contents/ui/config/ConfigAppearance.qml:211
 msgid "Choose memory graph color"
 msgstr "Choisissez la couleur du graphique de la mémoire"
 
-#: ../contents/ui/config/ConfigAppearance.qml:210
+#: ../contents/ui/config/ConfigAppearance.qml:216
 msgid "Swap color:"
 msgstr "Couleur du Swap :"
 
-#: ../contents/ui/config/ConfigAppearance.qml:212
+#: ../contents/ui/config/ConfigAppearance.qml:218
 msgid "Choose Swap graph color"
 msgstr "Choisissez la couleur du graphique Swap"
 
-#: ../contents/ui/config/ConfigAppearance.qml:218
+#: ../contents/ui/config/ConfigAppearance.qml:224
 msgid "Network receiving color:"
 msgstr "Couleur du traffic entrant :"
 
-#: ../contents/ui/config/ConfigAppearance.qml:220
+#: ../contents/ui/config/ConfigAppearance.qml:226
 msgid "Choose network receiving graph color"
 msgstr "Choisissez la couleur du graphique du traffic entrant"
 
-#: ../contents/ui/config/ConfigAppearance.qml:225
+#: ../contents/ui/config/ConfigAppearance.qml:231
 msgid "Network sending color:"
 msgstr "Couleur du traffic sortant :"
 
-#: ../contents/ui/config/ConfigAppearance.qml:227
+#: ../contents/ui/config/ConfigAppearance.qml:233
 msgid "Choose network sending graph color"
 msgstr "Choisissez la couleur du graphique du traffic sortant"
 
@@ -281,14 +285,14 @@ msgstr "Cocher pour utiliser une couleur personnalisée"
 msgid "Check for use customized graph width"
 msgstr "Cocher pour l'utilisation d'une largeur de graphique personnalisée"
 
-#: ../contents/ui/main.qml:135
+#: ../contents/ui/main.qml:136
 msgid "⏲ Clock"
 msgstr "⏲ Horl."
 
-#: ../contents/ui/main.qml:210
+#: ../contents/ui/main.qml:193
 msgid "⇘ Down"
 msgstr "⇘ Tél."
 
-#: ../contents/ui/main.qml:212
+#: ../contents/ui/main.qml:195
 msgid "⇗ Up"
 msgstr "⇗ Env."
