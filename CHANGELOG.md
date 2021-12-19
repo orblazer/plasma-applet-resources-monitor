@@ -1,3 +1,20 @@
+## [2.5.3](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.5.2...v2.5.3) (2021-12-19)
+
+
+### Bug Fixes
+
+* **config:** uniformize checkbox ([2454aba](https://github.com/orblazer/plasma-applet-resources-monitor/commit/2454aba2215e7da29bc1732f195f6bdd1e6cab06))
+* **data:** prevent useless changes ([a80a15b](https://github.com/orblazer/plasma-applet-resources-monitor/commit/a80a15b1cf3730475e9416e757a388eb6b3bceb1)), closes [#19](https://github.com/orblazer/plasma-applet-resources-monitor/issues/19)
+* **graph:** improve label displayment ([f4b05d7](https://github.com/orblazer/plasma-applet-resources-monitor/commit/f4b05d78702c2dac4b8b1e94df301af87d8c8d2a))
+* **graph:** use right width and reduce default font size ([a74fd0f](https://github.com/orblazer/plasma-applet-resources-monitor/commit/a74fd0f505dd363be1b5144361eb1557a98ce91e)), closes [#17](https://github.com/orblazer/plasma-applet-resources-monitor/issues/17)
+
+
+### Reverts
+
+* **graph:** re add drop shadow ([b2966a2](https://github.com/orblazer/plasma-applet-resources-monitor/commit/b2966a2da28312f6add28e4513d94c87ca0f0370))
+
+
+
 ## [2.5.2](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.5.1...v2.5.2) (2021-12-05)
 
 
