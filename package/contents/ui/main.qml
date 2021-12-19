@@ -98,7 +98,6 @@ Item {
         if (showClock) {
             sensorData.dataSource.connectSource(sensorData.sensors.averageClock)
         } else {
-            cpuGraph.secondLineLabel.visible = false
             sensorData.dataSource.disconnectSource(sensorData.sensors.averageClock)
         }
     }
@@ -134,6 +133,10 @@ Item {
         label: "CPU"
         labelColor: cpuColor
         secondLabel: showClock ? i18n("⏲ Clock") : ""
+
+        function canSeeSecondLine() {
+            return showClock ? (parseInt(cpuGraph.values[1]) !== 0 || cpuGraph.secondLabelWhenZero) : false
+        }
     }
 
     RMComponents.SensorGraph {
