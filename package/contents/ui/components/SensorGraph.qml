@@ -29,11 +29,12 @@ Item {
     property string placement: plasmoid.configuration.placement // Values: top-right, top-left, bottom-right, bottom-left
     property string displayment: plasmoid.configuration.displayment // Values: always, hover, hover-hints
 
-    readonly property real valueVisible: displayment !== 'hover-hints' || !mouseArea.containsMouse
+    property bool valueVisible: displayment !== 'hover' || !mouseArea.containsMouse
 
     // Graph properties
     readonly property string firstSensorUnits: sensorData.getUnits(sensors[0])
     readonly property string secondSensorUnits: sensors.length > 1 ? sensorData.getUnits(sensors[1]) : ""
+    property var hideSensorIndexs: []
 
     RMComponents.PlotterCanvas {
         id: plotter
@@ -96,11 +97,16 @@ Item {
 			var list = []
 			for (var i = 0; i < sensors.length; i++) {
 				if (!sensors[i]) {
-					return
+					continue
 				}
 				if (!sensorData.isConnectedSource(sensors[i])) {
 					sensorData.connectSource(sensors[i])
 				}
+
+                // Hide wanted graph
+                if(hideSensorIndexs.indexOf(i) !== -1) {
+                    continue
+                }
 
 				var item = plotDataComponent.createObject(plotter, {
 					color: plotter.colors[i % plotter.colors.length],
@@ -117,12 +123,17 @@ Item {
 			function onDataTick() {
                 plotter.initialize()
 
-				var values = new Array(plotter.sensors.length)
-				for (var i = 0; i < plotter.sensors.length; i++) {
-					values[i] = sensorData.getData(plotter.sensors[i])
-				}
-				plotter.addSample(values)
-				plotter.values = values
+                var values = new Array(plotter.sensors.length)
+                var graphValues = new Array(plotter.sensors.length - hideSensorIndexs.length)
+                for (var i = 0; i < plotter.sensors.length; i++) {
+                    values[i] = sensorData.getData(plotter.sensors[i])
+
+                    if (hideSensorIndexs.indexOf(i) === -1) {
+                        graphValues[i] = values[i]
+                    }
+                }
+                plotter.values = values
+                plotter.addSample(graphValues)
 				plotter.requestPaint()
 
                 // Update labels
@@ -130,7 +141,7 @@ Item {
                     firstLineLabel.text = formatLabel(values[0], sensorGraph.firstSensorUnits)
                     if (values.length > 1) {
                         secondLineLabel.text = formatLabel(values[1], sensorGraph.secondSensorUnits)
-                        secondLineLabel.visible = (parseInt(values[1]) !== 0 || secondLabelWhenZero) ? true : false
+                        secondLineLabel.visible = canSeeSecondLine()
                     }
                 }
 			}
@@ -237,6 +248,10 @@ Item {
         }
     }
 
+    function canSeeSecondLine() {
+        return parseInt(plotter.values[1]) !== 0 || secondLabelWhenZero
+    }
+
     onDisplaymentChanged: {
         switch (displayment) {
             case 'always':
@@ -244,17 +259,21 @@ Item {
                 firstLineLabel.color = secondLineLabel.color = textColor
 
                 firstLineLabel.text = formatLabel(plotter.values[0], sensorGraph.firstSensorUnits)
+                firstLineLabel.visible = true
                 if (plotter.values.length > 1) {
                     secondLineLabel.text = formatLabel(plotter.values[1], sensorGraph.secondSensorUnits)
-                    secondLineLabel.visible = true
+                    secondLineLabel.visible = canSeeSecondLine()
                 } else if (!secondLineLabel.keepVisible) {
                      secondLineLabel.text = ''
                      secondLineLabel.visible = false
                 }
+
+                valueVisible = true
                 break
 
             case 'hover':
                 firstLineLabel.visible = secondLineLabel.visible = false
+                valueVisible = mouseArea.containsMouse
                 break
         }
     }
@@ -294,7 +313,7 @@ Item {
                     firstLineLabel.text = formatLabel(plotter.values[0], sensorGraph.firstSensorUnits)
                     if (plotter.values.length > 1) {
                         secondLineLabel.text = formatLabel(plotter.values[1], sensorGraph.secondSensorUnits)
-                        secondLineLabel.visible = plotter.values[1] !== 0 || secondLabelWhenZero
+                        secondLineLabel.visible = canSeeSecondLine()
                     } else if (secondLineLabel.lastValue != 0 && secondLabelWhenZero) {
                         secondLineLabel.text = secondLineLabel.lastValue
                         secondLineLabel.visible = true

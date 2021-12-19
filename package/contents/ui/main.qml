@@ -122,7 +122,8 @@ Item {
     RMComponents.SensorGraph {
         id: cpuGraph
         sampleSize: sampleCount
-        sensors: [sensorData.sensors.totalLoad]
+        sensors: [sensorData.sensors.totalLoad, sensorData.sensors.averageClock]
+        hideSensorIndexs: [1]
         colors: [cpuColor]
         defaultsMax: [100]
 
@@ -133,24 +134,6 @@ Item {
         label: "CPU"
         labelColor: cpuColor
         secondLabel: showClock ? i18n("⏲ Clock") : ""
-
-        Connections {
-            property string units: sensorData.getUnits(sensorData.sensors.averageClock)
-            target: sensorData
-            enabled: showClock
-            function onDataTick() {
-                if (!sensorData.isConnectedSource(sensorData.sensors.averageClock)) {
-					sensorData.connectSource(sensorData.sensors.averageClock)
-				}
-
-                // Update labels
-                if (cpuGraph.valueVisible) {
-                    cpuGraph.secondLineLabel.text = cpuGraph.secondLineLabel.lastValue = cpuGraph.formatLabel(
-                        sensorData.getData(sensorData.sensors.averageClock), units)
-                    cpuGraph.secondLineLabel.visible = true
-                }
-            }
-        }
     }
 
     RMComponents.SensorGraph {
