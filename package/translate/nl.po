@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: resourcesMonitor-fork\n"
 "Report-Msgid-Bugs-To: https://github.com/orblazer/plasma-applet-resources-monitor\n"
-"POT-Creation-Date: 2021-12-19 13:25+0100\n"
-"PO-Revision-Date: 2021-12-19 13:25+0100\n"
+"POT-Creation-Date: 2021-12-20 06:13+0100\n"
+"PO-Revision-Date: 2021-12-20 06:13+0100\n"
 "Last-Translator: orblazer\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
@@ -27,7 +27,7 @@ msgstr ""
 "Een plasmoid voor het monitoren van de cpu, het werkgeheugen en netwerkverkeer. Dit is een afsplitsing van "
 "\"Resources Monitor\" van Kotelnik."
 
-#: ../contents/config/config.qml:6 ../contents/ui/config/ConfigGeneral.qml:57
+#: ../contents/config/config.qml:6 ../contents/ui/config/ConfigGeneral.qml:58
 msgid "General"
 msgstr "Algemeen"
 
@@ -71,8 +71,8 @@ msgid "Vertical layout"
 msgstr "Verticale indeling"
 
 #: ../contents/ui/config/ConfigAppearance.qml:76
-msgid "Sample count:"
-msgstr "Aantal monsters:"
+msgid "History amount:"
+msgstr "Historie bedrag:"
 
 #: ../contents/ui/config/ConfigAppearance.qml:83
 msgid "Width:"
@@ -174,107 +174,99 @@ msgstr "Kleur van netwerkverkeer (uitgaand):"
 msgid "Choose network sending graph color"
 msgstr "Kies de kleur van het uitgaande netwerkverkeer"
 
-#: ../contents/ui/config/ConfigData.qml:26
+#: ../contents/ui/config/ConfigData.qml:23
 msgid "Custom"
 msgstr "Aangepast"
 
-#: ../contents/ui/config/ConfigData.qml:82
-msgid "Memory"
-msgstr "Geheugen"
-
-#: ../contents/ui/config/ConfigData.qml:87
+#: ../contents/ui/config/ConfigData.qml:64
 msgid "Network"
 msgstr "Netwerk"
 
-#: ../contents/ui/config/ConfigData.qml:102
-msgid "Use allocated memory instead of application"
-msgstr "Toegewezen geheugen gebruiken in plaats van programma"
-
-#: ../contents/ui/config/ConfigData.qml:107
-msgid "Display memory swap graph"
-msgstr "Wisselgeheugengrafiek tonen"
-
-#: ../contents/ui/config/ConfigData.qml:118
+#: ../contents/ui/config/ConfigData.qml:80
 msgid "Network interfaces:"
 msgstr "Netwerkkaarten:"
 
-#: ../contents/ui/config/ConfigData.qml:162
+#: ../contents/ui/config/ConfigData.qml:124
 msgid "Maximum transfer speed"
 msgstr "Maximale overdrachtssnelheid"
 
-#: ../contents/ui/config/ConfigData.qml:175
+#: ../contents/ui/config/ConfigData.qml:137
 msgid "Receiving:"
 msgstr "Ontvangen"
 
-#: ../contents/ui/config/ConfigData.qml:200 ../contents/ui/config/ConfigData.qml:256
+#: ../contents/ui/config/ConfigData.qml:161 ../contents/ui/config/ConfigData.qml:217
 msgid "Custom value:"
 msgstr "Aangepaste waarde:"
 
-#: ../contents/ui/config/ConfigData.qml:232
+#: ../contents/ui/config/ConfigData.qml:193
 msgid "Sending:"
 msgstr "Verzending:"
 
-#: ../contents/ui/config/ConfigGeneral.qml:62
+#: ../contents/ui/config/ConfigGeneral.qml:63
 msgid "Click action"
 msgstr "Klik actie"
 
-#: ../contents/ui/config/ConfigGeneral.qml:81
+#: ../contents/ui/config/ConfigGeneral.qml:82
 msgid "Update interval:"
 msgstr "Bijwerktussenpoos:"
 
-#: ../contents/ui/config/ConfigGeneral.qml:90
+#: ../contents/ui/config/ConfigGeneral.qml:91
 msgid "%1 seconds"
 msgstr "%1 seconden"
 
-#: ../contents/ui/config/ConfigGeneral.qml:102
+#: ../contents/ui/config/ConfigGeneral.qml:103
 msgid "Charts"
 msgstr "Grafieken"
 
-#: ../contents/ui/config/ConfigGeneral.qml:115
+#: ../contents/ui/config/ConfigGeneral.qml:116
 msgid "Show CPU monitor"
 msgstr "CPU-monitor tonen"
 
-#: ../contents/ui/config/ConfigGeneral.qml:119
+#: ../contents/ui/config/ConfigGeneral.qml:120
 msgid "Show CPU clock"
 msgstr "CPU-kloksnelheid tonen"
 
-#: ../contents/ui/config/ConfigGeneral.qml:126
+#: ../contents/ui/config/ConfigGeneral.qml:127
 msgid "Show memory monitor"
 msgstr "Geheugenmonitor tonen"
 
-#: ../contents/ui/config/ConfigGeneral.qml:130
+#: ../contents/ui/config/ConfigGeneral.qml:131
 msgid "Memory in percentage"
 msgstr "Geheugenpercentage tonen"
 
-#: ../contents/ui/config/ConfigGeneral.qml:144
+#: ../contents/ui/config/ConfigGeneral.qml:136
+msgid "Display memory swap graph"
+msgstr "Wisselgeheugengrafiek tonen"
+
+#: ../contents/ui/config/ConfigGeneral.qml:149
 msgid "Network visibility:"
 msgstr "Netwerk zichtbaarheid:"
 
-#: ../contents/ui/config/ConfigGeneral.qml:148
+#: ../contents/ui/config/ConfigGeneral.qml:153
 msgid "Disabled"
 msgstr "Uitgeschakeld"
 
-#: ../contents/ui/config/ConfigGeneral.qml:151
+#: ../contents/ui/config/ConfigGeneral.qml:156
 msgid "In kibibyte (KiB/s)"
 msgstr "In kibibyte (KiB/s)"
 
-#: ../contents/ui/config/ConfigGeneral.qml:154
+#: ../contents/ui/config/ConfigGeneral.qml:159
 msgid "In kilobit (Kbps)"
 msgstr "In kilobit (Kbps)"
 
-#: ../contents/ui/config/ConfigGeneral.qml:157
+#: ../contents/ui/config/ConfigGeneral.qml:162
 msgid "In kilobyte (KBps)"
 msgstr "In kilobyte (KBps)"
 
-#: ../contents/ui/config/ConfigGeneral.qml:207
+#: ../contents/ui/config/ConfigGeneral.qml:212
 msgid "Search an application:"
 msgstr "Een toepassing zoeken:"
 
-#: ../contents/ui/config/ConfigGeneral.qml:209
+#: ../contents/ui/config/ConfigGeneral.qml:214
 msgid "Application name"
 msgstr "Naam toepassing"
 
-#: ../contents/ui/config/ConfigGeneral.qml:216
+#: ../contents/ui/config/ConfigGeneral.qml:221
 msgid "Applications"
 msgstr "Toepassingen"
 
@@ -286,14 +278,14 @@ msgstr "Kruis aan om een aangepaste kleur te gebruiken"
 msgid "Check for use customized graph width"
 msgstr "Kruis aan om een aangepaste grafiekbreedte te gebruiken"
 
-#: ../contents/ui/main.qml:136
+#: ../contents/ui/main.qml:118
 msgid "⏲ Clock"
 msgstr "⏲ Klok."
 
-#: ../contents/ui/main.qml:193
+#: ../contents/ui/main.qml:220
 msgid "⇘ Down"
 msgstr "⇘ Oml."
 
-#: ../contents/ui/main.qml:195
+#: ../contents/ui/main.qml:222
 msgid "⇗ Up"
 msgstr "⇗ Omh."

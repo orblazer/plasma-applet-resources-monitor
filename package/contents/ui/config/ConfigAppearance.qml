@@ -8,7 +8,7 @@ import "../controls" as RMControls
 
 QtLayouts.ColumnLayout {
     property alias cfg_verticalLayout: verticalLayout.checked
-    property alias cfg_sampleCount: sampleCount.value
+    property alias cfg_historyAmount: historyAmount.value
     property alias cfg_customGraphWidth: graphWidth.checked
     property alias cfg_graphWidth: graphWidth.value
     property alias cfg_customGraphHeight: graphHeight.checked
@@ -72,8 +72,8 @@ QtLayouts.ColumnLayout {
             }
 
             RMControls.SpinBox {
-                id: sampleCount
-                Kirigami.FormData.label: i18n("Sample count:")
+                id: historyAmount
+                Kirigami.FormData.label: i18n("History amount:")
                 QtLayouts.Layout.fillWidth: true
                 from: 2
             }

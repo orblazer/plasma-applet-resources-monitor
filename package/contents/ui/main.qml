@@ -21,8 +21,9 @@ import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.kio 1.0 as Kio
 import org.kde.kcoreaddons 1.0 as KCoreAddons
 
+import org.kde.ksysguard.sensors 1.0 as Sensors
+
 import "./components" as RMComponents
-import "./components/functions.js" as Functions
 
 Item {
     id: main
@@ -35,7 +36,6 @@ Item {
 
     // Settings properties
     property bool verticalLayout: plasmoid.configuration.verticalLayout
-    property int sampleCount: plasmoid.configuration.sampleCount
     property string actionService: plasmoid.configuration.actionService
 
     property bool showCpuMonitor: plasmoid.configuration.showCpuMonitor
@@ -45,7 +45,6 @@ Item {
     property bool showSwapGraph: plasmoid.configuration.memorySwapGraph
     property bool showNetMonitor: plasmoid.configuration.showNetMonitor
     property double fontScale: (plasmoid.configuration.fontScale / 100)
-    property double graphFillOpacity: (plasmoid.configuration.graphFillOpacity / 100)
 
     // Colors settings properties
     property color cpuColor: plasmoid.configuration.customCpuColor ? plasmoid.configuration.cpuColor : primaryColor
@@ -60,7 +59,7 @@ Item {
     property double parentWidth: parent === null ? 0 : parent.width
     property double parentHeight: parent === null ? 0 : parent.height
     property double initWidth:  vertical ? (verticalLayout ? parentWidth : (parentWidth - itemMargin) / 2) : (verticalLayout ? (parentHeight - itemMargin) / 2 : parentHeight)
-    property double itemWidth: plasmoid.configuration.customGraphWidth ? plasmoid.configuration.graphWidth : (initWidth * (verticalLayout ? 1 : 1.4))
+    property double itemWidth: plasmoid.configuration.customGraphWidth ? plasmoid.configuration.graphWidth : (initWidth * (verticalLayout ? 1 : 1.5))
     property double itemHeight: plasmoid.configuration.customGraphHeight ? plasmoid.configuration.graphHeight : initWidth
     property double fontPixelSize: verticalLayout ? (itemHeight / 1.4 * fontScale) : (itemHeight * fontScale)
     property double widgetWidth: !verticalLayout ? (itemWidth*containerCount + itemMargin*containerCount) : itemWidth
@@ -80,13 +79,6 @@ Item {
     }
 
     // Bind settigns change
-
-    onGraphFillOpacityChanged: {
-        for (var monitor of [cpuGraph, ramGraph, netGraph]) {
-            monitor.fillOpacity = graphFillOpacity
-        }
-    }
-
     onFontPixelSizeChanged: {
         for (var monitor of [cpuGraph, ramGraph, netGraph]) {
             monitor.firstLineLabel.font.pixelSize = fontPixelSize
@@ -95,36 +87,27 @@ Item {
     }
 
     onShowClockChanged: {
-        if (showClock) {
-            sensorData.dataSource.connectSource(sensorData.sensors.averageClock)
-        } else {
-            sensorData.dataSource.disconnectSource(sensorData.sensors.averageClock)
-        }
-    }
-    onShowRamMonitorChanged: {
-        if (showRamMonitor) {
-            sensorData.dataSource.connectSource(sensorData.sensors.memFree)
-            sensorData.dataSource.connectSource(sensorData.sensors.memUsed)
-        } else {
-            sensorData.dataSource.disconnectSource(sensorData.sensors.memFree)
-            sensorData.dataSource.disconnectSource(sensorData.sensors.memUsed)
+        if (!showClock) {
+            cpuGraph.secondLineLabel.visible = false
         }
     }
 
-    // Graph data
-    RMComponents.SensorData {
-        id: sensorData
-        dataSource.interval: 1000 * plasmoid.configuration.updateInterval
+    onShowMemoryInPercentChanged: {
+        if (showMemoryInPercent) {
+            ramGraph.yRange.to = 100
+        } else {
+            ramGraph.yRange.to = ramGraph.maxMemory
+        }
+        ramGraph.updateSensors()
     }
+
+    onShowSwapGraphChanged: ramGraph.updateSensors()
 
     // Graphs
     RMComponents.SensorGraph {
         id: cpuGraph
-        sampleSize: sampleCount
-        sensors: [sensorData.sensors.totalLoad, sensorData.sensors.averageClock]
-        hideSensorIndexs: [1]
+        sensorsModel.sensors: ["cpu/all/usage"]
         colors: [cpuColor]
-        defaultsMax: [100]
 
         visible: showCpuMonitor
         width: itemWidth
@@ -134,16 +117,45 @@ Item {
         labelColor: cpuColor
         secondLabel: showClock ? i18n("⏲ Clock") : ""
 
-        function canSeeSecondLine() {
-            return showClock ? (parseInt(cpuGraph.values[1]) !== 0 || cpuGraph.secondLabelWhenZero) : false
+        yRange {
+            from: 0
+            to: 100
+        }
+
+        // Display first core frequency
+        onDataTick: {
+            if (cpuGraph.canSeeValue(1)) {
+                cpuGraph.secondLineLabel.text = cpuFrequencySensor.formattedValue
+                cpuGraph.secondLineLabel.visible = true
+            }
+        }
+        Sensors.Sensor {
+            id: cpuFrequencySensor
+            enabled: showClock
+            sensorId: "cpu/cpu0/frequency"
+        }
+        onShowValueWhenMouseMove: {
+            cpuGraph.secondLineLabel.text = cpuFrequencySensor.formattedValue
+            cpuGraph.secondLineLabel.visible = true
+        }
+
+        function canSeeValue(column) {
+            if (column === 1 && !showClock) {
+                return false
+            }
+
+            return cpuGraph.valueVisible
         }
     }
 
     RMComponents.SensorGraph {
         id: ramGraph
-        sampleSize: sampleCount
-        sensors: [sensorData.sensors.memApplication, sensorData.sensors.swapUsed]
         colors: [ramColor, swapColor]
+
+        yRange {
+            from: 0
+            to: 100
+        }
 
         visible: showRamMonitor
         width: itemWidth
@@ -154,36 +166,48 @@ Item {
         anchors.topMargin: showCpuMonitor && verticalLayout ? itemWidth + itemMargin : 0
 
         label: "RAM"
-        labelColor: cpuColor
+        labelColor: ramColor
         secondLabel: showSwapGraph ? "Swap" : ""
         secondLabelColor: swapColor
-        secondLabelWhenZero: false
 
-        function getDefaultsMax() {
-            return [
-                sensorData.hasData(sensorData.sensors.memUsed) && sensorData.hasData(sensorData.sensors.memFree)
-                    ? sensorData.memTotal : false,
-                sensorData.hasData(sensorData.sensors.swapUsed) && sensorData.hasData(sensorData.sensors.swapFree)
-                    ? sensorData.swapTotal : false
-            ]
+        // Get max y of graph
+        property var maxMemory: 0
+        Sensors.SensorDataModel {
+            id: totalSensorsModel
+            sensors: ["memory/physical/total", "memory/swap/total"]
+            enabled: true
+
+            property var totalMemory: 0
+            property var totalSwap: 0
+            onDataChanged: {
+                if(topLeft.column === 0) {
+                    totalMemory = parseInt(data(topLeft, Sensors.SensorDataModel.Value))
+                }
+                else if (topLeft.column === 1) {
+                    totalSwap = parseInt(data(topLeft, Sensors.SensorDataModel.Value))
+                }
+
+                if ((!isNaN(totalMemory) && totalMemory !== 0) && (!isNaN(totalSwap) && totalSwap !== 0)) {
+                    enabled = false
+
+                    ramGraph.maxMemory = Math.max(totalMemory, totalSwap)
+                    if (!showMemoryInPercent) {
+                        ramGraph.yRange.to = ramGraph.maxMemory
+                    }
+                }
+            }
         }
 
-        function formatLabel(value, units) {
-            if (showMemoryInPercent) {
-                return Math.round(sensorData.memPercentage(value)) + "%"
-            } else {
-                // https://github.com/KDE/kcoreaddons/blob/master/src/lib/util/kformat.h
-                return KCoreAddons.Format.formatByteSize((value || 0) * 1024, 1)
-            }
+        function updateSensors() {
+            var suffix = showMemoryInPercent ? "Percent" : ""
+            sensorsModel.sensors = ["memory/physical/used" + suffix, "memory/swap/used" + suffix]
         }
     }
 
-    RMComponents.SensorGraph {
+    RMComponents.NetworkGraph {
         id: netGraph
-        sampleSize: sampleCount
-        sensors: [sensorData.sensors.networkReceiver, sensorData.sensors.networkTransmitter]
+
         colors: [netDownColor, netUpColor]
-        defaultsMax: [sensorData.networkReceivingTotal, sensorData.networkSendingTotal]
 
         visible: showNetMonitor
         width: itemWidth
@@ -197,10 +221,6 @@ Item {
         labelColor: netDownColor
         secondLabel: i18n("⇗ Up")
         secondLabelColor: netUpColor
-
-        function formatLabel(value, units) {
-            return Functions.formatByteValue(value * sensorData.networkDialect.multiplier, sensorData.networkDialect)
-        }
     }
 
     // Click action

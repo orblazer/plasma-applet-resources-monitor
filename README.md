@@ -16,7 +16,7 @@ This is for active maintain and improve the original widget.
 
 1. Install the **required dependencies** :
 
-   - `ksysguard` (thanks KDE...)
+   - `libksysguard` (normally include by default)
    - `qt5-graphicaleffects`
 
      e.g. package for kubuntu users: `libqt5qml-graphicaleffects`

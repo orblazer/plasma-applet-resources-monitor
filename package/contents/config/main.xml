@@ -9,9 +9,6 @@
         <entry name="updateInterval" type="Double">
             <default>1.0</default>
         </entry>
-        <entry name="networkUnit" type="String">
-            <default>kibibyte</default>
-        </entry>
 
         <entry name="actionService" type="String">
             <default>org.kde.plasma-systemmonitor</default>
@@ -20,27 +17,29 @@
         <entry name="showCpuMonitor" type="Bool">
             <default>true</default>
         </entry>
+        <entry name="showClock" type="Bool">
+            <default>true</default>
+        </entry>
+
         <entry name="showRamMonitor" type="Bool">
             <default>true</default>
         </entry>
         <entry name="memoryInPercent" type="Bool">
             <default>false</default>
         </entry>
-        <entry name="showClock" type="Bool">
+        <entry name="memorySwapGraph" type="Bool">
             <default>true</default>
         </entry>
+
         <entry name="showNetMonitor" type="Bool">
             <default>false</default>
+        </entry>
+        <entry name="networkUnit" type="String">
+            <default>kibibyte</default>
         </entry>
     </group>
 
     <group name="Data">
-        <entry name="memoryUseAllocated" type="Bool">
-            <default>false</default>
-        </entry>
-        <entry name="memorySwapGraph" type="Bool">
-            <default>true</default>
-        </entry>
         <entry name="ignoredNetworkInterfaces" type="StringList">
         </entry>
         <entry name="networkReceivingTotal" type="Double">
@@ -55,7 +54,7 @@
         <entry name="verticalLayout" type="Bool">
             <default>false</default>
         </entry>
-        <entry name="sampleCount" type="Int">
+        <entry name="historyAmount" type="Int">
             <default>10</default>
         </entry>
         <entry name="enableShadows" type="Bool">

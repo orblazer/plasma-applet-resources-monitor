@@ -22,6 +22,7 @@ QtLayouts.ColumnLayout {
     property alias cfg_showClock: showClock.checked
     property alias cfg_showRamMonitor: showRamMonitor.checked
     property alias cfg_memoryInPercent: memoryInPercent.checked
+    property alias cfg_memorySwapGraph: memorySwapGraph.checked
     property bool cfg_showNetMonitor: plasmoid.configuration.showNetMonitor.checked
 
     // Apps model
@@ -129,6 +130,10 @@ QtLayouts.ColumnLayout {
                         id: memoryInPercent
                         text: i18n("Memory in percentage")
                         enabled: showRamMonitor.checked
+                    }
+                    QtControls.CheckBox {
+                        id: memorySwapGraph
+                        text: i18n("Display memory swap graph")
                     }
                 }
 

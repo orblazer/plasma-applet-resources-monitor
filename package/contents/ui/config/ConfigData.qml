@@ -14,9 +14,6 @@ QtLayouts.ColumnLayout {
 
     signal configurationChanged
 
-    property alias cfg_memoryUseAllocated: memoryUseAllocated.checked
-    property alias cfg_memorySwapGraph: memorySwapGraph.checked
-
     readonly property var networkDialect: Functions.getNetworkDialectInfo(plasmoid.configuration.networkUnit)
     property double cfg_networkReceivingTotal: 0.0
     property double cfg_networkSendingTotal: 0.0
@@ -53,34 +50,14 @@ QtLayouts.ColumnLayout {
     ]
 
     // Detect network interfaces
-    RMComponents.SensorDetector {
-        id: sensorDetector
-        property var networkInterfaces: []
-        property var networkRegex: /^network\/interfaces\/(?!lo|bridge|usbus|bond)(.*)\/transmitter\/data$/
-
-        onModelChanged: {
-            var newList = []
-            var i, sensor, match
-            for (i = 0; i < model.count; i++) {
-                sensor = model.get(i)
-                if ((match = sensor.name.match(networkRegex)) != null && newList.indexOf(match[1]) === -1) {
-                    newList.push(match[1])
-                }
-            }
-            networkInterfaces = newList
-            networkInterfacesChanged()
-        }
+    RMComponents.NetworkInterfaceDetector {
+        id: networkInterfaces
     }
 
     // Tab bar
     PlasmaComponents.TabBar {
         id: bar
 
-        PlasmaComponents.TabButton {
-            tab: memoryPage
-            iconSource: "memory-symbolic"
-            text: i18n("Memory")
-        }
         PlasmaComponents.TabButton {
             tab: networkPage
             iconSource: "preferences-system-network"
@@ -92,21 +69,6 @@ QtLayouts.ColumnLayout {
     PlasmaComponents.TabGroup {
         QtLayouts.Layout.fillWidth: true
         QtLayouts.Layout.fillHeight: true
-
-        // Memory
-        Kirigami.FormLayout {
-            id: memoryPage
-
-            QtControls.CheckBox {
-                id: memoryUseAllocated
-                text: i18n("Use allocated memory instead of application")
-            }
-
-            QtControls.CheckBox {
-                id: memorySwapGraph
-                text: i18n("Display memory swap graph")
-            }
-        }
 
         // Network
         Kirigami.FormLayout {
@@ -122,7 +84,7 @@ QtLayouts.ColumnLayout {
                 columnSpacing: Kirigami.Units.largeSpacing
 
                 Repeater {
-                    model: sensorDetector.networkInterfaces
+                    model: networkInterfaces.model
                     QtControls.CheckBox {
                         readonly property string interfaceName: modelData
                         readonly property bool ignoredByDefault: {
@@ -139,12 +101,12 @@ QtLayouts.ColumnLayout {
                                 // Checking, and thus removing from the ignoredNetworkInterfaces
                                 var i = ignoredNetworkInterfaces.indexOf(interfaceName)
                                 ignoredNetworkInterfaces.splice(i, 1)
-                                plasmoid.configuration.ignoredNetworkInterfaces = ignoredNetworkInterfaces
                             } else {
                                 // Unchecking, and thus adding to the ignoredNetworkInterfaces
                                 ignoredNetworkInterfaces.push(interfaceName)
-                                plasmoid.configuration.ignoredNetworkInterfaces = ignoredNetworkInterfaces
                             }
+
+                            plasmoid.configuration.ignoredNetworkInterfaces = ignoredNetworkInterfaces
                             // To modify a StringList we need to manually trigger configurationChanged.
                             dataPage.configurationChanged()
                         }
@@ -179,7 +141,6 @@ QtLayouts.ColumnLayout {
                 onCurrentIndexChanged: {
                     var current = model[currentIndex]
                     if (current && current.value !== -1) {
-                        print(JSON.stringify(current))
                         customNetworkReceivingTotal.valueReal = current.value / 1000
                     }
                 }
