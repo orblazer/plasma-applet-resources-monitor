@@ -87,8 +87,8 @@ QtLayouts.ColumnLayout {
                     maximumValue: 3600.0
                     stepSize: Math.round(0.1 * factor)
 
-                    textFromValue: function(value) {
-                        return i18n("%1 seconds", valueToText(value))
+                    textFromValue: function(value, locale) {
+                        return i18n("%1 seconds", valueToText(value, locale))
                     }
                 }
 

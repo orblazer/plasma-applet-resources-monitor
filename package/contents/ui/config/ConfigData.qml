@@ -165,8 +165,8 @@ QtLayouts.ColumnLayout {
                 minimumValue: 0.001
                 visible: networkReceivingTotal.currentIndex === 0
 
-                textFromValue: function(value) {
-                    return valueToText(value) + " M" + networkDialect.suffix
+                textFromValue: function(value, locale) {
+                    return valueToText(value, locale) + " M" + networkDialect.suffix
                 }
 
                 onValueChanged: {
@@ -221,8 +221,8 @@ QtLayouts.ColumnLayout {
                 minimumValue: 0.001
                 visible: networkSendingTotal.currentIndex === 0
 
-                textFromValue: function(value) {
-                    return valueToText(value) + " M" + networkDialect.suffix
+                textFromValue: function(value, locale) {
+                    return valueToText(value, locale) + " M" + networkDialect.suffix
                 }
 
                  onValueChanged: {

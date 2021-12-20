@@ -30,8 +30,8 @@ QtLayouts.RowLayout {
         enabled: customized.checked
         QtLayouts.Layout.fillWidth: true
 
-        textFromValue: function(value) {
-            return valueToText(value) + " px"
+        textFromValue: function(value, locale) {
+            return valueToText(value, locale) + " px"
         }
     }
 }

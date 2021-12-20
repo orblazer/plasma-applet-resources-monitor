@@ -7,8 +7,8 @@ RMControls.SpinBox {
     to: 1000
     stepSize: 5
 
-    textFromValue: function(value) {
-        return valueToText(value) + " px"
+    textFromValue: function(value, locale) {
+        return valueToText(value, locale) + " px"
     }
 }
 // Double
@@ -18,8 +18,8 @@ RMControls.SpinBox {
     maximumValue: 1000.0
     stepSize: Math.round(0.5 * factor)
 
-    textFromValue: function(value) {
-        return valueToText(value) + " m"
+    textFromValue: function(value, locale) {
+        return valueToText(value, locale) + " m"
     }
 }
  */
@@ -57,19 +57,22 @@ QQC2.SpinBox {
     }
 
     textFromValue: valueToText
-    valueFromText: function(text) {
+    valueFromText: function(text, locale) {
         var text2 = text
             .replace(/[^\-\.\d]/g, "") // Remove non digit characters
             .replace(/\.+/g, ".") // Allow user to type "." instead of RightArrow to enter to decimals
-        var val = parseInt(text2)
-        if (isNaN(val)) {
-            val = -0
-        }
-        return Math.round(val * factor)
+        return Number.fromLocaleString(locale, text2) * factor
     }
 
-    function valueToText(value) {
-        return Number(value / factor).toFixed(decimals)
+    function valueToText(value, locale) {
+        // "toLocaleString" has no concept of "the minimum amount of
+        // digits to represent this number", so we need to calculate this
+        // manually. This ensures that things like "0" and "10" will be
+        // displayed without any decimals, while things like "2.2" and
+        // "3.87" will be displayed with the right number of decimals.
+
+        let realValue = Number(value / factor)
+        return realValue.toLocaleString(locale, 'f', countDecimals(realValue))
     }
 
     // Select value on foucs
@@ -106,6 +109,11 @@ QQC2.SpinBox {
 
     function fixText(str) {
         return fixMinus(fixDecimals(str))
+    }
+
+    function countDecimals(value) {
+        if(Math.floor(value) === value) return 0;
+        return value.toString().split(".")[1].length || 0;
     }
 
     function onTextEdited() {

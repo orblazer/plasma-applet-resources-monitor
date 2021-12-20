@@ -99,8 +99,8 @@ QtLayouts.ColumnLayout {
                 from: 1
                 to: 1000
 
-                textFromValue: function(value) {
-                    return valueToText(value) + " px"
+                textFromValue: function(value, locale) {
+                    return valueToText(value, locale) + " px"
                 }
             }
             RMControls.SpinBox {
@@ -110,8 +110,8 @@ QtLayouts.ColumnLayout {
                 from: 1
                 to: 100
 
-                textFromValue: function(value) {
-                    return valueToText(value) + "%"
+                textFromValue: function(value, locale) {
+                    return valueToText(value, locale) + "%"
                 }
             }
         }
@@ -133,8 +133,8 @@ QtLayouts.ColumnLayout {
                 from: 1
                 to: 100
 
-                textFromValue: function(value) {
-                    return valueToText(value) + "%"
+                textFromValue: function(value, locale) {
+                    return valueToText(value, locale) + "%"
                 }
             }
 
