@@ -1,3 +1,20 @@
+# [2.6.0](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.5.3...v2.6.0) (2021-12-20)
+
+
+### Bug Fixes
+
+* **config:** improve way to write number ([d83a5be](https://github.com/orblazer/plasma-applet-resources-monitor/commit/d83a5be2944b896f8be26e5126a7780b097856ca))
+* **dev:** right update version in metadata ([1023268](https://github.com/orblazer/plasma-applet-resources-monitor/commit/1023268086fef6ddad07c8488efe505611022bac))
+* **graph:** correctly hide cpu clock whne change option ([9cf56fa](https://github.com/orblazer/plasma-applet-resources-monitor/commit/9cf56fa43340b25cb1345c47e3823a1fed6ecd36))
+* **graph:** keep hints when hover ([2bda76a](https://github.com/orblazer/plasma-applet-resources-monitor/commit/2bda76ae5df3322623e23e21e87f7660b320c8d5)), closes [#20](https://github.com/orblazer/plasma-applet-resources-monitor/issues/20)
+
+
+### Features
+
+* use kde lib instead self for generate graph ([858d174](https://github.com/orblazer/plasma-applet-resources-monitor/commit/858d17492a6c8c7b0f8c95c0b89a820413af48fa)), closes [#21](https://github.com/orblazer/plasma-applet-resources-monitor/issues/21)
+
+
+
 ## [2.5.3](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.5.2...v2.5.3) (2021-12-19)
 
 
