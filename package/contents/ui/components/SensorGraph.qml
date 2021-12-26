@@ -79,7 +79,7 @@ RMComponents.BaseSensorGraph {
                 return 0
             }
             maximumHistory: interval > 0 ? (chart.historyAmount * 1000) / interval : 0
-            fillMode: Charts.HistoryProxySource.FillFromEnd
+            fillMode: Charts.HistoryProxySource.FillFromStart
 
             property var connection: Connections {
                 target: chart

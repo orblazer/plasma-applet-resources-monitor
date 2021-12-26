@@ -118,7 +118,7 @@ RMComponents.BaseSensorGraph {
                 id: downloadSpeed
             }
             maximumHistory: chart.interval > 0 ? (chart.historyAmount * 1000) / chart.interval : 0
-            fillMode: Charts.HistoryProxySource.FillFromEnd
+            fillMode: Charts.HistoryProxySource.FillFromStart
         },
         Charts.HistoryProxySource {
             id: uploadHistory
@@ -127,7 +127,7 @@ RMComponents.BaseSensorGraph {
                 id: uploadSpeed
             }
             maximumHistory: chart.interval > 0 ? (chart.historyAmount * 1000) / chart.interval : 0
-            fillMode: Charts.HistoryProxySource.FillFromEnd
+            fillMode: Charts.HistoryProxySource.FillFromStart
         }
     ]
 
