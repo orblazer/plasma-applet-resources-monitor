@@ -198,6 +198,11 @@ Item {
             }
         }
 
+        // Set the color of Swap
+        onShowValueWhenMouseMove: {
+            secondLineLabel.color = swapColor
+        }
+
         function updateSensors() {
             var suffix = showMemoryInPercent ? "Percent" : ""
             sensorsModel.sensors = ["memory/physical/used" + suffix, "memory/swap/used" + suffix]
