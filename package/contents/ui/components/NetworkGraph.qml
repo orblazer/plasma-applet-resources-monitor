@@ -53,7 +53,11 @@ RMComponents.BaseSensorGraph {
             if (!hasIndex(0, column)) {
                 return 0
             }
-            return data(index(0, column), Sensors.SensorDataModel.Value)
+            var value = data(index(0, column), Sensors.SensorDataModel.Value)
+            if (typeof value === "undefined") {
+                return 0
+            }
+            return value
         }
 
         function updateSensors() {
