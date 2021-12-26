@@ -1,3 +1,14 @@
+## [2.6.1](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.6.0...v2.6.1) (2021-12-26)
+
+
+### Bug Fixes
+
+* **data:** right show values when switch network interfaces ([f0f2a40](https://github.com/orblazer/plasma-applet-resources-monitor/commit/f0f2a40d9cf839578e3525005e8c790d3fed598b)), closes [#23](https://github.com/orblazer/plasma-applet-resources-monitor/issues/23)
+* **graph:** fill in right direction ([7ad35ac](https://github.com/orblazer/plasma-applet-resources-monitor/commit/7ad35aca6c260023fd6752bf3d774648d7e67eae)), closes [#22](https://github.com/orblazer/plasma-applet-resources-monitor/issues/22)
+* **graph:** remove "i" when is not necessary ([5cffccf](https://github.com/orblazer/plasma-applet-resources-monitor/commit/5cffccf0651dbcb419354c9486e6c1f37549b866))
+
+
+
 # [2.6.0](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.5.3...v2.6.0) (2021-12-20)
 
 
