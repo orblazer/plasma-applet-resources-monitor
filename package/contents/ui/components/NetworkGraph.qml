@@ -91,6 +91,7 @@ RMComponents.BaseSensorGraph {
             // Update label
             if (canSeeValue(0)) {
                 firstLineLabel.text = formatLabel(value)
+                firstLineLabel.visible = true
             }
 
             // Calculate total upload
@@ -144,20 +145,23 @@ RMComponents.BaseSensorGraph {
     firstLineLabel.visible: false
     secondLineLabel.visible: false
     function _showValueInLabel() {
-         if (!sensorsModel.ready) {
-            firstLineLabel.visible = secondLineLabel.visible = false
-            return
-        }
-
         // Show first line
         var data = downloadSpeed.value
-        firstLineLabel.text = formatLabel(data)
-        firstLineLabel.visible = true
+        if (typeof data === 'number') {
+            firstLineLabel.text = formatLabel(data)
+            firstLineLabel.visible = true
+        } else {
+            firstLineLabel.visible = false
+        }
 
         // Show second line
         data = uploadSpeed.value
-        secondLineLabel.text = formatLabel(data)
-        secondLineLabel.visible = data !== 0 || secondLabelWhenZero
+        if (typeof data === 'number') {
+            secondLineLabel.text = formatLabel(data)
+            secondLineLabel.visible = data !== 0 || secondLabelWhenZero
+        } else {
+            secondLineLabel.visible = false
+        }
 
         valueVisible = true
         chart.showValueWhenMouseMove()
