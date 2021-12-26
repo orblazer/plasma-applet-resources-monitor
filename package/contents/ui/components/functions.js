@@ -63,6 +63,8 @@ function getNetworkDialectInfo(dialect) {
 function formatByteValue(value, dialect, precision = 1) {
   if (value === 0 || isNaN(parseInt(value))) {
     return "0 " + dialect.suffix.replace("i", "");
+  } else if (dialect.name === "kibibyte" && value <= dialect.multiplier) {
+    return "0 " + dialect.suffix.replace("i", "");
   }
 
   var sizes = ["", dialect.kiloChar, "M", "G", "T", "P", "Z", "Y"];
