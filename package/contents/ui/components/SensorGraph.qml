@@ -13,6 +13,8 @@ RMComponents.BaseSensorGraph {
 
     readonly property alias sensorsModel: sensorsModel
 
+    property bool customFormatter: false
+
     Sensors.SensorDataModel {
         id: sensorsModel
         updateRateLimit: chart.interval
@@ -115,7 +117,6 @@ RMComponents.BaseSensorGraph {
             secondLineLabel.visible = false
         }
 
-        valueVisible = true
         chart.showValueWhenMouseMove()
     }
 }

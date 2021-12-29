@@ -124,9 +124,9 @@ Item {
 
         // Display first core frequency
         onDataTick: {
-            if (cpuGraph.canSeeValue(1)) {
-                cpuGraph.secondLineLabel.text = cpuFrequencySensor.formattedValue
-                cpuGraph.secondLineLabel.visible = true
+            if (canSeeValue(1)) {
+                secondLineLabel.text = cpuFrequencySensor.formattedValue
+                secondLineLabel.visible = true
             }
         }
         Sensors.Sensor {
@@ -135,8 +135,8 @@ Item {
             sensorId: "cpu/cpu0/frequency"
         }
         onShowValueWhenMouseMove: {
-            cpuGraph.secondLineLabel.text = cpuFrequencySensor.formattedValue
-            cpuGraph.secondLineLabel.visible = true
+            secondLineLabel.text = cpuFrequencySensor.formattedValue
+            secondLineLabel.visible = true
         }
 
         function canSeeValue(column) {
@@ -144,13 +144,14 @@ Item {
                 return false
             }
 
-            return cpuGraph.valueVisible
+            return textContainer.valueVisible
         }
     }
 
     RMComponents.SensorGraph {
         id: ramGraph
         colors: [ramColor, swapColor]
+        // TODO: stack the graph values for eal fill percent ?
 
         yRange {
             from: 0
