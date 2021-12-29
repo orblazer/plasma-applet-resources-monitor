@@ -2,6 +2,9 @@
 PLASMOID_DIR='~/.local/share/plasma/plasmoids/'
 PACKAGE_NAME=org.kde.resourcesMonitor-fork
 
+# Enable QT debug
+#export QT_LOGGING_RULES="*.debug=true; qt.*.debug=false"
+
 if [ -d "${PLASMOID_DIR}${PACKAGE_NAME}" ]
 then
   echo 'Install applet...'
