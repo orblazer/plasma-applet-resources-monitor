@@ -1,3 +1,14 @@
+## [2.6.2](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.6.1...v2.6.2) (2021-12-29)
+
+
+### Bug Fixes
+
+* **data:** exclude undefined values in network ([fe2b3cd](https://github.com/orblazer/plasma-applet-resources-monitor/commit/fe2b3cd6686a1b21d800134f67e501a1624fed40)), closes [#23](https://github.com/orblazer/plasma-applet-resources-monitor/issues/23)
+* **graph:** correct show max values for network ([9b5c6ed](https://github.com/orblazer/plasma-applet-resources-monitor/commit/9b5c6edf9a9c8f8bf55e2c1ddbf3c9dff149eca3))
+* **graph:** set graph color on swap value (from v2.3.0) ([e8a1144](https://github.com/orblazer/plasma-applet-resources-monitor/commit/e8a11444d1c22030a4bfbf62958bda1f14fa92a5))
+
+
+
 ## [2.6.1](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.6.0...v2.6.1) (2021-12-26)
 
 
