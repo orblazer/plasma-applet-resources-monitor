@@ -157,10 +157,25 @@ Item {
     }
 
     function _dataTick() {
+        var sensorsLength = sensorsModel.sensors.length
+
+        // Emit signal
         chart.dataTick()
 
+        // Set default text when doesn't have sensors
+        if (sensorsLength === 0) {
+            if (canSeeValue(0)) {
+                firstLineLabel.text = '...'
+                firstLineLabel.visible = true
+            }
+            if (canSeeValue(1)) {
+                secondLineLabel.text = '...'
+                secondLineLabel.visible = secondLabelWhenZero
+            }
+            return
+        }
+
         // Calculate total download
-        var sensorsLength = sensorsModel.sensors.length
         var downloadValue = 0, uploadValue = 0
         for (var i = 0; i < sensorsLength; i++) {
             if (sensorsModel.sensors[i].indexOf('/download') !== -1) {

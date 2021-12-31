@@ -14,37 +14,11 @@ RMComponents.BaseSensorGraph {
     readonly property alias sensorsModel: sensorsModel
 
     property bool customFormatter: false
+    property var lastRun: -1
 
     Sensors.SensorDataModel {
         id: sensorsModel
         updateRateLimit: chart.interval
-
-        property var lastRun: -1
-
-        onDataChanged: {
-            if (!chart.visible) {
-                return
-            }
-
-            // Skip when value is not visible
-            if (canSeeValue(topLeft.column)) {
-                 // Update albel
-                if (topLeft.column === 0) { // is first line
-                    firstLineLabel.text = getData(topLeft.column)
-                    firstLineLabel.visible = true
-                } else if (topLeft.column === 1) { // is second line
-                    secondLineLabel.text = getData(topLeft.column)
-                    secondLineLabel.visible = data(topLeft, Sensors.SensorDataModel.Value) !== 0 || secondLabelWhenZero
-                }
-            }
-
-            // Call data tick
-            var now = Date.now()
-            if (now - lastRun >= chart.interval) {
-                lastRun = now
-                chart.dataTick()
-            }
-        }
 
         function getData(column = 0, role = Sensors.SensorDataModel.FormattedValue) {
             if (!hasIndex(0, column)) {
@@ -69,19 +43,38 @@ RMComponents.BaseSensorGraph {
                 roleName: "Value"
             }
 
-            interval: {
-                if (chart.interval > 0) {
-                    return chart.interval
-                }
-
-                if (sensorsModel.ready) {
-                    return sensorsModel.headerData(index, Qt.Horizontal, Sensors.SensorDataModel.UpdateInterval)
-                }
-
-                return 0
-            }
+            interval: chart.interval
             maximumHistory: interval > 0 ? (chart.historyAmount * 1000) / interval : 0
             fillMode: Charts.HistoryProxySource.FillFromStart
+
+            onDataChanged: {
+                // Skip when value is not visible
+                if (canSeeValue(index)) {
+                    var value = sensorsModel.getData(index)
+
+                    // Update albel
+                    if (index === 0) { // is first line
+                        firstLineLabel.text = value || '...'
+                        firstLineLabel.visible = true
+                    } else if (index === 1) { // is second line
+                        if (typeof value === 'undefined') {
+                            secondLineLabel.text = '...'
+                            secondLineLabel.visible = secondLabelWhenZero
+                        } else {
+                            secondLineLabel.text = value
+                            secondLineLabel.visible = sensorsModel.getData(index, Sensors.SensorDataModel.Value) !== 0
+                                || secondLabelWhenZero
+                        }
+                    }
+                }
+
+                // Call data tick
+                var now = Date.now()
+                if (now - lastRun >= chart.interval) {
+                    lastRun = now
+                    chart.dataTick()
+                }
+            }
 
             property var connection: Connections {
                 target: chart
