@@ -16,9 +16,6 @@ Item {
     signal dataTick()
     signal showValueWhenMouseMove()
 
-    property var downloadSensors: []
-    property var uploadSensors: []
-
     // Aliases
     readonly property alias textContainer: textContainer
     property alias label: textContainer.label
@@ -78,6 +75,7 @@ Item {
                 source: Charts.SingleValueSource {
                     id: downloadSpeed
                 }
+                interval: chart.interval
                 maximumHistory: chart.interval > 0 ? (chart.historyAmount * 1000) / chart.interval : 0
                 fillMode: Charts.HistoryProxySource.FillFromStart
             }
@@ -105,8 +103,11 @@ Item {
                 source: Charts.SingleValueSource {
                     id: uploadSpeed
                 }
+                interval: chart.interval
                 maximumHistory: chart.interval > 0 ? (chart.historyAmount * 1000) / chart.interval : 0
                 fillMode: Charts.HistoryProxySource.FillFromStart
+
+                onDataChanged: _dataTick()
             }
         ]
     }
@@ -129,13 +130,6 @@ Item {
         id: sensorsModel
         updateRateLimit: chart.interval
 
-        property var downloadModel: ListModel {
-            id: downloadModel
-        }
-        property var uploadModel: ListModel {
-            id: uploadModel
-        }
-
         function getData(column) {
             if (!hasIndex(0, column)) {
                 return 0
@@ -148,59 +142,50 @@ Item {
         }
 
         function updateSensors() {
-            downloadSensors = []
-            uploadSensors = []
+            var sensors = []
             for (var i = 0; i < networkInterfaces.model.count; i++) {
                 var name = networkInterfaces.model.get(i).name
 
                 if (ignoredNetworkInterfaces.indexOf(name) === -1) {
-                    downloadSensors.push("network/" + name + "/download")
-                    uploadSensors.push("network/" + name + "/upload")
+                    sensors.push("network/" + name + "/download")
+                    sensors.push("network/" + name + "/upload")
                 }
             }
 
-            sensorsModel.sensors = downloadSensors.concat(uploadSensors)
+            sensorsModel.sensors = sensors
         }
     }
-
-    Timer {
-        id: timer
-        repeat: true
-        running: chart.visible
-        interval: chart.interval
-        onTriggered: _dataTick()
-    }
-    Component.onCompleted: _dataTick()
 
     function _dataTick() {
         chart.dataTick()
 
         // Calculate total download
-        var value = 0
-        for (var i = 0; i < downloadSensors.length; i++) {
-            value += sensorsModel.getData(i)
+        var sensorsLength = sensorsModel.sensors.length
+        var downloadValue = 0, uploadValue = 0
+        for (var i = 0; i < sensorsLength; i++) {
+            if (sensorsModel.sensors[i].indexOf('/download') !== -1) {
+                downloadValue += sensorsModel.getData(i)
+            } else {
+                uploadValue += sensorsModel.getData(i)
+            }
         }
-        value *= dialect.KiBDiff // Fix dialect
-        downloadSpeed.value = value
 
-        // Update label
+        // Fix dialect
+        downloadValue *= dialect.KiBDiff
+        uploadValue *= dialect.KiBDiff
+
+        // Update values
+        downloadSpeed.value = downloadValue
+        uploadSpeed.value = uploadValue
+
+        // Update labels
         if (canSeeValue(0)) {
-            firstLineLabel.text = formatLabel(value)
+            firstLineLabel.text = formatLabel(downloadValue)
             firstLineLabel.visible = true
         }
-
-        // Calculate total upload
-        value = 0
-        for (var i = 0; i < uploadSensors.length; i++) {
-            value += sensorsModel.getData(downloadSensors.length + i)
-        }
-        value *= dialect.KiBDiff // Fix dialect
-        uploadSpeed.value = value
-
-        // Update label
         if (canSeeValue(1)) {
-            secondLineLabel.text = formatLabel(value)
-            secondLineLabel.visible = value !== 0 || secondLabelWhenZero
+            secondLineLabel.text = formatLabel(uploadValue)
+            secondLineLabel.visible = uploadValue !== 0 || secondLabelWhenZero
         }
     }
 
