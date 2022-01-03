@@ -151,6 +151,7 @@ Item {
     RMComponents.SensorGraph {
         id: ramGraph
         colors: [ramColor, swapColor]
+        secondLabelWhenZero: false
         // TODO: stack the graph values for eal fill percent ?
 
         yRange {
