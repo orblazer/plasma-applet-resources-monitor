@@ -9,7 +9,7 @@ import org.kde.quickcharts 1.0 as Charts
 import "./" as RMComponents
 
 RMComponents.BaseSensorGraph {
-	id: chart
+    id: chart
 
     readonly property alias sensorsModel: sensorsModel
 
@@ -54,8 +54,11 @@ RMComponents.BaseSensorGraph {
 
                     // Update albel
                     if (index === 0) { // is first line
-                        firstLineLabel.text = value || '...'
-                        firstLineLabel.visible = true
+                        if (typeof value === 'undefined') {
+                            firstLineLabel.text = '...'
+                        } else {
+                            firstLineLabel.text = value
+                        }
                     } else if (index === 1) { // is second line
                         if (typeof value === 'undefined') {
                             secondLineLabel.text = '...'
@@ -96,9 +99,8 @@ RMComponents.BaseSensorGraph {
         var data = sensorsModel.getData(0)
         if (typeof data !== "undefined") {
             firstLineLabel.text = data
-            firstLineLabel.visible = true
         } else {
-            firstLineLabel.visible = false
+            firstLineLabel.text = '...'
         }
 
         // Show second line
@@ -107,7 +109,8 @@ RMComponents.BaseSensorGraph {
             secondLineLabel.text = data
             secondLineLabel.visible = sensorsModel.getData(1, Sensors.SensorDataModel.Value) !== 0 || secondLabelWhenZero
         } else {
-            secondLineLabel.visible = false
+            secondLineLabel.text = '...'
+            secondLineLabel.visible = secondLabelWhenZero
         }
 
         chart.showValueWhenMouseMove()
