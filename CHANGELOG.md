@@ -1,3 +1,19 @@
+## [2.6.3](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.6.2...v2.6.3) (2022-01-06)
+
+
+### Bug Fixes
+
+* **graph:** correct hide swap value when is 0 ([cf47a7c](https://github.com/orblazer/plasma-applet-resources-monitor/commit/cf47a7c7ec7aa8f9ae8c1450908f176a6189d8d1))
+* **graph:** improve stability of label values ([f0c548d](https://github.com/orblazer/plasma-applet-resources-monitor/commit/f0c548d3a1b50e4b4d9d1ec0dba854115be45995)), closes [#25](https://github.com/orblazer/plasma-applet-resources-monitor/issues/25)
+* **graph:** update graph on static interval ([9755b85](https://github.com/orblazer/plasma-applet-resources-monitor/commit/9755b85c71d1bc422b744e3537a9177f890fb29e))
+
+
+### Performance Improvements
+
+* **graph:** sync update with history ([4e2fb96](https://github.com/orblazer/plasma-applet-resources-monitor/commit/4e2fb969d1e060c8f1fdef5cb7e0b0263fd49710))
+
+
+
 ## [2.6.2](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.6.1...v2.6.2) (2021-12-29)
 
 
