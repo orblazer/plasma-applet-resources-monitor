@@ -93,6 +93,10 @@ Item {
     }
 
     onShowMemoryInPercentChanged: {
+        if (ramGraph.maxMemory == 0) {
+            return
+        }
+
         if (showMemoryInPercent) {
             ramGraph.yRange.to = 100
         } else {
@@ -101,7 +105,11 @@ Item {
         ramGraph.updateSensors()
     }
 
-    onShowSwapGraphChanged: ramGraph.updateSensors()
+    onShowSwapGraphChanged: {
+        if (ramGraph.maxMemory != 0) {
+            ramGraph.updateSensors()
+        }
+    }
 
     // Graphs
     RMComponents.SensorGraph {
@@ -152,7 +160,7 @@ Item {
         id: ramGraph
         colors: [ramColor, swapColor]
         secondLabelWhenZero: false
-        // TODO: stack the graph values for eal fill percent ?
+        // TODO: stack the graph values for real fill percent ?
 
         yRange {
             from: 0
@@ -196,6 +204,7 @@ Item {
                     if (!showMemoryInPercent) {
                         ramGraph.yRange.to = ramGraph.maxMemory
                     }
+                    ramGraph.updateSensors()
                 }
             }
         }
@@ -207,7 +216,12 @@ Item {
 
         function updateSensors() {
             var suffix = showMemoryInPercent ? "Percent" : ""
-            sensorsModel.sensors = ["memory/physical/used" + suffix, "memory/swap/used" + suffix]
+
+            if (showSwapGraph) {
+                sensorsModel.sensors = ["memory/physical/used" + suffix, "memory/swap/used" + suffix]
+            } else {
+                sensorsModel.sensors = ["memory/physical/used" + suffix]
+            }
         }
     }
 
