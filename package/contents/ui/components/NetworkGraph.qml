@@ -75,7 +75,7 @@ Item {
                 source: Charts.SingleValueSource {
                     id: downloadSpeed
                 }
-                interval: chart.interval
+                interval: chart.visible ? chart.interval : 0
                 maximumHistory: chart.interval > 0 ? (chart.historyAmount * 1000) / chart.interval : 0
                 fillMode: Charts.HistoryProxySource.FillFromStart
             }
@@ -103,7 +103,7 @@ Item {
                 source: Charts.SingleValueSource {
                     id: uploadSpeed
                 }
-                interval: chart.interval
+                interval: chart.visible ? chart.interval : 0
                 maximumHistory: chart.interval > 0 ? (chart.historyAmount * 1000) / chart.interval : 0
                 fillMode: Charts.HistoryProxySource.FillFromStart
 
@@ -129,6 +129,7 @@ Item {
     Sensors.SensorDataModel {
         id: sensorsModel
         updateRateLimit: chart.interval
+        enabled: chart.visible
 
         function getData(column) {
             if (!hasIndex(0, column)) {

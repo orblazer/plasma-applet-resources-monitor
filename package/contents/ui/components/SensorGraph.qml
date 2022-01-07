@@ -19,6 +19,7 @@ RMComponents.BaseSensorGraph {
     Sensors.SensorDataModel {
         id: sensorsModel
         updateRateLimit: chart.interval
+        enabled: chart.visible
 
         function getData(column = 0, role = Sensors.SensorDataModel.FormattedValue) {
             if (!hasIndex(0, column)) {
@@ -43,7 +44,7 @@ RMComponents.BaseSensorGraph {
                 roleName: "Value"
             }
 
-            interval: chart.interval
+            interval: chart.visible ? chart.interval : 0
             maximumHistory: interval > 0 ? (chart.historyAmount * 1000) / interval : 0
             fillMode: Charts.HistoryProxySource.FillFromStart
 
