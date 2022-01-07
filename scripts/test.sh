@@ -8,7 +8,7 @@ then
   export QT_LOGGING_RULES="*.debug=true; qt.*.debug=false"
 fi
 
-if [ -d "${PLASMOID_DIR}${PACKAGE_NAME}" ]
+if [ -d "$(realpath "${PLASMOID_DIR/\~/$HOME}")${PACKAGE_NAME}" ]
 then
   echo 'Install applet...'
   kpackagetool5 -t Plasma/Applet --install package
