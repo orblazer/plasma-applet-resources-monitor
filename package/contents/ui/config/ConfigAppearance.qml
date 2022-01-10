@@ -34,8 +34,6 @@ QtLayouts.ColumnLayout {
 
     property color primaryColor: theme.highlightColor
     property color negativeColor: theme.negativeTextColor
-    property color neutralColor: theme.neutralTextColor
-    property color positiveColor: theme.positiveTextColor
 
 
     PlasmaComponents.TabBar {
@@ -231,7 +229,7 @@ QtLayouts.ColumnLayout {
                 Kirigami.FormData.label: i18n("Network sending color:")
 
                 dialogTitle: i18n("Choose network sending graph color")
-                defaultColor: positiveColor
+                defaultColor: negativeColor
             }
         }
     }

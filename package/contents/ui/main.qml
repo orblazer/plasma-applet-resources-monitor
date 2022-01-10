@@ -31,8 +31,6 @@ Item {
     property bool vertical: (plasmoid.formFactor == PlasmaCore.Types.Vertical)
     property color primaryColor: theme.highlightColor
     property color negativeColor: theme.negativeTextColor
-    property color neutralColor: theme.neutralTextColor
-    property color positiveColor: theme.positiveTextColor
 
     // Settings properties
     property bool verticalLayout: plasmoid.configuration.verticalLayout
@@ -51,7 +49,7 @@ Item {
     property color ramColor: plasmoid.configuration.customRamColor ? plasmoid.configuration.ramColor : primaryColor
     property color swapColor: plasmoid.configuration.customSwapColor ? plasmoid.configuration.swapColor : negativeColor
     property color netDownColor: plasmoid.configuration.customNetDownColor ? plasmoid.configuration.netDownColor : primaryColor
-    property color netUpColor: plasmoid.configuration.customNetUpColor ? plasmoid.configuration.netUpColor : positiveColor
+    property color netUpColor: plasmoid.configuration.customNetUpColor ? plasmoid.configuration.netUpColor : negativeColor
 
     // Component properties
     property int containerCount: (showCpuMonitor?1:0) + (showRamMonitor?1:0) + (showNetMonitor?1:0)
