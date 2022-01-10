@@ -54,34 +54,6 @@ Item {
 
     // Graphs
     Charts.LineChart {
-        id: downloadChart
-        anchors.fill: parent
-
-        direction: Charts.XYChart.ZeroAtEnd
-        fillOpacity: plasmoid.configuration.graphFillOpacity / 100
-        smooth: true
-
-        yRange {
-            from: 0
-            to: 100000
-            automatic: false
-        }
-
-        colorSource: Charts.SingleValueSource { value: colors[0] }
-        valueSources: [
-            Charts.HistoryProxySource {
-                id: downloadHistory
-
-                source: Charts.SingleValueSource {
-                    id: downloadSpeed
-                }
-                interval: chart.visible ? chart.interval : 0
-                maximumHistory: chart.interval > 0 ? (chart.historyAmount * 1000) / chart.interval : 0
-                fillMode: Charts.HistoryProxySource.FillFromStart
-            }
-        ]
-    }
-    Charts.LineChart {
         id: uploadChart
         anchors.fill: parent
 
@@ -108,6 +80,34 @@ Item {
                 fillMode: Charts.HistoryProxySource.FillFromStart
 
                 onDataChanged: _dataTick()
+            }
+        ]
+    }
+    Charts.LineChart {
+        id: downloadChart
+        anchors.fill: parent
+
+        direction: Charts.XYChart.ZeroAtEnd
+        fillOpacity: plasmoid.configuration.graphFillOpacity / 100
+        smooth: true
+
+        yRange {
+            from: 0
+            to: 100000
+            automatic: false
+        }
+
+        colorSource: Charts.SingleValueSource { value: colors[0] }
+        valueSources: [
+            Charts.HistoryProxySource {
+                id: downloadHistory
+
+                source: Charts.SingleValueSource {
+                    id: downloadSpeed
+                }
+                interval: chart.visible ? chart.interval : 0
+                maximumHistory: chart.interval > 0 ? (chart.historyAmount * 1000) / chart.interval : 0
+                fillMode: Charts.HistoryProxySource.FillFromStart
             }
         ]
     }
