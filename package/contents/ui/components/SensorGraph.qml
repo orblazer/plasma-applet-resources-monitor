@@ -4,6 +4,7 @@ import org.kde.plasma.plasmoid 2.0
 import org.kde.plasma.components 2.0 as PlasmaComponents
 
 import org.kde.ksysguard.sensors 1.0 as Sensors
+import org.kde.ksysguard.formatter 1.0 as Formatter
 import org.kde.quickcharts 1.0 as Charts
 
 import "./" as RMComponents
@@ -26,10 +27,14 @@ RMComponents.BaseSensorGraph {
                 return undefined
             }
 
-            if (customFormatter && role === Sensors.SensorDataModel.FormattedValue) {
-                return formatLabel(data(index(0, column), Sensors.SensorDataModel.Value))
+            var indexVar = index(0, column)
+            if(role === Sensors.SensorDataModel.FormattedValue) {
+                var value = data(indexVar, Sensors.SensorDataModel.Value)
+
+                return customFormatter ? formatLabel(value)
+                    : Formatter.Formatter.formatValueShowNull(value, data(indexVar, Sensors.SensorDataModel.Unit))
             }
-            return data(index(0, column), role)
+            return data(indexVar, role)
         }
     }
 
