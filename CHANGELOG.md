@@ -1,3 +1,20 @@
+# [2.7.0](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.6.3...v2.7.0) (2022-01-12)
+
+
+### Bug Fixes
+
+* **dev:** right check if applet is installed ([586693e](https://github.com/orblazer/plasma-applet-resources-monitor/commit/586693e4b029394f8936dde2354e056ebe71caa8))
+* **graph:** correct init sensors ([bc6f9cb](https://github.com/orblazer/plasma-applet-resources-monitor/commit/bc6f9cbf44b23c35aa33f89d4c79879b7b789dfe)), closes [#26](https://github.com/orblazer/plasma-applet-resources-monitor/issues/26)
+* **graph:** move net up graph behind net down ([420920a](https://github.com/orblazer/plasma-applet-resources-monitor/commit/420920ae15cfe570e341cfcdfe3fe41be1192832))
+* **graph:** show null value ([dc4c46e](https://github.com/orblazer/plasma-applet-resources-monitor/commit/dc4c46ec7dcbba6e3fb288f2417da3523d7f6446)), closes [#25](https://github.com/orblazer/plasma-applet-resources-monitor/issues/25)
+
+
+### Performance Improvements
+
+* **graph:** disable update when chart is not visible ([b375c59](https://github.com/orblazer/plasma-applet-resources-monitor/commit/b375c59cf2e48b070a98a5517050f4e6d4e51592))
+
+
+
 ## [2.6.3](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.6.2...v2.6.3) (2022-01-06)
 
 
