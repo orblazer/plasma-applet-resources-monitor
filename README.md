@@ -35,3 +35,11 @@ This is for active maintain and improve the original widget.
 ## You love this project ?
 
 Think to [sponsor me on Paypal](https://www.paypal.me/orblazer) for help me to maintain that project !
+
+## Contribute/Debug
+
+1. Clone this repo
+2. Run the app
+   - *With NPM*: `npm run dev`
+   - *With Yarn*: `yarn dev`
+   - *Shell*: `./scripts/test.sh`
