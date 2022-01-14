@@ -38,7 +38,7 @@ Item {
     property bool secondLabelWhenZero: true
 
     // Bind properties
-    onIgnoredNetworkInterfacesChanged: sensorsModel.updateSensors()
+    onIgnoredNetworkInterfacesChanged: sensorsModel._updateSensors()
 
     onNetworkReceivingTotalChanged: {
         downloadChart.yRange.to = networkReceivingTotal * dialect.multiplier
@@ -123,7 +123,7 @@ Item {
     // Graph data
     RMComponents.NetworkInterfaceDetector {
         id: networkInterfaces
-        onModelChanged: sensorsModel.updateSensors()
+        onModelChanged: sensorsModel._updateSensors()
     }
 
     Sensors.SensorDataModel {
@@ -142,7 +142,11 @@ Item {
             return value
         }
 
-        function updateSensors() {
+        function _updateSensors() {
+            if (!chart.visible) {
+                return
+            }
+
             var sensors = []
             for (var i = 0; i < networkInterfaces.model.count; i++) {
                 var name = networkInterfaces.model.get(i).name
@@ -156,6 +160,7 @@ Item {
             sensorsModel.sensors = sensors
         }
     }
+    onVisibleChanged: sensorsModel._updateSensors()
 
     function _dataTick() {
         var sensorsLength = sensorsModel.sensors.length

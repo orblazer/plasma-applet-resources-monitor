@@ -112,7 +112,7 @@ Item {
     // Graphs
     RMComponents.SensorGraph {
         id: cpuGraph
-        sensorsModel.sensors: ["cpu/all/usage"]
+        sensors: ["cpu/all/usage"]
         colors: [cpuColor]
 
         visible: showCpuMonitor
@@ -216,9 +216,9 @@ Item {
             var suffix = showMemoryInPercent ? "Percent" : ""
 
             if (showSwapGraph) {
-                sensorsModel.sensors = ["memory/physical/used" + suffix, "memory/swap/used" + suffix]
+                sensors = ["memory/physical/used" + suffix, "memory/swap/used" + suffix]
             } else {
-                sensorsModel.sensors = ["memory/physical/used" + suffix]
+                sensors = ["memory/physical/used" + suffix]
             }
         }
     }

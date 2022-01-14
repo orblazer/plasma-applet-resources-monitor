@@ -13,6 +13,7 @@ RMComponents.BaseSensorGraph {
     id: chart
 
     readonly property alias sensorsModel: sensorsModel
+    property var sensors: []
 
     property bool customFormatter: false
     property var lastRun: -1
@@ -36,10 +37,18 @@ RMComponents.BaseSensorGraph {
             }
             return data(indexVar, role)
         }
+        function _setSensors(sensors) {
+            if (chart.visible && sensors.length > 0) {
+                sensorsModel.sensors = sensors
+            }
+        }
     }
+    onSensorsChanged: sensorsModel._setSensors(sensors)
+    onVisibleChanged: sensorsModel._setSensors(sensors)
 
     Instantiator {
         model: sensorsModel.sensors
+        active: chart.visible
         delegate: Charts.HistoryProxySource {
             id: history
 
