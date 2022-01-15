@@ -1,3 +1,13 @@
+## [2.7.1](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.7.0...v2.7.1) (2022-01-15)
+
+
+### Bug Fixes
+
+* **data:** correctly bind dynamically sensors ([70a4208](https://github.com/orblazer/plasma-applet-resources-monitor/commit/70a42085d74e00e8d7790b423db4b1fc87a68398)), closes [#27](https://github.com/orblazer/plasma-applet-resources-monitor/issues/27)
+* **graph:** allow zero value in max y calculation ([020982f](https://github.com/orblazer/plasma-applet-resources-monitor/commit/020982f737f1b7d7b8f38a83ee7caef398e79bc8)), closes [#27](https://github.com/orblazer/plasma-applet-resources-monitor/issues/27)
+
+
+
 # [2.7.0](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.6.3...v2.7.0) (2022-01-12)
 
 
