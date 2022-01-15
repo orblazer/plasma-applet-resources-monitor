@@ -185,8 +185,8 @@ Item {
             sensors: ["memory/physical/total", "memory/swap/total"]
             enabled: true
 
-            property var totalMemory: 0
-            property var totalSwap: 0
+            property var totalMemory: -1
+            property var totalSwap: -1
             onDataChanged: {
                 if(topLeft.column === 0) {
                     totalMemory = parseInt(data(topLeft, Sensors.SensorDataModel.Value))
@@ -195,7 +195,7 @@ Item {
                     totalSwap = parseInt(data(topLeft, Sensors.SensorDataModel.Value))
                 }
 
-                if ((!isNaN(totalMemory) && totalMemory !== 0) && (!isNaN(totalSwap) && totalSwap !== 0)) {
+                if ((!isNaN(totalMemory) && totalMemory !== -1) && (!isNaN(totalSwap) && totalSwap !== -1)) {
                     enabled = false
 
                     ramGraph.maxMemory = Math.max(totalMemory, totalSwap)
