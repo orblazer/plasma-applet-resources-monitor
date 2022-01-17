@@ -47,10 +47,7 @@ Item {
         uploadChart.yRange.to = networkSendingTotal * dialect.multiplier
     }
 
-    onIntervalChanged: {
-        downloadHistory.clear()
-        uploadHistory.clear()
-    }
+    onIntervalChanged: _clearHistory()
 
     // Graphs
     Charts.LineChart {
@@ -157,6 +154,7 @@ Item {
                 }
             }
 
+            _clearHistory()
             sensorsModel.sensors = sensors
         }
     }
@@ -239,5 +237,10 @@ Item {
         }
 
         chart.showValueWhenMouseMove()
+    }
+
+    function _clearHistory() {
+        downloadHistory.clear()
+        uploadHistory.clear()
     }
 }
