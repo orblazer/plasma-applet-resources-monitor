@@ -123,20 +123,13 @@ Item {
         onModelChanged: sensorsModel._updateSensors()
     }
 
-    Sensors.SensorDataModel {
+    Instantiator {
         id: sensorsModel
-        updateRateLimit: chart.interval
-        enabled: chart.visible
-
-        function getData(column) {
-            if (!hasIndex(0, column)) {
-                return 0
-            }
-            var value = data(index(0, column), Sensors.SensorDataModel.Value)
-            if (typeof value === "undefined") {
-                return 0
-            }
-            return value
+        active: chart.visible
+        delegate: Sensors.Sensor {
+            id: sensor
+            sensorId: modelData
+            updateRateLimit: chart.interval
         }
 
         function _updateSensors() {
@@ -153,14 +146,19 @@ Item {
                 }
             }
 
+            model = sensors
             _clearHistory()
-            sensorsModel.sensors = sensors
+        }
+        function getData(index) {
+            var object = objectAt(index)
+
+            return { value: object.value || 0, sensorId: object.sensorId }
         }
     }
     onVisibleChanged: sensorsModel._updateSensors()
 
     function _dataTick() {
-        var sensorsLength = sensorsModel.sensors.length
+        var sensorsLength = sensorsModel.model.length
 
         // Emit signal
         chart.dataTick()
@@ -179,12 +177,14 @@ Item {
         }
 
         // Calculate total download
+        var data
         var downloadValue = 0, uploadValue = 0
         for (var i = 0; i < sensorsLength; i++) {
-            if (sensorsModel.sensors[i].indexOf('/download') !== -1) {
-                downloadValue += sensorsModel.getData(i)
+            data = sensorsModel.getData(i)
+            if (data.sensorId.indexOf('/download') !== -1) {
+                downloadValue += data.value
             } else {
-                uploadValue += sensorsModel.getData(i)
+                uploadValue += data.value
             }
         }
 
