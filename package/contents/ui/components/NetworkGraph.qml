@@ -140,7 +140,7 @@ Item {
         }
 
         function _updateSensors() {
-            if (!chart.visible) {
+            if (!chart.visible || typeof networkInterfaces.model.count === "undefined") {
                 return
             }
 
@@ -149,8 +149,7 @@ Item {
                 var name = networkInterfaces.model.get(i).name
 
                 if (ignoredNetworkInterfaces.indexOf(name) === -1) {
-                    sensors.push("network/" + name + "/download")
-                    sensors.push("network/" + name + "/upload")
+                    sensors.push("network/" + name + "/download", "network/" + name + "/upload")
                 }
             }
 
