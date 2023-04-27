@@ -16,6 +16,9 @@
         <entry name="showCpuMonitor" type="Bool">
             <default>true</default>
         </entry>
+        <entry name="cpuUnit" type="String">
+            <default>usage</default>
+        </entry>
         <entry name="showClock" type="Bool">
             <default>true</default>
         </entry>
@@ -26,8 +29,8 @@
         <entry name="showRamMonitor" type="Bool">
             <default>true</default>
         </entry>
-        <entry name="memoryInPercent" type="Bool">
-            <default>false</default>
+        <entry name="memoryUnit" type="String">
+            <default>physical</default>
         </entry>
         <entry name="memorySwapGraph" type="Bool">
             <default>true</default>

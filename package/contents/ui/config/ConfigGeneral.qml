@@ -15,14 +15,15 @@ PlasmaExtras.Representation {
     signal configurationChanged
 
     property alias cfg_updateInterval: updateInterval.valueReal
+    property string cfg_cpuUnit: plasmoid.configuration.cpuUnit
+    property string cfg_memoryUnit: plasmoid.configuration.memoryUnit
     property string cfg_networkUnit: plasmoid.configuration.networkUnit
     property string cfg_actionService: plasmoid.configuration.actionService
 
-    property alias cfg_showCpuMonitor: showCpuMonitor.checked
+    property bool cfg_showCpuMonitor: plasmoid.configuration.showCpuMonitor.checked
     property alias cfg_showClock: showCpuClock.checked
     property alias cfg_showCpuTemperature: showCpuTemperature.checked
-    property alias cfg_showRamMonitor: showRamMonitor.checked
-    property alias cfg_memoryInPercent: memoryInPercent.checked
+    property bool cfg_showRamMonitor: plasmoid.configuration.showRamMonitor.checked
     property alias cfg_memorySwapGraph: memorySwapGraph.checked
     property bool cfg_showNetMonitor: plasmoid.configuration.showNetMonitor.checked
     property alias cfg_showGpuMonitor: showGpuMonitor.checked
@@ -131,6 +132,52 @@ PlasmaExtras.Representation {
                     font.pointSize: PlasmaCore.Theme.defaultFont.pointSize * 1.05
                 }
 
+                QtControls.ComboBox {
+                    QtLayouts.Layout.fillWidth: true
+                    Kirigami.FormData.label: i18n("Usage:")
+                    textRole: "label"
+                    model: [{
+                            "label": i18n("Disabled monitor"),
+                            "value": "none"
+                        }, {
+                            "label": i18n("Total"),
+                            "value": "usage"
+                        }, {
+                            "label": i18n("System"),
+                            "value": "system"
+                        }, {
+                            "label": i18n("User"),
+                            "value": "user"
+                        }]
+
+                    onCurrentIndexChanged: {
+                        var current = model[currentIndex];
+                        if (current) {
+                            if (current.value === "none") {
+                                cfg_showCpuMonitor = false;
+                                page.configurationChanged();
+                            } else {
+                                cfg_showCpuMonitor = true;
+                                cfg_cpuUnit = current.value;
+                                page.configurationChanged();
+                            }
+                        }
+                    }
+
+                    Component.onCompleted: {
+                        if (!plasmoid.configuration.showCpuMonitor) {
+                            currentIndex = 0;
+                        } else {
+                            for (var i = 0; i < model.length; i++) {
+                                if (model[i]["value"] === plasmoid.configuration.cpuUnit) {
+                                    currentIndex = i;
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                }
+
                 QtLayouts.GridLayout {
                     QtLayouts.Layout.fillWidth: true
                     columns: 2
@@ -138,18 +185,14 @@ PlasmaExtras.Representation {
                     columnSpacing: Kirigami.Units.largeSpacing
 
                     QtControls.CheckBox {
-                        id: showCpuMonitor
-                        text: i18n("Show monitor")
-                    }
-                    QtControls.CheckBox {
                         id: showCpuClock
                         text: i18n("Show clock")
-                        enabled: showCpuMonitor.checked
+                        enabled: cfg_showCpuMonitor
                     }
                     QtControls.CheckBox {
                         id: showCpuTemperature
                         text: i18n("Show temperature")
-                        enabled: showCpuMonitor.checked
+                        enabled: cfg_showCpuMonitor
                     }
                     Rectangle {
                         height: Kirigami.Units.largeSpacing
@@ -167,6 +210,55 @@ PlasmaExtras.Representation {
                     font.pointSize: PlasmaCore.Theme.defaultFont.pointSize * 1.05
                 }
 
+                QtControls.ComboBox {
+                    QtLayouts.Layout.fillWidth: true
+                    Kirigami.FormData.label: i18n("Type:")
+                    textRole: "label"
+                    model: [{
+                            "label": i18n("Disabled monitor"),
+                            "value": "none"
+                        }, {
+                            "label": i18n("Physical (KiB)"),
+                            "value": "physical"
+                        }, {
+                            "label": i18n("Physical (in %)"),
+                            "value": "physical-percent"
+                        }, {
+                            "label": i18n("Application (KiB)"),
+                            "value": "application"
+                        }, {
+                            "label": i18n("Application (in %)"),
+                            "value": "application-percent"
+                        }]
+
+                    onCurrentIndexChanged: {
+                        var current = model[currentIndex];
+                        if (current) {
+                            if (current.value === "none") {
+                                cfg_showRamMonitor = false;
+                                page.configurationChanged();
+                            } else {
+                                cfg_showRamMonitor = true;
+                                cfg_memoryUnit = current.value;
+                                page.configurationChanged();
+                            }
+                        }
+                    }
+
+                    Component.onCompleted: {
+                        if (!plasmoid.configuration.showRamMonitor) {
+                            currentIndex = 0;
+                        } else {
+                            for (var i = 0; i < model.length; i++) {
+                                if (model[i]["value"] === plasmoid.configuration.memoryUnit) {
+                                    currentIndex = i;
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                }
+
                 QtLayouts.GridLayout {
                     QtLayouts.Layout.fillWidth: true
                     columns: 2
@@ -174,17 +266,9 @@ PlasmaExtras.Representation {
                     columnSpacing: Kirigami.Units.largeSpacing
 
                     QtControls.CheckBox {
-                        id: showRamMonitor
-                        text: i18n("Show monitor")
-                    }
-                    QtControls.CheckBox {
-                        id: memoryInPercent
-                        text: i18n("Values in percentage")
-                        enabled: showRamMonitor.checked
-                    }
-                    QtControls.CheckBox {
                         id: memorySwapGraph
                         text: i18n("Display memory swap graph")
+                        enabled: cfg_showRamMonitor
                     }
                 }
 
@@ -200,10 +284,10 @@ PlasmaExtras.Representation {
 
                 QtControls.ComboBox {
                     QtLayouts.Layout.fillWidth: true
-                    Kirigami.FormData.label: i18n("Network visibility:")
+                    Kirigami.FormData.label: i18n("Visibility:")
                     textRole: "label"
                     model: [{
-                            "label": i18n("Disabled"),
+                            "label": i18n("Disabled monitor"),
                             "value": "none"
                         }, {
                             "label": i18n("In kibibyte (KiB/s)"),

@@ -36,6 +36,8 @@ MouseArea {
 
     // Settings properties
     property bool verticalLayout: plasmoid.configuration.verticalLayout
+    property string cpuUnit: plasmoid.configuration.cpuUnit
+    property string memoryUnit: plasmoid.configuration.memoryUnit
     property string actionService: plasmoid.configuration.actionService
     property double fontScale: (plasmoid.configuration.fontScale / 100)
 
@@ -43,7 +45,6 @@ MouseArea {
     property bool showCpuClock: plasmoid.configuration.showClock
     property bool showCpuTemp: plasmoid.configuration.showCpuTemperature
     property bool showRamMonitor: plasmoid.configuration.showRamMonitor
-    property bool showMemoryInPercent: plasmoid.configuration.memoryInPercent
     property bool showSwapGraph: plasmoid.configuration.memorySwapGraph
     property bool showNetMonitor: plasmoid.configuration.showNetMonitor
     property bool showGpuMonitor: plasmoid.configuration.showGpuMonitor
@@ -108,6 +109,9 @@ MouseArea {
         }
     }
 
+    onCpuUnitChanged: {
+        cpuGraph.sensors = ["cpu/all/" + cpuUnit]
+    }
     onShowCpuClockChanged: {
         if (!showCpuClock) {
             cpuGraph.secondLineLabel.visible = false;
@@ -119,16 +123,11 @@ MouseArea {
         }
     }
 
-    onShowMemoryInPercentChanged: {
-        if (ramGraph.maxMemory[0] <= 0 && ramGraph.maxMemory[1] <= 0) {
+    onMemoryUnitChanged: {
+        if ((ramGraph.maxMemory[0] <= 0 && ramGraph.maxMemory[1] <= 0) || memoryUnit === "none") {
             return;
         }
-        if (showMemoryInPercent) {
-            ramGraph.uplimits = [100, 100];
-        } else {
-            ramGraph.uplimits = ramGraph.maxMemory;
-        }
-        ramGraph.updateSensors();
+        maxMemoryQueryModel.enabled = true;
     }
 
     onShowSwapGraphChanged: {
@@ -186,7 +185,7 @@ MouseArea {
         // CPU
         RMComponents.SensorGraph {
             id: cpuGraph
-            sensors: ["cpu/all/usage"]
+            sensors: ["cpu/all/" + cpuUnit]
             colors: [cpuColor]
 
             visible: showCpuMonitor
@@ -275,7 +274,7 @@ MouseArea {
             thresholdColors: [warningColor, criticalColor]
             secondLabelWhenZero: false
 
-            visible: showRamMonitor
+            visible: memoryUnit !== "none"
             Layout.preferredWidth: itemWidth
             Layout.preferredHeight: itemHeight
 
@@ -301,7 +300,7 @@ MouseArea {
                     // Update graph Y range and sensors
                     if (ramGraph.maxMemory[0] >= 0 && ramGraph.maxMemory[1] >= 0) {
                         enabled = false;
-                        if (!showMemoryInPercent) {
+                        if (!memoryUnit.endsWith("-percent")) {
                             ramGraph.uplimits = ramGraph.maxMemory;
                             ramGraph.thresholds[0] = [ramGraph.maxMemory[0] * (thresholdWarningMemory / 100.0), ramGraph.maxMemory[0] * (thresholdCriticalMemory / 100.0)];
                         } else {
@@ -318,11 +317,13 @@ MouseArea {
             }
 
             function updateSensors() {
-                var suffix = showMemoryInPercent ? "Percent" : "";
+                var _memUnit = memoryUnit.split("-");
+                var suffix = _memUnit[1] === "percent" ? "Percent" : "";
+                var ramSensor = "memory/physical/" + (_memUnit[0] === "physical" ? "used" : "application") + suffix;
                 if (showSwapGraph) {
-                    sensors = ["memory/physical/used" + suffix, "memory/swap/used" + suffix];
+                    sensors = [ramSensor, "memory/swap/used" + suffix];
                 } else {
-                    sensors = ["memory/physical/used" + suffix];
+                    sensors = [ramSensor];
                 }
             }
         }
