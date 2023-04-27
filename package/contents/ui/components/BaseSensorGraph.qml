@@ -14,8 +14,11 @@ Charts.LineChart {
     property alias labelColor: textContainer.labelColor
     property alias secondLabel: textContainer.secondLabel
     property alias secondLabelColor: textContainer.secondLabelColor
+    property alias thirdLabel: textContainer.thirdLabel
+    property alias thirdLabelColor: textContainer.thirdLabelColor
     readonly property alias firstLineLabel: textContainer.firstLineLabel
     readonly property alias secondLineLabel: textContainer.secondLineLabel
+    readonly property alias thirdLineLabel: textContainer.thirdLineLabel
 
     // Graph properties
     readonly property int historyAmount: plasmoid.configuration.historyAmount

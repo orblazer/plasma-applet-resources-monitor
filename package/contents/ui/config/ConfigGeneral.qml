@@ -18,7 +18,8 @@ QtLayouts.ColumnLayout {
     property string cfg_actionService: plasmoid.configuration.actionService
 
     property alias cfg_showCpuMonitor: showCpuMonitor.checked
-    property alias cfg_showClock: showClock.checked
+    property alias cfg_showClock: showCpuClock.checked
+    property alias cfg_showCpuTemperature: showCpuTemperature.checked
     property alias cfg_showRamMonitor: showRamMonitor.checked
     property alias cfg_memoryInPercent: memoryInPercent.checked
     property alias cfg_memorySwapGraph: memorySwapGraph.checked
@@ -114,9 +115,18 @@ QtLayouts.ColumnLayout {
                         text: i18n("Show CPU monitor")
                     }
                     QtControls.CheckBox {
-                        id: showClock
+                        id: showCpuClock
                         text: i18n("Show CPU clock")
                         enabled: showCpuMonitor.checked
+                    }
+                    QtControls.CheckBox {
+                        id: showCpuTemperature
+                        text: i18n("Show CPU temperature")
+                        enabled: showCpuMonitor.checked
+                    }
+                    Rectangle {
+                        height: Kirigami.Units.largeSpacing
+                        color: "transparent"
                     }
 
                     // Memory

@@ -87,3 +87,16 @@ function formatByteValue(value, dialect, precision = 1) {
     dialect.suffix
   );
 }
+
+/**
+ *
+ * @param {string} value The raw value (eg. 31.3˚C)
+ * @returns Rounded temperature (eg. 31.3˚C)
+ */
+function roundTemp(value) {
+  var regex = value.match(/^([.\d]*)(.*)/);
+  if (!(regex && regex[1])) {
+    return "";
+  }
+  return Number(regex[1]) + regex[2];
+}

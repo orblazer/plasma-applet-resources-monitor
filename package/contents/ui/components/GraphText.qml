@@ -7,12 +7,15 @@ Item {
     id: graphText
     readonly property alias firstLineLabel: firstLineLabel
     readonly property alias secondLineLabel: secondLineLabel
+    readonly property alias thirdLineLabel: thirdLineLabel
 
     property color textColor: theme.textColor
     property string label: ''
     property color labelColor: theme.highlightColor
     property string secondLabel: ''
     property color secondLabelColor: theme.textColor
+    property string thirdLabel: ''
+    property color thirdLabelColor: theme.textColor
 
     property bool enableShadows: plasmoid.configuration.enableShadows
     property string placement: plasmoid.configuration.placement // Values: top-right, top-left, bottom-right, bottom-left
@@ -26,12 +29,12 @@ Item {
         switch (displayment) {
             case 'always':
             case 'hover-hints':
-                firstLineLabel.color = secondLineLabel.color = textColor;
+                firstLineLabel.color = secondLineLabel.color = thirdLineLabel.color = textColor;
                 showValueInLabel();
                 valueVisible = true;
                 break;
             case 'hover':
-                firstLineLabel.visible = secondLineLabel.visible = false;
+                firstLineLabel.visible = secondLineLabel.visible = thirdLineLabel.visible = false;
                 valueVisible = mouseArea.containsMouse;
                 break;
             case 'always-hints':
@@ -41,6 +44,9 @@ Item {
                 secondLineLabel.text = secondLabel;
                 secondLineLabel.color = secondLabelColor;
                 secondLineLabel.visible = secondLineLabel.text != '';
+                thirdLineLabel.text = thirdLabel;
+                thirdLineLabel.color = thirdLabelColor;
+                thirdLineLabel.visible = thirdLineLabel.text != '';
                 break;
         }
     }
@@ -50,6 +56,7 @@ Item {
         id: textContainer
         width: parent.width
         state: placement
+        spacing: -2
 
         // First line
         PlasmaComponents.Label {
@@ -74,6 +81,18 @@ Item {
             font.pointSize: -1
             visible: secondLabel != ''
         }
+        PlasmaComponents.Label {
+            id: thirdLineLabel
+            width: parent.width
+            height: contentHeight
+            property string lastValue: ''
+
+            text: thirdLabel
+            color: thirdLabelColor
+
+            font.pointSize: -1
+            visible: thirdLabel != ''
+        }
 
         // States
         states: [
@@ -92,6 +111,10 @@ Item {
                     target: secondLineLabel
                     horizontalAlignment: Text.AlignLeft
                 }
+                PropertyChanges {
+                    target: thirdLineLabel
+                    horizontalAlignment: Text.AlignLeft
+                }
             },
             State {
                 name: 'top-right'
@@ -106,6 +129,10 @@ Item {
                 }
                 PropertyChanges {
                     target: secondLineLabel
+                    horizontalAlignment: Text.AlignRight
+                }
+                PropertyChanges {
+                    target: thirdLineLabel
                     horizontalAlignment: Text.AlignRight
                 }
             },
@@ -124,6 +151,10 @@ Item {
                     target: secondLineLabel
                     horizontalAlignment: Text.AlignLeft
                 }
+                PropertyChanges {
+                    target: thirdLineLabel
+                    horizontalAlignment: Text.AlignLeft
+                }
             },
             State {
                 name: 'bottom-right'
@@ -138,6 +169,10 @@ Item {
                 }
                 PropertyChanges {
                     target: secondLineLabel
+                    horizontalAlignment: Text.AlignRight
+                }
+                PropertyChanges {
+                    target: thirdLineLabel
                     horizontalAlignment: Text.AlignRight
                 }
             }
@@ -167,6 +202,7 @@ Item {
                     valueVisible = true;
                     firstLineLabel.visible = true;
                     secondLineLabel.visible = secondLineLabel.text != '';
+                    thirdLineLabel.visible = thirdLineLabel.text != '';
                     break;
                 case 'hover-hints':
                     valueVisible = false;
@@ -176,6 +212,9 @@ Item {
                     secondLineLabel.text = secondLabel;
                     secondLineLabel.color = secondLabelColor;
                     secondLineLabel.visible = secondLineLabel.text != '';
+                    thirdLineLabel.text = thirdLabel;
+                    thirdLineLabel.color = thirdLabelColor;
+                    thirdLineLabel.visible = thirdLineLabel.text != '';
                     break;
             }
         }
@@ -184,10 +223,10 @@ Item {
             switch (displayment) {
                 case 'hover':
                     valueVisible = false;
-                    firstLineLabel.visible = secondLineLabel.visible = false;
+                    firstLineLabel.visible = secondLineLabel.visible = thirdLineLabel.visible = false;
                     break;
                 case 'hover-hints':
-                    firstLineLabel.color = secondLineLabel.color = textColor;
+                    firstLineLabel.color = secondLineLabel.color = thirdLineLabel.color = textColor;
                     showValueInLabel();
                     valueVisible = true;
                     break;

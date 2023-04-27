@@ -22,6 +22,7 @@ import org.kde.kio 1.0 as Kio
 import org.kde.kcoreaddons 1.0 as KCoreAddons
 import org.kde.ksysguard.sensors 1.0 as Sensors
 import "./components" as RMComponents
+import "./components/functions.js" as Functions
 
 Item {
     id: main
@@ -35,7 +36,8 @@ Item {
     property string actionService: plasmoid.configuration.actionService
 
     property bool showCpuMonitor: plasmoid.configuration.showCpuMonitor
-    property bool showClock: plasmoid.configuration.showClock
+    property bool showCpuClock: plasmoid.configuration.showClock
+    property bool showCpuTemp: plasmoid.configuration.showCpuTemperature
     property bool showRamMonitor: plasmoid.configuration.showRamMonitor
     property bool showMemoryInPercent: plasmoid.configuration.memoryInPercent
     property bool showSwapGraph: plasmoid.configuration.memorySwapGraph
@@ -79,12 +81,18 @@ Item {
         for (var monitor of [cpuGraph, ramGraph, netGraph]) {
             monitor.firstLineLabel.font.pixelSize = fontPixelSize;
             monitor.secondLineLabel.font.pixelSize = fontPixelSize;
+            monitor.thirdLineLabel.font.pixelSize = fontPixelSize;
         }
     }
 
-    onShowClockChanged: {
-        if (!showClock) {
+    onShowCpuClockChanged: {
+        if (!showCpuClock) {
             cpuGraph.secondLineLabel.visible = false;
+        }
+    }
+    onShowCpuTempChanged: {
+        if (!showCpuTemp) {
+            cpuGraph.thirdLineLabel.visible = false;
         }
     }
 
@@ -118,7 +126,8 @@ Item {
 
         label: "CPU"
         labelColor: cpuColor
-        secondLabel: showClock ? i18n("⏲ Clock") : ""
+        secondLabel: showCpuClock ? i18n("⏲ Clock") : ""
+        thirdLabel: showCpuTemp ? i18n("🌡️ Temp.") : ""
 
         yRange {
             from: 0
@@ -127,26 +136,34 @@ Item {
 
         // Display first core frequency
         onDataTick: {
-            if (canSeeValue(1)) {
+            if (!textContainer.valueVisible) {
+                return;
+            }
+
+            if (showCpuClock) {
                 secondLineLabel.text = cpuFrequencySensor.formattedValue;
                 secondLineLabel.visible = true;
+            }
+            if (showCpuTemp) {
+                thirdLineLabel.text = cpuTempSensor.formattedValue;
+                thirdLineLabel.visible = true;
             }
         }
         Sensors.Sensor {
             id: cpuFrequencySensor
-            enabled: showClock
+            enabled: showCpuClock
             sensorId: "cpu/cpu0/frequency"
+        }
+        Sensors.Sensor {
+            id: cpuTempSensor
+            enabled: showCpuTemp
+            sensorId: "cpu/all/averageTemperature"
         }
         onShowValueWhenMouseMove: {
             secondLineLabel.text = cpuFrequencySensor.formattedValue;
             secondLineLabel.visible = true;
-        }
-
-        function canSeeValue(column) {
-            if (column === 1 && !showClock) {
-                return false;
-            }
-            return textContainer.valueVisible;
+            thirdLineLabel.text = cpuTempSensor.formattedValue
+            thirdLineLabel.visible = true;
         }
     }
 
