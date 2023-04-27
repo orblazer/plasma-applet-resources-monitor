@@ -5,7 +5,6 @@ import org.kde.kirigami 2.6 as Kirigami
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 2.0 as PlasmaComponents
 import org.kde.plasma.extras 2.0 as PlasmaExtras
-
 import "../components" as RMComponents
 import "../controls" as RMControls
 
@@ -31,18 +30,17 @@ QtLayouts.ColumnLayout {
 
         filterString: appsFilter.text
         filterCallback: function (index, value) {
-            var search = filterString.toLowerCase()
+            var search = filterString.toLowerCase();
             if (search.length === 0) {
-                return true
+                return true;
             }
-
             if (value.toLowerCase().indexOf(search) !== -1) {
-                return true
+                return true;
             }
             if (sourceModel.get(index).menuId.replace(".desktop", "").toLowerCase().indexOf(search) !== -1) {
-                return true
+                return true;
             }
-            return false
+            return false;
         }
 
         onFilterStringChanged: appsList.updateCurrentIndex()
@@ -87,8 +85,8 @@ QtLayouts.ColumnLayout {
                     maximumValue: 3600.0
                     stepSize: Math.round(0.1 * factor)
 
-                    textFromValue: function(value, locale) {
-                        return i18n("%1 seconds", valueToText(value, locale))
+                    textFromValue: function (value, locale) {
+                        return i18n("%1 seconds", valueToText(value, locale));
                     }
                 }
 
@@ -148,44 +146,42 @@ QtLayouts.ColumnLayout {
                     QtLayouts.Layout.fillWidth: true
                     Kirigami.FormData.label: i18n("Network visibility:")
                     textRole: "label"
-                    model: [
-                        {
-                            label: i18n("Disabled"),
-                            value: "none"
+                    model: [{
+                            "label": i18n("Disabled"),
+                            "value": "none"
                         }, {
-                            label: i18n("In kibibyte (KiB/s)"),
-                            value: "kibibyte"
+                            "label": i18n("In kibibyte (KiB/s)"),
+                            "value": "kibibyte"
                         }, {
-                            label: i18n("In kilobit (Kbps)"),
-                            value: "kilobit"
+                            "label": i18n("In kilobit (Kbps)"),
+                            "value": "kilobit"
                         }, {
-                            label: i18n("In kilobyte (KBps)"),
-                            value: "kilobyte"
-                        }
-                    ]
+                            "label": i18n("In kilobyte (KBps)"),
+                            "value": "kilobyte"
+                        }]
 
                     onCurrentIndexChanged: {
-                        var current = model[currentIndex]
+                        var current = model[currentIndex];
                         if (current) {
                             if (current.value === "none") {
-                                cfg_showNetMonitor = false
-                                page.configurationChanged()
+                                cfg_showNetMonitor = false;
+                                page.configurationChanged();
                             } else {
-                                cfg_showNetMonitor = true
-                                cfg_networkUnit = current.value
-                                page.configurationChanged()
+                                cfg_showNetMonitor = true;
+                                cfg_networkUnit = current.value;
+                                page.configurationChanged();
                             }
                         }
                     }
 
                     Component.onCompleted: {
                         if (!plasmoid.configuration.showNetMonitor) {
-                            currentIndex = 0
+                            currentIndex = 0;
                         } else {
                             for (var i = 0; i < model.length; i++) {
                                 if (model[i]["value"] === plasmoid.configuration.networkUnit) {
-                                    currentIndex = i
-                                    return
+                                    currentIndex = i;
+                                    return;
                                 }
                             }
                         }
@@ -261,12 +257,11 @@ QtLayouts.ColumnLayout {
                             selected: ListView.isCurrentItem
 
                             onClicked: {
-                                appsList.currentIndex = index
-
-                                var oldValue = cfg_actionService
-                                cfg_actionService = serviceName
+                                appsList.currentIndex = index;
+                                var oldValue = cfg_actionService;
+                                cfg_actionService = serviceName;
                                 if (cfg_actionService !== oldValue) {
-                                    page.configurationChanged()
+                                    page.configurationChanged();
                                 }
                             }
                         }
@@ -276,11 +271,11 @@ QtLayouts.ColumnLayout {
                         function updateCurrentIndex() {
                             for (var i = 0; i < model.count; i++) {
                                 if (model.get(i).menuId === cfg_actionService + ".desktop") {
-                                    currentIndex = i
-                                    return
+                                    currentIndex = i;
+                                    return;
                                 }
                             }
-                            currentIndex = -1
+                            currentIndex = -1;
                         }
                     }
                 }

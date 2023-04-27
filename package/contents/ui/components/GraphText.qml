@@ -20,33 +20,28 @@ Item {
 
     property bool valueVisible: false
 
-    signal showValueInLabel()
+    signal showValueInLabel
 
     onDisplaymentChanged: {
         switch (displayment) {
             case 'always':
             case 'hover-hints':
-                firstLineLabel.color = secondLineLabel.color = textColor
-                showValueInLabel()
-                valueVisible = true
-                break
-
+                firstLineLabel.color = secondLineLabel.color = textColor;
+                showValueInLabel();
+                valueVisible = true;
+                break;
             case 'hover':
-                firstLineLabel.visible = secondLineLabel.visible = false
-
-                valueVisible = mouseArea.containsMouse
-                break
-
+                firstLineLabel.visible = secondLineLabel.visible = false;
+                valueVisible = mouseArea.containsMouse;
+                break;
             case 'always-hints':
-                valueVisible = false
-
-                firstLineLabel.text = label
-                firstLineLabel.color = labelColor
-
-                secondLineLabel.text = secondLabel
-                secondLineLabel.color = secondLabelColor
-                secondLineLabel.visible = secondLineLabel.text != ''
-                break
+                valueVisible = false;
+                firstLineLabel.text = label;
+                firstLineLabel.color = labelColor;
+                secondLineLabel.text = secondLabel;
+                secondLineLabel.color = secondLabelColor;
+                secondLineLabel.visible = secondLineLabel.text != '';
+                break;
         }
     }
 
@@ -114,7 +109,6 @@ Item {
                     horizontalAlignment: Text.AlignRight
                 }
             },
-
             State {
                 name: 'bottom-left'
                 AnchorChanges {
@@ -170,37 +164,33 @@ Item {
         onEntered: {
             switch (displayment) {
                 case 'hover':
-                    valueVisible = true
-
-                    firstLineLabel.visible = true
-                    secondLineLabel.visible = secondLineLabel.text != ''
-                    break
+                    valueVisible = true;
+                    firstLineLabel.visible = true;
+                    secondLineLabel.visible = secondLineLabel.text != '';
+                    break;
                 case 'hover-hints':
-                    valueVisible = false
-
-                    firstLineLabel.text = label
-                    firstLineLabel.color = labelColor
-                    firstLineLabel.visible = true
-
-                    secondLineLabel.text = secondLabel
-                    secondLineLabel.color = secondLabelColor
-                    secondLineLabel.visible = secondLineLabel.text != ''
-                    break
+                    valueVisible = false;
+                    firstLineLabel.text = label;
+                    firstLineLabel.color = labelColor;
+                    firstLineLabel.visible = true;
+                    secondLineLabel.text = secondLabel;
+                    secondLineLabel.color = secondLabelColor;
+                    secondLineLabel.visible = secondLineLabel.text != '';
+                    break;
             }
         }
 
         onExited: {
             switch (displayment) {
                 case 'hover':
-                    valueVisible = false
-
-                    firstLineLabel.visible = secondLineLabel.visible = false
-                    break
+                    valueVisible = false;
+                    firstLineLabel.visible = secondLineLabel.visible = false;
+                    break;
                 case 'hover-hints':
-                    firstLineLabel.color = secondLineLabel.color = textColor
-                    showValueInLabel()
-                    valueVisible = true
-                    break
+                    firstLineLabel.color = secondLineLabel.color = textColor;
+                    showValueInLabel();
+                    valueVisible = true;
+                    break;
             }
         }
     }

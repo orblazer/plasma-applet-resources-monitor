@@ -2,11 +2,9 @@ import QtQuick 2.9
 import QtGraphicalEffects 1.0
 import org.kde.plasma.plasmoid 2.0
 import org.kde.plasma.components 2.0 as PlasmaComponents
-
 import org.kde.ksysguard.sensors 1.0 as Sensors
 import org.kde.ksysguard.formatter 1.0 as Formatter
 import org.kde.quickcharts 1.0 as Charts
-
 import "./" as RMComponents
 
 RMComponents.BaseSensorGraph {
@@ -25,21 +23,19 @@ RMComponents.BaseSensorGraph {
 
         function getData(column = 0, role = Sensors.SensorDataModel.FormattedValue) {
             if (!hasIndex(0, column)) {
-                return undefined
+                return undefined;
             }
-
-            var indexVar = index(0, column)
-            if(role === Sensors.SensorDataModel.FormattedValue) {
-                var value = data(indexVar, Sensors.SensorDataModel.Value)
-
+            var indexVar = index(0, column);
+            if (role === Sensors.SensorDataModel.FormattedValue) {
+                var value = data(indexVar, Sensors.SensorDataModel.Value);
                 return customFormatter ? formatLabel(value)
-                    : Formatter.Formatter.formatValueShowNull(value, data(indexVar, Sensors.SensorDataModel.Unit))
+                    : Formatter.Formatter.formatValueShowNull(value, data(indexVar, Sensors.SensorDataModel.Unit));
             }
-            return data(indexVar, role)
+            return data(indexVar, role);
         }
         function _setSensors(sensors) {
             if (chart.visible && sensors.length > 0) {
-                sensorsModel.sensors = sensors
+                sensorsModel.sensors = sensors;
             }
         }
     }
@@ -65,69 +61,71 @@ RMComponents.BaseSensorGraph {
             onDataChanged: {
                 // Skip when value is not visible
                 if (canSeeValue(index)) {
-                    var value = sensorsModel.getData(index)
+                    var value = sensorsModel.getData(index);
 
                     // Update albel
-                    if (index === 0) { // is first line
+                    if (index === 0) {
+                        // is first line
                         if (typeof value === 'undefined') {
-                            firstLineLabel.text = '...'
+                            firstLineLabel.text = '...';
                         } else {
-                            firstLineLabel.text = value
+                            firstLineLabel.text = value;
                         }
-                    } else if (index === 1) { // is second line
+                    } else if (index === 1) {
+                        // is second line
                         if (typeof value === 'undefined') {
-                            secondLineLabel.text = '...'
-                            secondLineLabel.visible = secondLabelWhenZero
+                            secondLineLabel.text = '...';
+                            secondLineLabel.visible = secondLabelWhenZero;
                         } else {
-                            secondLineLabel.text = value
+                            secondLineLabel.text = value;
                             secondLineLabel.visible = sensorsModel.getData(index, Sensors.SensorDataModel.Value) !== 0
-                                || secondLabelWhenZero
+                                || secondLabelWhenZero;
                         }
                     }
                 }
 
                 // Call data tick
-                var now = Date.now()
+                var now = Date.now();
                 if (now - lastRun >= chart.interval) {
-                    lastRun = now
-                    chart.dataTick()
+                    lastRun = now;
+                    chart.dataTick();
                 }
             }
 
             property var connection: Connections {
                 target: chart
                 function onIntervalChanged() {
-                    history.clear()
+                    history.clear();
                 }
             }
         }
         onObjectAdded: {
-            chart.insertValueSource(index, object)
+            chart.insertValueSource(index, object);
         }
         onObjectRemoved: {
-            chart.removeValueSource(object)
+            chart.removeValueSource(object);
         }
     }
 
     function _showValueInLabel() {
         // Show first line
-        var data = sensorsModel.getData(0)
+        var data = sensorsModel.getData(0);
         if (typeof data !== "undefined") {
-            firstLineLabel.text = data
+            firstLineLabel.text = data;
         } else {
-            firstLineLabel.text = '...'
+            firstLineLabel.text = '...';
         }
 
         // Show second line
-        data = sensorsModel.getData(1)
+        data = sensorsModel.getData(1);
         if (typeof data !== "undefined") {
-            secondLineLabel.text = data
-            secondLineLabel.visible = sensorsModel.getData(1, Sensors.SensorDataModel.Value) !== 0 || secondLabelWhenZero
+            secondLineLabel.text = data;
+            secondLineLabel.visible = sensorsModel.getData(1, Sensors.SensorDataModel.Value) !== 0
+                || secondLabelWhenZero;
         } else {
-            secondLineLabel.text = '...'
-            secondLineLabel.visible = secondLabelWhenZero
+            secondLineLabel.text = '...';
+            secondLineLabel.visible = secondLabelWhenZero;
         }
-
-        chart.showValueWhenMouseMove()
+        chart.showValueWhenMouseMove();
     }
 }

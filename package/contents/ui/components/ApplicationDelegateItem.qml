@@ -6,34 +6,33 @@ import org.kde.plasma.components 2.0 as PlasmaComponents
 import org.kde.kirigami 2.6 as Kirigami
 
 MouseArea {
-  id: root
-  height: childrenRect.height
+    id: root
+    height: childrenRect.height
 
-  hoverEnabled: true
-  cursorShape: Qt.PointingHandCursor
+    hoverEnabled: true
+    cursorShape: Qt.PointingHandCursor
 
-  property string serviceName: ""
-  property string name: ""
-  property string comment: ""
-  property string iconName: ""
-  property bool selected: false
+    property string serviceName: ""
+    property string name: ""
+    property string comment: ""
+    property string iconName: ""
+    property bool selected: false
 
-  QtLayouts.RowLayout {
-      spacing: Kirigami.Units.smallSpacing
+    QtLayouts.RowLayout {
+        spacing: Kirigami.Units.smallSpacing
 
-      QtControls.ToolTip.text: (comment !== "" ? comment + "\n\n" : "") +
-        "ID: " + serviceName + ".desktop"
-      QtControls.ToolTip.visible: root.containsMouse
+        QtControls.ToolTip.text: (comment !== "" ? comment + "\n\n" : "") + "ID: " + serviceName + ".desktop"
+        QtControls.ToolTip.visible: root.containsMouse
 
-      PlasmaCore.IconItem {
-          id: icon
+        PlasmaCore.IconItem {
+            id: icon
 
-          source: iconName
-          implicitHeight: 16
-          implicitWidth: 16
-      }
-      PlasmaComponents.Label {
-          text: selected ? "<strong>" + name + "</strong>" : name
-      }
-  }
+            source: iconName
+            implicitHeight: 16
+            implicitWidth: 16
+        }
+        PlasmaComponents.Label {
+            text: selected ? "<strong>" + name + "</strong>" : name
+        }
+    }
 }

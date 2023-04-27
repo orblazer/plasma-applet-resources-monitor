@@ -1,7 +1,6 @@
 import QtQuick 2.2
 import QtQuick.Controls 2.12 as QtControls
 import QtQuick.Layouts 1.1 as QtLayouts
-
 import "./" as RMControls
 
 QtLayouts.RowLayout {
@@ -30,8 +29,8 @@ QtLayouts.RowLayout {
         enabled: customized.checked
         QtLayouts.Layout.fillWidth: true
 
-        textFromValue: function(value, locale) {
-            return valueToText(value, locale) + " px"
+        textFromValue: function (value, locale) {
+            return valueToText(value, locale) + " px";
         }
     }
 }

@@ -1,14 +1,12 @@
 import QtQuick 2.9
-
 import org.kde.quickcharts 1.0 as Charts
-
 import "./" as RMComponents
 
 Charts.LineChart {
-	id: chart
+    id: chart
 
-    signal dataTick()
-    signal showValueWhenMouseMove()
+    signal dataTick
+    signal showValueWhenMouseMove
 
     // Aliases
     readonly property alias textContainer: textContainer
@@ -29,7 +27,9 @@ Charts.LineChart {
 
     // Graph content
     direction: Charts.XYChart.ZeroAtEnd
-    colorSource: Charts.ArraySource { array: colors }
+    colorSource: Charts.ArraySource {
+        array: colors
+    }
     fillOpacity: plasmoid.configuration.graphFillOpacity / 100
     smooth: true
     yRange.automatic: false
@@ -43,10 +43,10 @@ Charts.LineChart {
     }
 
     function canSeeValue(column) {
-        return textContainer.valueVisible
+        return textContainer.valueVisible;
     }
 
     function _showValueInLabel() {
-        chart.showValueWhenMouseMove()
+        chart.showValueWhenMouseMove();
     }
 }

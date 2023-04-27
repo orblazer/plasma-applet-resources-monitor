@@ -20,9 +20,7 @@ import org.kde.plasma.plasmoid 2.0
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.kio 1.0 as Kio
 import org.kde.kcoreaddons 1.0 as KCoreAddons
-
 import org.kde.ksysguard.sensors 1.0 as Sensors
-
 import "./components" as RMComponents
 
 Item {
@@ -52,16 +50,16 @@ Item {
     property color netUpColor: plasmoid.configuration.customNetUpColor ? plasmoid.configuration.netUpColor : negativeColor
 
     // Component properties
-    property int containerCount: (showCpuMonitor?1:0) + (showRamMonitor?1:0) + (showNetMonitor?1:0)
+    property int containerCount: (showCpuMonitor ? 1 : 0) + (showRamMonitor ? 1 : 0) + (showNetMonitor ? 1 : 0)
     property int itemMargin: plasmoid.configuration.graphMargin
     property double parentWidth: parent === null ? 0 : parent.width
     property double parentHeight: parent === null ? 0 : parent.height
-    property double initWidth:  vertical ? (verticalLayout ? parentWidth : (parentWidth - itemMargin) / 2) : (verticalLayout ? (parentHeight - itemMargin) / 2 : parentHeight)
+    property double initWidth: vertical ? (verticalLayout ? parentWidth : (parentWidth - itemMargin) / 2) : (verticalLayout ? (parentHeight - itemMargin) / 2 : parentHeight)
     property double itemWidth: plasmoid.configuration.customGraphWidth ? plasmoid.configuration.graphWidth : (initWidth * (verticalLayout ? 1 : 1.5))
     property double itemHeight: plasmoid.configuration.customGraphHeight ? plasmoid.configuration.graphHeight : initWidth
     property double fontPixelSize: verticalLayout ? (itemHeight / 1.4 * fontScale) : (itemHeight * fontScale)
-    property double widgetWidth: !verticalLayout ? (itemWidth*containerCount + itemMargin*containerCount) : itemWidth
-    property double widgetHeight: verticalLayout ? (itemHeight*containerCount + itemMargin*containerCount) : itemHeight
+    property double widgetWidth: !verticalLayout ? (itemWidth * containerCount + itemMargin * containerCount) : itemWidth
+    property double widgetHeight: verticalLayout ? (itemHeight * containerCount + itemMargin * containerCount) : itemHeight
 
     Layout.preferredWidth: widgetWidth
     Layout.maximumWidth: widgetWidth
@@ -79,33 +77,32 @@ Item {
     // Bind settigns change
     onFontPixelSizeChanged: {
         for (var monitor of [cpuGraph, ramGraph, netGraph]) {
-            monitor.firstLineLabel.font.pixelSize = fontPixelSize
-            monitor.secondLineLabel.font.pixelSize = fontPixelSize
+            monitor.firstLineLabel.font.pixelSize = fontPixelSize;
+            monitor.secondLineLabel.font.pixelSize = fontPixelSize;
         }
     }
 
     onShowClockChanged: {
         if (!showClock) {
-            cpuGraph.secondLineLabel.visible = false
+            cpuGraph.secondLineLabel.visible = false;
         }
     }
 
     onShowMemoryInPercentChanged: {
         if (ramGraph.maxMemory == 0) {
-            return
+            return;
         }
-
         if (showMemoryInPercent) {
-            ramGraph.yRange.to = 100
+            ramGraph.yRange.to = 100;
         } else {
-            ramGraph.yRange.to = ramGraph.maxMemory
+            ramGraph.yRange.to = ramGraph.maxMemory;
         }
-        ramGraph.updateSensors()
+        ramGraph.updateSensors();
     }
 
     onShowSwapGraphChanged: {
         if (ramGraph.maxMemory != 0) {
-            ramGraph.updateSensors()
+            ramGraph.updateSensors();
         }
     }
 
@@ -131,8 +128,8 @@ Item {
         // Display first core frequency
         onDataTick: {
             if (canSeeValue(1)) {
-                secondLineLabel.text = cpuFrequencySensor.formattedValue
-                secondLineLabel.visible = true
+                secondLineLabel.text = cpuFrequencySensor.formattedValue;
+                secondLineLabel.visible = true;
             }
         }
         Sensors.Sensor {
@@ -141,16 +138,15 @@ Item {
             sensorId: "cpu/cpu0/frequency"
         }
         onShowValueWhenMouseMove: {
-            secondLineLabel.text = cpuFrequencySensor.formattedValue
-            secondLineLabel.visible = true
+            secondLineLabel.text = cpuFrequencySensor.formattedValue;
+            secondLineLabel.visible = true;
         }
 
         function canSeeValue(column) {
             if (column === 1 && !showClock) {
-                return false
+                return false;
             }
-
-            return textContainer.valueVisible
+            return textContainer.valueVisible;
         }
     }
 
@@ -158,8 +154,8 @@ Item {
         id: ramGraph
         colors: [ramColor, swapColor]
         secondLabelWhenZero: false
-        // TODO: stack the graph values for real fill percent ?
 
+        // TODO: stack the graph values for real fill percent ?
         yRange {
             from: 0
             to: 100
@@ -188,37 +184,33 @@ Item {
             property var totalMemory: -1
             property var totalSwap: -1
             onDataChanged: {
-                if(topLeft.column === 0) {
-                    totalMemory = parseInt(data(topLeft, Sensors.SensorDataModel.Value))
+                if (topLeft.column === 0) {
+                    totalMemory = parseInt(data(topLeft, Sensors.SensorDataModel.Value));
+                } else if (topLeft.column === 1) {
+                    totalSwap = parseInt(data(topLeft, Sensors.SensorDataModel.Value));
                 }
-                else if (topLeft.column === 1) {
-                    totalSwap = parseInt(data(topLeft, Sensors.SensorDataModel.Value))
-                }
-
                 if ((!isNaN(totalMemory) && totalMemory !== -1) && (!isNaN(totalSwap) && totalSwap !== -1)) {
-                    enabled = false
-
-                    ramGraph.maxMemory = Math.max(totalMemory, totalSwap)
+                    enabled = false;
+                    ramGraph.maxMemory = Math.max(totalMemory, totalSwap);
                     if (!showMemoryInPercent) {
-                        ramGraph.yRange.to = ramGraph.maxMemory
+                        ramGraph.yRange.to = ramGraph.maxMemory;
                     }
-                    ramGraph.updateSensors()
+                    ramGraph.updateSensors();
                 }
             }
         }
 
         // Set the color of Swap
         onShowValueWhenMouseMove: {
-            secondLineLabel.color = swapColor
+            secondLineLabel.color = swapColor;
         }
 
         function updateSensors() {
-            var suffix = showMemoryInPercent ? "Percent" : ""
-
+            var suffix = showMemoryInPercent ? "Percent" : "";
             if (showSwapGraph) {
-                sensors = ["memory/physical/used" + suffix, "memory/swap/used" + suffix]
+                sensors = ["memory/physical/used" + suffix, "memory/swap/used" + suffix];
             } else {
-                sensors = ["memory/physical/used" + suffix]
+                sensors = ["memory/physical/used" + suffix];
             }
         }
     }
@@ -232,9 +224,9 @@ Item {
         width: itemWidth
         height: itemHeight
         anchors.left: parent.left
-        anchors.leftMargin: (showCpuMonitor && !verticalLayout ? itemWidth + itemMargin: 0) + (showRamMonitor && !verticalLayout ? itemWidth + itemMargin : 0)
+        anchors.leftMargin: (showCpuMonitor && !verticalLayout ? itemWidth + itemMargin : 0) + (showRamMonitor && !verticalLayout ? itemWidth + itemMargin : 0)
         anchors.top: parent.top
-        anchors.topMargin: (showCpuMonitor && verticalLayout ? itemWidth + itemMargin: 0) + (showRamMonitor && verticalLayout ? itemWidth + itemMargin : 0)
+        anchors.topMargin: (showCpuMonitor && verticalLayout ? itemWidth + itemMargin : 0) + (showRamMonitor && verticalLayout ? itemWidth + itemMargin : 0)
 
         label: i18n("⇘ Down")
         labelColor: netDownColor
@@ -247,7 +239,7 @@ Item {
         id: mouseArea
         anchors.fill: parent
         onClicked: {
-            kRun.openService(actionService)
+            kRun.openService(actionService);
         }
     }
 }

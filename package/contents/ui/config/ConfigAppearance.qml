@@ -3,7 +3,6 @@ import QtQuick.Controls 2.12 as QtControls
 import QtQuick.Layouts 1.1 as QtLayouts
 import org.kde.kirigami 2.6 as Kirigami
 import org.kde.plasma.components 2.0 as PlasmaComponents
-
 import "../controls" as RMControls
 
 QtLayouts.ColumnLayout {
@@ -34,7 +33,6 @@ QtLayouts.ColumnLayout {
 
     property color primaryColor: theme.highlightColor
     property color negativeColor: theme.negativeTextColor
-
 
     PlasmaComponents.TabBar {
         id: bar
@@ -97,8 +95,8 @@ QtLayouts.ColumnLayout {
                 from: 1
                 to: 1000
 
-                textFromValue: function(value, locale) {
-                    return valueToText(value, locale) + " px"
+                textFromValue: function (value, locale) {
+                    return valueToText(value, locale) + " px";
                 }
             }
             RMControls.SpinBox {
@@ -108,8 +106,8 @@ QtLayouts.ColumnLayout {
                 from: 1
                 to: 100
 
-                textFromValue: function(value, locale) {
-                    return valueToText(value, locale) + "%"
+                textFromValue: function (value, locale) {
+                    return valueToText(value, locale) + "%";
                 }
             }
         }
@@ -131,8 +129,8 @@ QtLayouts.ColumnLayout {
                 from: 1
                 to: 100
 
-                textFromValue: function(value, locale) {
-                    return valueToText(value, locale) + "%"
+                textFromValue: function (value, locale) {
+                    return valueToText(value, locale) + "%";
                 }
             }
 
@@ -141,15 +139,15 @@ QtLayouts.ColumnLayout {
                 Kirigami.FormData.label: i18n("Text displayment:")
                 textRole: "label"
                 model: [{
-                    "label": i18n("Always"),
-                    "name": "always"
-                }, {
-                    "label": i18n("On hover"),
-                    "name": "hover"
-                }, {
-                    "label": i18n("Hints when hover"),
-                    "name": "hover-hints"
-                }]
+                        "label": i18n("Always"),
+                        "name": "always"
+                    }, {
+                        "label": i18n("On hover"),
+                        "name": "hover"
+                    }, {
+                        "label": i18n("Hints when hover"),
+                        "name": "hover-hints"
+                    }]
                 onCurrentIndexChanged: cfg_displayment = model[currentIndex]["name"]
 
                 Component.onCompleted: {
@@ -166,18 +164,18 @@ QtLayouts.ColumnLayout {
                 Kirigami.FormData.label: i18n("Placement:")
                 textRole: "label"
                 model: [{
-                    "label": i18n("Top left"),
-                    "name": "top-left"
-                }, {
-                    "label": i18n("Top right"),
-                    "name": "top-right"
-                }, {
-                    "label": i18n("Bottom left"),
-                    "name": "bottom-left"
-                }, {
-                    "label": i18n("Bottom right"),
-                    "name": "bottom-right"
-                }]
+                        "label": i18n("Top left"),
+                        "name": "top-left"
+                    }, {
+                        "label": i18n("Top right"),
+                        "name": "top-right"
+                    }, {
+                        "label": i18n("Bottom left"),
+                        "name": "bottom-left"
+                    }, {
+                        "label": i18n("Bottom right"),
+                        "name": "bottom-right"
+                    }]
                 onCurrentIndexChanged: cfg_placement = model[currentIndex]["name"]
 
                 Component.onCompleted: {
