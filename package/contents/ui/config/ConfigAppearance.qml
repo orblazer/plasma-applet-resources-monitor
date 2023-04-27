@@ -201,52 +201,97 @@ QtLayouts.ColumnLayout {
 
             RMControls.ColorSelector {
                 id: cpuColor
-                Kirigami.FormData.label: i18n("CPU color:")
+                Kirigami.FormData.label: i18n("CPU:")
 
                 dialogTitle: i18n("Choose CPU graph color")
                 defaultColor: primaryColor
             }
 
+            // Separator
+            Rectangle {
+                height: Kirigami.Units.largeSpacing * 2
+                color: "transparent"
+            }
+            PlasmaComponents.Label {
+                text: i18n("Memory graph colors")
+                font.pointSize: PlasmaCore.Theme.defaultFont.pointSize * 1.2
+            }
+            // Separator
+            Rectangle {
+                height: Kirigami.Units.largeSpacing
+                color: "transparent"
+            }
+
             RMControls.ColorSelector {
                 id: ramColor
-                Kirigami.FormData.label: i18n("Memory color:")
+                Kirigami.FormData.label: i18n("Physical:")
 
-                dialogTitle: i18n("Choose memory graph color")
+                dialogTitle: i18n("Choose physical memory graph color")
                 defaultColor: primaryColor
             }
             RMControls.ColorSelector {
                 id: swapColor
-                Kirigami.FormData.label: i18n("Swap color:")
+                Kirigami.FormData.label: i18n("Swap:")
 
-                dialogTitle: i18n("Choose Swap graph color")
+                dialogTitle: i18n("Choose swap memory graph color")
                 defaultColor: positiveColor
+            }
+
+            // Separator
+            Rectangle {
+                height: Kirigami.Units.largeSpacing * 2
+                color: "transparent"
+            }
+            PlasmaComponents.Label {
+                text: i18n("Network graph colors")
+                font.pointSize: PlasmaCore.Theme.defaultFont.pointSize * 1.2
+            }
+            // Separator
+            Rectangle {
+                height: Kirigami.Units.largeSpacing
+                color: "transparent"
             }
 
             RMControls.ColorSelector {
                 id: netDownColor
-                Kirigami.FormData.label: i18n("Network receiving color:")
+                Kirigami.FormData.label: i18n("Receiving:")
 
                 dialogTitle: i18n("Choose network receiving graph color")
                 defaultColor: primaryColor
             }
             RMControls.ColorSelector {
                 id: netUpColor
-                Kirigami.FormData.label: i18n("Network sending color:")
+                Kirigami.FormData.label: i18n("Sending:")
 
                 dialogTitle: i18n("Choose network sending graph color")
                 defaultColor: positiveColor
             }
 
+            // Separator
+            Rectangle {
+                height: Kirigami.Units.largeSpacing * 2
+                color: "transparent"
+            }
+            PlasmaComponents.Label {
+                text: i18n("Threshold text colors")
+                font.pointSize: PlasmaCore.Theme.defaultFont.pointSize * 1.2
+            }
+            // Separator
+            Rectangle {
+                height: Kirigami.Units.largeSpacing
+                color: "transparent"
+            }
+
             RMControls.ColorSelector {
                 id: warningColor
-                Kirigami.FormData.label: i18n("Threshold warning color:")
+                Kirigami.FormData.label: i18n("Warning status:")
 
                 dialogTitle: i18n("Choose text color when the value is in warning status")
                 defaultColor: neutralColor
             }
             RMControls.ColorSelector {
                 id: criticalColor
-                Kirigami.FormData.label: i18n("Threshold critical color:")
+                Kirigami.FormData.label: i18n("Critical status:")
 
                 dialogTitle: i18n("Choose text color when the value is in critical status")
                 defaultColor: negativeColor
