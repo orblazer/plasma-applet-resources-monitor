@@ -2,6 +2,7 @@ import QtQuick 2.2
 import QtQuick.Controls 2.12 as QtControls
 import QtQuick.Layouts 1.1 as QtLayouts
 import org.kde.kirigami 2.6 as Kirigami
+import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 2.0 as PlasmaComponents
 import "../controls" as RMControls
 
@@ -30,9 +31,15 @@ QtLayouts.ColumnLayout {
     property alias cfg_netDownColor: netDownColor.value
     property alias cfg_customNetUpColor: netUpColor.checked
     property alias cfg_netUpColor: netUpColor.value
+    property alias cfg_customWarningColor: warningColor.checked
+    property alias cfg_warningColor: warningColor.value
+    property alias cfg_customCriticalColor: criticalColor.checked
+    property alias cfg_criticalColor: criticalColor.value
 
     property color primaryColor: theme.highlightColor
     property color positiveColor: theme.positiveTextColor
+    property color neutralColor: theme.neutralTextColor
+    property color negativeColor: theme.negativeTextColor
 
     PlasmaComponents.TabBar {
         id: bar
@@ -228,6 +235,21 @@ QtLayouts.ColumnLayout {
 
                 dialogTitle: i18n("Choose network sending graph color")
                 defaultColor: positiveColor
+            }
+
+            RMControls.ColorSelector {
+                id: warningColor
+                Kirigami.FormData.label: i18n("Threshold warning color:")
+
+                dialogTitle: i18n("Choose text color when the value is in warning status")
+                defaultColor: neutralColor
+            }
+            RMControls.ColorSelector {
+                id: criticalColor
+                Kirigami.FormData.label: i18n("Threshold critical color:")
+
+                dialogTitle: i18n("Choose text color when the value is in critical status")
+                defaultColor: negativeColor
             }
         }
     }

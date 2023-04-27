@@ -29,7 +29,10 @@ Item {
 
     property bool vertical: (plasmoid.formFactor == PlasmaCore.Types.Vertical)
     property color primaryColor: theme.highlightColor
+    property color normalColor: theme.textColor
     property color positiveColor: theme.positiveTextColor
+    property color neutralColor: theme.neutralTextColor
+    property color negativeColor: theme.negativeTextColor
 
     // Settings properties
     property bool verticalLayout: plasmoid.configuration.verticalLayout
@@ -44,12 +47,20 @@ Item {
     property bool showNetMonitor: plasmoid.configuration.showNetMonitor
     property double fontScale: (plasmoid.configuration.fontScale / 100)
 
+    property int thresholdWarningCpuTemp: plasmoid.configuration.thresholdWarningCpuTemp
+    property int thresholdCriticalCpuTemp: plasmoid.configuration.thresholdCriticalCpuTemp
+    property int thresholdWarningMemory: plasmoid.configuration.thresholdWarningMemory
+    property int thresholdCriticalMemory: plasmoid.configuration.thresholdCriticalMemory
+
     // Colors settings properties
     property color cpuColor: plasmoid.configuration.customCpuColor ? plasmoid.configuration.cpuColor : primaryColor
+    property color cpuTemperatureColor: plasmoid.configuration.customCpuTemperatureColor ? plasmoid.configuration.cpuTemperatureColor : normalColor
     property color ramColor: plasmoid.configuration.customRamColor ? plasmoid.configuration.ramColor : primaryColor
     property color swapColor: plasmoid.configuration.customSwapColor ? plasmoid.configuration.swapColor : positiveColor
     property color netDownColor: plasmoid.configuration.customNetDownColor ? plasmoid.configuration.netDownColor : primaryColor
     property color netUpColor: plasmoid.configuration.customNetUpColor ? plasmoid.configuration.netUpColor : positiveColor
+    property color warningColor: plasmoid.configuration.customWarningColor ? plasmoid.configuration.warningColor : neutralColor
+    property color criticalColor: plasmoid.configuration.customCriticalColor ? plasmoid.configuration.criticalColor : negativeColor
 
     // Component properties
     property int containerCount: (showCpuMonitor ? 1 : 0) + (showRamMonitor ? 1 : 0) + (showNetMonitor ? 1 : 0)
@@ -114,6 +125,13 @@ Item {
         }
     }
 
+    onThresholdWarningMemoryChanged: {
+        maxMemoryQueryModel.enabled = true;
+    }
+    onThresholdCriticalMemoryChanged: {
+        maxMemoryQueryModel.enabled = true;
+    }
+
     // Graphs
     RMComponents.SensorGraph {
         id: cpuGraph
@@ -128,10 +146,21 @@ Item {
         labelColor: cpuColor
         secondLabel: showCpuClock ? i18n("⏲ Clock") : ""
         thirdLabel: showCpuTemp ? i18n("🌡️ Temp.") : ""
+        thirdLabelColor: cpuTemperatureColor
 
         yRange {
             from: 0
             to: 100
+        }
+
+        function getCpuTempColor(value) {
+            if (value >= thresholdCriticalCpuTemp) {
+                return criticalColor;
+            } else if (value >= thresholdWarningCpuTemp) {
+                return warningColor;
+            } else {
+                return cpuTemperatureColor;
+            }
         }
 
         // Display first core frequency
@@ -145,6 +174,7 @@ Item {
             }
             if (showCpuTemp) {
                 thirdLineLabel.text = cpuTempSensor.formattedValue;
+                thirdLineLabel.color = getCpuTempColor(cpuTempSensor.value);
                 thirdLineLabel.visible = true;
             }
         }
@@ -162,6 +192,7 @@ Item {
             secondLineLabel.text = cpuFrequencySensor.formattedValue;
             secondLineLabel.visible = true;
             thirdLineLabel.text = cpuTempSensor.formattedValue;
+            thirdLineLabel.color = getCpuTempColor(cpuTempSensor.value);
             thirdLineLabel.visible = true;
         }
     }
@@ -169,6 +200,7 @@ Item {
     RMComponents.TwoSensorsGraph {
         id: ramGraph
         colors: [ramColor, swapColor]
+        thresholdColors: [warningColor, criticalColor]
         secondLabelWhenZero: false
 
         visible: showRamMonitor
@@ -187,7 +219,7 @@ Item {
         // Get max y of graph
         property var maxMemory: [-1, -1]
         Sensors.SensorDataModel {
-            id: totalSensorsModel
+            id: maxMemoryQueryModel
             sensors: ["memory/physical/total", "memory/swap/total"]
             enabled: true
 
@@ -203,6 +235,9 @@ Item {
                     enabled = false;
                     if (!showMemoryInPercent) {
                         ramGraph.uplimits = ramGraph.maxMemory;
+                        ramGraph.thresholds[0] = [ramGraph.maxMemory[0] * (thresholdWarningMemory / 100.0), ramGraph.maxMemory[0] * (thresholdCriticalMemory / 100.0)];
+                    } else {
+                        ramGraph.thresholds[0] = [thresholdWarningMemory, thresholdCriticalMemory];
                     }
                     ramGraph.updateSensors();
                 }

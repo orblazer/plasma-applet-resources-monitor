@@ -33,10 +33,13 @@ Item {
     // Graph properties
     readonly property int historyAmount: plasmoid.configuration.historyAmount
     readonly property int interval: plasmoid.configuration.updateInterval * 1000
+    property var thresholds: [undefined, undefined]
     property var colors: [theme.highlightColor, theme.textColor]
 
     // Text properties
     property bool secondLabelWhenZero: true
+    property var textColors: [theme.textColor, theme.textColor]
+    property var thresholdColors: [theme.neutralTextColor, theme.negativeTextColor]
 
     // Bind properties
     onSensorsChanged: sensorsModel._updateSensors()
@@ -157,27 +160,26 @@ Item {
         // Set default text when doesn't have sensors
         if (sensorsLength === 0) {
             if (textContainer.valueVisible) {
-                _updateData(0, undefined)
-                _updateData(1, undefined)
+                _updateData(0, undefined);
+                _updateData(1, undefined);
             }
             return;
         }
 
         // Update values
-        chart._sensorData1 = sensorsModel.getData(0)
-        chart._sensorData2 = sensorsModel.getData(1)
-
+        chart._sensorData1 = sensorsModel.getData(0);
+        chart._sensorData2 = sensorsModel.getData(1);
         if (chart._sensorData1) {
-            firstChartSource.value = chart._sensorData1.value
+            firstChartSource.value = chart._sensorData1.value;
         }
         if (chart._sensorData2) {
-            secondChartSource.value = chart._sensorData2.value
+            secondChartSource.value = chart._sensorData2.value;
         }
 
         // Update labels
         if (textContainer.valueVisible) {
-            _updateData(0, chart._sensorData1)
-            _updateData(1, chart._sensorData2)
+            _updateData(0, chart._sensorData1);
+            _updateData(1, chart._sensorData2);
         }
     }
 
@@ -188,12 +190,13 @@ Item {
         // Update label
         if (index === 0) {
             // is first line
+            firstLineLabel.visible = true;
+            firstLineLabel.color = textColors[0];
             if (typeof value === 'undefined') {
                 firstLineLabel.text = '...';
-                firstLineLabel.visible = true;
             } else {
                 firstLineLabel.text = data.formattedValue;
-                firstLineLabel.visible = true;
+                _setThresholdColor(firstLineLabel, 0, data.value)
             }
         } else if (index === 1) {
             // is second line
@@ -202,16 +205,27 @@ Item {
                 secondLineLabel.visible = secondLabelWhenZero;
             } else {
                 secondLineLabel.text = data.formattedValue;
-                secondLineLabel.visible = data.value !== 0 || secondLabelWhenZero;
+                secondLineLabel.visible = secondLabelWhenZero || data.value !== 0;
+                _setThresholdColor(secondLineLabel, 1, data.value)
+            }
+        }
+    }
+
+    function _setThresholdColor(label, line, value) {
+        if (typeof thresholds[line] !== 'undefined') {
+            if (value >= thresholds[line][1]) {
+                label.color = thresholdColors[1];
+            } else if (value >= thresholds[line][1]) {
+                label.color = thresholdColors[line];
             }
         }
     }
 
     function _showValueInLabel() {
         // Show first line
-        _updateData(0, chart._sensorData1)
+        _updateData(0, chart._sensorData1);
         // Show second line
-        _updateData(1, chart._sensorData2)
+        _updateData(1, chart._sensorData2);
         chart.showValueWhenMouseMove();
     }
 
