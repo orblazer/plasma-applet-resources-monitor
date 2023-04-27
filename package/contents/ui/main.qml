@@ -32,6 +32,7 @@ MouseArea {
     property color positiveColor: theme.positiveTextColor
     property color neutralColor: theme.neutralTextColor
     property color negativeColor: theme.negativeTextColor
+    readonly property var diskIoDialect: Functions.getNetworkDialectInfo("kibibyte")
 
     // Settings properties
     property bool verticalLayout: plasmoid.configuration.verticalLayout
@@ -49,6 +50,7 @@ MouseArea {
     property bool gpuMemoryInPercent: plasmoid.configuration.gpuMemoryInPercent
     property bool gpuMemoryGraph: plasmoid.configuration.gpuMemoryGraph
     property bool showGpuTemperature: plasmoid.configuration.showGpuTemperature
+    property bool showDiskMonitor: plasmoid.configuration.showDiskMonitor
 
     property int thresholdWarningCpuTemp: plasmoid.configuration.thresholdWarningCpuTemp
     property int thresholdCriticalCpuTemp: plasmoid.configuration.thresholdCriticalCpuTemp
@@ -56,6 +58,10 @@ MouseArea {
     property int thresholdCriticalMemory: plasmoid.configuration.thresholdCriticalMemory
     property int thresholdWarningGpuTemp: plasmoid.configuration.thresholdWarningGpuTemp
     property int thresholdCriticalGpuTemp: plasmoid.configuration.thresholdCriticalGpuTemp
+
+    // Data settings properties
+    property double diskReadTotal: plasmoid.configuration.diskReadTotal
+    property double diskWriteTotal: plasmoid.configuration.diskWriteTotal
 
     // Colors settings properties
     property color cpuColor: plasmoid.configuration.customCpuColor ? plasmoid.configuration.cpuColor : primaryColor
@@ -66,11 +72,14 @@ MouseArea {
     property color netUpColor: plasmoid.configuration.customNetUpColor ? plasmoid.configuration.netUpColor : positiveColor
     property color gpuColor: plasmoid.configuration.customGpuColor ? plasmoid.configuration.gpuColor : primaryColor
     property color gpuMemoryColor: plasmoid.configuration.customGpuMemoryColor ? plasmoid.configuration.gpuMemoryColor : positiveColor
+    property color diskReadColor: plasmoid.configuration.customDiskReadColor ? plasmoid.configuration.diskReadColor : primaryColor
+    property color diskWriteColor: plasmoid.configuration.customDiskWriteColor ? plasmoid.configuration.diskWriteColor : negativeColor
+
     property color warningColor: plasmoid.configuration.customWarningColor ? plasmoid.configuration.warningColor : neutralColor
-    property color criticalColor: plasmoid.configuration.customCriticalColor ? plasmoid.configuration.criticalColor : negativeColor
+    property color criticalColor: plasmoid.configuration.customCriticalColor ? plasmoid.configuration.criticalColor : positiveColor
 
     // Component properties
-    property int containerCount: (showCpuMonitor ? 1 : 0) + (showRamMonitor ? 1 : 0) + (showNetMonitor ? 1 : 0) + (showGpuMonitor ? 1 : 0)
+    property int containerCount: (showCpuMonitor ? 1 : 0) + (showRamMonitor ? 1 : 0) + (showNetMonitor ? 1 : 0) + (showGpuMonitor ? 1 : 0) + (showDiskMonitor ? 1 : 0)
     property int itemMargin: plasmoid.configuration.graphMargin
     property double parentWidth: parent === null ? 0 : parent.width
     property double parentHeight: parent === null ? 0 : parent.height
@@ -92,7 +101,7 @@ MouseArea {
 
     // Bind settigns change
     onFontPixelSizeChanged: {
-        for (var monitor of [cpuGraph, ramGraph, netGraph, gpuGraph]) {
+        for (var monitor of [cpuGraph, ramGraph, netGraph, gpuGraph, diskGraph]) {
             monitor.firstLineLabel.font.pixelSize = fontPixelSize;
             monitor.secondLineLabel.font.pixelSize = fontPixelSize;
             monitor.thirdLineLabel.font.pixelSize = fontPixelSize;
@@ -150,6 +159,13 @@ MouseArea {
         if (gpuGraph.maxGpuMemValue != -1) {
             gpuGraph.updateSensors();
         }
+    }
+
+    onDiskReadTotalChanged: {
+        diskGraph.uplimits = [diskReadTotal * diskIoDialect.multiplier, diskWriteTotal * diskIoDialect.multiplier];
+    }
+    onDiskWriteTotalChanged: {
+        diskGraph.uplimits = [diskReadTotal * diskIoDialect.multiplier, diskWriteTotal * diskIoDialect.multiplier];
     }
 
     // Click action
@@ -410,10 +426,27 @@ MouseArea {
             }
         }
 
+        // Disks
+        RMComponents.TwoSensorsGraph {
+            id: diskGraph
+            sensors: ["disk/all/read", "disk/all/write"]
+            colors: [diskReadColor, diskWriteColor]
+            uplimits: [diskReadTotal * diskIoDialect.multiplier, diskWriteTotal * diskIoDialect.multiplier]
+            secondLabelWhenZero: true
+
+            visible: showDiskMonitor
+            Layout.preferredWidth: itemWidth
+            Layout.preferredHeight: itemHeight
+
+            label: i18n("⇗ Read")
+            labelColor: diskReadColor
+            secondLabel: i18n("⇘ Write")
+            secondLabelColor: diskWriteColor
+        }
+
         // Network
         RMComponents.NetworkGraph {
             id: netGraph
-
             colors: [netDownColor, netUpColor]
 
             visible: showNetMonitor

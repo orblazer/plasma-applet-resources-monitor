@@ -29,6 +29,7 @@ PlasmaExtras.Representation {
     property alias cfg_gpuMemoryInPercent: gpuMemoryInPercent.checked
     property alias cfg_gpuMemoryGraph: gpuMemoryGraph.checked
     property alias cfg_showGpuTemperature: showGpuTemperature.checked
+    property alias cfg_showDiskMonitor: showDiskMonitor.checked
 
     // Apps model
     RMComponents.AppsDetector {
@@ -277,6 +278,28 @@ PlasmaExtras.Representation {
                         id: showGpuTemperature
                         text: i18n("Show GPU temperature")
                         enabled: showGpuMonitor.checked
+                    }
+                }
+
+                // Disk I/O
+                Rectangle {
+                    height: Kirigami.Units.largeSpacing * 2
+                    color: "transparent"
+                }
+                PlasmaComponents.Label {
+                    text: i18n("Disk I/O monitor")
+                    font.pointSize: PlasmaCore.Theme.defaultFont.pointSize * 1.05
+                }
+
+                QtLayouts.GridLayout {
+                    QtLayouts.Layout.fillWidth: true
+                    columns: 2
+                    rowSpacing: Kirigami.Units.smallSpacing
+                    columnSpacing: Kirigami.Units.largeSpacing
+
+                    QtControls.CheckBox {
+                        id: showDiskMonitor
+                        text: i18n("Show disk monitor")
                     }
                 }
             }

@@ -18,6 +18,9 @@ PlasmaExtras.Representation {
     readonly property var networkDialect: Functions.getNetworkDialectInfo(plasmoid.configuration.networkUnit)
     property double cfg_networkReceivingTotal: 0.0
     property double cfg_networkSendingTotal: 0.0
+    property double cfg_diskReadTotal: 0.0
+    property double cfg_diskWriteTotal: 0.0
+
     property double cfg_thresholdWarningCpuTemp: 0
     property double cfg_thresholdCriticalCpuTemp: 0
     property alias cfg_thresholdWarningMemory: thresholdWarningMemory.value
@@ -53,6 +56,34 @@ PlasmaExtras.Representation {
             "label": "10 G" + networkDialect.suffix,
             "value": 10000000.0
         }]
+    readonly property var diskSpeedOptions: [{
+            "label": i18n("Custom"),
+            "value": -1
+        }, {
+            "label": "10 MiB/s",
+            "value": 10000.0
+        }, {
+            "label": "100 MiB/s",
+            "value": 100000.0
+        }, {
+            "label": "200 MiB/s",
+            "value": 200000.0
+        }, {
+            "label": "500 MiB/s",
+            "value": 500000.0
+        }, {
+            "label": "1 GiB/s",
+            "value": 1000000.0
+        }, {
+            "label": "2 GiB/s",
+            "value": 2000000.0
+        }, {
+            "label": "5 GiB/s",
+            "value": 5000000.0
+        }, {
+            "label": "10 GiB/s",
+            "value": 10000000.0
+        }]
 
     // Detect network interfaces
     RMComponents.NetworkInterfaceDetector {
@@ -81,11 +112,20 @@ PlasmaExtras.Representation {
             }
             PlasmaComponents.TabButton {
                 Accessible.onPressAction: clicked()
+                icon.name: "drive-harddisk"
+                icon.height: PlasmaCore.Units.iconSizes.smallMedium
+                text: i18n("Disk I/O")
+                onClicked: {
+                    swipeView.currentIndex = 1;
+                }
+            }
+            PlasmaComponents.TabButton {
+                Accessible.onPressAction: clicked()
                 icon.name: "dialog-warning"
                 icon.height: PlasmaCore.Units.iconSizes.smallMedium
                 text: i18n("Thresholds")
                 onClicked: {
-                    swipeView.currentIndex = 1;
+                    swipeView.currentIndex = 2;
                 }
             }
         }
@@ -259,6 +299,128 @@ PlasmaExtras.Representation {
                     }
                     Component.onCompleted: {
                         valueReal = parseFloat(plasmoid.configuration.networkSendingTotal) / 1000;
+                    }
+                }
+            }
+        }
+
+        // Disk I/O
+        Kirigami.ScrollablePage {
+            Kirigami.FormLayout {
+                wideMode: true
+
+                PlasmaComponents.Label {
+                    text: i18n("Maximum transfer speed")
+                    font.pointSize: PlasmaCore.Theme.defaultFont.pointSize * 1.2
+                }
+
+                // Separator
+                Rectangle {
+                    height: Kirigami.Units.largeSpacing
+                    color: "transparent"
+                }
+
+                // Read speed
+                QtControls.ComboBox {
+                    id: diskReadTotal
+                    Kirigami.FormData.label: i18n("Read:")
+                    textRole: "label"
+                    model: diskSpeedOptions
+
+                    onCurrentIndexChanged: {
+                        var current = model[currentIndex];
+                        if (current && current.value !== -1) {
+                            customDiskReadTotal.valueReal = current.value / 1000;
+                        }
+                    }
+
+                    Component.onCompleted: {
+                        for (var i = 0; i < model.length; i++) {
+                            if (model[i]["value"] === plasmoid.configuration.diskReadTotal) {
+                                diskReadTotal.currentIndex = i;
+                                return;
+                            }
+                        }
+                        diskReadTotal.currentIndex = 0; // Custom
+                    }
+                }
+                RMControls.SpinBox {
+                    id: customDiskReadTotal
+                    Kirigami.FormData.label: i18n("Custom value:")
+                    QtLayouts.Layout.fillWidth: true
+                    decimals: 3
+                    stepSize: 1
+                    minimumValue: 0.001
+                    visible: diskReadTotal.currentIndex === 0
+
+                    textFromValue: function (value, locale) {
+                        return valueToText(value, locale) + " MiB/s";
+                    }
+
+                    onValueChanged: {
+                        var newValue = valueReal * 1000;
+                        if (cfg_diskReadTotal !== newValue) {
+                            cfg_diskReadTotal = newValue;
+                            dataPage.configurationChanged();
+                        }
+                    }
+                    Component.onCompleted: {
+                        valueReal = parseFloat(plasmoid.configuration.diskReadTotal) / 1000;
+                    }
+                }
+
+                // Separator
+                Rectangle {
+                    height: Kirigami.Units.largeSpacing
+                    color: "transparent"
+                }
+
+                // Write speed
+                QtControls.ComboBox {
+                    id: diskWriteTotal
+                    Kirigami.FormData.label: i18n("Write:")
+                    textRole: "label"
+                    model: diskSpeedOptions
+
+                    onCurrentIndexChanged: {
+                        var current = model[currentIndex];
+                        if (current && current.value !== -1) {
+                            customDiskWriteTotal.valueReal = current.value / 1000;
+                        }
+                    }
+
+                    Component.onCompleted: {
+                        for (var i = 0; i < model.length; i++) {
+                            if (model[i]["value"] === plasmoid.configuration.diskWriteTotal) {
+                                diskWriteTotal.currentIndex = i;
+                                return;
+                            }
+                        }
+                        diskWriteTotal.currentIndex = 0; // Custom
+                    }
+                }
+                RMControls.SpinBox {
+                    id: customDiskWriteTotal
+                    Kirigami.FormData.label: i18n("Custom value:")
+                    QtLayouts.Layout.fillWidth: true
+                    decimals: 3
+                    stepSize: 1
+                    minimumValue: 0.001
+                    visible: diskWriteTotal.currentIndex === 0
+
+                    textFromValue: function (value, locale) {
+                        return valueToText(value, locale) + " MiB/s";
+                    }
+
+                    onValueChanged: {
+                        var newValue = valueReal * 1000;
+                        if (cfg_diskReadTotal !== newValue) {
+                            cfg_diskReadTotal = newValue;
+                            dataPage.configurationChanged();
+                        }
+                    }
+                    Component.onCompleted: {
+                        valueReal = parseFloat(plasmoid.configuration.diskWriteTotal) / 1000;
                     }
                 }
             }
