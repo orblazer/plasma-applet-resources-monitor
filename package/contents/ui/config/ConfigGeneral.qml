@@ -134,19 +134,19 @@ PlasmaExtras.Representation {
 
                 QtControls.ComboBox {
                     QtLayouts.Layout.fillWidth: true
-                    Kirigami.FormData.label: i18n("Usage:")
+                    Kirigami.FormData.label: i18n("Visibility:")
                     textRole: "label"
                     model: [{
-                            "label": i18n("Disabled monitor"),
+                            "label": i18n("Disabled"),
                             "value": "none"
                         }, {
-                            "label": i18n("Total"),
+                            "label": i18n("With Total usage"),
                             "value": "usage"
                         }, {
-                            "label": i18n("System"),
+                            "label": i18n("With System usage"),
                             "value": "system"
                         }, {
-                            "label": i18n("User"),
+                            "label": i18n("With User usage"),
                             "value": "user"
                         }]
 
@@ -212,22 +212,22 @@ PlasmaExtras.Representation {
 
                 QtControls.ComboBox {
                     QtLayouts.Layout.fillWidth: true
-                    Kirigami.FormData.label: i18n("Type:")
+                    Kirigami.FormData.label: i18n("Visibility:")
                     textRole: "label"
                     model: [{
-                            "label": i18n("Disabled monitor"),
+                            "label": i18n("Disabled"),
                             "value": "none"
                         }, {
-                            "label": i18n("Physical (KiB)"),
+                            "label": i18n("With Physical memory (KiB)"),
                             "value": "physical"
                         }, {
-                            "label": i18n("Physical (in %)"),
+                            "label": i18n("With Physical memory (in %)"),
                             "value": "physical-percent"
                         }, {
-                            "label": i18n("Application (KiB)"),
+                            "label": i18n("With Application memory (KiB)"),
                             "value": "application"
                         }, {
-                            "label": i18n("Application (in %)"),
+                            "label": i18n("With Application memory (in %)"),
                             "value": "application-percent"
                         }]
 
@@ -267,7 +267,7 @@ PlasmaExtras.Representation {
 
                     QtControls.CheckBox {
                         id: memorySwapGraph
-                        text: i18n("Display memory swap graph")
+                        text: i18n("Display swap graph")
                         enabled: cfg_showRamMonitor
                     }
                 }
@@ -287,7 +287,7 @@ PlasmaExtras.Representation {
                     Kirigami.FormData.label: i18n("Visibility:")
                     textRole: "label"
                     model: [{
-                            "label": i18n("Disabled monitor"),
+                            "label": i18n("Disabled"),
                             "value": "none"
                         }, {
                             "label": i18n("In kibibyte (KiB/s)"),
@@ -346,11 +346,11 @@ PlasmaExtras.Representation {
 
                     QtControls.CheckBox {
                         id: showGpuMonitor
-                        text: i18n("Show monitor")
+                        text: i18n("Enabled?")
                     }
                     QtControls.CheckBox {
                         id: gpuMemoryGraph
-                        text: i18n("Display GPU memory graph")
+                        text: i18n("Display memory graph")
                         enabled: showGpuMonitor.checked
                     }
                     QtControls.CheckBox {
@@ -360,7 +360,7 @@ PlasmaExtras.Representation {
                     }
                     QtControls.CheckBox {
                         id: showGpuTemperature
-                        text: i18n("Show GPU temperature")
+                        text: i18n("Show temperature")
                         enabled: showGpuMonitor.checked
                     }
                 }
@@ -383,7 +383,7 @@ PlasmaExtras.Representation {
 
                     QtControls.CheckBox {
                         id: showDiskMonitor
-                        text: i18n("Show disk monitor")
+                        text: i18n("Enabled?")
                     }
                 }
             }
