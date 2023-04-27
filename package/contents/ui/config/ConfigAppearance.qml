@@ -65,6 +65,8 @@ PlasmaExtras.Representation {
 
             PlasmaComponents.TabButton {
                 Accessible.onPressAction: clicked()
+                icon.name: "office-chart-line"
+                icon.height: PlasmaCore.Units.iconSizes.smallMedium
                 text: i18n("Graph")
                 onClicked: {
                     swipeView.currentIndex = 0;
