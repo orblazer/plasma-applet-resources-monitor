@@ -139,6 +139,11 @@
         </entry>
         <entry name="cpuColor" type="Color">
         </entry>
+        <entry name="customCpuTemperatureColor" type="Bool">
+            <default>false</default>
+        </entry>
+        <entry name="cpuTemperatureColor" type="Color">
+        </entry>
 
         <entry name="customRamColor" type="Bool">
             <default>false</default>
@@ -171,6 +176,11 @@
             <default>false</default>
         </entry>
         <entry name="gpuMemoryColor" type="Color">
+        </entry>
+        <entry name="customGpuTemperatureColor" type="Bool">
+            <default>false</default>
+        </entry>
+        <entry name="gpuTemperatureColor" type="Color">
         </entry>
 
         <entry name="customDiskReadColor" type="Bool">

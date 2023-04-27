@@ -24,29 +24,40 @@ PlasmaExtras.Representation {
     property string cfg_placement: ""
     property string cfg_displayment: ""
 
+    // CPU
     property alias cfg_customCpuColor: cpuColor.checked
     property alias cfg_cpuColor: cpuColor.value
+    property alias cfg_customCpuTemperatureColor: cpuTemperatureColor.checked
+    property alias cfg_cpuTemperatureColor: cpuTemperatureColor.value
+    // Memory
     property alias cfg_customRamColor: ramColor.checked
     property alias cfg_ramColor: ramColor.value
     property alias cfg_customSwapColor: swapColor.checked
     property alias cfg_swapColor: swapColor.value
+    // Network
     property alias cfg_customNetDownColor: netDownColor.checked
     property alias cfg_netDownColor: netDownColor.value
     property alias cfg_customNetUpColor: netUpColor.checked
     property alias cfg_netUpColor: netUpColor.value
+    // GPU
     property alias cfg_customGpuColor: gpuColor.checked
     property alias cfg_gpuColor: gpuColor.value
     property alias cfg_customGpuMemoryColor: gpuMemoryColor.checked
     property alias cfg_gpuMemoryColor: gpuMemoryColor.value
+    property alias cfg_customGpuTemperatureColor: gpuTemperatureColor.checked
+    property alias cfg_gpuTemperatureColor: gpuTemperatureColor.value
+    // Disk
     property alias cfg_customDiskReadColor: diskReadColor.checked
     property alias cfg_diskReadColor: diskReadColor.value
     property alias cfg_customDiskWriteColor: diskWriteColor.checked
     property alias cfg_diskWriteColor: diskWriteColor.value
+    // Threshold
     property alias cfg_customWarningColor: warningColor.checked
     property alias cfg_warningColor: warningColor.value
     property alias cfg_customCriticalColor: criticalColor.checked
     property alias cfg_criticalColor: criticalColor.value
 
+    property color textColor: theme.textColor
     property color primaryColor: theme.highlightColor
     property color positiveColor: theme.positiveTextColor
     property color neutralColor: theme.neutralTextColor
@@ -240,12 +251,29 @@ PlasmaExtras.Representation {
             Kirigami.FormLayout {
                 id: colorsPage
 
+                PlasmaComponents.Label {
+                    text: i18n("CPU graph colors")
+                    font.pointSize: PlasmaCore.Theme.defaultFont.pointSize * 1.2
+                }
+                // Separator
+                Rectangle {
+                    height: Kirigami.Units.largeSpacing
+                    color: "transparent"
+                }
+
                 RMControls.ColorSelector {
                     id: cpuColor
                     Kirigami.FormData.label: i18n("CPU:")
 
                     dialogTitle: i18n("Choose CPU graph color")
                     defaultColor: primaryColor
+                }
+                RMControls.ColorSelector {
+                    id: cpuTemperatureColor
+                    Kirigami.FormData.label: i18n("Temperature:")
+
+                    dialogTitle: i18n("Choose CPU temperature graph color")
+                    defaultColor: textColor
                 }
 
                 // Separator
@@ -336,6 +364,13 @@ PlasmaExtras.Representation {
 
                     dialogTitle: i18n("Choose GPU memory graph color")
                     defaultColor: positiveColor
+                }
+                RMControls.ColorSelector {
+                    id: gpuTemperatureColor
+                    Kirigami.FormData.label: i18n("Temperature:")
+
+                    dialogTitle: i18n("Choose GPU temperature graph color")
+                    defaultColor: textColor
                 }
 
                 // Separator

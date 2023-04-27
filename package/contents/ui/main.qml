@@ -73,6 +73,7 @@ MouseArea {
     property color netUpColor: plasmoid.configuration.customNetUpColor ? plasmoid.configuration.netUpColor : positiveColor
     property color gpuColor: plasmoid.configuration.customGpuColor ? plasmoid.configuration.gpuColor : primaryColor
     property color gpuMemoryColor: plasmoid.configuration.customGpuMemoryColor ? plasmoid.configuration.gpuMemoryColor : positiveColor
+    property color gpuTemperatureColor: plasmoid.configuration.customGpuTemperatureColor ? plasmoid.configuration.gpuTemperatureColor : normalColor
     property color diskReadColor: plasmoid.configuration.customDiskReadColor ? plasmoid.configuration.diskReadColor : primaryColor
     property color diskWriteColor: plasmoid.configuration.customDiskWriteColor ? plasmoid.configuration.diskWriteColor : negativeColor
 
@@ -343,7 +344,7 @@ MouseArea {
             secondLabel: gpuMemoryGraph ? "VRAM" : ""
             secondLabelColor: gpuMemoryColor
             thirdLabel: showGpuTemperature ? i18n("🌡️ Temp.") : ""
-            thirdLabelColor: cpuTemperatureColor
+            thirdLabelColor: gpuTemperatureColor
 
             // Get max y of graph
             property var maxGpuMemValue: -1
@@ -384,7 +385,7 @@ MouseArea {
                 else if (value >= thresholdWarningGpuTemp)
                     return warningColor;
                 else
-                    return cpuTemperatureColor;
+                    return gpuTemperatureColor;
             }
 
             function setTemperatureLabel(label) {
