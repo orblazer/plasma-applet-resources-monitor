@@ -45,11 +45,17 @@ MouseArea {
     property bool showMemoryInPercent: plasmoid.configuration.memoryInPercent
     property bool showSwapGraph: plasmoid.configuration.memorySwapGraph
     property bool showNetMonitor: plasmoid.configuration.showNetMonitor
+    property bool showGpuMonitor: plasmoid.configuration.showGpuMonitor
+    property bool gpuMemoryInPercent: plasmoid.configuration.gpuMemoryInPercent
+    property bool gpuMemoryGraph: plasmoid.configuration.gpuMemoryGraph
+    property bool showGpuTemperature: plasmoid.configuration.showGpuTemperature
 
     property int thresholdWarningCpuTemp: plasmoid.configuration.thresholdWarningCpuTemp
     property int thresholdCriticalCpuTemp: plasmoid.configuration.thresholdCriticalCpuTemp
     property int thresholdWarningMemory: plasmoid.configuration.thresholdWarningMemory
     property int thresholdCriticalMemory: plasmoid.configuration.thresholdCriticalMemory
+    property int thresholdWarningGpuTemp: plasmoid.configuration.thresholdWarningGpuTemp
+    property int thresholdCriticalGpuTemp: plasmoid.configuration.thresholdCriticalGpuTemp
 
     // Colors settings properties
     property color cpuColor: plasmoid.configuration.customCpuColor ? plasmoid.configuration.cpuColor : primaryColor
@@ -58,11 +64,13 @@ MouseArea {
     property color swapColor: plasmoid.configuration.customSwapColor ? plasmoid.configuration.swapColor : positiveColor
     property color netDownColor: plasmoid.configuration.customNetDownColor ? plasmoid.configuration.netDownColor : primaryColor
     property color netUpColor: plasmoid.configuration.customNetUpColor ? plasmoid.configuration.netUpColor : positiveColor
+    property color gpuColor: plasmoid.configuration.customGpuColor ? plasmoid.configuration.gpuColor : primaryColor
+    property color gpuMemoryColor: plasmoid.configuration.customGpuMemoryColor ? plasmoid.configuration.gpuMemoryColor : positiveColor
     property color warningColor: plasmoid.configuration.customWarningColor ? plasmoid.configuration.warningColor : neutralColor
     property color criticalColor: plasmoid.configuration.customCriticalColor ? plasmoid.configuration.criticalColor : negativeColor
 
     // Component properties
-    property int containerCount: (showCpuMonitor ? 1 : 0) + (showRamMonitor ? 1 : 0) + (showNetMonitor ? 1 : 0)
+    property int containerCount: (showCpuMonitor ? 1 : 0) + (showRamMonitor ? 1 : 0) + (showNetMonitor ? 1 : 0) + (showGpuMonitor ? 1 : 0)
     property int itemMargin: plasmoid.configuration.graphMargin
     property double parentWidth: parent === null ? 0 : parent.width
     property double parentHeight: parent === null ? 0 : parent.height
@@ -84,7 +92,7 @@ MouseArea {
 
     // Bind settigns change
     onFontPixelSizeChanged: {
-        for (var monitor of [cpuGraph, ramGraph, netGraph]) {
+        for (var monitor of [cpuGraph, ramGraph, netGraph, gpuGraph]) {
             monitor.firstLineLabel.font.pixelSize = fontPixelSize;
             monitor.secondLineLabel.font.pixelSize = fontPixelSize;
             monitor.thirdLineLabel.font.pixelSize = fontPixelSize;
@@ -127,11 +135,27 @@ MouseArea {
         maxMemoryQueryModel.enabled = true;
     }
 
+    onGpuMemoryInPercentChanged: {
+        if (gpuGraph.maxGpuMemValue <= 0) {
+            return;
+        }
+        if (gpuMemoryInPercent) {
+            gpuGraph.uplimits = [100, 100];
+        } else {
+            gpuGraph.uplimits = [100, gpuGraph.maxGpuMemValue];
+        }
+        gpuGraph.updateSensors();
+    }
+    onGpuMemoryGraphChanged: {
+        if (gpuGraph.maxGpuMemValue != -1) {
+            gpuGraph.updateSensors();
+        }
+    }
+
     // Click action
     onClicked: {
         kRun.openService(actionService);
     }
-
 
     // Main Layout
     GridLayout {
@@ -283,6 +307,105 @@ MouseArea {
                     sensors = ["memory/physical/used" + suffix, "memory/swap/used" + suffix];
                 } else {
                     sensors = ["memory/physical/used" + suffix];
+                }
+            }
+        }
+
+        // GPU
+        RMComponents.TwoSensorsGraph {
+            id: gpuGraph
+            colors: [gpuColor, gpuMemoryColor]
+            secondLabelWhenZero: true
+
+            visible: showGpuMonitor
+            Layout.preferredWidth: itemWidth
+            Layout.preferredHeight: itemHeight
+
+            label: "GPU"
+            labelColor: gpuColor
+            secondLabel: gpuMemoryGraph ? "VRAM" : ""
+            secondLabelColor: gpuMemoryColor
+            thirdLabel: showGpuTemperature ? i18n("🌡️ Temp.") : ""
+            thirdLabelColor: cpuTemperatureColor
+
+            // Get max y of graph
+            property var maxGpuMemValue: -1
+            Sensors.SensorDataModel {
+                id: maxGpuValueQueryModel
+                sensors: ["gpu/gpu0/totalVram"]
+                enabled: true
+
+                onDataChanged: {
+                    var value = parseInt(data(topLeft, Sensors.SensorDataModel.Value));
+                    if (!isNaN(value) && gpuGraph.maxGpuMemValue === -1) {
+                        gpuGraph.maxGpuMemValue = value;
+                    }
+                    if (gpuGraph.maxGpuMemValue != -1) {
+                        enabled = false;
+                        if (!gpuMemoryInPercent) {
+                            gpuGraph.uplimits = [100, gpuGraph.maxGpuMemValue];
+                        } else {
+                            gpuGraph.uplimits = [100, 100];
+                        }
+                        gpuGraph.updateSensors();
+                    }
+                }
+            }
+
+            function updateSensors() {
+                if (gpuMemoryGraph) {
+                    sensors = ["gpu/gpu0/usage", "gpu/gpu0/usedVram"];
+                } else {
+                    sensors = ["gpu/gpu0/usage"];
+                }
+                gpuGraph.showPercentage = [false, gpuMemoryInPercent];
+            }
+
+            function getGpuTempColor(value) {
+                if (value >= thresholdCriticalGpuTemp)
+                    return criticalColor;
+                else if (value >= thresholdWarningGpuTemp)
+                    return warningColor;
+                else
+                    return cpuTemperatureColor;
+            }
+
+            function setTemperatureLabel(label) {
+                label.text = gpuTempSensor.formattedValue;
+                label.color = getGpuTempColor(gpuTempSensor.value);
+                label.visible = true;
+            }
+
+            Sensors.Sensor {
+                id: gpuTempSensor
+                enabled: showGpuTemperature
+                sensorId: "gpu/gpu0/temperature"
+            }
+            onDataTick: {
+                if (!textContainer.valueVisible) {
+                    return;
+                }
+                // Show GPU memory or temperature on second line
+                if (!gpuMemoryGraph && showGpuTemperature) {
+                    setTemperatureLabel(secondLineLabel);
+                    return;
+                }
+
+                // Show gpu temperature on third line if second line is already used
+                if (showGpuTemperature) {
+                    setTemperatureLabel(thirdLineLabel);
+                }
+            }
+            onShowValueWhenMouseMove: {
+                // Show GPU memory or temperature on second line
+                if (!gpuMemoryGraph && showGpuTemperature) {
+                    setTemperatureLabel(secondLineLabel);
+                    return;
+                }
+
+                // Show gpu temperature on third line if second line is already used
+                if (showGpuTemperature) {
+                    setTemperatureLabel(thirdLineLabel);
                 }
             }
         }

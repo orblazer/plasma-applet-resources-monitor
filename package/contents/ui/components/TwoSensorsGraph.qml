@@ -14,6 +14,7 @@ Item {
     readonly property alias sensorsModel: sensorsModel
     property var sensors: []
     property var uplimits: [100, 100]
+    property var showPercentage: [false, false]
 
     property var _sensorData1
     property var _sensorData2
@@ -195,7 +196,11 @@ Item {
             if (typeof value === 'undefined') {
                 firstLineLabel.text = '...';
             } else {
-                firstLineLabel.text = data.formattedValue;
+                if (showPercentage[0]) {
+                    firstLineLabel.text = (data.value / data.uplimits[0]) + " %"
+                } else {
+                    firstLineLabel.text = data.formattedValue;
+                }
                 _setThresholdColor(firstLineLabel, 0, data.value)
             }
         } else if (index === 1) {
@@ -204,7 +209,11 @@ Item {
                 secondLineLabel.text = '...';
                 secondLineLabel.visible = secondLabelWhenZero;
             } else {
-                secondLineLabel.text = data.formattedValue;
+                if (showPercentage[1]) {
+                    secondLineLabel.text = (data.value / data.uplimits[1]) + " %"
+                } else {
+                    secondLineLabel.text = data.formattedValue;
+                }
                 secondLineLabel.visible = secondLabelWhenZero || data.value !== 0;
                 _setThresholdColor(secondLineLabel, 1, data.value)
             }

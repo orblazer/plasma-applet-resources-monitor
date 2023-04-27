@@ -3,13 +3,14 @@ import QtQuick.Controls 2.12 as QtControls
 import QtQuick.Layouts 1.1 as QtLayouts
 import org.kde.kirigami 2.6 as Kirigami
 import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.plasma.components 2.0 as PlasmaComponents
+import org.kde.plasma.components 3.0 as PlasmaComponents
 import org.kde.plasma.extras 2.0 as PlasmaExtras
 import "../components" as RMComponents
 import "../controls" as RMControls
 
-QtLayouts.ColumnLayout {
+PlasmaExtras.Representation {
     id: page
+    anchors.fill: parent
 
     signal configurationChanged
 
@@ -24,6 +25,10 @@ QtLayouts.ColumnLayout {
     property alias cfg_memoryInPercent: memoryInPercent.checked
     property alias cfg_memorySwapGraph: memorySwapGraph.checked
     property bool cfg_showNetMonitor: plasmoid.configuration.showNetMonitor.checked
+    property alias cfg_showGpuMonitor: showGpuMonitor.checked
+    property alias cfg_gpuMemoryInPercent: gpuMemoryInPercent.checked
+    property alias cfg_gpuMemoryGraph: gpuMemoryGraph.checked
+    property alias cfg_showGpuTemperature: showGpuTemperature.checked
 
     // Apps model
     RMComponents.AppsDetector {
@@ -48,31 +53,47 @@ QtLayouts.ColumnLayout {
     }
 
     // Tab bar
-    PlasmaComponents.TabBar {
-        id: bar
+    header: PlasmaExtras.PlasmoidHeading {
+        location: PlasmaExtras.PlasmoidHeading.Location.Header
 
-        PlasmaComponents.TabButton {
-            tab: generalPage
-            iconSource: "preferences-system-windows"
-            text: i18n("General")
-        }
-        PlasmaComponents.TabButton {
-            tab: clickPage
-            iconSource: "input-mouse-click-left"
-            text: i18n("Click action")
+        PlasmaComponents.TabBar {
+            id: bar
+            currentIndex: swipeView.currentIndex
+
+            position: PlasmaComponents.TabBar.Header
+            anchors.fill: parent
+            implicitHeight: contentHeight
+
+            PlasmaComponents.TabButton {
+                Accessible.onPressAction: clicked()
+                icon.name: "preferences-system-windows"
+                icon.height: PlasmaCore.Units.iconSizes.smallMedium
+                text: i18n("General")
+                onClicked: {
+                    swipeView.currentIndex = 0;
+                }
+            }
+            PlasmaComponents.TabButton {
+                Accessible.onPressAction: clicked()
+                icon.name: "input-mouse-click-left"
+                icon.height: PlasmaCore.Units.iconSizes.smallMedium
+                text: i18n("Click action")
+                onClicked: {
+                    swipeView.currentIndex = 1;
+                }
+            }
         }
     }
 
-    // Views
-    PlasmaComponents.TabGroup {
-        QtLayouts.Layout.fillWidth: true
-        QtLayouts.Layout.fillHeight: true
+    PlasmaComponents.SwipeView {
+        id: swipeView
+        anchors.fill: parent
+
+        activeFocusOnTab: false
+        clip: true
 
         // General
-        QtLayouts.ColumnLayout {
-            id: generalPage
-            spacing: Kirigami.Units.largeSpacing
-
+        Kirigami.ScrollablePage {
             Kirigami.FormLayout {
                 wideMode: true
 
@@ -103,40 +124,61 @@ QtLayouts.ColumnLayout {
                     font.pointSize: PlasmaCore.Theme.defaultFont.pointSize * 1.2
                 }
 
+                // CPU
+                PlasmaComponents.Label {
+                    text: i18n("CPU monitor")
+                    font.pointSize: PlasmaCore.Theme.defaultFont.pointSize * 1.05
+                }
+
                 QtLayouts.GridLayout {
                     QtLayouts.Layout.fillWidth: true
                     columns: 2
                     rowSpacing: Kirigami.Units.smallSpacing
                     columnSpacing: Kirigami.Units.largeSpacing
 
-                    // CPU
                     QtControls.CheckBox {
                         id: showCpuMonitor
-                        text: i18n("Show CPU monitor")
+                        text: i18n("Show monitor")
                     }
                     QtControls.CheckBox {
                         id: showCpuClock
-                        text: i18n("Show CPU clock")
+                        text: i18n("Show clock")
                         enabled: showCpuMonitor.checked
                     }
                     QtControls.CheckBox {
                         id: showCpuTemperature
-                        text: i18n("Show CPU temperature")
+                        text: i18n("Show temperature")
                         enabled: showCpuMonitor.checked
                     }
                     Rectangle {
                         height: Kirigami.Units.largeSpacing
                         color: "transparent"
                     }
+                }
 
-                    // Memory
+                // Memory
+                Rectangle {
+                    height: Kirigami.Units.largeSpacing * 2
+                    color: "transparent"
+                }
+                PlasmaComponents.Label {
+                    text: i18n("Memory monitor")
+                    font.pointSize: PlasmaCore.Theme.defaultFont.pointSize * 1.05
+                }
+
+                QtLayouts.GridLayout {
+                    QtLayouts.Layout.fillWidth: true
+                    columns: 2
+                    rowSpacing: Kirigami.Units.smallSpacing
+                    columnSpacing: Kirigami.Units.largeSpacing
+
                     QtControls.CheckBox {
                         id: showRamMonitor
-                        text: i18n("Show memory monitor")
+                        text: i18n("Show monitor")
                     }
                     QtControls.CheckBox {
                         id: memoryInPercent
-                        text: i18n("Memory in percentage")
+                        text: i18n("Values in percentage")
                         enabled: showRamMonitor.checked
                     }
                     QtControls.CheckBox {
@@ -145,13 +187,16 @@ QtLayouts.ColumnLayout {
                     }
                 }
 
-                // Separator
+                // Network
                 Rectangle {
-                    height: Kirigami.Units.largeSpacing
+                    height: Kirigami.Units.largeSpacing * 2
                     color: "transparent"
                 }
+                PlasmaComponents.Label {
+                    text: i18n("Network monitor")
+                    font.pointSize: PlasmaCore.Theme.defaultFont.pointSize * 1.05
+                }
 
-                // Network
                 QtControls.ComboBox {
                     QtLayouts.Layout.fillWidth: true
                     Kirigami.FormData.label: i18n("Network visibility:")
@@ -197,11 +242,43 @@ QtLayouts.ColumnLayout {
                         }
                     }
                 }
-            }
 
-            Item {
-                QtLayouts.Layout.fillWidth: true
-                QtLayouts.Layout.fillHeight: true
+                // GPU
+                Rectangle {
+                    height: Kirigami.Units.largeSpacing * 2
+                    color: "transparent"
+                }
+                PlasmaComponents.Label {
+                    text: i18n("GPU monitor")
+                    font.pointSize: PlasmaCore.Theme.defaultFont.pointSize * 1.05
+                }
+
+                QtLayouts.GridLayout {
+                    QtLayouts.Layout.fillWidth: true
+                    columns: 2
+                    rowSpacing: Kirigami.Units.smallSpacing
+                    columnSpacing: Kirigami.Units.largeSpacing
+
+                    QtControls.CheckBox {
+                        id: showGpuMonitor
+                        text: i18n("Show monitor")
+                    }
+                    QtControls.CheckBox {
+                        id: gpuMemoryGraph
+                        text: i18n("Display GPU memory graph")
+                        enabled: showGpuMonitor.checked
+                    }
+                    QtControls.CheckBox {
+                        id: gpuMemoryInPercent
+                        text: i18n("Values in percentage")
+                        enabled: gpuMemoryGraph.checked
+                    }
+                    QtControls.CheckBox {
+                        id: showGpuTemperature
+                        text: i18n("Show GPU temperature")
+                        enabled: showGpuMonitor.checked
+                    }
+                }
             }
         }
 
@@ -240,7 +317,7 @@ QtLayouts.ColumnLayout {
                     radius: 4
                 }
 
-                PlasmaExtras.ScrollArea {
+                PlasmaComponents.ScrollView {
                     anchors.fill: parent
                     anchors.margins: 10
                     anchors.rightMargin: 5
@@ -252,7 +329,7 @@ QtLayouts.ColumnLayout {
                         clip: true
                         interactive: true
 
-                        highlight: PlasmaComponents.Highlight {
+                        highlight: PlasmaExtras.Highlight {
                         }
                         highlightMoveDuration: 0
                         highlightMoveVelocity: -1
