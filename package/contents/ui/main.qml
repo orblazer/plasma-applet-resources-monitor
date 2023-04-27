@@ -163,15 +163,23 @@ Item {
             }
         }
 
-        // Display first core frequency
         onDataTick: {
             if (!textContainer.valueVisible) {
                 return;
             }
+
+            // Display CPU frequency OR CPU temperature on second line
             if (showCpuClock) {
                 secondLineLabel.text = cpuFrequencySensor.formattedValue;
                 secondLineLabel.visible = true;
+            } else if (showCpuTemp) {
+                secondLineLabel.text = cpuTempSensor.formattedValue;
+                secondLineLabel.color = getCpuTempColor(cpuTempSensor.value);
+                secondLineLabel.visible = true;
+                return;
             }
+
+            // Display CPU temperature on third line if second line is used
             if (showCpuTemp) {
                 thirdLineLabel.text = cpuTempSensor.formattedValue;
                 thirdLineLabel.color = getCpuTempColor(cpuTempSensor.value);
@@ -189,10 +197,18 @@ Item {
             sensorId: "cpu/all/averageTemperature"
         }
         onShowValueWhenMouseMove: {
+            // Display CPU frequency OR CPU temperature on second line
             if (showCpuClock) {
                 secondLineLabel.text = cpuFrequencySensor.formattedValue;
                 secondLineLabel.visible = true;
+            } else if (showCpuTemp) {
+                secondLineLabel.text = cpuTempSensor.formattedValue;
+                secondLineLabel.color = getCpuTempColor(cpuTempSensor.value);
+                secondLineLabel.visible = true;
+                return;
             }
+
+            // Display CPU temperature on third line if second line is used
             if (showCpuTemp) {
                 thirdLineLabel.text = cpuTempSensor.formattedValue;
                 thirdLineLabel.color = getCpuTempColor(cpuTempSensor.value);
