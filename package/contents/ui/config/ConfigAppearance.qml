@@ -32,7 +32,7 @@ QtLayouts.ColumnLayout {
     property alias cfg_netUpColor: netUpColor.value
 
     property color primaryColor: theme.highlightColor
-    property color negativeColor: theme.negativeTextColor
+    property color positiveColor: theme.positiveTextColor
 
     PlasmaComponents.TabBar {
         id: bar
@@ -212,7 +212,7 @@ QtLayouts.ColumnLayout {
                 Kirigami.FormData.label: i18n("Swap color:")
 
                 dialogTitle: i18n("Choose Swap graph color")
-                defaultColor: negativeColor
+                defaultColor: positiveColor
             }
 
             RMControls.ColorSelector {
@@ -227,7 +227,7 @@ QtLayouts.ColumnLayout {
                 Kirigami.FormData.label: i18n("Network sending color:")
 
                 dialogTitle: i18n("Choose network sending graph color")
-                defaultColor: negativeColor
+                defaultColor: positiveColor
             }
         }
     }
