@@ -61,27 +61,7 @@ RMComponents.BaseSensorGraph {
             onDataChanged: {
                 // Skip when value is not visible
                 if (canSeeValue(index)) {
-                    var value = sensorsModel.getData(index);
-
-                    // Update albel
-                    if (index === 0) {
-                        // is first line
-                        if (typeof value === 'undefined') {
-                            firstLineLabel.text = '...';
-                        } else {
-                            firstLineLabel.text = value;
-                        }
-                    } else if (index === 1) {
-                        // is second line
-                        if (typeof value === 'undefined') {
-                            secondLineLabel.text = '...';
-                            secondLineLabel.visible = secondLabelWhenZero;
-                        } else {
-                            secondLineLabel.text = value;
-                            secondLineLabel.visible = sensorsModel.getData(index, Sensors.SensorDataModel.Value) !== 0
-                                || secondLabelWhenZero;
-                        }
-                    }
+                    _updateData(index);
                 }
 
                 // Call data tick
@@ -107,25 +87,34 @@ RMComponents.BaseSensorGraph {
         }
     }
 
+    function _updateData(index) {
+        var value = sensorsModel.getData(index);
+
+        // Update label
+        if (index === 0) {
+            // is first line
+            if (typeof value === 'undefined') {
+                firstLineLabel.text = '...';
+            } else {
+                firstLineLabel.text = value;
+            }
+        } else if (index === 1) {
+            // is second line
+            if (typeof value === 'undefined') {
+                secondLineLabel.text = '...';
+                secondLineLabel.visible = secondLabelWhenZero;
+            } else {
+                secondLineLabel.text = value;
+                secondLineLabel.visible = sensorsModel.getData(index, Sensors.SensorDataModel.Value) !== 0 || secondLabelWhenZero;
+            }
+        }
+    }
+
     function _showValueInLabel() {
         // Show first line
-        var data = sensorsModel.getData(0);
-        if (typeof data !== "undefined") {
-            firstLineLabel.text = data;
-        } else {
-            firstLineLabel.text = '...';
-        }
-
+        _updateData(0);
         // Show second line
-        data = sensorsModel.getData(1);
-        if (typeof data !== "undefined") {
-            secondLineLabel.text = data;
-            secondLineLabel.visible = sensorsModel.getData(1, Sensors.SensorDataModel.Value) !== 0
-                || secondLabelWhenZero;
-        } else {
-            secondLineLabel.text = '...';
-            secondLineLabel.visible = secondLabelWhenZero;
-        }
+        _updateData(1);
         chart.showValueWhenMouseMove();
     }
 }

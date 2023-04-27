@@ -1,9 +1,7 @@
 import QtQuick 2.9
 import QtGraphicalEffects 1.0
 import org.kde.plasma.plasmoid 2.0
-import org.kde.plasma.components 2.0 as PlasmaComponents
 import org.kde.ksysguard.sensors 1.0 as Sensors
-import org.kde.ksysguard.faces 1.0 as Faces
 import org.kde.quickcharts 1.0 as Charts
 import "./" as RMComponents
 import "./functions.js" as Functions
@@ -166,13 +164,9 @@ Item {
 
         // Set default text when doesn't have sensors
         if (sensorsLength === 0) {
-            if (canSeeValue(0)) {
-                firstLineLabel.text = '...';
-                firstLineLabel.visible = true;
-            }
-            if (canSeeValue(1)) {
-                secondLineLabel.text = '...';
-                secondLineLabel.visible = secondLabelWhenZero;
+            if (textContainer.valueVisible) {
+                _updateData(0, undefined);
+                _updateData(1, undefined);
             }
             return;
         }
@@ -198,13 +192,9 @@ Item {
         uploadSpeed.value = uploadValue;
 
         // Update labels
-        if (canSeeValue(0)) {
-            firstLineLabel.text = formatLabel(downloadValue);
-            firstLineLabel.visible = true;
-        }
-        if (canSeeValue(1)) {
-            secondLineLabel.text = formatLabel(uploadValue);
-            secondLineLabel.visible = uploadValue !== 0 || secondLabelWhenZero;
+        if (textContainer.valueVisible) {
+            _updateData(0, downloadValue);
+            _updateData(1, uploadValue);
         }
     }
 
@@ -217,24 +207,34 @@ Item {
         return Functions.formatByteValue(value, dialect);
     }
 
+    function _updateData(index, value) {
+        // Update label
+        if (index === 0) {
+            // is first line
+            if (typeof value === 'undefined') {
+                firstLineLabel.text = '...';
+                firstLineLabel.visible = true;
+            } else {
+                firstLineLabel.text = formatLabel(value);
+                firstLineLabel.visible = true;
+            }
+        } else if (index === 1) {
+            // is second line
+            if (typeof value === 'undefined') {
+                secondLineLabel.text = '...';
+                secondLineLabel.visible = secondLabelWhenZero;
+            } else {
+                secondLineLabel.text = formatLabel(value);
+                secondLineLabel.visible = value !== 0 || secondLabelWhenZero;
+            }
+        }
+    }
+
     function _showValueInLabel() {
         // Show first line
-        var data = downloadSpeed.value;
-        if (typeof data === 'number') {
-            firstLineLabel.text = formatLabel(data);
-            firstLineLabel.visible = true;
-        } else {
-            firstLineLabel.visible = false;
-        }
-
+        _updateData(0, downloadSpeed.value);
         // Show second line
-        data = uploadSpeed.value;
-        if (typeof data === 'number') {
-            secondLineLabel.text = formatLabel(data);
-            secondLineLabel.visible = data !== 0 || secondLabelWhenZero;
-        } else {
-            secondLineLabel.visible = false;
-        }
+        _updateData(1, uploadSpeed.value);
         chart.showValueWhenMouseMove();
     }
 
