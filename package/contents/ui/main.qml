@@ -189,11 +189,15 @@ Item {
             sensorId: "cpu/all/averageTemperature"
         }
         onShowValueWhenMouseMove: {
-            secondLineLabel.text = cpuFrequencySensor.formattedValue;
-            secondLineLabel.visible = true;
-            thirdLineLabel.text = cpuTempSensor.formattedValue;
-            thirdLineLabel.color = getCpuTempColor(cpuTempSensor.value);
-            thirdLineLabel.visible = true;
+            if (showCpuClock) {
+                secondLineLabel.text = cpuFrequencySensor.formattedValue;
+                secondLineLabel.visible = true;
+            }
+            if (showCpuTemp) {
+                thirdLineLabel.text = cpuTempSensor.formattedValue;
+                thirdLineLabel.color = getCpuTempColor(cpuTempSensor.value);
+                thirdLineLabel.visible = true;
+            }
         }
     }
 
