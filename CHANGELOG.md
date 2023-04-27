@@ -1,3 +1,12 @@
+# [2.8.0-hotfix.1](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.8.0...v2.8.0-hotfix.1) (2023-04-27)
+
+
+### Bug Fixes
+
+* **translate:** add missing translation ([04ee743](https://github.com/orblazer/plasma-applet-resources-monitor/commit/04ee743ada0286dd68ebfec52fe8cb312fcd2131))
+
+
+
 # [2.8.0](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.7.1...v2.8.0) (2023-04-27)
 
 
