@@ -1,3 +1,31 @@
+# [2.8.0](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.7.1...v2.8.0) (2023-04-27)
+
+
+### Bug Fixes
+
+* **data:** use average cpu clock instead first core ([a6f3271](https://github.com/orblazer/plasma-applet-resources-monitor/commit/a6f32717b970fa5537f43cc860bde78730ec30ed))
+* **graph:** allow support multiple interface ([9f43479](https://github.com/orblazer/plasma-applet-resources-monitor/commit/9f4347906a8c6f3b85aa7047702f6b817ddd196e))
+* **graph:** clear history when change net sensors ([9799666](https://github.com/orblazer/plasma-applet-resources-monitor/commit/9799666adcaa1d123b9de58370fda63266b5c025))
+* **graph:** use separate graph for physical and swap memory ([6e97afb](https://github.com/orblazer/plasma-applet-resources-monitor/commit/6e97afbecb018a81c101303627cf4483280c3078))
+
+
+### Features
+
+* allow customize unit for cpu and ram ([6cb0967](https://github.com/orblazer/plasma-applet-resources-monitor/commit/6cb0967bf87ff06205aa07a58cd46259d1fa2913)), closes [#28](https://github.com/orblazer/plasma-applet-resources-monitor/issues/28)
+* **data:** add cpu temperature ([42df585](https://github.com/orblazer/plasma-applet-resources-monitor/commit/42df585fc2d5a8d111e03f502a2dfff256ed9cff))
+* **data:** add threshold for cpu temp and memory ([28bafad](https://github.com/orblazer/plasma-applet-resources-monitor/commit/28bafad98222d6cf4f8e8bcc684fd21998d671d0))
+* **graph:** add disks io graph ([692bda8](https://github.com/orblazer/plasma-applet-resources-monitor/commit/692bda83e1cf7810e6778affc253c1d1d529a234)), closes [#10](https://github.com/orblazer/plasma-applet-resources-monitor/issues/10)
+* **graph:** add gpu graph ([71e5a60](https://github.com/orblazer/plasma-applet-resources-monitor/commit/71e5a60a5deebddee24f3a6a4b9aac735cb264ab)), closes [#29](https://github.com/orblazer/plasma-applet-resources-monitor/issues/29)
+* **graph:** support third line for network graph ([f40c931](https://github.com/orblazer/plasma-applet-resources-monitor/commit/f40c931f77f5fcba68a14f1f8361f21f471c751d))
+
+
+### Performance Improvements
+
+* don't update lines if is not needed ([f5c52d6](https://github.com/orblazer/plasma-applet-resources-monitor/commit/f5c52d6c0862f43de665e01d1d55f703891a5fd8))
+* **graph:** optimiwe init network sensors ([49651d0](https://github.com/orblazer/plasma-applet-resources-monitor/commit/49651d0809af4a4de9d927dead13c36174467c95))
+
+
+
 ## [2.7.1](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.7.0...v2.7.1) (2022-01-15)
 
 
