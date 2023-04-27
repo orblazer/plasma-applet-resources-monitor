@@ -181,7 +181,7 @@ Item {
         Sensors.Sensor {
             id: cpuFrequencySensor
             enabled: showCpuClock
-            sensorId: "cpu/cpu0/frequency"
+            sensorId: "cpu/all/averageFrequency"
         }
         Sensors.Sensor {
             id: cpuTempSensor
