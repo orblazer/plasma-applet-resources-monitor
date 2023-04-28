@@ -303,7 +303,7 @@ PlasmaExtras.Representation {
                     Kirigami.FormData.label: i18n("Swap:")
 
                     dialogTitle: i18n("Choose swap memory graph color")
-                    defaultColor: positiveColor
+                    defaultColor: negativeColor
                 }
 
                 // Separator

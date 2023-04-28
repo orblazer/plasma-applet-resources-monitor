@@ -68,7 +68,7 @@ MouseArea {
     property color cpuColor: plasmoid.configuration.customCpuColor ? plasmoid.configuration.cpuColor : primaryColor
     property color cpuTemperatureColor: plasmoid.configuration.customCpuTemperatureColor ? plasmoid.configuration.cpuTemperatureColor : normalColor
     property color ramColor: plasmoid.configuration.customRamColor ? plasmoid.configuration.ramColor : primaryColor
-    property color swapColor: plasmoid.configuration.customSwapColor ? plasmoid.configuration.swapColor : positiveColor
+    property color swapColor: plasmoid.configuration.customSwapColor ? plasmoid.configuration.swapColor : negativeColor
     property color netDownColor: plasmoid.configuration.customNetDownColor ? plasmoid.configuration.netDownColor : primaryColor
     property color netUpColor: plasmoid.configuration.customNetUpColor ? plasmoid.configuration.netUpColor : positiveColor
     property color gpuColor: plasmoid.configuration.customGpuColor ? plasmoid.configuration.gpuColor : primaryColor
