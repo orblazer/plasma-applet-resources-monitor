@@ -160,6 +160,10 @@ Item {
     onVisibleChanged: sensorsModel._updateSensors()
 
     function _dataTick() {
+        // Prevent first tick after enabled
+        if (sensorsModel.objectAt(0) === null) {
+            return;
+        }
         var sensorsLength = sensorsModel.model.length;
 
         // Emit signal
