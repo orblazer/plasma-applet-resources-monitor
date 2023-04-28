@@ -281,7 +281,7 @@ MouseArea {
             thresholdColors: [warningColor, criticalColor]
             secondLabelWhenZero: false
 
-            visible: memoryUnit !== "none"
+            visible: showRamMonitor
             Layout.preferredWidth: itemWidth
             Layout.preferredHeight: itemHeight
 
