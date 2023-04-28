@@ -78,7 +78,7 @@ MouseArea {
     property color diskWriteColor: plasmoid.configuration.customDiskWriteColor ? plasmoid.configuration.diskWriteColor : positiveColor
 
     property color warningColor: plasmoid.configuration.customWarningColor ? plasmoid.configuration.warningColor : neutralColor
-    property color criticalColor: plasmoid.configuration.customCriticalColor ? plasmoid.configuration.criticalColor : positiveColor
+    property color criticalColor: plasmoid.configuration.customCriticalColor ? plasmoid.configuration.criticalColor : negativeColor
 
     // Component properties
     property int containerCount: (showCpuMonitor ? 1 : 0) + (showRamMonitor ? 1 : 0) + (showNetMonitor ? 1 : 0) + (showGpuMonitor ? 1 : 0) + (showDiskMonitor ? 1 : 0)
