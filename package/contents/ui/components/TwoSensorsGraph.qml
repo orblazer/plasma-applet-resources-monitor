@@ -224,7 +224,7 @@ Item {
         if (typeof thresholds[line] !== 'undefined') {
             if (value >= thresholds[line][1]) {
                 label.color = thresholdColors[1];
-            } else if (value >= thresholds[line][1]) {
+            } else if (value >= thresholds[line][0]) {
                 label.color = thresholdColors[line];
             }
         }

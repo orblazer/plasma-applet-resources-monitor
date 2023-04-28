@@ -53,12 +53,12 @@ MouseArea {
     property bool showGpuTemperature: plasmoid.configuration.showGpuTemperature
     property bool showDiskMonitor: plasmoid.configuration.showDiskMonitor
 
-    property int thresholdWarningCpuTemp: plasmoid.configuration.thresholdWarningCpuTemp
-    property int thresholdCriticalCpuTemp: plasmoid.configuration.thresholdCriticalCpuTemp
-    property int thresholdWarningMemory: plasmoid.configuration.thresholdWarningMemory
-    property int thresholdCriticalMemory: plasmoid.configuration.thresholdCriticalMemory
-    property int thresholdWarningGpuTemp: plasmoid.configuration.thresholdWarningGpuTemp
-    property int thresholdCriticalGpuTemp: plasmoid.configuration.thresholdCriticalGpuTemp
+    property double thresholdWarningCpuTemp: plasmoid.configuration.thresholdWarningCpuTemp
+    property double thresholdCriticalCpuTemp: plasmoid.configuration.thresholdCriticalCpuTemp
+    property double thresholdWarningMemory: plasmoid.configuration.thresholdWarningMemory
+    property double thresholdCriticalMemory: plasmoid.configuration.thresholdCriticalMemory
+    property double thresholdWarningGpuTemp: plasmoid.configuration.thresholdWarningGpuTemp
+    property double thresholdCriticalGpuTemp: plasmoid.configuration.thresholdCriticalGpuTemp
 
     // Data settings properties
     property double diskReadTotal: plasmoid.configuration.diskReadTotal
