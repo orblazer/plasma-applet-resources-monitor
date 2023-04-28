@@ -414,8 +414,8 @@ PlasmaExtras.Representation {
 
                     onValueChanged: {
                         var newValue = valueReal * 1000;
-                        if (cfg_diskReadTotal !== newValue) {
-                            cfg_diskReadTotal = newValue;
+                        if (cfg_diskWriteTotal !== newValue) {
+                            cfg_diskWriteTotal = newValue;
                             dataPage.configurationChanged();
                         }
                     }
