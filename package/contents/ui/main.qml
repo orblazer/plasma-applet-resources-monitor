@@ -111,7 +111,7 @@ MouseArea {
     }
 
     onCpuUnitChanged: {
-        cpuGraph.sensors = ["cpu/all/" + cpuUnit]
+        cpuGraph.sensors = ["cpu/all/" + cpuUnit];
     }
     onShowCpuClockChanged: {
         if (!showCpuClock) {
@@ -128,7 +128,13 @@ MouseArea {
         if ((ramGraph.maxMemory[0] <= 0 && ramGraph.maxMemory[1] <= 0) || memoryUnit === "none") {
             return;
         }
-        maxMemoryQueryModel.enabled = true;
+        if (memoryUnit.endsWith("-percent")) {
+            ramGraph.uplimits = [100, 100];
+        } else {
+            ramGraph.uplimits = ramGraph.maxMemory;
+        }
+        ramGraph.updateThresholds();
+        ramGraph.updateSensors();
     }
 
     onShowSwapGraphChanged: {
@@ -303,10 +309,8 @@ MouseArea {
                         enabled = false;
                         if (!memoryUnit.endsWith("-percent")) {
                             ramGraph.uplimits = ramGraph.maxMemory;
-                            ramGraph.thresholds[0] = [ramGraph.maxMemory[0] * (thresholdWarningMemory / 100.0), ramGraph.maxMemory[0] * (thresholdCriticalMemory / 100.0)];
-                        } else {
-                            ramGraph.thresholds[0] = [thresholdWarningMemory, thresholdCriticalMemory];
                         }
+                        ramGraph.updateThresholds();
                         ramGraph.updateSensors();
                     }
                 }
@@ -315,6 +319,14 @@ MouseArea {
             // Set the color of Swap
             onShowValueWhenMouseMove: {
                 secondLineLabel.color = swapColor;
+            }
+
+            function updateThresholds() {
+                if (!memoryUnit.endsWith("-percent")) {
+                    ramGraph.thresholds[0] = [ramGraph.maxMemory[0] * (thresholdWarningMemory / 100.0), ramGraph.maxMemory[0] * (thresholdCriticalMemory / 100.0)];
+                } else {
+                    ramGraph.thresholds[0] = [thresholdWarningMemory, thresholdCriticalMemory];
+                }
             }
 
             function updateSensors() {
