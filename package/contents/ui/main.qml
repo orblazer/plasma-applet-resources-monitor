@@ -75,7 +75,7 @@ MouseArea {
     property color gpuMemoryColor: plasmoid.configuration.customGpuMemoryColor ? plasmoid.configuration.gpuMemoryColor : positiveColor
     property color gpuTemperatureColor: plasmoid.configuration.customGpuTemperatureColor ? plasmoid.configuration.gpuTemperatureColor : normalColor
     property color diskReadColor: plasmoid.configuration.customDiskReadColor ? plasmoid.configuration.diskReadColor : primaryColor
-    property color diskWriteColor: plasmoid.configuration.customDiskWriteColor ? plasmoid.configuration.diskWriteColor : negativeColor
+    property color diskWriteColor: plasmoid.configuration.customDiskWriteColor ? plasmoid.configuration.diskWriteColor : positiveColor
 
     property color warningColor: plasmoid.configuration.customWarningColor ? plasmoid.configuration.warningColor : neutralColor
     property color criticalColor: plasmoid.configuration.customCriticalColor ? plasmoid.configuration.criticalColor : positiveColor
