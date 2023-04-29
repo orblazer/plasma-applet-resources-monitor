@@ -13,8 +13,7 @@ PlasmaCore.SortFilterModel {
     sortRole: "name"
     sortOrder: Qt.AscendingOrder
 
-    // https://github.com/KDE/plasma-framework/blob/master/src/declarativeimports/core/datasource.h
-    property var dataSource: PlasmaCore.DataSource {
+    property var _dataSource: PlasmaCore.DataSource {
         id: source
         engine: "apps"
         connectedSources: {

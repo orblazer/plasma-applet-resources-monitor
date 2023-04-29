@@ -4,8 +4,9 @@ import org.kde.plasma.core 2.0 as PlasmaCore
 QtObject {
     id: detector
 
-    // https://github.com/KDE/plasma-framework/blob/master/src/declarativeimports/core/datasource.h
-    property var dataSource: PlasmaCore.DataSource {
+    property var model: []
+
+    property var _dataSource: PlasmaCore.DataSource {
         id: dataSource
         engine: "executable"
         connectedSources: []
@@ -16,12 +17,12 @@ QtObject {
             var interfaces = data["stdout"].trim().split('\n');
             for (var i = 0; i < interfaces.length; i++) {
                 if (excludedInterface.test(interfaces[i])) {
-                    privateModel.append({
+                    _privateModel.append({
                             "name": interfaces[i]
                         });
                 }
             }
-            detector.model = privateModel;
+            detector.model = _privateModel;
             disconnectSource(sourceName); // cmd finished
         }
 
@@ -30,9 +31,5 @@ QtObject {
         }
     }
 
-    property var privateModel: ListModel {
-        id: privateModel
-    }
-
-    property var model: []
+    property var _privateModel: ListModel {}
 }
