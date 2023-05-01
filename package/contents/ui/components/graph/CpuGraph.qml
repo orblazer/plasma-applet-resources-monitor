@@ -1,3 +1,4 @@
+import QtQuick 2.9
 import org.kde.plasma.plasmoid 2.0
 import "./base" as RMBaseGraph
 
@@ -5,16 +6,18 @@ RMBaseGraph.SensorGraph {
     id: root
     objectName: "CpuGraph"
 
-    // Config options
-    property string cpuUnit: Plasmoid.configuration.cpuUnit
-    property bool showClock: Plasmoid.configuration.showClock
-    property bool showTemperature: Plasmoid.configuration.showCpuTemperature
-    property color temperatureColor: Plasmoid.configuration.customCpuTemperatureColor ? Plasmoid.configuration.cpuTemperatureColor : theme.textColor
-
-    // Bind config changes
-    onCpuUnitChanged: {
-        sensors = ["cpu/all/" + cpuUnit, "cpu/all/averageFrequency", "cpu/all/averageTemperature"];
+    Connections {
+        target: Plasmoid.configuration
+        function onCpuUnitChanged() {
+            _updateSensors();
+        }
     }
+    Component.onCompleted: {
+        _updateSensors();
+    }
+
+    // Config options
+    property color temperatureColor: Plasmoid.configuration.customCpuTemperatureColor ? Plasmoid.configuration.cpuTemperatureColor : theme.textColor
 
     // Graph options
     // NOTE: "sensors" is set by "_updateSensors"
@@ -32,6 +35,10 @@ RMBaseGraph.SensorGraph {
         labelColors: [root.chartColor, undefined, temperatureColor]
         valueColors: [undefined, undefined, temperatureColor]
 
-        labels: ["CPU", (showClock ? i18n("⏲ Clock") : ""), (showTemperature ? i18n("🌡️ Temp.") : "")]
+        labels: ["CPU", (Plasmoid.configuration.showClock ? i18n("⏲ Clock") : ""), (Plasmoid.configuration.showCpuTemperature ? i18n("🌡️ Temp.") : "")]
+    }
+
+    function _updateSensors() {
+        sensors = ["cpu/all/" + Plasmoid.configuration.cpuUnit, "cpu/all/averageFrequency", "cpu/all/averageTemperature"];
     }
 }

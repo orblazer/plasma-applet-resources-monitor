@@ -1,3 +1,4 @@
+import QtQuick 2.9
 import org.kde.plasma.plasmoid 2.0
 import "./base" as RMBaseGraph
 import "../functions.js" as Functions
@@ -5,21 +6,20 @@ import "../functions.js" as Functions
 RMBaseGraph.TwoSensorsGraph {
     id: root
     objectName: "DisksGraph"
+
     readonly property var diskIoDialect: Functions.getNetworkDialectInfo("kibibyte")
 
-    // Config options
-    property double readTotal: Plasmoid.configuration.diskReadTotal
-    property double writeTotal: Plasmoid.configuration.diskWriteTotal
-
-    property color readColor: Plasmoid.configuration.customDiskReadColor ? Plasmoid.configuration.diskReadColor : theme.highlightColor
-    property color writeColor: Plasmoid.configuration.customDiskWriteColor ? Plasmoid.configuration.diskWriteColor : theme.positiveTextColor
-
-    // Bind config changes
-    onReadTotalChanged: {
-        uplimits = [readTotal * diskIoDialect.multiplier, uplimits[1]];
+    Connections {
+        target: Plasmoid.configuration
+        function onReadTotalChanged() {
+            _updateUplimits();
+        }
+        function onWriteTotalChanged() {
+            _updateUplimits();
+        }
     }
-    onWriteTotalChanged: {
-        uplimits = [uplimits[0], writeTotal * diskIoDialect.multiplier];
+    Component.onCompleted: {
+        _updateUplimits();
     }
 
     // Labels
@@ -30,9 +30,9 @@ RMBaseGraph.TwoSensorsGraph {
 
     // Graph options
     sensors: ["disk/all/read", "disk/all/write"]
-    colors: [readColor, writeColor]
+    colors: [(Plasmoid.configuration.customDiskReadColor ? Plasmoid.configuration.diskReadColor : theme.highlightColor), (Plasmoid.configuration.customDiskWriteColor ? Plasmoid.configuration.diskWriteColor : theme.positiveTextColor)]
 
-    function _getUplimits() {
-        return [readTotal * diskIoDialect.multiplier, writeTotal * diskIoDialect.multiplier];
+    function _updateUplimits() {
+        uplimits = [Plasmoid.configuration.diskReadTotal * diskIoDialect.multiplier, Plasmoid.configuration.diskWriteTotal * diskIoDialect.multiplier];
     }
 }

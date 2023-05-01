@@ -1,3 +1,4 @@
+import QtQuick 2.9
 import org.kde.plasma.plasmoid 2.0
 import "./base" as RMBaseGraph
 import "../" as RMComponents
@@ -7,24 +8,22 @@ RMBaseGraph.TwoSensorsGraph {
     id: root
     objectName: "NetworkGraph"
 
-    // Config options
-    property var ignoredNetworkInterfaces: Plasmoid.configuration.ignoredNetworkInterfaces
     property var dialect: Functions.getNetworkDialectInfo(Plasmoid.configuration.networkUnit)
-    property double networkReceivingTotal: Plasmoid.configuration.networkReceivingTotal
-    property double networkSendingTotal: Plasmoid.configuration.networkSendingTotal
 
-    property color downloadColor: Plasmoid.configuration.customNetDownColor ? Plasmoid.configuration.netDownColor : theme.highlightColor
-    property color uploadColor: Plasmoid.configuration.customNetUpColor ? Plasmoid.configuration.netUpColor : theme.positiveTextColor
+    Connections {
+        target: Plasmoid.configuration
+        function onIgnoredNetworkInterfacesChanged() {
+            _updateSensors();
+        }
 
-    // Bind config changes
-    onIgnoredNetworkInterfacesChanged: _updateSensors()
-
-    onNetworkReceivingTotalChanged: {
-        uplimits = [networkReceivingTotal * dialect.multiplier, uplimits[1]];
+        function onNetworkReceivingTotalChanged() {
+            _updateUplimits();
+        }
+        function onNetworkSendingTotalChanged() {
+            _updateUplimits();
+        }
     }
-    onNetworkSendingTotalChanged: {
-        uplimits = [uplimits[0], networkSendingTotal * dialect.multiplier];
-    }
+    Component.onCompleted: _updateUplimits();
 
     // Labels
     textContainer {
@@ -33,7 +32,7 @@ RMBaseGraph.TwoSensorsGraph {
     }
 
     // Graph options
-    colors: [downloadColor, uploadColor]
+    colors: [(Plasmoid.configuration.customNetDownColor ? Plasmoid.configuration.netDownColor : theme.highlightColor), (Plasmoid.configuration.customNetUpColor ? Plasmoid.configuration.netUpColor : theme.positiveTextColor)]
 
     // Initialized sensors
     RMComponents.NetworkInterfaceDetector {
@@ -75,14 +74,18 @@ RMBaseGraph.TwoSensorsGraph {
         if (!visible || typeof networkInterfaces.model.count === "undefined") {
             return;
         }
-        let _sensors = [];
+        const _sensors = [];
         for (let i = 0; i < networkInterfaces.model.count; i++) {
             const name = networkInterfaces.model.get(i).name;
-            if (ignoredNetworkInterfaces.indexOf(name) === -1) {
+            if (Plasmoid.configuration.ignoredNetworkInterfaces.indexOf(name) === -1) {
                 _sensors.push("network/" + name + "/download", "network/" + name + "/upload");
             }
         }
         sensors = _sensors;
         _clear();
+    }
+
+    function _updateUplimits() {
+        uplimits = [Plasmoid.configuration.networkReceivingTotal * dialect.multiplier, Plasmoid.configuration.networkSendingTotal * dialect.multiplier];
     }
 }

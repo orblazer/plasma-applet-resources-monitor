@@ -45,6 +45,7 @@ Item {
         id: sensorsModel
         updateRateLimit: -1
         enabled: root.visible
+        sensors: root.sensors
 
         /**
          * Get the data from sensor
@@ -77,8 +78,15 @@ Item {
             return data(index(0, column), role);
         }
     }
-    onSensorsChanged: sensorsModel.sensors = sensors
 
+    Connections {
+        target: root
+        function onSensorsChanged() {
+            sensorsModel.sensors = sensors;
+        }
+    }
+
+    // Process functions
     property var _insertChartData: (column, value) => {} // NOTE: this is implemented by children
     property var _clear: () => {
         for (let i = 0; i < sensors.length; i++) {
@@ -142,9 +150,8 @@ Item {
         labelChanged(label, data);
     }
 
+    property var _formatValue: _defaultFormatValue
     function _defaultFormatValue(index, data) {
         return Formatter.Formatter.formatValueShowNull(data.value, sensorsModel.getInfo(index, Sensors.SensorDataModel.Unit));
     }
-
-    property var _formatValue: _defaultFormatValue
 }
