@@ -1,6 +1,6 @@
 import QtQuick 2.2
 import QtQuick.Controls 2.12 as QtControls
-import QtQuick.Layouts 1.1 as QtLayouts
+import QtQuick.Layouts 1.15 as QtLayouts
 import org.kde.kirigami 2.6 as Kirigami
 import org.kde.plasma.plasmoid 2.0
 import org.kde.plasma.core 2.0 as PlasmaCore
@@ -94,50 +94,36 @@ PlasmaExtras.Representation {
     // Tab bar
     header: PlasmaExtras.PlasmoidHeading {
         location: PlasmaExtras.PlasmoidHeading.Location.Header
+
         PlasmaComponents.TabBar {
             id: bar
-            currentIndex: swipeView.currentIndex
 
             position: PlasmaComponents.TabBar.Header
             anchors.fill: parent
             implicitHeight: contentHeight
 
             PlasmaComponents.TabButton {
-                Accessible.onPressAction: clicked()
                 icon.name: "preferences-system-network"
                 icon.height: PlasmaCore.Units.iconSizes.smallMedium
                 text: i18n("Network")
-                onClicked: {
-                    swipeView.currentIndex = 0;
-                }
             }
             PlasmaComponents.TabButton {
-                Accessible.onPressAction: clicked()
                 icon.name: "drive-harddisk"
                 icon.height: PlasmaCore.Units.iconSizes.smallMedium
                 text: i18n("Disk I/O")
-                onClicked: {
-                    swipeView.currentIndex = 1;
-                }
             }
             PlasmaComponents.TabButton {
-                Accessible.onPressAction: clicked()
                 icon.name: "dialog-warning"
                 icon.height: PlasmaCore.Units.iconSizes.smallMedium
                 text: i18n("Thresholds")
-                onClicked: {
-                    swipeView.currentIndex = 2;
-                }
             }
         }
     }
 
-    PlasmaComponents.SwipeView {
-        id: swipeView
+    QtLayouts.StackLayout {
+        id: pageContent
         anchors.fill: parent
-
-        activeFocusOnTab: false
-        clip: true
+        currentIndex: bar.currentIndex
 
         // Network
         Kirigami.ScrollablePage {

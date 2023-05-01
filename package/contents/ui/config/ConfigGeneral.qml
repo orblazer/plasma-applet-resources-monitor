@@ -1,6 +1,6 @@
 import QtQuick 2.2
 import QtQuick.Controls 2.12 as QtControls
-import QtQuick.Layouts 1.1 as QtLayouts
+import QtQuick.Layouts 1.15 as QtLayouts
 import org.kde.kirigami 2.6 as Kirigami
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.plasmoid 2.0
@@ -62,39 +62,28 @@ PlasmaExtras.Representation {
 
         PlasmaComponents.TabBar {
             id: bar
-            currentIndex: swipeView.currentIndex
 
             position: PlasmaComponents.TabBar.Header
             anchors.fill: parent
             implicitHeight: contentHeight
 
             PlasmaComponents.TabButton {
-                Accessible.onPressAction: clicked()
                 icon.name: "preferences-system-windows"
                 icon.height: PlasmaCore.Units.iconSizes.smallMedium
                 text: i18n("General")
-                onClicked: {
-                    swipeView.currentIndex = 0;
-                }
             }
             PlasmaComponents.TabButton {
-                Accessible.onPressAction: clicked()
                 icon.name: "input-mouse-click-left"
                 icon.height: PlasmaCore.Units.iconSizes.smallMedium
                 text: i18n("Click action")
-                onClicked: {
-                    swipeView.currentIndex = 1;
-                }
             }
         }
     }
 
-    PlasmaComponents.SwipeView {
-        id: swipeView
+    QtLayouts.StackLayout {
+        id: pageContent
         anchors.fill: parent
-
-        activeFocusOnTab: false
-        clip: true
+        currentIndex: bar.currentIndex
 
         // General
         Kirigami.ScrollablePage {
