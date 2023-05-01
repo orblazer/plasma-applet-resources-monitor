@@ -1,3 +1,4 @@
+import org.kde.plasma.plasmoid 2.0
 import "./base" as RMBaseGraph
 import "../" as RMComponents
 import "../functions.js" as Functions
@@ -7,13 +8,13 @@ RMBaseGraph.TwoSensorsGraph {
     objectName: "NetworkGraph"
 
     // Config options
-    property var ignoredNetworkInterfaces: plasmoid.configuration.ignoredNetworkInterfaces
-    property var dialect: Functions.getNetworkDialectInfo(plasmoid.configuration.networkUnit)
-    property double networkReceivingTotal: plasmoid.configuration.networkReceivingTotal
-    property double networkSendingTotal: plasmoid.configuration.networkSendingTotal
+    property var ignoredNetworkInterfaces: Plasmoid.configuration.ignoredNetworkInterfaces
+    property var dialect: Functions.getNetworkDialectInfo(Plasmoid.configuration.networkUnit)
+    property double networkReceivingTotal: Plasmoid.configuration.networkReceivingTotal
+    property double networkSendingTotal: Plasmoid.configuration.networkSendingTotal
 
-    property color downloadColor: plasmoid.configuration.customNetDownColor ? plasmoid.configuration.netDownColor : theme.highlightColor
-    property color uploadColor: plasmoid.configuration.customNetUpColor ? plasmoid.configuration.netUpColor : theme.positiveTextColor
+    property color downloadColor: Plasmoid.configuration.customNetDownColor ? Plasmoid.configuration.netDownColor : theme.highlightColor
+    property color uploadColor: Plasmoid.configuration.customNetUpColor ? Plasmoid.configuration.netUpColor : theme.positiveTextColor
 
     // Bind config changes
     onIgnoredNetworkInterfacesChanged: _updateSensors()

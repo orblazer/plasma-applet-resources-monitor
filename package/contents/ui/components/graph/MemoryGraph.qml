@@ -1,3 +1,4 @@
+import org.kde.plasma.plasmoid 2.0
 import org.kde.ksysguard.sensors 1.0 as Sensors
 import "./base" as RMBaseGraph
 
@@ -6,13 +7,13 @@ RMBaseGraph.TwoSensorsGraph {
     objectName: "MemoryGraph"
 
     // Config options
-    property string memoryUnit: plasmoid.configuration.memoryUnit // Values: usage, system, user
-    property bool showSwap: plasmoid.configuration.memorySwapGraph
-    property color color: plasmoid.configuration.customRamColor ? plasmoid.configuration.ramColor : theme.highlightColor
-    property color swapColor: plasmoid.configuration.customSwapColor ? plasmoid.configuration.swapColor : theme.negativeTextColor
+    property string memoryUnit: Plasmoid.configuration.memoryUnit // Values: usage, system, user
+    property bool showSwap: Plasmoid.configuration.memorySwapGraph
+    property color color: Plasmoid.configuration.customRamColor ? Plasmoid.configuration.ramColor : theme.highlightColor
+    property color swapColor: Plasmoid.configuration.customSwapColor ? Plasmoid.configuration.swapColor : theme.negativeTextColor
 
-    property double thresholdWarningMemory: plasmoid.configuration.thresholdWarningMemory
-    property double thresholdCriticalMemory: plasmoid.configuration.thresholdCriticalMemory
+    property double thresholdWarningMemory: Plasmoid.configuration.thresholdWarningMemory
+    property double thresholdCriticalMemory: Plasmoid.configuration.thresholdCriticalMemory
 
     // Bind config changes
     onMemoryUnitChanged: {

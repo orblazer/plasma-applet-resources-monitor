@@ -3,6 +3,7 @@ import QtQuick.Controls 2.12 as QtControls
 import QtQuick.Layouts 1.1 as QtLayouts
 import org.kde.kirigami 2.6 as Kirigami
 import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.plasma.plasmoid 2.0
 import org.kde.plasma.components 2.0 as PC2
 import org.kde.plasma.components 3.0 as PlasmaComponents
 import org.kde.plasma.extras 2.0 as PlasmaExtras
@@ -16,17 +17,17 @@ PlasmaExtras.Representation {
     signal configurationChanged
 
     property alias cfg_updateInterval: updateInterval.valueReal
-    property string cfg_cpuUnit: plasmoid.configuration.cpuUnit
-    property string cfg_memoryUnit: plasmoid.configuration.memoryUnit
-    property string cfg_networkUnit: plasmoid.configuration.networkUnit
-    property string cfg_actionService: plasmoid.configuration.actionService
+    property string cfg_cpuUnit: Plasmoid.configuration.cpuUnit
+    property string cfg_memoryUnit: Plasmoid.configuration.memoryUnit
+    property string cfg_networkUnit: Plasmoid.configuration.networkUnit
+    property string cfg_actionService: Plasmoid.configuration.actionService
 
-    property bool cfg_showCpuMonitor: plasmoid.configuration.showCpuMonitor.checked
+    property bool cfg_showCpuMonitor: Plasmoid.configuration.showCpuMonitor.checked
     property alias cfg_showClock: showCpuClock.checked
     property alias cfg_showCpuTemperature: showCpuTemperature.checked
-    property bool cfg_showRamMonitor: plasmoid.configuration.showRamMonitor.checked
+    property bool cfg_showRamMonitor: Plasmoid.configuration.showRamMonitor.checked
     property alias cfg_memorySwapGraph: memorySwapGraph.checked
-    property bool cfg_showNetMonitor: plasmoid.configuration.showNetMonitor.checked
+    property bool cfg_showNetMonitor: Plasmoid.configuration.showNetMonitor.checked
     property alias cfg_showGpuMonitor: showGpuMonitor.checked
     property alias cfg_gpuMemoryInPercent: gpuMemoryInPercent.checked
     property alias cfg_gpuMemoryGraph: gpuMemoryGraph.checked
@@ -166,11 +167,11 @@ PlasmaExtras.Representation {
                     }
 
                     Component.onCompleted: {
-                        if (!plasmoid.configuration.showCpuMonitor) {
+                        if (!Plasmoid.configuration.showCpuMonitor) {
                             currentIndex = 0;
                         } else {
                             for (var i = 0; i < model.length; i++) {
-                                if (model[i]["value"] === plasmoid.configuration.cpuUnit) {
+                                if (model[i]["value"] === Plasmoid.configuration.cpuUnit) {
                                     currentIndex = i;
                                     return;
                                 }
@@ -247,11 +248,11 @@ PlasmaExtras.Representation {
                     }
 
                     Component.onCompleted: {
-                        if (!plasmoid.configuration.showRamMonitor) {
+                        if (!Plasmoid.configuration.showRamMonitor) {
                             currentIndex = 0;
                         } else {
                             for (var i = 0; i < model.length; i++) {
-                                if (model[i]["value"] === plasmoid.configuration.memoryUnit) {
+                                if (model[i]["value"] === Plasmoid.configuration.memoryUnit) {
                                     currentIndex = i;
                                     return;
                                 }
@@ -316,11 +317,11 @@ PlasmaExtras.Representation {
                     }
 
                     Component.onCompleted: {
-                        if (!plasmoid.configuration.showNetMonitor) {
+                        if (!Plasmoid.configuration.showNetMonitor) {
                             currentIndex = 0;
                         } else {
                             for (var i = 0; i < model.length; i++) {
-                                if (model[i]["value"] === plasmoid.configuration.networkUnit) {
+                                if (model[i]["value"] === Plasmoid.configuration.networkUnit) {
                                     currentIndex = i;
                                     return;
                                 }

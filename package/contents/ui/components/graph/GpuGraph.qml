@@ -1,3 +1,4 @@
+import org.kde.plasma.plasmoid 2.0
 import org.kde.ksysguard.sensors 1.0 as Sensors
 import "./base" as RMBaseGraph
 
@@ -6,12 +7,12 @@ RMBaseGraph.TwoSensorsGraph {
     objectName: "GpuGraph"
 
     // Config options
-    property bool showMemory: plasmoid.configuration.gpuMemoryGraph
-    property bool showTemperature: plasmoid.configuration.showGpuTemperature
-    property bool memoryInPercent: plasmoid.configuration.gpuMemoryInPercent
-    property color color: plasmoid.configuration.customGpuColor ? plasmoid.configuration.gpuColor : theme.highlightColor
-    property color memoryColor: plasmoid.configuration.customGpuMemoryColor ? plasmoid.configuration.gpuMemoryColor : theme.positiveTextColor
-    property color temperatureColor: plasmoid.configuration.customGpuTemperatureColor ? plasmoid.configuration.gpuTemperatureColor : theme.textColor
+    property bool showMemory: Plasmoid.configuration.gpuMemoryGraph
+    property bool showTemperature: Plasmoid.configuration.showGpuTemperature
+    property bool memoryInPercent: Plasmoid.configuration.gpuMemoryInPercent
+    property color color: Plasmoid.configuration.customGpuColor ? Plasmoid.configuration.gpuColor : theme.highlightColor
+    property color memoryColor: Plasmoid.configuration.customGpuMemoryColor ? Plasmoid.configuration.gpuMemoryColor : theme.positiveTextColor
+    property color temperatureColor: Plasmoid.configuration.customGpuTemperatureColor ? Plasmoid.configuration.gpuTemperatureColor : theme.textColor
 
     // Bind config changes
     onMemoryInPercentChanged: {
@@ -23,7 +24,7 @@ RMBaseGraph.TwoSensorsGraph {
     }
 
     // Labels
-    thresholds: [undefined, undefined, [plasmoid.configuration.thresholdWarningGpuTemp, plasmoid.configuration.thresholdCriticalGpuTemp]]
+    thresholds: [undefined, undefined, [Plasmoid.configuration.thresholdWarningGpuTemp, Plasmoid.configuration.thresholdCriticalGpuTemp]]
 
     textContainer {
         labelColors: [color, memoryColor, temperatureColor]

@@ -24,30 +24,30 @@ import "./components/graph" as RMGraph
 MouseArea {
     id: root
 
-    readonly property bool vertical: plasmoid.formFactor === PlasmaCore.Types.Vertical
+    readonly property bool vertical: Plasmoid.formFactor === PlasmaCore.Types.Vertical
     property var _maximumHistory: -1
 
     // Settings properties
-    property bool verticalLayout: plasmoid.configuration.verticalLayout
-    property double fontScale: (plasmoid.configuration.fontScale / 100)
+    property bool verticalLayout: Plasmoid.configuration.verticalLayout
+    property double fontScale: (Plasmoid.configuration.fontScale / 100)
 
-    property bool showCpuMonitor: plasmoid.configuration.showCpuMonitor
-    property bool showRamMonitor: plasmoid.configuration.showRamMonitor
-    property bool showGpuMonitor: plasmoid.configuration.showGpuMonitor
-    property bool showDiskMonitor: plasmoid.configuration.showDiskMonitor
-    property bool showNetMonitor: plasmoid.configuration.showNetMonitor
+    property bool showCpuMonitor: Plasmoid.configuration.showCpuMonitor
+    property bool showRamMonitor: Plasmoid.configuration.showRamMonitor
+    property bool showGpuMonitor: Plasmoid.configuration.showGpuMonitor
+    property bool showDiskMonitor: Plasmoid.configuration.showDiskMonitor
+    property bool showNetMonitor: Plasmoid.configuration.showNetMonitor
 
     // Apearance settings properties
-    property int historyAmount: plasmoid.configuration.historyAmount
+    property int historyAmount: Plasmoid.configuration.historyAmount
 
     // Component properties
-    property int itemMargin: plasmoid.configuration.graphMargin
+    property int itemMargin: Plasmoid.configuration.graphMargin
     property int monitorsCount: (showCpuMonitor & 1) + (showRamMonitor & 1) + (showGpuMonitor & 1) + (showDiskMonitor & 1) + (showNetMonitor & 1)
     property double parentWidth: parent === null ? 0 : parent.width
     property double parentHeight: parent === null ? 0 : parent.height
     property double initWidth: vertical ? (verticalLayout ? parentWidth : (parentWidth - itemMargin) / 2) : (verticalLayout ? (parentHeight - itemMargin) / 2 : parentHeight)
-    property double itemWidth: plasmoid.configuration.customGraphWidth ? plasmoid.configuration.graphWidth : (initWidth * (verticalLayout ? 1 : 1.5))
-    property double itemHeight: plasmoid.configuration.customGraphHeight ? plasmoid.configuration.graphHeight : initWidth
+    property double itemWidth: Plasmoid.configuration.customGraphWidth ? Plasmoid.configuration.graphWidth : (initWidth * (verticalLayout ? 1 : 1.5))
+    property double itemHeight: Plasmoid.configuration.customGraphHeight ? Plasmoid.configuration.graphHeight : initWidth
     property double fontPixelSize: verticalLayout ? (itemHeight / 1.4 * fontScale) : (itemHeight * fontScale)
 
     Layout.preferredWidth: !verticalLayout ? (itemWidth * monitorsCount + itemMargin * (monitorsCount + 1)) : itemWidth
@@ -71,13 +71,13 @@ MouseArea {
     }
 
     onClicked: {
-        kRun.openService(plasmoid.configuration.actionService);
+        kRun.openService(Plasmoid.configuration.actionService);
     }
 
     // Global update timer
     Timer {
         id: updateTask
-        interval: plasmoid.configuration.updateInterval * 1000
+        interval: Plasmoid.configuration.updateInterval * 1000
 
         running: true
         triggeredOnStart: true

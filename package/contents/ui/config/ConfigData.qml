@@ -2,6 +2,7 @@ import QtQuick 2.2
 import QtQuick.Controls 2.12 as QtControls
 import QtQuick.Layouts 1.1 as QtLayouts
 import org.kde.kirigami 2.6 as Kirigami
+import org.kde.plasma.plasmoid 2.0
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 3.0 as PlasmaComponents
 import org.kde.plasma.extras 2.0 as PlasmaExtras
@@ -15,7 +16,7 @@ PlasmaExtras.Representation {
 
     signal configurationChanged
 
-    readonly property var networkDialect: Functions.getNetworkDialectInfo(plasmoid.configuration.networkUnit)
+    readonly property var networkDialect: Functions.getNetworkDialectInfo(Plasmoid.configuration.networkUnit)
     property double cfg_networkReceivingTotal: 0.0
     property double cfg_networkSendingTotal: 0.0
     property double cfg_diskReadTotal: 0.0
@@ -160,11 +161,11 @@ PlasmaExtras.Representation {
                             }
 
                             text: interfaceName
-                            checked: plasmoid.configuration.ignoredNetworkInterfaces.indexOf(interfaceName) == -1 && !ignoredByDefault
+                            checked: Plasmoid.configuration.ignoredNetworkInterfaces.indexOf(interfaceName) == -1 && !ignoredByDefault
                             enabled: !ignoredByDefault
 
                             onClicked: {
-                                var ignoredNetworkInterfaces = plasmoid.configuration.ignoredNetworkInterfaces.slice(0); // copy()
+                                var ignoredNetworkInterfaces = Plasmoid.configuration.ignoredNetworkInterfaces.slice(0); // copy()
                                 if (checked) {
                                     // Checking, and thus removing from the ignoredNetworkInterfaces
                                     var i = ignoredNetworkInterfaces.indexOf(interfaceName);
@@ -173,7 +174,7 @@ PlasmaExtras.Representation {
                                     // Unchecking, and thus adding to the ignoredNetworkInterfaces
                                     ignoredNetworkInterfaces.push(interfaceName);
                                 }
-                                plasmoid.configuration.ignoredNetworkInterfaces = ignoredNetworkInterfaces;
+                                Plasmoid.configuration.ignoredNetworkInterfaces = ignoredNetworkInterfaces;
                                 // To modify a StringList we need to manually trigger configurationChanged.
                                 dataPage.configurationChanged();
                             }
@@ -214,7 +215,7 @@ PlasmaExtras.Representation {
 
                     Component.onCompleted: {
                         for (var i = 0; i < model.length; i++) {
-                            if (model[i]["value"] === plasmoid.configuration.networkReceivingTotal) {
+                            if (model[i]["value"] === Plasmoid.configuration.networkReceivingTotal) {
                                 networkReceivingTotal.currentIndex = i;
                                 return;
                             }
@@ -243,7 +244,7 @@ PlasmaExtras.Representation {
                         }
                     }
                     Component.onCompleted: {
-                        valueReal = parseFloat(plasmoid.configuration.networkReceivingTotal) / 1000;
+                        valueReal = parseFloat(Plasmoid.configuration.networkReceivingTotal) / 1000;
                     }
                 }
 
@@ -269,7 +270,7 @@ PlasmaExtras.Representation {
 
                     Component.onCompleted: {
                         for (var i = 0; i < model.length; i++) {
-                            if (model[i]["value"] === plasmoid.configuration.networkSendingTotal) {
+                            if (model[i]["value"] === Plasmoid.configuration.networkSendingTotal) {
                                 networkSendingTotal.currentIndex = i;
                                 return;
                             }
@@ -298,7 +299,7 @@ PlasmaExtras.Representation {
                         }
                     }
                     Component.onCompleted: {
-                        valueReal = parseFloat(plasmoid.configuration.networkSendingTotal) / 1000;
+                        valueReal = parseFloat(Plasmoid.configuration.networkSendingTotal) / 1000;
                     }
                 }
             }
@@ -336,7 +337,7 @@ PlasmaExtras.Representation {
 
                     Component.onCompleted: {
                         for (var i = 0; i < model.length; i++) {
-                            if (model[i]["value"] === plasmoid.configuration.diskReadTotal) {
+                            if (model[i]["value"] === Plasmoid.configuration.diskReadTotal) {
                                 diskReadTotal.currentIndex = i;
                                 return;
                             }
@@ -365,7 +366,7 @@ PlasmaExtras.Representation {
                         }
                     }
                     Component.onCompleted: {
-                        valueReal = parseFloat(plasmoid.configuration.diskReadTotal) / 1000;
+                        valueReal = parseFloat(Plasmoid.configuration.diskReadTotal) / 1000;
                     }
                 }
 
@@ -391,7 +392,7 @@ PlasmaExtras.Representation {
 
                     Component.onCompleted: {
                         for (var i = 0; i < model.length; i++) {
-                            if (model[i]["value"] === plasmoid.configuration.diskWriteTotal) {
+                            if (model[i]["value"] === Plasmoid.configuration.diskWriteTotal) {
                                 diskWriteTotal.currentIndex = i;
                                 return;
                             }
@@ -420,7 +421,7 @@ PlasmaExtras.Representation {
                         }
                     }
                     Component.onCompleted: {
-                        valueReal = parseFloat(plasmoid.configuration.diskWriteTotal) / 1000;
+                        valueReal = parseFloat(Plasmoid.configuration.diskWriteTotal) / 1000;
                     }
                 }
             }
@@ -481,7 +482,7 @@ PlasmaExtras.Representation {
                             }
                         }
                         Component.onCompleted: {
-                            valueReal = parseFloat(plasmoid.configuration.thresholdWarningCpuTemp);
+                            valueReal = parseFloat(Plasmoid.configuration.thresholdWarningCpuTemp);
                         }
                     }
                     RMControls.SpinBox {
@@ -503,7 +504,7 @@ PlasmaExtras.Representation {
                             }
                         }
                         Component.onCompleted: {
-                            valueReal = parseFloat(plasmoid.configuration.thresholdCriticalCpuTemp);
+                            valueReal = parseFloat(Plasmoid.configuration.thresholdCriticalCpuTemp);
                         }
                     }
                 }
@@ -563,7 +564,7 @@ PlasmaExtras.Representation {
                             }
                         }
                         Component.onCompleted: {
-                            valueReal = parseFloat(plasmoid.configuration.thresholdWarningGpuTemp);
+                            valueReal = parseFloat(Plasmoid.configuration.thresholdWarningGpuTemp);
                         }
                     }
                     RMControls.SpinBox {
@@ -585,7 +586,7 @@ PlasmaExtras.Representation {
                             }
                         }
                         Component.onCompleted: {
-                            valueReal = parseFloat(plasmoid.configuration.thresholdCriticalGpuTemp);
+                            valueReal = parseFloat(Plasmoid.configuration.thresholdCriticalGpuTemp);
                         }
                     }
                 }

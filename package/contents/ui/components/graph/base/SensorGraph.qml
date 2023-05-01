@@ -17,7 +17,7 @@ RMBaseGraph.BaseSensorGraph {
         anchors.fill: parent
 
         direction: Charts.XYChart.ZeroAtEnd
-        fillOpacity: plasmoid.configuration.graphFillOpacity / 100
+        fillOpacity: Plasmoid.configuration.graphFillOpacity / 100
         smooth: true
         yRange.automatic: false
 

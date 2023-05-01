@@ -1,3 +1,4 @@
+import org.kde.plasma.plasmoid 2.0
 import "./base" as RMBaseGraph
 import "../functions.js" as Functions
 
@@ -7,11 +8,11 @@ RMBaseGraph.TwoSensorsGraph {
     readonly property var diskIoDialect: Functions.getNetworkDialectInfo("kibibyte")
 
     // Config options
-    property double readTotal: plasmoid.configuration.diskReadTotal
-    property double writeTotal: plasmoid.configuration.diskWriteTotal
+    property double readTotal: Plasmoid.configuration.diskReadTotal
+    property double writeTotal: Plasmoid.configuration.diskWriteTotal
 
-    property color readColor: plasmoid.configuration.customDiskReadColor ? plasmoid.configuration.diskReadColor : theme.highlightColor
-    property color writeColor: plasmoid.configuration.customDiskWriteColor ? plasmoid.configuration.diskWriteColor : theme.positiveTextColor
+    property color readColor: Plasmoid.configuration.customDiskReadColor ? Plasmoid.configuration.diskReadColor : theme.highlightColor
+    property color writeColor: Plasmoid.configuration.customDiskWriteColor ? Plasmoid.configuration.diskWriteColor : theme.positiveTextColor
 
     // Bind config changes
     onReadTotalChanged: {

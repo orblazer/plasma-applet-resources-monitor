@@ -1,3 +1,4 @@
+import org.kde.plasma.plasmoid 2.0
 import "./base" as RMBaseGraph
 
 RMBaseGraph.SensorGraph {
@@ -5,10 +6,10 @@ RMBaseGraph.SensorGraph {
     objectName: "CpuGraph"
 
     // Config options
-    property string cpuUnit: plasmoid.configuration.cpuUnit
-    property bool showClock: plasmoid.configuration.showClock
-    property bool showTemperature: plasmoid.configuration.showCpuTemperature
-    property color temperatureColor: plasmoid.configuration.customCpuTemperatureColor ? plasmoid.configuration.cpuTemperatureColor : theme.textColor
+    property string cpuUnit: Plasmoid.configuration.cpuUnit
+    property bool showClock: Plasmoid.configuration.showClock
+    property bool showTemperature: Plasmoid.configuration.showCpuTemperature
+    property color temperatureColor: Plasmoid.configuration.customCpuTemperatureColor ? Plasmoid.configuration.cpuTemperatureColor : theme.textColor
 
     // Bind config changes
     onCpuUnitChanged: {
@@ -17,7 +18,7 @@ RMBaseGraph.SensorGraph {
 
     // Graph options
     // NOTE: "sensors" is set by "_updateSensors"
-    chartColor: plasmoid.configuration.customCpuColor ? plasmoid.configuration.cpuColor : theme.highlightColor
+    chartColor: Plasmoid.configuration.customCpuColor ? Plasmoid.configuration.cpuColor : theme.highlightColor
 
     chart.yRange {
         from: 0
@@ -25,7 +26,7 @@ RMBaseGraph.SensorGraph {
     }
 
     // Labels options
-    thresholds: [undefined, undefined, [plasmoid.configuration.thresholdWarningCpuTemp, plasmoid.configuration.thresholdCriticalCpuTemp]]
+    thresholds: [undefined, undefined, [Plasmoid.configuration.thresholdWarningCpuTemp, Plasmoid.configuration.thresholdCriticalCpuTemp]]
 
     textContainer {
         labelColors: [root.chartColor, undefined, temperatureColor]

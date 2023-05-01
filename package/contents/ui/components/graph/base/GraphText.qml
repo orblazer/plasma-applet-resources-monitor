@@ -23,7 +23,7 @@ Item {
     property var labelsVisibleWhenZero: [true, true, true]
 
     // Config aliases
-    property string displayment: plasmoid.configuration.displayment // Values: always, hover, hover-hints
+    property string displayment: Plasmoid.configuration.displayment // Values: always, hover, hover-hints
 
     // Bind config changes
     onDisplaymentChanged: {
@@ -57,7 +57,7 @@ Item {
     Flow {
         id: textContainer
         width: parent.width
-        state: plasmoid.configuration.placement // Values: top-right, top-left, bottom-right, bottom-left
+        state: Plasmoid.configuration.placement // Values: top-right, top-left, bottom-right, bottom-left
         spacing: -2
         flow: Flow.TopToBottom
 
@@ -179,7 +179,7 @@ Item {
     }
 
     DropShadow {
-        visible: plasmoid.configuration.enableShadows
+        visible: Plasmoid.configuration.enableShadows
         anchors.fill: textContainer
         radius: 1
         spread: 1
