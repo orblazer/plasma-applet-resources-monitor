@@ -1,0 +1,32 @@
+{
+  "KPlugin": {
+    "Authors": [
+      {
+        "Name": "Kotelnik"
+      },
+      {
+        "Name": "orblazer"
+      },
+      {
+        "Name": "Starrah"
+      }
+    ],
+    "Category": "System Information",
+    "Description": "Plasmoid for monitoring CPU, memory, network traffic GPU and disk IO. This is an fork from \"Resources Monitor\" by Kotelnik",
+    "Description[fr]": "Plasmoid pour surveiller l'utilisation du CPU, de la mémoire, du traffic réseau, de la carte graphique et des disque dur. Ceci est un fork de \"Resources Monitor\" de Kotelnik",
+    "Description[nl]": "Een Plasmoid voor het monitoren van CPU, geheugen, netwerkverkeer GPU en disk IO. Dit is een vork uit \"Resources Monitor\" van Kotelnik.",
+    "Icon": "utilities-system-monitor",
+    "Id": "org.kde.resourcesMonitor-fork",
+    "License": "GPL-3.0-only",
+    "Name": "Resources Monitor (fork)",
+    "Name[fr]": "Moniteur des ressources (fork)",
+    "Name[nl]": "Systeembronmonitor (afsplitsing)",
+    "ServiceTypes": [
+      "Plasma/Applet"
+    ],
+    "Version": "2.8.0-hotfix.1",
+    "Website": "https://github.com/orblazer/plasma-applet-resources-monitor"
+  },
+  "X-Plasma-API": "declarativeappletscript",
+  "X-Plasma-MainScript": "ui/main.qml"
+}

@@ -9,20 +9,21 @@ You can found found the list of locale code here : [List of country locale code]
 Or if you know how to make a pull request
 
 1. Copy the `template.pot` file and name it your locale's code (Eg: `en`/`de`/`fr`) with the extension `.po`. Then fill out all the `msgstr ""`.
-2. Build the translation with `npm run i18n:build`
-3. Test the translation with `LANGUAGE="country_CODE:locale" LANG="country_CODE.UTF-8" npm run dev`
+2. Add `Name` and `Description` translation to `../metadata.json`
+3. Build the translation with `npm run i18n:build`
+4. Test the translation with `LANGUAGE="country_CODE:locale" LANG="country_CODE.UTF-8" npm run dev`
 
-  **Note** : You need install language pack first.
+   **Note** : You need install language pack first.
 
 ## Scripts
 
-* `npm run i18:merge` will parse the `i18n()` calls in the `*.qml` files and write it to the `template.pot` file. Then it will merge any changes into the `*.po` language files.
-* `npm run i18n:build` will convert the `*.po` files to it's binary `*.mo` version and move it to `contents/locale/...` which will bundle the translations in the `*.plasmoid` without needing the user to manually install them.
+- `npm run i18:merge` will parse the `i18n()` calls in the `*.qml` files and write it to the `template.pot` file. Then it will merge any changes into the `*.po` language files.
+- `npm run i18n:build` will convert the `*.po` files to it's binary `*.mo` version and move it to `contents/locale/...` which will bundle the translations in the `*.plasmoid` without needing the user to manually install them.
 
 ## Status
 
 |  Locale  |  Lines  | % Done|
 |----------|---------|-------|
-| Template |     109 |       |
-| fr       | 109/109 |  100% |
-| nl       | 109/109 |  100% |
+| Template |     108 |       |
+| fr       | 108/108 |  100% |
+| nl       | 108/108 |  100% |

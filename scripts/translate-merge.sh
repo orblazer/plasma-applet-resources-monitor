@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Version: 20
 
 # https://techbase.kde.org/Development/Tutorials/Localization/i18n_Build_Systems
@@ -7,11 +7,11 @@
 
 packageRoot=$(realpath "$(dirname "${BASH_SOURCE[0]}")/../package") # Root of translatable sources
 DIR="$packageRoot/translate"
-plasmoidName=`kreadconfig5 --file="$DIR/../metadata.desktop" --group="Desktop Entry" --key="X-KDE-PluginInfo-Name"`
+plasmoidName="org.kde.resourcesMonitor-fork"
 widgetName="${plasmoidName##*.}" # Strip namespace
-bugAddress=`kreadconfig5 --file="$DIR/../metadata.desktop" --group="Desktop Entry" --key="X-KDE-PluginInfo-Website"`
+bugAddress="https://github.com/orblazer/plasma-applet-resources-monitor"
 
-cd $DIR
+cd "$DIR" || return
 
 #---
 if [ -z "$plasmoidName" ]; then
@@ -29,19 +29,6 @@ fi
 #---
 echo "[merge] Extracting messages"
 potArgs="--from-code=UTF-8 --width=120"
-
-find "${packageRoot}" -name '*.desktop' | sort > "${DIR}/infiles.list"
-xgettext \
-	${potArgs} \
-	--files-from="${DIR}/infiles.list" \
-	--language=Desktop \
-	-D "${packageRoot}" \
-	-D "${DIR}" \
-	-o "template.pot.new" \
-	|| \
-	{ echo "[merge] error while calling xgettext. aborting."; exit 1; }
-
-sed -i 's/"Content-Type: text\/plain; charset=CHARSET\\n"/"Content-Type: text\/plain; charset=UTF-8\\n"/' "template.pot.new"
 
 # See Ki18n's extract-messages.sh for a full example:
 # https://invent.kde.org/sysadmin/l10n-scripty/-/blob/master/extract-messages.sh#L25
@@ -68,27 +55,27 @@ xgettext \
 	--msgid-bugs-address="${bugAddress}" \
 	-D "${packageRoot}" \
 	-D "${DIR}" \
-	--join-existing \
 	-o "template.pot.new" \
 	|| \
 	{ echo "[merge] error while calling xgettext. aborting."; exit 1; }
 
+sed -i 's/"Content-Type: text\/plain; charset=CHARSET\\n"/"Content-Type: text\/plain; charset=UTF-8\\n"/' "template.pot.new"
 sed -i 's/# SOME DESCRIPTIVE TITLE./'"# Translation of ${widgetName} in LANGUAGE"'/' "template.pot.new"
 sed -i 's/# Copyright (C) YEAR THE PACKAGE'"'"'S COPYRIGHT HOLDER/'"# Copyright (C) $(date +%Y)"'/' "template.pot.new"
 sed -i "s#${packageRoot}#..#g" "template.pot.new"
 
 if [ -f "template.pot" ]; then
-	newPotDate=`grep "POT-Creation-Date:" template.pot.new | sed 's/.\{3\}$//'`
-	oldPotDate=`grep "POT-Creation-Date:" template.pot | sed 's/.\{3\}$//'`
+	newPotDate=$(grep "POT-Creation-Date:" template.pot.new | sed 's/.\{3\}$//')
+	oldPotDate=$(grep "POT-Creation-Date:" template.pot | sed 's/.\{3\}$//')
 	sed -i 's/'"${newPotDate}"'/'"${oldPotDate}"'/' "template.pot.new"
-	changes=`diff "template.pot" "template.pot.new"`
-	if [ ! -z "$changes" ]; then
+	changes=$(diff "template.pot" "template.pot.new")
+	if [ -n "$changes" ]; then
 		# There's been changes
 		sed -i 's/'"${oldPotDate}"'/'"${newPotDate}"'/' "template.pot.new"
 		mv "template.pot.new" "template.pot"
 
-		addedKeys=`echo "$changes" | grep "> msgid" | cut -c 9- | sort`
-		removedKeys=`echo "$changes" | grep "< msgid" | cut -c 9- | sort`
+		addedKeys=$(echo "$changes" | grep "> msgid" | cut -c 9- | sort)
+		removedKeys=$(echo "$changes" | grep "< msgid" | cut -c 9- | sort)
 		echo ""
 		echo "Added Keys:"
 		echo "$addedKeys"
@@ -107,11 +94,11 @@ else
 fi
 
 # Count line in template
-potMessageCount=`expr $(grep -Pzo 'msgstr ""\n(\n|$)' "template.pot" | grep -c 'msgstr ""')`
+potMessageCount=$(($(grep -Pzo 'msgstr ""\n(\n|$)' "template.pot" | grep -c 'msgstr ""')))
 echo "|  Locale  |  Lines  | % Done|" > "./Status.md"
 echo "|----------|---------|-------|" >> "./Status.md"
 entryFormat="| %-8s | %7s | %5s |"
-templateLine=`perl -e "printf(\"$entryFormat\", \"Template\", \"${potMessageCount}\", \"\")"`
+templateLine=$(perl -e "printf(\"$entryFormat\", \"Template\", \"${potMessageCount}\", \"\")")
 echo "$templateLine" >> "./Status.md"
 
 rm "${DIR}/infiles.list"
@@ -119,10 +106,10 @@ echo "[merge] Done extracting messages"
 
 #---
 echo "[merge] Merging messages"
-catalogs=`find . -name '*.po' | sort`
+catalogs=$(find . -name '*.po' | sort)
 for cat in $catalogs; do
 	echo "[merge] $cat"
-	catLocale=`basename ${cat%.*}`
+	catLocale=$(basename "${cat%.*}")
 
 	cp "$cat" "$cat.new"
 	sed -i 's/"Content-Type: text\/plain; charset=CHARSET\\n"/"Content-Type: text\/plain; charset=UTF-8\\n"/' "$cat.new"
@@ -138,10 +125,10 @@ for cat in $catalogs; do
 	sed -i 's/# Copyright (C) YEAR THE PACKAGE'"'"'S COPYRIGHT HOLDER/'"# Copyright (C) $(date +%Y)"'/' "$cat.new"
 
 	# Count line in po file
-	poEmptyMessageCount=`expr $(grep -Pzo 'msgstr ""\n(\n|$)' "$cat.new" | grep -c 'msgstr ""')`
-	poMessagesDoneCount=`expr $potMessageCount - $poEmptyMessageCount`
-	poCompletion=`perl -e "printf(\"%d\", $poMessagesDoneCount * 100 / $potMessageCount)"`
-	poLine=`perl -e "printf(\"$entryFormat\", \"$catLocale\", \"${poMessagesDoneCount}/${potMessageCount}\", \"${poCompletion}%\")"`
+	poEmptyMessageCount=$(($(grep -Pzo 'msgstr ""\n(\n|$)' "$cat.new" | grep -c 'msgstr ""')))
+	poMessagesDoneCount=$((potMessageCount - poEmptyMessageCount))
+	poCompletion=$(perl -e "printf(\"%d\", $poMessagesDoneCount * 100 / $potMessageCount)")
+	poLine=$(perl -e "printf(\"$entryFormat\", \"$catLocale\", \"${poMessagesDoneCount}/${potMessageCount}\", \"${poCompletion}%\")")
 	echo "$poLine" >> "./Status.md"
 
 	# mv "$cat" "$cat.old"
