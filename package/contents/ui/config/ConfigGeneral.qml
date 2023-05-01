@@ -3,6 +3,7 @@ import QtQuick.Controls 2.12 as QtControls
 import QtQuick.Layouts 1.1 as QtLayouts
 import org.kde.kirigami 2.6 as Kirigami
 import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.plasma.components 2.0 as PC2
 import org.kde.plasma.components 3.0 as PlasmaComponents
 import org.kde.plasma.extras 2.0 as PlasmaExtras
 import "../components" as RMComponents
@@ -436,7 +437,7 @@ PlasmaExtras.Representation {
                         clip: true
                         interactive: true
 
-                        highlight: PlasmaExtras.Highlight {
+                        highlight: PC2.Highlight {
                         }
                         highlightMoveDuration: 0
                         highlightMoveVelocity: -1
