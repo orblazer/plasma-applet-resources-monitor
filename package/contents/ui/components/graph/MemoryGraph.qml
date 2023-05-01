@@ -49,7 +49,7 @@ RMBaseGraph.TwoSensorsGraph {
     }
 
     // Graph options
-    // NOTE: "sensors" is set by "_updateSensors"
+    // NOTE: "sensorsModel.sensors" is set by "_updateSensors"
     colors: [(Plasmoid.configuration.customRamColor ? Plasmoid.configuration.ramColor : theme.highlightColor), (Plasmoid.configuration.customSwapColor ? Plasmoid.configuration.swapColor : theme.negativeTextColor)]
 
     // Initialize limits and threshold
@@ -92,9 +92,9 @@ RMBaseGraph.TwoSensorsGraph {
         const suffix = info[1] === "percent" ? "Percent" : "";
         const memSensor = "memory/physical/" + (info[0] === "physical" ? "used" : "application") + suffix;
         if (Plasmoid.configuration.memorySwapGraph) {
-            sensors = [memSensor, "memory/swap/used" + suffix];
+            sensorsModel.sensors = [memSensor, "memory/swap/used" + suffix];
         } else {
-            sensors = [memSensor];
+            sensorsModel.sensors = [memSensor];
         }
     }
 }

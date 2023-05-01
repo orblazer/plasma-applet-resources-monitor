@@ -45,7 +45,7 @@ RMBaseGraph.TwoSensorsGraph {
         // Cummulate sensors by group
         let data;
         let downloadValue = 0, uploadValue = 0;
-        for (let i = 0; i < sensors.length; i++) {
+        for (let i = 0; i < sensorsModel.sensors.length; i++) {
             data = sensorsModel.getData(i);
             if (data.sensorId.indexOf('/download') !== -1) {
                 downloadValue += data.value;
@@ -74,14 +74,14 @@ RMBaseGraph.TwoSensorsGraph {
         if (!visible || typeof networkInterfaces.model.count === "undefined") {
             return;
         }
-        const _sensors = [];
+        const sensors = [];
         for (let i = 0; i < networkInterfaces.model.count; i++) {
             const name = networkInterfaces.model.get(i).name;
             if (Plasmoid.configuration.ignoredNetworkInterfaces.indexOf(name) === -1) {
-                _sensors.push("network/" + name + "/download", "network/" + name + "/upload");
+                sensors.push("network/" + name + "/download", "network/" + name + "/upload");
             }
         }
-        sensors = _sensors;
+        sensorsModel.sensors = sensors;
         _clear();
     }
 

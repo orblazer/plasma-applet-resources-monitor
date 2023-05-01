@@ -20,7 +20,7 @@ RMBaseGraph.SensorGraph {
     property color temperatureColor: Plasmoid.configuration.customCpuTemperatureColor ? Plasmoid.configuration.cpuTemperatureColor : theme.textColor
 
     // Graph options
-    // NOTE: "sensors" is set by "_updateSensors"
+    // NOTE: "sensorsModel.sensors" is set by "_updateSensors"
     chartColor: Plasmoid.configuration.customCpuColor ? Plasmoid.configuration.cpuColor : theme.highlightColor
 
     chart.yRange {
@@ -39,6 +39,6 @@ RMBaseGraph.SensorGraph {
     }
 
     function _updateSensors() {
-        sensors = ["cpu/all/" + Plasmoid.configuration.cpuUnit, "cpu/all/averageFrequency", "cpu/all/averageTemperature"];
+        sensorsModel.sensors = ["cpu/all/" + Plasmoid.configuration.cpuUnit, "cpu/all/averageFrequency", "cpu/all/averageTemperature"];
     }
 }

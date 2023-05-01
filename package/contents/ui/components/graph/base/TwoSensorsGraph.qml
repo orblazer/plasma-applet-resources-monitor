@@ -58,7 +58,7 @@ RMBaseGraph.BaseSensorGraph {
     _clear: () => {
         firstChartData.clear()
         secondChartData.clear()
-        for (let i = 0; i < sensors.length; i++) {
+        for (let i = 0; i < sensorsModel.sensors.length; i++) {
             _updateData(i);
         }
     }

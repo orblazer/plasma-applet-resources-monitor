@@ -30,12 +30,12 @@ RMBaseGraph.TwoSensorsGraph {
     }
 
     // Graph options
-    // NOTE: "sensors" set from "maxQueryModel"
+    // NOTE: "sensorsModel.sensors" set from "maxQueryModel"
     colors: [(Plasmoid.configuration.customGpuColor ? Plasmoid.configuration.gpuColor : theme.highlightColor), (Plasmoid.configuration.customGpuMemoryColor ? Plasmoid.configuration.gpuMemoryColor : theme.positiveTextColor)]
 
     // Override methods, for handle memeory in percent
     _update: () => {
-        for (let i = 0; i < sensors.length; i++) {
+        for (let i = 0; i < sensorsModel.sensors.length; i++) {
             let value = sensorsModel.getInfo(i);
             if (i === 1 && Plasmoid.configuration.gpuMemoryInPercent) {
                 value = value / uplimits[1];
@@ -73,7 +73,7 @@ RMBaseGraph.TwoSensorsGraph {
             if (maxMemory >= 0) {
                 enabled = false;
                 root.uplimits = [100, Plasmoid.configuration.gpuMemoryInPercent ? 100 : maxMemory];
-                root.sensors = ["gpu/gpu0/usage", "gpu/gpu0/usedVram", "gpu/gpu0/temperature"];
+                root.sensorsModel.sensors = ["gpu/gpu0/usage", "gpu/gpu0/usedVram", "gpu/gpu0/temperature"];
             }
         }
     }

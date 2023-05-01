@@ -12,8 +12,6 @@ Item {
     signal showValueInLabel
     signal labelChanged(PlasmaComponents.Label label, var value)
 
-    property var sensors: []
-
     // Aliases
     readonly property alias textContainer: textContainer
     readonly property alias sensorsModel: sensorsModel
@@ -31,7 +29,7 @@ Item {
 
         onShowValueInLabel: {
             // Update labels
-            for (let i = 0; i < sensors.length; i++) {
+            for (let i = 0; i < sensorsModel.sensors.length; i++) {
                 _updateData(i);
             }
 
@@ -45,7 +43,6 @@ Item {
         id: sensorsModel
         updateRateLimit: -1
         enabled: root.visible
-        sensors: root.sensors
 
         /**
          * Get the data from sensor
@@ -79,22 +76,15 @@ Item {
         }
     }
 
-    Connections {
-        target: root
-        function onSensorsChanged() {
-            sensorsModel.sensors = sensors;
-        }
-    }
-
     // Process functions
     property var _insertChartData: (column, value) => {} // NOTE: this is implemented by children
     property var _clear: () => {
-        for (let i = 0; i < sensors.length; i++) {
+        for (let i = 0; i < sensorsModel.sensors.length; i++) {
             _updateData(i);
         }
     }
     property var _update: () => {
-        for (let i = 0; i < sensors.length; i++) {
+        for (let i = 0; i < sensorsModel.sensors.length; i++) {
             root._insertChartData(i, sensorsModel.getInfo(i));
 
             // Update label
