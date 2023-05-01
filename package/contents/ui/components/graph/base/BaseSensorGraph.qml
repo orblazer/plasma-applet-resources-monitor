@@ -76,6 +76,24 @@ Item {
         }
     }
 
+    Connections {
+        target: root
+
+        /**
+         * Re assign sensorsModel.sensors when enable visibility for right initialize it.
+         * This is due to an issue when set sensors and model is disabled, the sensors is never initialized
+         * Bug reported at : https://bugs.kde.org/show_bug.cgi?id=469234
+         */
+        function onVisibleChanged() {
+            if (!root.visible) {
+                return;
+            }
+            const sensors = sensorsModel.sensors;
+            sensorsModel.sensors = [];
+            sensorsModel.sensors = sensors;
+        }
+    }
+
     // Process functions
     property var _insertChartData: (column, value) => {} // NOTE: this is implemented by children
     property var _clear: () => {

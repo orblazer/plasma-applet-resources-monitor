@@ -23,7 +23,7 @@ RMBaseGraph.TwoSensorsGraph {
             _updateUplimits();
         }
     }
-    Component.onCompleted: _updateUplimits();
+    Component.onCompleted: _updateUplimits()
 
     // Labels
     textContainer {
@@ -47,7 +47,9 @@ RMBaseGraph.TwoSensorsGraph {
         let downloadValue = 0, uploadValue = 0;
         for (let i = 0; i < sensorsModel.sensors.length; i++) {
             data = sensorsModel.getData(i);
-            if (data.sensorId.indexOf('/download') !== -1) {
+            if (typeof data === "undefined") {
+                continue;
+            } else if (data.sensorId.indexOf('/download') !== -1) {
                 downloadValue += data.value;
             } else {
                 uploadValue += data.value;
@@ -71,7 +73,7 @@ RMBaseGraph.TwoSensorsGraph {
     _formatValue: (_, data) => Functions.formatByteValue(data.value, dialect)
 
     function _updateSensors() {
-        if (!visible || typeof networkInterfaces.model.count === "undefined") {
+        if (typeof networkInterfaces.model.count === "undefined") {
             return;
         }
         const sensors = [];
