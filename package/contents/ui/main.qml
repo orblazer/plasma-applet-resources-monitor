@@ -51,7 +51,7 @@ MouseArea {
     property double fontPixelSize: verticalLayout ? (itemHeight / 1.4 * fontScale) : (itemHeight * fontScale)
 
     Layout.preferredWidth: !verticalLayout ? (itemWidth * monitorsCount + itemMargin * (monitorsCount + 1)) : itemWidth
-    Layout.preferredHeight: verticalLayout ? (itemHeight * monitorsCount+ itemMargin * (monitorsCount + 1)) : itemHeight
+    Layout.preferredHeight: verticalLayout ? (itemHeight * monitorsCount + itemMargin * (monitorsCount + 1)) : itemHeight
     LayoutMirroring.enabled: !vertical && Qt.application.layoutDirection === Qt.RightToLeft
     LayoutMirroring.childrenInherit: true
 
@@ -85,7 +85,9 @@ MouseArea {
 
         onTriggered: {
             for (const i in graphView.children) {
-                graphView.children[i]._update();
+                if (graphView.children[i].visible) {
+                    graphView.children[i]._update();
+                }
             }
         }
 
