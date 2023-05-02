@@ -34,7 +34,7 @@ RMBaseGraph.BaseSensorGraph {
     property var _setMaximumHistory: (value) => chartData.maximumHistory = value
     _clear: () => {
         chartData.clear();
-        for (const i = 0; i < sensorsModel.sensors.length; i++) {
+        for (let i = 0; i < sensorsModel.sensors.length; i++) {
             _updateData(i);
         }
     }
