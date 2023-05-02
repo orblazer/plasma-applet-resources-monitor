@@ -134,6 +134,10 @@
             <default>top-right</default>
         </entry>
 
+        <entry name="graphOrders" type="StringList">
+            <default>cpu,memory,gpu,disks,network</default>
+        </entry>
+
         <entry name="customCpuColor" type="Bool">
             <default>false</default>
         </entry>

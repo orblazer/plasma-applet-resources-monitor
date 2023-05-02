@@ -31,18 +31,8 @@ MouseArea {
     property bool verticalLayout: Plasmoid.configuration.verticalLayout
     property double fontScale: (Plasmoid.configuration.fontScale / 100)
 
-    property bool showCpuMonitor: Plasmoid.configuration.showCpuMonitor
-    property bool showRamMonitor: Plasmoid.configuration.showRamMonitor
-    property bool showGpuMonitor: Plasmoid.configuration.showGpuMonitor
-    property bool showDiskMonitor: Plasmoid.configuration.showDiskMonitor
-    property bool showNetMonitor: Plasmoid.configuration.showNetMonitor
-
-    // Apearance settings properties
-    property int historyAmount: Plasmoid.configuration.historyAmount
-
     // Component properties
     property int itemMargin: Plasmoid.configuration.graphMargin
-    property int monitorsCount: (showCpuMonitor & 1) + (showRamMonitor & 1) + (showGpuMonitor & 1) + (showDiskMonitor & 1) + (showNetMonitor & 1)
     property double parentWidth: parent === null ? 0 : parent.width
     property double parentHeight: parent === null ? 0 : parent.height
     property double initWidth: vertical ? (verticalLayout ? parentWidth : (parentWidth - itemMargin) / 2) : (verticalLayout ? (parentHeight - itemMargin) / 2 : parentHeight)
@@ -50,19 +40,23 @@ MouseArea {
     property double itemHeight: Plasmoid.configuration.customGraphHeight ? Plasmoid.configuration.graphHeight : initWidth
     property double fontPixelSize: verticalLayout ? (itemHeight / 1.4 * fontScale) : (itemHeight * fontScale)
 
-    Layout.preferredWidth: !verticalLayout ? (itemWidth * monitorsCount + itemMargin * (monitorsCount + 1)) : itemWidth
-    Layout.preferredHeight: verticalLayout ? (itemHeight * monitorsCount + itemMargin * (monitorsCount + 1)) : itemHeight
+    Layout.preferredWidth: !verticalLayout ? (itemWidth * graphView.model.length + itemMargin * (graphView.model.length + 1)) : itemWidth
+    Layout.preferredHeight: verticalLayout ? (itemHeight * graphView.model.length + itemMargin * (graphView.model.length + 1)) : itemHeight
     LayoutMirroring.enabled: !vertical && Qt.application.layoutDirection === Qt.RightToLeft
     LayoutMirroring.childrenInherit: true
 
     Plasmoid.preferredRepresentation: Plasmoid.fullRepresentation
 
     // Bind config change
-    onHistoryAmountChanged: {
-        _calculateMaximumHistory();
-        for (const i in graphView.children) {
-            graphView.children[i]._setMaximumHistory(_maximumHistory);
+    Connections {
+        target: Plasmoid.configuration
+
+        function onHistoryAmountChanged() {
+            _updateMaximumHistory();
         }
+    }
+    Component.onCompleted: {
+        _updateMaximumHistory();
     }
 
     // Click action
@@ -84,93 +78,74 @@ MouseArea {
         repeat: true
 
         onTriggered: {
-            for (const i in graphView.children) {
-                if (graphView.children[i].visible) {
-                    graphView.children[i]._update();
+            for (const i in graphView.model) {
+                const graph = graphView.getGraph(i);
+                if (graph !== null) {
+                    graph._update();
                 }
             }
         }
-
-        onIntervalChanged: {
-            _calculateMaximumHistory();
-            for (const i in graphView.children) {
-                graphView.children[i]._clear();
-                graphView.children[i]._setMaximumHistory(_maximumHistory);
-            }
-        }
+        onIntervalChanged: _updateMaximumHistory()
     }
 
     // Main Layout
-    Flow {
+    ListView {
         id: graphView
         anchors.fill: parent
         spacing: itemMargin
+        orientation: verticalLayout ? ListView.Vertical : ListView.Horizontal
+        interactive: false
 
-        flow: vertical ? Flow.TopToBottom : Flow.LeftToRight
+        model: Plasmoid.configuration.graphOrders.filter(item => {
+                if (item === "cpu") {
+                    return Plasmoid.configuration.showCpuMonitor;
+                } else if (item === "disks") {
+                    return Plasmoid.configuration.showDiskMonitor;
+                } else if (item === "gpu") {
+                    return Plasmoid.configuration.showGpuMonitor;
+                } else if (item === "memory") {
+                    return Plasmoid.configuration.showRamMonitor;
+                } else if (item === "network") {
+                    return Plasmoid.configuration.showNetMonitor;
+                }
+                return false;
+            })
 
-        RMGraph.CpuGraph {
-            visible: showCpuMonitor
+        delegate: Loader {
+            source: _graphIdToFilename(modelData)
 
             width: itemWidth
             height: itemHeight
 
-            textContainer {
-                firstLineLabel.font.pixelSize: root.fontPixelSize
-                secondLineLabel.font.pixelSize: root.fontPixelSize
-                thirdLineLabel.font.pixelSize: root.fontPixelSize
+            onLoaded: {
+                item.textContainer.firstLineLabel.font.pixelSize = Qt.binding(() => root.fontPixelSize);
+                item.textContainer.secondLineLabel.font.pixelSize = Qt.binding(() => root.fontPixelSize);
+                item.textContainer.thirdLineLabel.font.pixelSize = Qt.binding(() => root.fontPixelSize);
+                item._setMaximumHistory(_maximumHistory);
             }
         }
-        RMGraph.MemoryGraph {
-            visible: showRamMonitor
 
-            width: itemWidth
-            height: itemHeight
-
-            textContainer {
-                firstLineLabel.font.pixelSize: root.fontPixelSize
-                secondLineLabel.font.pixelSize: root.fontPixelSize
-                thirdLineLabel.font.pixelSize: root.fontPixelSize
-            }
+        function getGraph(index) {
+            const loaderItem = graphView.itemAtIndex(index);
+            return loaderItem !== null ? loaderItem.item : null;
         }
-        RMGraph.GpuGraph {
-            visible: showGpuMonitor
+    }
 
-            width: itemWidth
-            height: itemHeight
+    function _updateMaximumHistory() {
+        _maximumHistory = updateTask.interval > 0 ? (Plasmoid.configuration.historyAmount * 1000) / updateTask.interval : 0;
 
-            textContainer {
-                firstLineLabel.font.pixelSize: root.fontPixelSize
-                secondLineLabel.font.pixelSize: root.fontPixelSize
-                thirdLineLabel.font.pixelSize: root.fontPixelSize
-            }
-        }
-        RMGraph.DisksGraph {
-            visible: showDiskMonitor
-
-            width: itemWidth
-            height: itemHeight
-
-            textContainer {
-                firstLineLabel.font.pixelSize: root.fontPixelSize
-                secondLineLabel.font.pixelSize: root.fontPixelSize
-                thirdLineLabel.font.pixelSize: root.fontPixelSize
-            }
-        }
-        RMGraph.NetworkGraph {
-            visible: showNetMonitor
-
-            width: itemWidth
-            height: itemHeight
-
-            textContainer {
-                firstLineLabel.font.pixelSize: root.fontPixelSize
-                secondLineLabel.font.pixelSize: root.fontPixelSize
-                thirdLineLabel.font.pixelSize: root.fontPixelSize
+        // Clear history and set new maximum history
+        for (const i in graphView.model) {
+            const graph = graphView.getGraph(i);
+            if (graph !== null) {
+                graph._clear();
+                graph._setMaximumHistory(_maximumHistory);
             }
         }
     }
 
-    function _calculateMaximumHistory() {
-        _maximumHistory = updateTask.interval > 0 ? (historyAmount * 1000) / updateTask.interval : 0;
+    function _graphIdToFilename(graphId) {
+        const filename = (graphId.charAt(0).toUpperCase() + graphId.slice(1)) + "Graph";
+        return "./components/graph/" + filename + ".qml";
     }
 }

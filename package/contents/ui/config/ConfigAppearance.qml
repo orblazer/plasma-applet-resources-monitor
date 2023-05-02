@@ -7,9 +7,13 @@ import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 3.0 as PlasmaComponents
 import org.kde.plasma.extras 2.0 as PlasmaExtras
 import "../controls" as RMControls
+import "../components" as RMComponents
 
 PlasmaExtras.Representation {
+    id: page
     anchors.fill: parent
+
+    signal configurationChanged
 
     property alias cfg_verticalLayout: verticalLayout.checked
     property alias cfg_historyAmount: historyAmount.value
@@ -63,6 +67,34 @@ PlasmaExtras.Representation {
     property color positiveColor: theme.positiveTextColor
     property color neutralColor: theme.neutralTextColor
     property color negativeColor: theme.negativeTextColor
+
+    property var monitors: {
+        "cpu": {
+            "id": "cpu",
+            "name": i18n("CPU Monitor"),
+            "icon": "cpu-symbolic"
+        },
+        "memory": {
+            "id": "memory",
+            "name": i18n("Memory Monitor"),
+            "icon": "memory-symbolic"
+        },
+        "gpu": {
+            "id": "gpu",
+            "name": i18n("GPU Monitor"),
+            "icon": "freon-gpu-temperature-symbolic"
+        },
+        "disks": {
+            "id": "disks",
+            "name": i18n("Disks I/O Monitor"),
+            "icon": "drive-harddisk-symbolic"
+        },
+        "network": {
+            "id": "network",
+            "name": i18n("Network Monitor"),
+            "icon": "network-wired-symbolic"
+        }
+    }
 
     // Tab bar
     header: PlasmaExtras.PlasmoidHeading {
@@ -150,6 +182,88 @@ PlasmaExtras.Representation {
 
                     textFromValue: function (value, locale) {
                         return valueToText(value, locale) + "%";
+                    }
+                }
+
+                // order
+                Item {
+                    Kirigami.FormData.label: i18n("Graphs order")
+                    Kirigami.FormData.isSection: true
+                }
+
+                ListView {
+                    id: graphsList
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+
+                    clip: true
+                    interactive: false
+
+                    property int listViewHeight: 0
+                    implicitHeight: listViewHeight
+
+                    model: ListModel {
+                        Component.onCompleted: Plasmoid.configuration.graphOrders.map(id => monitors[id]).forEach(item => append(item))
+
+                        function toJS() {
+                            const result = [];
+                            for (let i = 0; i < count; i++) {
+                                result.push(get(i));
+                            }
+                            return result;
+                        }
+                    }
+
+                    delegate: Kirigami.DelegateRecycler {
+                        width: graphsList.width
+                        sourceComponent: delegateComponent
+
+                        Component.onCompleted: {
+                            graphsList.listViewHeight += height + 1;
+                        }
+                    }
+
+                    moveDisplaced: Transition {
+                        YAnimator {
+                            duration: Kirigami.Units.longDuration
+                            easing.type: Easing.InOutQuad
+                        }
+                    }
+
+                    Component {
+                        id: delegateComponent
+                        Kirigami.AbstractListItem {
+                            id: listItem
+
+                            backgroundColor: theme.headerBackgroundColor
+                            separatorVisible: true
+
+                            contentItem: QtLayouts.RowLayout {
+                                spacing: Kirigami.Units.largeSpacing
+
+                                Kirigami.ListItemDragHandle {
+                                    listView: graphsList
+                                    listItem: listItem
+                                    onMoveRequested: graphsList.model.move(oldIndex, newIndex, 1)
+
+                                    onDropped: {
+                                        Plasmoid.configuration.graphOrders = graphsList.model.toJS().map(item => item.id);
+                                        // To modify a StringList we need to manually trigger configurationChanged.
+                                        page.configurationChanged();
+                                    }
+                                }
+
+                                PlasmaCore.IconItem {
+                                    source: model.icon
+                                    width: PlasmaCore.Units.iconSizes.smallMedium
+                                    height: width
+                                }
+                                PlasmaComponents.Label {
+                                    text: model.name
+                                    QtLayouts.Layout.fillWidth: true
+                                }
+                            }
+                        }
                     }
                 }
             }
