@@ -196,15 +196,16 @@ Item {
         hoverEnabled: displayment !== 'always' && displayment !== 'always-hints'
 
         property bool _firstHover: true
-        property var _oldLabelsText: []
-        function _saveOldLabelsText() {
-            _oldLabelsText = [firstLineLabel.text + "", secondLineLabel.text + "", thirdLineLabel.text + ""];
+        property var _oldLabelsState: []
+        function _saveOldLabelsState() {
+            _oldLabelsState = [[firstLineLabel.text + "", !!firstLineLabel.visible], [secondLineLabel.text + "", !!secondLineLabel.visible], [thirdLineLabel.text + "", !!thirdLineLabel.visible]];
         }
 
         onEntered: {
             if (displayment === 'hover-hints') {
                 valueVisible = false;
-                _saveOldLabelsText();
+                _saveOldLabelsState();
+                _setLabelsState(true);
 
                 // Show label hints
                 _setTextAndColor(firstLineLabel, labels[firstLineLabel.index], true);
@@ -220,9 +221,12 @@ Item {
         onExited: {
             if (displayment === 'hover-hints') {
                 // Recover old state
-                _setTextAndColor(firstLineLabel, _oldLabelsText[firstLineLabel.index]);
-                _setTextAndColor(secondLineLabel, _oldLabelsText[secondLineLabel.index]);
-                _setTextAndColor(thirdLineLabel, _oldLabelsText[thirdLineLabel.index]);
+                _setTextAndColor(firstLineLabel, _oldLabelsState[firstLineLabel.index][0]);
+                firstLineLabel.visible = _oldLabelsState[firstLineLabel.index][1];
+                _setTextAndColor(secondLineLabel, _oldLabelsState[secondLineLabel.index][0]);
+                secondLineLabel.visible = _oldLabelsState[secondLineLabel.index][1];
+                _setTextAndColor(thirdLineLabel, _oldLabelsState[thirdLineLabel.index][0]);
+                thirdLineLabel.visible = _oldLabelsState[thirdLineLabel.index][1];
 
                 // Update value
                 showValueInLabel();
