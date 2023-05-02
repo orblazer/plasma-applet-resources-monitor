@@ -70,12 +70,12 @@ PlasmaExtras.Representation {
             PlasmaComponents.TabButton {
                 icon.name: "settings"
                 icon.height: PlasmaCore.Units.iconSizes.smallMedium
-                text: i18n("General")
+                text: i18nc("Config header", "General")
             }
             PlasmaComponents.TabButton {
                 icon.name: "input-mouse-symbolic"
                 icon.height: PlasmaCore.Units.iconSizes.smallMedium
-                text: i18n("Click action")
+                text: i18nc("Config header", "Click action")
             }
         }
     }
@@ -107,13 +107,13 @@ PlasmaExtras.Representation {
 
                 // Charts
                 Kirigami.Separator {
-                    Kirigami.FormData.label: i18n("Charts")
+                    Kirigami.FormData.label: i18nc("Config header", "Charts")
                     Kirigami.FormData.isSection: true
                 }
 
                 // CPU
                 Item {
-                    Kirigami.FormData.label: i18n("CPU monitor")
+                    Kirigami.FormData.label: i18nc("Chart name", "CPU")
                     Kirigami.FormData.isSection: true
                 }
 
@@ -125,13 +125,13 @@ PlasmaExtras.Representation {
                             "label": i18n("Disabled"),
                             "value": "none"
                         }, {
-                            "label": i18n("With Total usage"),
+                            "label": i18n("Total usage"),
                             "value": "usage"
                         }, {
-                            "label": i18n("With System usage"),
+                            "label": i18n("System usage"),
                             "value": "system"
                         }, {
-                            "label": i18n("With User usage"),
+                            "label": i18n("User usage"),
                             "value": "user"
                         }]
 
@@ -191,7 +191,7 @@ PlasmaExtras.Representation {
                     color: "transparent"
                 }
                 Item {
-                    Kirigami.FormData.label: i18n("Memory monitor")
+                    Kirigami.FormData.label: i18nc("Chart name", "Memory")
                     Kirigami.FormData.isSection: true
                 }
 
@@ -203,16 +203,16 @@ PlasmaExtras.Representation {
                             "label": i18n("Disabled"),
                             "value": "none"
                         }, {
-                            "label": i18n("With Physical memory (KiB)"),
+                            "label": i18n("Physical memory (in KiB)"),
                             "value": "physical"
                         }, {
-                            "label": i18n("With Physical memory (in %)"),
+                            "label": i18n("Physical memory (in %)"),
                             "value": "physical-percent"
                         }, {
-                            "label": i18n("With Application memory (KiB)"),
+                            "label": i18n("Application memory (in KiB)"),
                             "value": "application"
                         }, {
-                            "label": i18n("With Application memory (in %)"),
+                            "label": i18n("Application memory (in %)"),
                             "value": "application-percent"
                         }]
 
@@ -252,7 +252,7 @@ PlasmaExtras.Representation {
 
                     QtControls.CheckBox {
                         id: memorySwapGraph
-                        text: i18n("Display swap graph")
+                        text: i18n("Show swap")
                         enabled: cfg_showRamMonitor
                     }
                 }
@@ -263,7 +263,7 @@ PlasmaExtras.Representation {
                     color: "transparent"
                 }
                 Item {
-                    Kirigami.FormData.label: i18n("Network monitor")
+                    Kirigami.FormData.label: i18nc("Chart name", "Network")
                     Kirigami.FormData.isSection: true
                 }
 
@@ -319,7 +319,7 @@ PlasmaExtras.Representation {
                     color: "transparent"
                 }
                 Item {
-                    Kirigami.FormData.label: i18n("GPU monitor")
+                    Kirigami.FormData.label: i18nc("Chart name", "GPU")
                     Kirigami.FormData.isSection: true
                 }
 
@@ -335,12 +335,12 @@ PlasmaExtras.Representation {
                     }
                     QtControls.CheckBox {
                         id: gpuMemoryGraph
-                        text: i18n("Display memory graph")
+                        text: i18n("Show memory")
                         enabled: showGpuMonitor.checked
                     }
                     QtControls.CheckBox {
                         id: gpuMemoryInPercent
-                        text: i18n("Values in percentage")
+                        text: i18n("Memory in percent")
                         enabled: gpuMemoryGraph.checked
                     }
                     QtControls.CheckBox {
@@ -356,7 +356,7 @@ PlasmaExtras.Representation {
                     color: "transparent"
                 }
                 Item {
-                    Kirigami.FormData.label: i18n("Disk I/O monitor")
+                    Kirigami.FormData.label: i18nc("Chart name", "Disks I/O")
                     Kirigami.FormData.isSection: true
                 }
 

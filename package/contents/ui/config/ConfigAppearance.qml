@@ -71,27 +71,27 @@ PlasmaExtras.Representation {
     property var monitors: {
         "cpu": {
             "id": "cpu",
-            "name": i18n("CPU Monitor"),
+            "name": i18nc("Chart name", "CPU"),
             "icon": "cpu-symbolic"
         },
         "memory": {
             "id": "memory",
-            "name": i18n("Memory Monitor"),
+            "name": i18nc("Chart name", "Memory"),
             "icon": "memory-symbolic"
         },
         "gpu": {
             "id": "gpu",
-            "name": i18n("GPU Monitor"),
+            "name": i18nc("Chart name", "GPU"),
             "icon": "freon-gpu-temperature-symbolic"
         },
         "disks": {
             "id": "disks",
-            "name": i18n("Disks I/O Monitor"),
+            "name": i18nc("Chart name", "Disks I/O"),
             "icon": "drive-harddisk-symbolic"
         },
         "network": {
             "id": "network",
-            "name": i18n("Network Monitor"),
+            "name": i18nc("Chart name", "Network"),
             "icon": "network-wired-symbolic"
         }
     }
@@ -110,17 +110,17 @@ PlasmaExtras.Representation {
             PlasmaComponents.TabButton {
                 icon.name: "office-chart-line-stacked"
                 icon.height: PlasmaCore.Units.iconSizes.smallMedium
-                text: i18n("Graph")
+                text: i18nc("Config header", "Charts")
             }
             PlasmaComponents.TabButton {
                 icon.name: "dialog-text-and-font"
                 icon.height: PlasmaCore.Units.iconSizes.smallMedium
-                text: i18n("Text")
+                text: i18nc("Config header", "Text")
             }
             PlasmaComponents.TabButton {
                 icon.name: "color-select"
                 icon.height: PlasmaCore.Units.iconSizes.smallMedium
-                text: i18n("Colors")
+                text: i18nc("Config header", "Colors")
             }
         }
     }
@@ -130,7 +130,7 @@ PlasmaExtras.Representation {
         anchors.fill: parent
         currentIndex: bar.currentIndex
 
-        // Graph
+        // Charts
         Kirigami.ScrollablePage {
             Kirigami.FormLayout {
                 id: graphPage
@@ -187,7 +187,7 @@ PlasmaExtras.Representation {
 
                 // order
                 Item {
-                    Kirigami.FormData.label: i18n("Graphs order")
+                    Kirigami.FormData.label: i18n("Charts order")
                     Kirigami.FormData.isSection: true
                 }
 
@@ -297,13 +297,13 @@ PlasmaExtras.Representation {
                     Kirigami.FormData.label: i18n("Text displayment:")
                     textRole: "label"
                     model: [{
-                            "label": i18n("Always"),
+                            "label": i18nc("Text displayment", "Always"),
                             "name": "always"
                         }, {
-                            "label": i18n("On hover"),
+                            "label": i18nc("Text displayment", "On hover"),
                             "name": "hover"
                         }, {
-                            "label": i18n("Hints when hover"),
+                            "label": i18nc("Text displayment", "Hints when hover"),
                             "name": "hover-hints"
                         }]
                     onCurrentIndexChanged: cfg_displayment = model[currentIndex]["name"]
@@ -322,16 +322,16 @@ PlasmaExtras.Representation {
                     Kirigami.FormData.label: i18n("Placement:")
                     textRole: "label"
                     model: [{
-                            "label": i18n("Top left"),
+                            "label": i18nc("Text placement", "Top left"),
                             "name": "top-left"
                         }, {
-                            "label": i18n("Top right"),
+                            "label": i18nc("Text placement", "Top right"),
                             "name": "top-right"
                         }, {
-                            "label": i18n("Bottom left"),
+                            "label": i18nc("Text placement", "Bottom left"),
                             "name": "bottom-left"
                         }, {
-                            "label": i18n("Bottom right"),
+                            "label": i18nc("Text placement", "Bottom right"),
                             "name": "bottom-right"
                         }]
                     onCurrentIndexChanged: cfg_placement = model[currentIndex]["name"]
@@ -352,135 +352,141 @@ PlasmaExtras.Representation {
             Kirigami.FormLayout {
                 id: colorsPage
 
-                // CPU
+                // Charts
+                Kirigami.Separator {
+                    Kirigami.FormData.label: i18n("Charts colors")
+                    Kirigami.FormData.isSection: true
+                }
+
+                // > CPU
                 Rectangle {
                     height: Kirigami.Units.largeSpacing
                     color: "transparent"
                 }
                 Item {
-                    Kirigami.FormData.label: i18n("CPU graph colors")
+                    Kirigami.FormData.label: i18nc("Chart name", "CPU")
                     Kirigami.FormData.isSection: true
                 }
 
                 RMControls.ColorSelector {
                     id: cpuColor
-                    Kirigami.FormData.label: i18n("CPU:")
+                    Kirigami.FormData.label: i18nc("Chart config", "Usage:")
 
-                    dialogTitle: i18n("Choose CPU graph color")
+                    dialogTitle: i18nc("Chart color", "Choose series color")
                     defaultColor: primaryColor
                 }
                 RMControls.ColorSelector {
                     id: cpuTemperatureColor
-                    Kirigami.FormData.label: i18n("Temperature:")
+                    Kirigami.FormData.label: i18nc("Chart config", "Temperature:")
 
-                    dialogTitle: i18n("Choose CPU temperature graph color")
+                    dialogTitle: i18nc("Chart color", "Choose text color")
                     defaultColor: textColor
                 }
 
-                // Memory
+                // > Memory
                 Rectangle {
                     height: Kirigami.Units.largeSpacing
                     color: "transparent"
                 }
                 Item {
-                    Kirigami.FormData.label: i18n("Memory graph colors")
+                    Kirigami.FormData.label: i18nc("Chart name", "Memory")
                     Kirigami.FormData.isSection: true
                 }
 
                 RMControls.ColorSelector {
                     id: ramColor
-                    Kirigami.FormData.label: i18n("Physical:")
+                    Kirigami.FormData.label: i18nc("Chart config", "Physical:")
 
-                    dialogTitle: i18n("Choose physical memory graph color")
+                    dialogTitle: i18nc("Chart color", "Choose series color")
                     defaultColor: primaryColor
                 }
                 RMControls.ColorSelector {
                     id: swapColor
-                    Kirigami.FormData.label: i18n("Swap:")
+                    Kirigami.FormData.label: i18nc("Chart config", "Swap:")
 
-                    dialogTitle: i18n("Choose swap memory graph color")
+                    dialogTitle: i18nc("Chart color", "Choose color of series and text")
                     defaultColor: negativeColor
                 }
 
-                // Network
+                // > Network
                 Rectangle {
                     height: Kirigami.Units.largeSpacing
                     color: "transparent"
                 }
                 Item {
-                    Kirigami.FormData.label: i18n("Network graph colors")
+                    Kirigami.FormData.label: i18nc("Chart name", "Network")
                     Kirigami.FormData.isSection: true
                 }
 
                 RMControls.ColorSelector {
                     id: netDownColor
-                    Kirigami.FormData.label: i18n("Receiving:")
+                    Kirigami.FormData.label: i18nc("Chart config", "Receiving:")
 
-                    dialogTitle: i18n("Choose network receiving graph color")
+                    dialogTitle: i18nc("Chart color", "Choose series color")
                     defaultColor: primaryColor
                 }
                 RMControls.ColorSelector {
                     id: netUpColor
-                    Kirigami.FormData.label: i18n("Sending:")
+                    Kirigami.FormData.label: i18nc("Chart config", "Sending:")
 
-                    dialogTitle: i18n("Choose network sending graph color")
+                    dialogTitle: i18nc("Chart color", "Choose series color")
                     defaultColor: positiveColor
                 }
 
-                // GPU
+                // > GPU
                 Rectangle {
                     height: Kirigami.Units.largeSpacing
                     color: "transparent"
                 }
                 Item {
-                    Kirigami.FormData.label: i18n("GPU graph colors")
+                    Kirigami.FormData.label: i18nc("Chart name", "GPU")
                     Kirigami.FormData.isSection: true
                 }
 
                 RMControls.ColorSelector {
                     id: gpuColor
-                    Kirigami.FormData.label: i18n("Usage:")
+                    Kirigami.FormData.label: i18nc("Chart config", "Usage:")
 
-                    dialogTitle: i18n("Choose GPU usage graph color")
+                    dialogTitle: i18nc("Chart color", "Choose series color")
                     defaultColor: primaryColor
                 }
                 RMControls.ColorSelector {
                     id: gpuMemoryColor
-                    Kirigami.FormData.label: i18n("Memory:")
+                    Kirigami.FormData.label: i18nc("Chart config", "Memory:")
 
-                    dialogTitle: i18n("Choose GPU memory graph color")
+                    dialogTitle: i18nc("Chart color", "Choose series color")
                     defaultColor: positiveColor
                 }
                 RMControls.ColorSelector {
                     id: gpuTemperatureColor
-                    Kirigami.FormData.label: i18n("Temperature:")
+                    Kirigami.FormData.label: i18nc("Chart config", "Temperature:")
 
-                    dialogTitle: i18n("Choose GPU temperature graph color")
+                    dialogTitle: i18nc("Chart color", "Choose text color")
                     defaultColor: textColor
                 }
 
-                // Disk I/O
+                // > Disk I/O
                 Rectangle {
                     height: Kirigami.Units.largeSpacing
                     color: "transparent"
                 }
                 Item {
-                    Kirigami.FormData.label: i18n("Disk I/O graph colors")
+                    Kirigami.FormData.label: i18nc("Chart name", "Disks I/O")
                     Kirigami.FormData.isSection: true
                 }
 
                 RMControls.ColorSelector {
                     id: diskReadColor
-                    Kirigami.FormData.label: i18n("Read:")
+                    Kirigami.FormData.label: i18nc("Chart config", "Read:")
 
-                    dialogTitle: i18n("Choose disk read graph color")
+                    dialogTitle: i18nc("Chart color", "Choose series color")
                     defaultColor: primaryColor
                 }
                 RMControls.ColorSelector {
                     id: diskWriteColor
-                    Kirigami.FormData.label: i18n("Write:")
+                    Kirigami.FormData.label: i18nc("Chart config", "Write:")
 
-                    dialogTitle: i18n("Choose disk write graph color")
+                    dialogTitle: i18nc("Chart color", "Choose series color")
                     defaultColor: positiveColor
                 }
 

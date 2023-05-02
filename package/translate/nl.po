@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: resourcesMonitor-fork\n"
 "Report-Msgid-Bugs-To: https://github.com/orblazer/plasma-applet-resources-monitor\n"
-"POT-Creation-Date: 2023-05-01 17:21+0200\n"
+"POT-Creation-Date: 2023-05-02 14:33+0200\n"
 "PO-Revision-Date: 2023-05-01 17:24+0200\n"
 "Last-Translator: orblazer\n"
 "Language: nl\n"
@@ -17,15 +17,18 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.0\n"
 
-#: ../contents/config/config.qml:6 ../contents/ui/config/ConfigGeneral.qml:75
+#: ../contents/config/config.qml:6 ../contents/ui/config/ConfigGeneral.qml:73
+msgctxt "Config header"
 msgid "General"
 msgstr "Algemeen"
 
 #: ../contents/config/config.qml:11
+msgctxt "Config header"
 msgid "Data"
 msgstr "Gegevens"
 
 #: ../contents/config/config.qml:16
+msgctxt "Config header"
 msgid "Appearance"
 msgstr "Uiterlijk"
 
@@ -73,207 +76,214 @@ msgstr "⇘ Oml."
 msgid "⇗ Up"
 msgstr "⇗ Omh."
 
-#: ../contents/ui/config/ConfigAppearance.qml:82
-msgid "Graph"
-msgstr "Grafiek"
+#: ../contents/ui/config/ConfigAppearance.qml:74 ../contents/ui/config/ConfigAppearance.qml:367
+#: ../contents/ui/config/ConfigGeneral.qml:116
+msgctxt "Chart name"
+msgid "CPU"
+msgstr "CPU"
 
-#: ../contents/ui/config/ConfigAppearance.qml:91
+#: ../contents/ui/config/ConfigAppearance.qml:79 ../contents/ui/config/ConfigAppearance.qml:392
+#: ../contents/ui/config/ConfigGeneral.qml:194
+msgctxt "Chart name"
+msgid "Memory"
+msgstr "Geheugen"
+
+#: ../contents/ui/config/ConfigAppearance.qml:84 ../contents/ui/config/ConfigAppearance.qml:442
+#: ../contents/ui/config/ConfigGeneral.qml:322
+msgctxt "Chart name"
+msgid "GPU"
+msgstr "GPU"
+
+#: ../contents/ui/config/ConfigAppearance.qml:89 ../contents/ui/config/ConfigAppearance.qml:474
+#: ../contents/ui/config/ConfigData.qml:113 ../contents/ui/config/ConfigGeneral.qml:359
+msgctxt "Chart name"
+msgid "Disks I/O"
+msgstr "Schijven I/O"
+
+#: ../contents/ui/config/ConfigAppearance.qml:94 ../contents/ui/config/ConfigAppearance.qml:417
+#: ../contents/ui/config/ConfigData.qml:108 ../contents/ui/config/ConfigGeneral.qml:266
+msgctxt "Chart name"
+msgid "Network"
+msgstr "Netwerk"
+
+#: ../contents/ui/config/ConfigAppearance.qml:113 ../contents/ui/config/ConfigGeneral.qml:110
+msgctxt "Config header"
+msgid "Charts"
+msgstr "Grafieken"
+
+#: ../contents/ui/config/ConfigAppearance.qml:118
+msgctxt "Config header"
 msgid "Text"
 msgstr "Tekst"
 
-#: ../contents/ui/config/ConfigAppearance.qml:100
+#: ../contents/ui/config/ConfigAppearance.qml:123
+msgctxt "Config header"
 msgid "Colors"
 msgstr "Kleuren"
 
-#: ../contents/ui/config/ConfigAppearance.qml:123
+#: ../contents/ui/config/ConfigAppearance.qml:141
 msgid "Vertical layout"
 msgstr "Verticale indeling"
 
-#: ../contents/ui/config/ConfigAppearance.qml:128
+#: ../contents/ui/config/ConfigAppearance.qml:146
 msgid "History amount:"
 msgstr "Historie bedrag:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:135
+#: ../contents/ui/config/ConfigAppearance.qml:153
 msgid "Width:"
 msgstr "Breedte:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:142
+#: ../contents/ui/config/ConfigAppearance.qml:160
 msgid "Height:"
 msgstr "Hoogte:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:149
+#: ../contents/ui/config/ConfigAppearance.qml:167
 msgid "Margin:"
 msgstr "Marge:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:160
+#: ../contents/ui/config/ConfigAppearance.qml:178
 msgid "Fill opacity:"
 msgstr "Ondoorzichtigheid vullen:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:180
+#: ../contents/ui/config/ConfigAppearance.qml:190
+msgid "Charts order"
+msgstr "Volgorde grafieken"
+
+#: ../contents/ui/config/ConfigAppearance.qml:280
 msgid "Drop shadows"
 msgstr "Vallende schaduwen"
 
-#: ../contents/ui/config/ConfigAppearance.qml:185
+#: ../contents/ui/config/ConfigAppearance.qml:285
 msgid "Font scale:"
 msgstr "Tekstgrootte:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:197
+#: ../contents/ui/config/ConfigAppearance.qml:297
 msgid "Text displayment:"
 msgstr "Tekst tonen:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:200
+#: ../contents/ui/config/ConfigAppearance.qml:300
+msgctxt "Text displayment"
 msgid "Always"
 msgstr "Altijd"
 
-#: ../contents/ui/config/ConfigAppearance.qml:203
+#: ../contents/ui/config/ConfigAppearance.qml:303
+msgctxt "Text displayment"
 msgid "On hover"
 msgstr "Na aanwijzen"
 
-#: ../contents/ui/config/ConfigAppearance.qml:206
+#: ../contents/ui/config/ConfigAppearance.qml:306
+msgctxt "Text displayment"
 msgid "Hints when hover"
 msgstr "Tip tonen na aanwijzen"
 
-#: ../contents/ui/config/ConfigAppearance.qml:222
+#: ../contents/ui/config/ConfigAppearance.qml:322
 msgid "Placement:"
 msgstr "Locatie:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:225
+#: ../contents/ui/config/ConfigAppearance.qml:325
+msgctxt "Text placement"
 msgid "Top left"
 msgstr "Linksboven"
 
-#: ../contents/ui/config/ConfigAppearance.qml:228
+#: ../contents/ui/config/ConfigAppearance.qml:328
+msgctxt "Text placement"
 msgid "Top right"
 msgstr "Rechtboven"
 
-#: ../contents/ui/config/ConfigAppearance.qml:231
+#: ../contents/ui/config/ConfigAppearance.qml:331
+msgctxt "Text placement"
 msgid "Bottom left"
 msgstr "Linksonder"
 
-#: ../contents/ui/config/ConfigAppearance.qml:234
+#: ../contents/ui/config/ConfigAppearance.qml:334
+msgctxt "Text placement"
 msgid "Bottom right"
 msgstr "Rechtsonder"
 
-#: ../contents/ui/config/ConfigAppearance.qml:256
-msgid "CPU graph colors"
-msgstr "CPU-grafiek kleuren"
-
-#: ../contents/ui/config/ConfigAppearance.qml:267
-msgid "CPU:"
-msgstr "CPU:"
-
-#: ../contents/ui/config/ConfigAppearance.qml:269
-msgid "Choose CPU graph color"
-msgstr "Kies de cpu-grafiekkleur"
-
-#: ../contents/ui/config/ConfigAppearance.qml:274 ../contents/ui/config/ConfigAppearance.qml:371
-msgid "Temperature:"
-msgstr "Temperatuur:"
-
-#: ../contents/ui/config/ConfigAppearance.qml:276
-msgid "Choose CPU temperature graph color"
-msgstr "Kies de kleur van de CPU-temperatuur grafiek"
-
-#: ../contents/ui/config/ConfigAppearance.qml:286
-msgid "Memory graph colors"
-msgstr "Kleuren van de geheugengrafiek"
-
-#: ../contents/ui/config/ConfigAppearance.qml:297
-msgid "Physical:"
-msgstr "Fysiek"
-
-#: ../contents/ui/config/ConfigAppearance.qml:299
-msgid "Choose physical memory graph color"
-msgstr "Kies de kleur van de grafiek van het fysieke geheugen"
-
-#: ../contents/ui/config/ConfigAppearance.qml:304
-msgid "Swap:"
-msgstr "Swap:"
-
-#: ../contents/ui/config/ConfigAppearance.qml:306
-msgid "Choose swap memory graph color"
-msgstr "Kies de kleur van de swap-geheugengrafiek"
-
-#: ../contents/ui/config/ConfigAppearance.qml:316
-msgid "Network graph colors"
-msgstr "Netwerkgrafiek kleuren"
-
-#: ../contents/ui/config/ConfigAppearance.qml:327 ../contents/ui/config/ConfigData.qml:205
-msgid "Receiving:"
-msgstr "Ontvangen:"
-
-#: ../contents/ui/config/ConfigAppearance.qml:329
-msgid "Choose network receiving graph color"
-msgstr "Kies de kleur van het inkomende netwerkverkeer"
-
-#: ../contents/ui/config/ConfigAppearance.qml:334 ../contents/ui/config/ConfigData.qml:260
-msgid "Sending:"
-msgstr "Verzending:"
-
-#: ../contents/ui/config/ConfigAppearance.qml:336
-msgid "Choose network sending graph color"
-msgstr "Kies de kleur van het uitgaande netwerkverkeer"
-
-#: ../contents/ui/config/ConfigAppearance.qml:346
-msgid "GPU graph colors"
-msgstr "GPU-grafiekkleuren"
-
 #: ../contents/ui/config/ConfigAppearance.qml:357
+msgid "Charts colors"
+msgstr "Kleuren grafieken"
+
+#: ../contents/ui/config/ConfigAppearance.qml:373 ../contents/ui/config/ConfigAppearance.qml:448
+msgctxt "Chart config"
 msgid "Usage:"
 msgstr "Gebruik:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:359
-msgid "Choose GPU usage graph color"
-msgstr "Kies de kleur van de GPU-gebruiksgrafiek"
+#: ../contents/ui/config/ConfigAppearance.qml:375 ../contents/ui/config/ConfigAppearance.qml:400
+#: ../contents/ui/config/ConfigAppearance.qml:425 ../contents/ui/config/ConfigAppearance.qml:432
+#: ../contents/ui/config/ConfigAppearance.qml:450 ../contents/ui/config/ConfigAppearance.qml:457
+#: ../contents/ui/config/ConfigAppearance.qml:482 ../contents/ui/config/ConfigAppearance.qml:489
+msgctxt "Chart color"
+msgid "Choose series color"
+msgstr "Kies seriekleur"
 
-#: ../contents/ui/config/ConfigAppearance.qml:364
+#: ../contents/ui/config/ConfigAppearance.qml:380 ../contents/ui/config/ConfigAppearance.qml:462
+msgctxt "Chart config"
+msgid "Temperature:"
+msgstr "Temperatuur:"
+
+#: ../contents/ui/config/ConfigAppearance.qml:382 ../contents/ui/config/ConfigAppearance.qml:464
+msgctxt "Chart color"
+msgid "Choose text color"
+msgstr "Kies tekstkleur"
+
+#: ../contents/ui/config/ConfigAppearance.qml:398
+msgctxt "Chart config"
+msgid "Physical:"
+msgstr "Fysiek:"
+
+#: ../contents/ui/config/ConfigAppearance.qml:405
+msgctxt "Chart config"
+msgid "Swap:"
+msgstr "Swap:"
+
+#: ../contents/ui/config/ConfigAppearance.qml:407
+msgctxt "Chart color"
+msgid "Choose color of series and text"
+msgstr "Kies kleur van serie en tekst"
+
+#: ../contents/ui/config/ConfigAppearance.qml:423 ../contents/ui/config/ConfigData.qml:191
+msgctxt "Chart config"
+msgid "Receiving:"
+msgstr "Ontvangen:"
+
+#: ../contents/ui/config/ConfigAppearance.qml:430 ../contents/ui/config/ConfigData.qml:246
+msgctxt "Chart config"
+msgid "Sending:"
+msgstr "Verzending:"
+
+#: ../contents/ui/config/ConfigAppearance.qml:455
+msgctxt "Chart config"
 msgid "Memory:"
-msgstr "Geheugen:"
+msgstr "Geheugen"
 
-#: ../contents/ui/config/ConfigAppearance.qml:366
-msgid "Choose GPU memory graph color"
-msgstr "Kies de kleur van de GPU-geheugengrafiek"
-
-#: ../contents/ui/config/ConfigAppearance.qml:373
-msgid "Choose GPU temperature graph color"
-msgstr "Kies de kleur van de GPU-temperatuurgrafiek"
-
-#: ../contents/ui/config/ConfigAppearance.qml:383
-msgid "Disk I/O graph colors"
-msgstr "Schijf-I/O grafiek kleuren"
-
-#: ../contents/ui/config/ConfigAppearance.qml:394 ../contents/ui/config/ConfigData.qml:327
+#: ../contents/ui/config/ConfigAppearance.qml:480 ../contents/ui/config/ConfigData.qml:313
+msgctxt "Chart config"
 msgid "Read:"
 msgstr "Lees:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:396
-msgid "Choose disk read graph color"
-msgstr "Kies de kleur van de schijfleesgrafiek"
-
-#: ../contents/ui/config/ConfigAppearance.qml:401 ../contents/ui/config/ConfigData.qml:382
+#: ../contents/ui/config/ConfigAppearance.qml:487 ../contents/ui/config/ConfigData.qml:368
+msgctxt "Chart config"
 msgid "Write:"
 msgstr "Schrijf:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:403
-msgid "Choose disk write graph color"
-msgstr "Kies de kleur van de schijfschrijfgrafiek"
-
-#: ../contents/ui/config/ConfigAppearance.qml:413
+#: ../contents/ui/config/ConfigAppearance.qml:495
 msgid "Threshold text colors"
 msgstr "Drempelwaarde tekstkleuren"
 
-#: ../contents/ui/config/ConfigAppearance.qml:424
+#: ../contents/ui/config/ConfigAppearance.qml:501
 msgid "Warning status:"
 msgstr "Waarschuwingsstatus:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:426
+#: ../contents/ui/config/ConfigAppearance.qml:503
 msgid "Choose text color when the value is in warning status"
 msgstr "Kies de tekstkleur wanneer de waarde in de waarschuwingsstatus staat"
 
-#: ../contents/ui/config/ConfigAppearance.qml:431
+#: ../contents/ui/config/ConfigAppearance.qml:508
 msgid "Critical status:"
 msgstr "Kritieke status:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:433
+#: ../contents/ui/config/ConfigAppearance.qml:510
 msgid "Choose text color when the value is in critical status"
 msgstr "Tekstkleur kiezen wanneer de waarde in kritieke status is"
 
@@ -281,172 +291,140 @@ msgstr "Tekstkleur kiezen wanneer de waarde in kritieke status is"
 msgid "Custom"
 msgstr "Aangepast"
 
-#: ../contents/ui/config/ConfigData.qml:109
-msgid "Network"
-msgstr "Netwerk"
-
 #: ../contents/ui/config/ConfigData.qml:118
-msgid "Disk I/O"
-msgstr "Schijf I/O"
-
-#: ../contents/ui/config/ConfigData.qml:127
+msgctxt "Config header"
 msgid "Thresholds"
 msgstr "Drempels"
 
-#: ../contents/ui/config/ConfigData.qml:149
+#: ../contents/ui/config/ConfigData.qml:135
 msgid "Network interfaces:"
 msgstr "Netwerkkaarten:"
 
-#: ../contents/ui/config/ConfigData.qml:192 ../contents/ui/config/ConfigData.qml:314
+#: ../contents/ui/config/ConfigData.qml:178 ../contents/ui/config/ConfigData.qml:300
 msgid "Maximum transfer speed"
 msgstr "Maximale overdrachtssnelheid"
 
-#: ../contents/ui/config/ConfigData.qml:228 ../contents/ui/config/ConfigData.qml:283
-#: ../contents/ui/config/ConfigData.qml:350 ../contents/ui/config/ConfigData.qml:405
+#: ../contents/ui/config/ConfigData.qml:214 ../contents/ui/config/ConfigData.qml:269
+#: ../contents/ui/config/ConfigData.qml:336 ../contents/ui/config/ConfigData.qml:391
 msgid "Custom value:"
 msgstr "Aangepaste waarde:"
 
-#: ../contents/ui/config/ConfigData.qml:442 ../contents/ui/config/ConfigData.qml:468
-#: ../contents/ui/config/ConfigData.qml:522 ../contents/ui/config/ConfigData.qml:550
+#: ../contents/ui/config/ConfigData.qml:428
 msgid "Warning"
 msgstr "Waarschuwing"
 
-#: ../contents/ui/config/ConfigData.qml:453 ../contents/ui/config/ConfigData.qml:490
-#: ../contents/ui/config/ConfigData.qml:531 ../contents/ui/config/ConfigData.qml:572
+#: ../contents/ui/config/ConfigData.qml:439
 msgid "Critical"
 msgstr "Kritisch"
 
-#: ../contents/ui/config/ConfigData.qml:460
+#: ../contents/ui/config/ConfigData.qml:446
 msgid "CPU Temperature:"
 msgstr "CPU-temperatuur:"
 
-#: ../contents/ui/config/ConfigData.qml:514
+#: ../contents/ui/config/ConfigData.qml:498
 msgid "Physical Memory Usage:"
 msgstr "Fysiek geheugengebruik:"
 
-#: ../contents/ui/config/ConfigData.qml:542
+#: ../contents/ui/config/ConfigData.qml:524
 msgid "GPU Temperature:"
 msgstr "GPU-temperatuur:"
 
-#: ../contents/ui/config/ConfigGeneral.qml:84
+#: ../contents/ui/config/ConfigGeneral.qml:78
+msgctxt "Config header"
 msgid "Click action"
 msgstr "Klik actie"
 
-#: ../contents/ui/config/ConfigGeneral.qml:106
+#: ../contents/ui/config/ConfigGeneral.qml:95
 msgid "Update interval:"
 msgstr "Bijwerktussenpoos:"
 
-#: ../contents/ui/config/ConfigGeneral.qml:115
+#: ../contents/ui/config/ConfigGeneral.qml:104
 msgid "%1 seconds"
 msgstr "%1 seconden"
 
-#: ../contents/ui/config/ConfigGeneral.qml:127
-msgid "Charts"
-msgstr "Grafieken"
-
-#: ../contents/ui/config/ConfigGeneral.qml:133
-msgid "CPU monitor"
-msgstr "CPU-bewaking"
-
-#: ../contents/ui/config/ConfigGeneral.qml:139 ../contents/ui/config/ConfigGeneral.qml:217
-#: ../contents/ui/config/ConfigGeneral.qml:289
+#: ../contents/ui/config/ConfigGeneral.qml:122 ../contents/ui/config/ConfigGeneral.qml:200
+#: ../contents/ui/config/ConfigGeneral.qml:272
 msgid "Visibility:"
 msgstr "Zichtbaarheid:"
 
-#: ../contents/ui/config/ConfigGeneral.qml:142 ../contents/ui/config/ConfigGeneral.qml:220
-#: ../contents/ui/config/ConfigGeneral.qml:292
+#: ../contents/ui/config/ConfigGeneral.qml:125 ../contents/ui/config/ConfigGeneral.qml:203
+#: ../contents/ui/config/ConfigGeneral.qml:275
 msgid "Disabled"
 msgstr "Uitgeschakeld"
 
-#: ../contents/ui/config/ConfigGeneral.qml:145
-msgid "With Total usage"
-msgstr "Met Totaal gebruik"
+#: ../contents/ui/config/ConfigGeneral.qml:128
+msgid "Total usage"
+msgstr "Totaal gebruik"
 
-#: ../contents/ui/config/ConfigGeneral.qml:148
-msgid "With System usage"
-msgstr "Met systeemgebruik"
+#: ../contents/ui/config/ConfigGeneral.qml:131
+msgid "System usage"
+msgstr "Systeemgebruik"
 
-#: ../contents/ui/config/ConfigGeneral.qml:151
-msgid "With User usage"
-msgstr "Met gebruikersgebruik"
+#: ../contents/ui/config/ConfigGeneral.qml:134
+msgid "User usage"
+msgstr "Gebruikersgebruik"
 
-#: ../contents/ui/config/ConfigGeneral.qml:191
+#: ../contents/ui/config/ConfigGeneral.qml:174
 msgid "Show clock"
 msgstr "Toon klok"
 
-#: ../contents/ui/config/ConfigGeneral.qml:196 ../contents/ui/config/ConfigGeneral.qml:365
+#: ../contents/ui/config/ConfigGeneral.qml:179 ../contents/ui/config/ConfigGeneral.qml:348
 msgid "Show temperature"
 msgstr "Toon temperatuur"
 
-#: ../contents/ui/config/ConfigGeneral.qml:211
-msgid "Memory monitor"
-msgstr "Geheugenmonitor"
+#: ../contents/ui/config/ConfigGeneral.qml:206
+msgid "Physical memory (in KiB)"
+msgstr "Fysiek geheugen (in KiB)"
 
-#: ../contents/ui/config/ConfigGeneral.qml:223
-msgid "With Physical memory (KiB)"
-msgstr "Met fysiek geheugen (KiB)"
+#: ../contents/ui/config/ConfigGeneral.qml:209
+msgid "Physical memory (in %)"
+msgstr "Fysiek geheugen (in %)"
 
-#: ../contents/ui/config/ConfigGeneral.qml:226
-msgid "With Physical memory (in %)"
-msgstr "Met fysiek geheugen (in %)"
+#: ../contents/ui/config/ConfigGeneral.qml:212
+msgid "Application memory (in KiB)"
+msgstr "Toepassingsgeheugen (KiB)"
 
-#: ../contents/ui/config/ConfigGeneral.qml:229
-msgid "With Application memory (KiB)"
-msgstr "Met toepassingsgeheugen (KiB)"
+#: ../contents/ui/config/ConfigGeneral.qml:215
+msgid "Application memory (in %)"
+msgstr "Toepassingsgeheugen (in %)"
 
-#: ../contents/ui/config/ConfigGeneral.qml:232
-msgid "With Application memory (in %)"
-msgstr "Met toepassingsgeheugen (in %)"
+#: ../contents/ui/config/ConfigGeneral.qml:255
+msgid "Show swap"
+msgstr "Toon swap"
 
-#: ../contents/ui/config/ConfigGeneral.qml:272
-msgid "Display swap graph"
-msgstr "Toon swap grafiek"
-
-#: ../contents/ui/config/ConfigGeneral.qml:283
-msgid "Network monitor"
-msgstr "Netwerkmonitor"
-
-#: ../contents/ui/config/ConfigGeneral.qml:295
+#: ../contents/ui/config/ConfigGeneral.qml:278
 msgid "In kibibyte (KiB/s)"
 msgstr "In kibibyte (KiB/s)"
 
-#: ../contents/ui/config/ConfigGeneral.qml:298
+#: ../contents/ui/config/ConfigGeneral.qml:281
 msgid "In kilobit (Kbps)"
 msgstr "In kilobit (Kbps)"
 
-#: ../contents/ui/config/ConfigGeneral.qml:301
+#: ../contents/ui/config/ConfigGeneral.qml:284
 msgid "In kilobyte (KBps)"
 msgstr "In kilobyte (KBps)"
 
-#: ../contents/ui/config/ConfigGeneral.qml:339
-msgid "GPU monitor"
-msgstr "GPU-monitor"
-
-#: ../contents/ui/config/ConfigGeneral.qml:351 ../contents/ui/config/ConfigGeneral.qml:388
+#: ../contents/ui/config/ConfigGeneral.qml:334 ../contents/ui/config/ConfigGeneral.qml:371
 msgid "Enabled?"
 msgstr "Ingeschakeld?"
 
-#: ../contents/ui/config/ConfigGeneral.qml:355
-msgid "Display memory graph"
-msgstr "Geheugengrafiek weergeven"
+#: ../contents/ui/config/ConfigGeneral.qml:338
+msgid "Show memory"
+msgstr "Toon geheugen"
 
-#: ../contents/ui/config/ConfigGeneral.qml:360
-msgid "Values in percentage"
-msgstr "Waarden in percentage"
+#: ../contents/ui/config/ConfigGeneral.qml:343
+msgid "Memory in percent"
+msgstr "Geheugen in procent"
 
-#: ../contents/ui/config/ConfigGeneral.qml:376
-msgid "Disk I/O monitor"
-msgstr "Schijf I/O-monitor"
-
-#: ../contents/ui/config/ConfigGeneral.qml:404
+#: ../contents/ui/config/ConfigGeneral.qml:387
 msgid "Search an application:"
 msgstr "Een toepassing zoeken:"
 
-#: ../contents/ui/config/ConfigGeneral.qml:406
+#: ../contents/ui/config/ConfigGeneral.qml:389
 msgid "Application name"
 msgstr "Naam toepassing"
 
-#: ../contents/ui/config/ConfigGeneral.qml:413
+#: ../contents/ui/config/ConfigGeneral.qml:396
 msgid "Applications"
 msgstr "Toepassingen"
 

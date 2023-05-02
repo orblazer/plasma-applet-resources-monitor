@@ -105,17 +105,17 @@ PlasmaExtras.Representation {
             PlasmaComponents.TabButton {
                 icon.name: "network-wired-symbolic"
                 icon.height: PlasmaCore.Units.iconSizes.smallMedium
-                text: i18n("Network")
+                text: i18nc("Chart name", "Network")
             }
             PlasmaComponents.TabButton {
                 icon.name: "drive-harddisk-symbolic"
                 icon.height: PlasmaCore.Units.iconSizes.smallMedium
-                text: i18n("Disk I/O")
+                text: i18nc("Chart name", "Disks I/O")
             }
             PlasmaComponents.TabButton {
                 icon.name: "dialog-warning"
                 icon.height: PlasmaCore.Units.iconSizes.smallMedium
-                text: i18n("Thresholds")
+                text: i18nc("Config header", "Thresholds")
             }
         }
     }
@@ -188,7 +188,7 @@ PlasmaExtras.Representation {
                 // Receiving speed
                 QtControls.ComboBox {
                     id: networkReceivingTotal
-                    Kirigami.FormData.label: i18n("Receiving:")
+                    Kirigami.FormData.label: i18nc("Chart config", "Receiving:")
                     textRole: "label"
                     model: networkSpeedOptions
 
@@ -243,7 +243,7 @@ PlasmaExtras.Representation {
                 // Sending speed
                 QtControls.ComboBox {
                     id: networkSendingTotal
-                    Kirigami.FormData.label: i18n("Sending:")
+                    Kirigami.FormData.label: i18nc("Chart config", "Sending:")
                     textRole: "label"
                     model: networkSpeedOptions
 
@@ -310,7 +310,7 @@ PlasmaExtras.Representation {
                 // Read speed
                 QtControls.ComboBox {
                     id: diskReadTotal
-                    Kirigami.FormData.label: i18n("Read:")
+                    Kirigami.FormData.label: i18nc("Chart config", "Read:")
                     textRole: "label"
                     model: diskSpeedOptions
 
@@ -365,7 +365,7 @@ PlasmaExtras.Representation {
                 // Write speed
                 QtControls.ComboBox {
                     id: diskWriteTotal
-                    Kirigami.FormData.label: i18n("Write:")
+                    Kirigami.FormData.label: i18nc("Chart config", "Write:")
                     textRole: "label"
                     model: diskSpeedOptions
 
@@ -451,7 +451,6 @@ PlasmaExtras.Representation {
 
                     RMControls.SpinBox {
                         id: thresholdWarningCpuTemp
-                        Kirigami.FormData.label: i18n("Warning")
                         QtLayouts.Layout.fillWidth: true
                         decimals: 1
                         stepSize: 1
@@ -473,7 +472,6 @@ PlasmaExtras.Representation {
                     }
                     RMControls.SpinBox {
                         id: thresholdCriticalCpuTemp
-                        Kirigami.FormData.label: i18n("Critical")
                         QtLayouts.Layout.fillWidth: true
                         decimals: 1
                         stepSize: 1
@@ -505,7 +503,6 @@ PlasmaExtras.Representation {
 
                     RMControls.SpinBox {
                         id: thresholdWarningMemory
-                        Kirigami.FormData.label: i18n("Warning")
                         QtLayouts.Layout.fillWidth: true
 
                         textFromValue: function (value, locale) {
@@ -514,7 +511,6 @@ PlasmaExtras.Representation {
                     }
                     RMControls.SpinBox {
                         id: thresholdCriticalMemory
-                        Kirigami.FormData.label: i18n("Critical")
                         QtLayouts.Layout.fillWidth: true
 
                         textFromValue: function (value, locale) {
@@ -533,7 +529,6 @@ PlasmaExtras.Representation {
 
                     RMControls.SpinBox {
                         id: thresholdWarningGpuTemp
-                        Kirigami.FormData.label: i18n("Warning")
                         QtLayouts.Layout.fillWidth: true
                         decimals: 1
                         stepSize: 1
@@ -555,7 +550,6 @@ PlasmaExtras.Representation {
                     }
                     RMControls.SpinBox {
                         id: thresholdCriticalGpuTemp
-                        Kirigami.FormData.label: i18n("Critical")
                         QtLayouts.Layout.fillWidth: true
                         decimals: 1
                         stepSize: 1
