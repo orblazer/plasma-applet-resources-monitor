@@ -108,7 +108,7 @@ PlasmaExtras.Representation {
             implicitHeight: contentHeight
 
             PlasmaComponents.TabButton {
-                icon.name: "office-chart-line"
+                icon.name: "office-chart-line-stacked"
                 icon.height: PlasmaCore.Units.iconSizes.smallMedium
                 text: i18n("Graph")
             }
@@ -118,7 +118,7 @@ PlasmaExtras.Representation {
                 text: i18n("Text")
             }
             PlasmaComponents.TabButton {
-                icon.name: "preferences-desktop-color"
+                icon.name: "color-select"
                 icon.height: PlasmaCore.Units.iconSizes.smallMedium
                 text: i18n("Colors")
             }

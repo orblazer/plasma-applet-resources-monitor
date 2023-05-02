@@ -103,12 +103,12 @@ PlasmaExtras.Representation {
             implicitHeight: contentHeight
 
             PlasmaComponents.TabButton {
-                icon.name: "preferences-system-network"
+                icon.name: "network-wired-symbolic"
                 icon.height: PlasmaCore.Units.iconSizes.smallMedium
                 text: i18n("Network")
             }
             PlasmaComponents.TabButton {
-                icon.name: "drive-harddisk"
+                icon.name: "drive-harddisk-symbolic"
                 icon.height: PlasmaCore.Units.iconSizes.smallMedium
                 text: i18n("Disk I/O")
             }

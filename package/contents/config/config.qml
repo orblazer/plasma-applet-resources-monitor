@@ -4,12 +4,12 @@ import org.kde.plasma.configuration 2.0
 ConfigModel {
     ConfigCategory {
         name: i18n("General")
-        icon: 'preferences-system-windows'
+        icon: 'preferences-desktop-plasma'
         source: 'config/ConfigGeneral.qml'
     }
     ConfigCategory {
         name: i18n("Data")
-        icon: 'preferences-system-settings'
+        icon: 'preferences-desktop'
         source: 'config/ConfigData.qml'
     }
     ConfigCategory {

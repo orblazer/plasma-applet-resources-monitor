@@ -68,12 +68,12 @@ PlasmaExtras.Representation {
             implicitHeight: contentHeight
 
             PlasmaComponents.TabButton {
-                icon.name: "preferences-system-windows"
+                icon.name: "settings"
                 icon.height: PlasmaCore.Units.iconSizes.smallMedium
                 text: i18n("General")
             }
             PlasmaComponents.TabButton {
-                icon.name: "input-mouse-click-left"
+                icon.name: "input-mouse-symbolic"
                 icon.height: PlasmaCore.Units.iconSizes.smallMedium
                 text: i18n("Click action")
             }
