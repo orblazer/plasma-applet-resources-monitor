@@ -1,36 +1,20 @@
 import QtQuick 2.2
-import QtQuick.Controls 2.12 as QtControls
-import QtQuick.Layouts 1.1 as QtLayouts
+import org.kde.kirigami 2.6 as Kirigami
 import "./" as RMControls
 
-QtLayouts.RowLayout {
+RMControls.SpinBox {
     id: customizableSize
 
-    // Aliases
-    property alias value: spinBox.value
-    property alias checked: customized.checked
+    property bool customized
 
-    property alias from: spinBox.from
-    property alias to: spinBox.to
-    property alias stepSize: spinBox.stepSize
+    // Customized checkbox
+    enabled: Kirigami.FormData.checked
+    Kirigami.FormData.checkable: true
+    Kirigami.FormData.checked: customized
+    onEnabledChanged: customized = enabled
 
-    // Components
-    QtControls.CheckBox {
-        id: customized
-
-        Accessible.name: QtControls.ToolTip.text
-        QtControls.ToolTip {
-            text: i18n("Check for use customized graph width")
-        }
-    }
-    RMControls.SpinBox {
-        id: spinBox
-
-        enabled: customized.checked
-        QtLayouts.Layout.fillWidth: true
-
-        textFromValue: function (value, locale) {
-            return valueToText(value, locale) + " px";
-        }
+    // Component
+    textFromValue: function (value, locale) {
+        return valueToText(value, locale) + " px";
     }
 }

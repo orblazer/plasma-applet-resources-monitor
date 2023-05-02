@@ -15,51 +15,54 @@ PlasmaExtras.Representation {
 
     signal configurationChanged
 
+    // Chart
     property alias cfg_verticalLayout: verticalLayout.checked
     property alias cfg_historyAmount: historyAmount.value
-    property alias cfg_customGraphWidth: graphWidth.checked
+    property alias cfg_customGraphWidth: graphWidth.customized
     property alias cfg_graphWidth: graphWidth.value
-    property alias cfg_customGraphHeight: graphHeight.checked
+    property alias cfg_customGraphHeight: graphHeight.customized
     property alias cfg_graphHeight: graphHeight.value
     property alias cfg_graphMargin: graphMargin.value
     property alias cfg_graphFillOpacity: graphFillOpacity.value
 
+    // Text
     property alias cfg_enableShadows: enableShadows.checked
     property alias cfg_fontScale: fontScale.value
     property string cfg_placement: ""
     property string cfg_displayment: ""
 
-    // CPU
-    property alias cfg_customCpuColor: cpuColor.checked
+    // Colors
+    // > CPU
+    property alias cfg_customCpuColor: cpuColor.customized
     property alias cfg_cpuColor: cpuColor.value
-    property alias cfg_customCpuTemperatureColor: cpuTemperatureColor.checked
+    property alias cfg_customCpuTemperatureColor: cpuTemperatureColor.customized
     property alias cfg_cpuTemperatureColor: cpuTemperatureColor.value
-    // Memory
-    property alias cfg_customRamColor: ramColor.checked
+    // > Memory
+    property alias cfg_customRamColor: ramColor.customized
     property alias cfg_ramColor: ramColor.value
-    property alias cfg_customSwapColor: swapColor.checked
+    property alias cfg_customSwapColor: swapColor.customized
     property alias cfg_swapColor: swapColor.value
-    // Network
-    property alias cfg_customNetDownColor: netDownColor.checked
+    // > Network
+    property alias cfg_customNetDownColor: netDownColor.customized
     property alias cfg_netDownColor: netDownColor.value
-    property alias cfg_customNetUpColor: netUpColor.checked
+    property alias cfg_customNetUpColor: netUpColor.customized
     property alias cfg_netUpColor: netUpColor.value
-    // GPU
-    property alias cfg_customGpuColor: gpuColor.checked
+    // > GPU
+    property alias cfg_customGpuColor: gpuColor.customized
     property alias cfg_gpuColor: gpuColor.value
-    property alias cfg_customGpuMemoryColor: gpuMemoryColor.checked
+    property alias cfg_customGpuMemoryColor: gpuMemoryColor.customized
     property alias cfg_gpuMemoryColor: gpuMemoryColor.value
-    property alias cfg_customGpuTemperatureColor: gpuTemperatureColor.checked
+    property alias cfg_customGpuTemperatureColor: gpuTemperatureColor.customized
     property alias cfg_gpuTemperatureColor: gpuTemperatureColor.value
-    // Disk
-    property alias cfg_customDiskReadColor: diskReadColor.checked
+    // > Disk
+    property alias cfg_customDiskReadColor: diskReadColor.customized
     property alias cfg_diskReadColor: diskReadColor.value
-    property alias cfg_customDiskWriteColor: diskWriteColor.checked
+    property alias cfg_customDiskWriteColor: diskWriteColor.customized
     property alias cfg_diskWriteColor: diskWriteColor.value
-    // Threshold
-    property alias cfg_customWarningColor: warningColor.checked
+    // > Threshold
+    property alias cfg_customWarningColor: warningColor.customized
     property alias cfg_warningColor: warningColor.value
-    property alias cfg_customCriticalColor: criticalColor.checked
+    property alias cfg_customCriticalColor: criticalColor.customized
     property alias cfg_criticalColor: criticalColor.value
 
     property color textColor: theme.textColor

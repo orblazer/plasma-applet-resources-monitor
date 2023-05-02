@@ -1,43 +1,49 @@
 import QtQuick 2.2
-import QtQuick.Controls 2.12
-import QtQuick.Layouts 1.1
-import QtQuick.Dialogs 1.0
+import QtQuick.Dialogs 1.0 as QtDialog
+import org.kde.plasma.components 3.0 as PlasmaComponents
+import org.kde.kirigami 2.6 as Kirigami
 
-RowLayout {
+PlasmaComponents.Button {
     id: colorSelector
 
     // Aliases
     property alias value: colorPicker.currentColor
-    property alias checked: customized.checked
 
     // Properties
     property string label
     property string dialogTitle
     property color defaultColor
+    property bool customized
+
+    // Customized checkbox
+    enabled: Kirigami.FormData.checked
+    Kirigami.FormData.checkable: true
+    Kirigami.FormData.checked: customized
+
+    onEnabledChanged: customized = enabled
+    onClicked: colorPicker.open()
+
+    // Size
+    topPadding: 12
+    bottomPadding: topPadding
+    leftPadding: topPadding * 2
+    rightPadding: leftPadding
 
     // Components
-    ColorDialog {
+    QtDialog.ColorDialog {
         id: colorPicker
         title: dialogTitle
     }
-
-    CheckBox {
-        id: customized
-
-        Accessible.name: ToolTip.text
-        ToolTip {
-            text: i18n("Check for use customized color")
-        }
+    MouseArea {
+        id: mouseArea
+        anchors.fill: parent
+        onPressed: mouse.accepted = false
+        cursorShape: enabled ? Qt.PointingHandCursor : Qt.ArrowCursor
     }
-    Button {
-        onClicked: colorPicker.open()
-        enabled: customized.checked
 
-        height: customized.height
-        implicitWidth: height * 2
-        background: Rectangle {
-            color: customized.checked ? colorPicker.currentColor : defaultColor
-            radius: 2
-        }
+    background: Rectangle {
+        color: customized ? colorPicker.currentColor : defaultColor
+        opacity: colorPicker.enabled ? 1 : 0.75
+        radius: 2
     }
 }
