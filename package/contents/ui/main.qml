@@ -25,7 +25,6 @@ MouseArea {
     id: root
 
     readonly property bool vertical: Plasmoid.formFactor === PlasmaCore.Types.Vertical
-    property var _maximumHistory: -1
 
     // Settings properties
     property bool verticalLayout: Plasmoid.configuration.verticalLayout
@@ -46,18 +45,6 @@ MouseArea {
     LayoutMirroring.childrenInherit: true
 
     Plasmoid.preferredRepresentation: Plasmoid.fullRepresentation
-
-    // Bind config change
-    Connections {
-        target: Plasmoid.configuration
-
-        function onHistoryAmountChanged() {
-            _updateMaximumHistory();
-        }
-    }
-    Component.onCompleted: {
-        _updateMaximumHistory();
-    }
 
     // Click action
     Kio.KRun {
@@ -85,7 +72,6 @@ MouseArea {
                 }
             }
         }
-        onIntervalChanged: _updateMaximumHistory()
     }
 
     // Main Layout
@@ -121,26 +107,12 @@ MouseArea {
                 item.textContainer.firstLineLabel.font.pixelSize = Qt.binding(() => root.fontPixelSize);
                 item.textContainer.secondLineLabel.font.pixelSize = Qt.binding(() => root.fontPixelSize);
                 item.textContainer.thirdLineLabel.font.pixelSize = Qt.binding(() => root.fontPixelSize);
-                item._setMaximumHistory(_maximumHistory);
             }
         }
 
         function getGraph(index) {
             const loaderItem = graphView.itemAtIndex(index);
             return loaderItem !== null ? loaderItem.item : null;
-        }
-    }
-
-    function _updateMaximumHistory() {
-        _maximumHistory = updateTask.interval > 0 ? (Plasmoid.configuration.historyAmount * 1000) / updateTask.interval : 0;
-
-        // Clear history and set new maximum history
-        for (const i in graphView.model) {
-            const graph = graphView.getGraph(i);
-            if (graph !== null) {
-                graph._clear();
-                graph._setMaximumHistory(_maximumHistory);
-            }
         }
     }
 

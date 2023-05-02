@@ -27,11 +27,11 @@ RMBaseGraph.BaseSensorGraph {
         valueSources: [
             RMBaseGraph.ArrayDataSource {
                 id: chartData
+                maximumHistory: Plasmoid.configuration.historyAmount
             }
         ]
     }
 
-    property var _setMaximumHistory: (value) => chartData.maximumHistory = value
     _clear: () => {
         chartData.clear();
         for (let i = 0; i < sensorsModel.sensors.length; i++) {
