@@ -105,22 +105,16 @@ PlasmaExtras.Representation {
                     }
                 }
 
-                // Separator
-                Rectangle {
-                    height: Kirigami.Units.largeSpacing * 2
-                    color: "transparent"
-                }
-
                 // Charts
-                PlasmaComponents.Label {
-                    text: i18n("Charts")
-                    font.pointSize: PlasmaCore.Theme.defaultFont.pointSize * 1.2
+                Kirigami.Separator {
+                    Kirigami.FormData.label: i18n("Charts")
+                    Kirigami.FormData.isSection: true
                 }
 
                 // CPU
-                PlasmaComponents.Label {
-                    text: i18n("CPU monitor")
-                    font.pointSize: PlasmaCore.Theme.defaultFont.pointSize * 1.05
+                Item {
+                    Kirigami.FormData.label: i18n("CPU monitor")
+                    Kirigami.FormData.isSection: true
                 }
 
                 QtControls.ComboBox {
@@ -193,12 +187,12 @@ PlasmaExtras.Representation {
 
                 // Memory
                 Rectangle {
-                    height: Kirigami.Units.largeSpacing * 2
+                    height: Kirigami.Units.largeSpacing
                     color: "transparent"
                 }
-                PlasmaComponents.Label {
-                    text: i18n("Memory monitor")
-                    font.pointSize: PlasmaCore.Theme.defaultFont.pointSize * 1.05
+                Item {
+                    Kirigami.FormData.label: i18n("Memory monitor")
+                    Kirigami.FormData.isSection: true
                 }
 
                 QtControls.ComboBox {
@@ -265,12 +259,12 @@ PlasmaExtras.Representation {
 
                 // Network
                 Rectangle {
-                    height: Kirigami.Units.largeSpacing * 2
+                    height: Kirigami.Units.largeSpacing
                     color: "transparent"
                 }
-                PlasmaComponents.Label {
-                    text: i18n("Network monitor")
-                    font.pointSize: PlasmaCore.Theme.defaultFont.pointSize * 1.05
+                Item {
+                    Kirigami.FormData.label: i18n("Network monitor")
+                    Kirigami.FormData.isSection: true
                 }
 
                 QtControls.ComboBox {
@@ -321,12 +315,12 @@ PlasmaExtras.Representation {
 
                 // GPU
                 Rectangle {
-                    height: Kirigami.Units.largeSpacing * 2
+                    height: Kirigami.Units.largeSpacing
                     color: "transparent"
                 }
-                PlasmaComponents.Label {
-                    text: i18n("GPU monitor")
-                    font.pointSize: PlasmaCore.Theme.defaultFont.pointSize * 1.05
+                Item {
+                    Kirigami.FormData.label: i18n("GPU monitor")
+                    Kirigami.FormData.isSection: true
                 }
 
                 QtLayouts.GridLayout {
@@ -358,12 +352,12 @@ PlasmaExtras.Representation {
 
                 // Disk I/O
                 Rectangle {
-                    height: Kirigami.Units.largeSpacing * 2
+                    height: Kirigami.Units.largeSpacing
                     color: "transparent"
                 }
-                PlasmaComponents.Label {
-                    text: i18n("Disk I/O monitor")
-                    font.pointSize: PlasmaCore.Theme.defaultFont.pointSize * 1.05
+                Item {
+                    Kirigami.FormData.label: i18n("Disk I/O monitor")
+                    Kirigami.FormData.isSection: true
                 }
 
                 QtLayouts.GridLayout {

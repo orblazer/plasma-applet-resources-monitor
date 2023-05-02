@@ -352,14 +352,14 @@ PlasmaExtras.Representation {
             Kirigami.FormLayout {
                 id: colorsPage
 
-                PlasmaComponents.Label {
-                    text: i18n("CPU graph colors")
-                    font.pointSize: PlasmaCore.Theme.defaultFont.pointSize * 1.2
-                }
-                // Separator
+                // CPU
                 Rectangle {
                     height: Kirigami.Units.largeSpacing
                     color: "transparent"
+                }
+                Item {
+                    Kirigami.FormData.label: i18n("CPU graph colors")
+                    Kirigami.FormData.isSection: true
                 }
 
                 RMControls.ColorSelector {
@@ -377,19 +377,14 @@ PlasmaExtras.Representation {
                     defaultColor: textColor
                 }
 
-                // Separator
-                Rectangle {
-                    height: Kirigami.Units.largeSpacing * 2
-                    color: "transparent"
-                }
-                PlasmaComponents.Label {
-                    text: i18n("Memory graph colors")
-                    font.pointSize: PlasmaCore.Theme.defaultFont.pointSize * 1.2
-                }
-                // Separator
+                // Memory
                 Rectangle {
                     height: Kirigami.Units.largeSpacing
                     color: "transparent"
+                }
+                Item {
+                    Kirigami.FormData.label: i18n("Memory graph colors")
+                    Kirigami.FormData.isSection: true
                 }
 
                 RMControls.ColorSelector {
@@ -407,19 +402,14 @@ PlasmaExtras.Representation {
                     defaultColor: negativeColor
                 }
 
-                // Separator
-                Rectangle {
-                    height: Kirigami.Units.largeSpacing * 2
-                    color: "transparent"
-                }
-                PlasmaComponents.Label {
-                    text: i18n("Network graph colors")
-                    font.pointSize: PlasmaCore.Theme.defaultFont.pointSize * 1.2
-                }
-                // Separator
+                // Network
                 Rectangle {
                     height: Kirigami.Units.largeSpacing
                     color: "transparent"
+                }
+                Item {
+                    Kirigami.FormData.label: i18n("Network graph colors")
+                    Kirigami.FormData.isSection: true
                 }
 
                 RMControls.ColorSelector {
@@ -437,19 +427,14 @@ PlasmaExtras.Representation {
                     defaultColor: positiveColor
                 }
 
-                // Separator
-                Rectangle {
-                    height: Kirigami.Units.largeSpacing * 2
-                    color: "transparent"
-                }
-                PlasmaComponents.Label {
-                    text: i18n("GPU graph colors")
-                    font.pointSize: PlasmaCore.Theme.defaultFont.pointSize * 1.2
-                }
-                // Separator
+                // GPU
                 Rectangle {
                     height: Kirigami.Units.largeSpacing
                     color: "transparent"
+                }
+                Item {
+                    Kirigami.FormData.label: i18n("GPU graph colors")
+                    Kirigami.FormData.isSection: true
                 }
 
                 RMControls.ColorSelector {
@@ -474,19 +459,14 @@ PlasmaExtras.Representation {
                     defaultColor: textColor
                 }
 
-                // Separator
-                Rectangle {
-                    height: Kirigami.Units.largeSpacing * 2
-                    color: "transparent"
-                }
-                PlasmaComponents.Label {
-                    text: i18n("Disk I/O graph colors")
-                    font.pointSize: PlasmaCore.Theme.defaultFont.pointSize * 1.2
-                }
-                // Separator
+                // Disk I/O
                 Rectangle {
                     height: Kirigami.Units.largeSpacing
                     color: "transparent"
+                }
+                Item {
+                    Kirigami.FormData.label: i18n("Disk I/O graph colors")
+                    Kirigami.FormData.isSection: true
                 }
 
                 RMControls.ColorSelector {
@@ -504,19 +484,10 @@ PlasmaExtras.Representation {
                     defaultColor: positiveColor
                 }
 
-                // Separator
-                Rectangle {
-                    height: Kirigami.Units.largeSpacing * 2
-                    color: "transparent"
-                }
-                PlasmaComponents.Label {
-                    text: i18n("Threshold text colors")
-                    font.pointSize: PlasmaCore.Theme.defaultFont.pointSize * 1.2
-                }
-                // Separator
-                Rectangle {
-                    height: Kirigami.Units.largeSpacing
-                    color: "transparent"
+                // Thresholds
+                Kirigami.Separator {
+                    Kirigami.FormData.label: i18n("Threshold text colors")
+                    Kirigami.FormData.isSection: true
                 }
 
                 RMControls.ColorSelector {
