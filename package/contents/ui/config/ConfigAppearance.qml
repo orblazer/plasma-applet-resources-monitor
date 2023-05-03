@@ -13,8 +13,6 @@ PlasmaExtras.Representation {
     id: page
     anchors.fill: parent
 
-    signal configurationChanged
-
     // Chart
     property alias cfg_verticalLayout: verticalLayout.checked
     property alias cfg_historyAmount: historyAmount.value
@@ -24,12 +22,13 @@ PlasmaExtras.Representation {
     property alias cfg_graphHeight: graphHeight.value
     property alias cfg_graphMargin: graphMargin.value
     property alias cfg_graphFillOpacity: graphFillOpacity.value
+    property var cfg_graphOrders
 
     // Text
     property alias cfg_enableShadows: enableShadows.checked
     property alias cfg_fontScale: fontScale.value
-    property string cfg_placement: ""
-    property string cfg_displayment: ""
+    property string cfg_placement
+    property string cfg_displayment
 
     // Colors
     // > CPU
@@ -206,7 +205,7 @@ PlasmaExtras.Representation {
                     implicitHeight: listViewHeight
 
                     model: ListModel {
-                        Component.onCompleted: Plasmoid.configuration.graphOrders.map(id => monitors[id]).forEach(item => append(item))
+                        Component.onCompleted: cfg_graphOrders.map(id => monitors[id]).forEach(item => append(item))
 
                         function toJS() {
                             const result = [];
@@ -250,9 +249,7 @@ PlasmaExtras.Representation {
                                     onMoveRequested: graphsList.model.move(oldIndex, newIndex, 1)
 
                                     onDropped: {
-                                        Plasmoid.configuration.graphOrders = graphsList.model.toJS().map(item => item.id);
-                                        // To modify a StringList we need to manually trigger configurationChanged.
-                                        page.configurationChanged();
+                                        cfg_graphOrders = graphsList.model.toJS().map(item => item.id);
                                     }
                                 }
 
@@ -313,7 +310,7 @@ PlasmaExtras.Representation {
 
                     Component.onCompleted: {
                         for (var i = 0; i < model.length; i++) {
-                            if (model[i]["name"] === Plasmoid.configuration.displayment) {
+                            if (model[i]["name"] === cfg_displayment) {
                                 displayment.currentIndex = i;
                             }
                         }
@@ -341,7 +338,7 @@ PlasmaExtras.Representation {
 
                     Component.onCompleted: {
                         for (var i = 0; i < model.length; i++) {
-                            if (model[i]["name"] === Plasmoid.configuration.placement) {
+                            if (model[i]["name"] === cfg_placement) {
                                 placement.currentIndex = i;
                             }
                         }

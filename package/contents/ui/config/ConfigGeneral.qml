@@ -14,25 +14,30 @@ PlasmaExtras.Representation {
     id: page
     anchors.fill: parent
 
-    signal configurationChanged
-
+    // Charts
     property alias cfg_updateInterval: updateInterval.realValue
-    property string cfg_cpuUnit: Plasmoid.configuration.cpuUnit
-    property string cfg_memoryUnit: Plasmoid.configuration.memoryUnit
-    property string cfg_networkUnit: Plasmoid.configuration.networkUnit
-    property string cfg_actionService: Plasmoid.configuration.actionService
-
-    property bool cfg_showCpuMonitor: Plasmoid.configuration.showCpuMonitor.checked
+    // > CPU
+    property bool cfg_showCpuMonitor
+    property string cfg_cpuUnit
     property alias cfg_showClock: showCpuClock.checked
     property alias cfg_showCpuTemperature: showCpuTemperature.checked
-    property bool cfg_showRamMonitor: Plasmoid.configuration.showRamMonitor.checked
+    // > Memory
+    property bool cfg_showRamMonitor
+    property string cfg_memoryUnit
     property alias cfg_memorySwapGraph: memorySwapGraph.checked
-    property bool cfg_showNetMonitor: Plasmoid.configuration.showNetMonitor.checked
+    // > Network
+    property bool cfg_showNetMonitor
+    property string cfg_networkUnit
+    // > GPU
     property alias cfg_showGpuMonitor: showGpuMonitor.checked
     property alias cfg_gpuMemoryInPercent: gpuMemoryInPercent.checked
     property alias cfg_gpuMemoryGraph: gpuMemoryGraph.checked
     property alias cfg_showGpuTemperature: showGpuTemperature.checked
+    // > Disks I/O
     property alias cfg_showDiskMonitor: showDiskMonitor.checked
+
+    // Click action
+    property string cfg_actionService
 
     // Apps model
     RMComponents.AppsDetector {
@@ -120,7 +125,10 @@ PlasmaExtras.Representation {
                 QtControls.ComboBox {
                     QtLayouts.Layout.fillWidth: true
                     Kirigami.FormData.label: i18n("Visibility:")
+
+                    currentIndex: -1
                     textRole: "label"
+                    valueRole: "value"
                     model: [{
                             "label": i18n("Disabled"),
                             "value": "none"
@@ -140,26 +148,15 @@ PlasmaExtras.Representation {
                         if (current) {
                             if (current.value === "none") {
                                 cfg_showCpuMonitor = false;
-                                page.configurationChanged();
                             } else {
                                 cfg_showCpuMonitor = true;
                                 cfg_cpuUnit = current.value;
-                                page.configurationChanged();
                             }
                         }
                     }
-
                     Component.onCompleted: {
-                        if (!Plasmoid.configuration.showCpuMonitor) {
-                            currentIndex = 0;
-                        } else {
-                            for (var i = 0; i < model.length; i++) {
-                                if (model[i]["value"] === Plasmoid.configuration.cpuUnit) {
-                                    currentIndex = i;
-                                    return;
-                                }
-                            }
-                        }
+                        // TODO (3.0): Merge "cfg_showCpuMonitor" and "cfg_cpuUnit"
+                        currentIndex = cfg_showCpuMonitor ? indexOfValue(cfg_cpuUnit) : 0;
                     }
                 }
 
@@ -198,7 +195,10 @@ PlasmaExtras.Representation {
                 QtControls.ComboBox {
                     QtLayouts.Layout.fillWidth: true
                     Kirigami.FormData.label: i18n("Visibility:")
+
+                    currentIndex: -1
                     textRole: "label"
+                    valueRole: "value"
                     model: [{
                             "label": i18n("Disabled"),
                             "value": "none"
@@ -221,26 +221,15 @@ PlasmaExtras.Representation {
                         if (current) {
                             if (current.value === "none") {
                                 cfg_showRamMonitor = false;
-                                page.configurationChanged();
                             } else {
                                 cfg_showRamMonitor = true;
                                 cfg_memoryUnit = current.value;
-                                page.configurationChanged();
                             }
                         }
                     }
-
                     Component.onCompleted: {
-                        if (!Plasmoid.configuration.showRamMonitor) {
-                            currentIndex = 0;
-                        } else {
-                            for (var i = 0; i < model.length; i++) {
-                                if (model[i]["value"] === Plasmoid.configuration.memoryUnit) {
-                                    currentIndex = i;
-                                    return;
-                                }
-                            }
-                        }
+                        // TODO (3.0): Merge "cfg_showRamMonitor" and "cfg_memoryUnit"
+                        currentIndex = cfg_showRamMonitor ? indexOfValue(cfg_memoryUnit) : 0;
                     }
                 }
 
@@ -270,7 +259,10 @@ PlasmaExtras.Representation {
                 QtControls.ComboBox {
                     QtLayouts.Layout.fillWidth: true
                     Kirigami.FormData.label: i18n("Visibility:")
+
+                    currentIndex: -1
                     textRole: "label"
+                    valueRole: "value"
                     model: [{
                             "label": i18n("Disabled"),
                             "value": "none"
@@ -290,26 +282,15 @@ PlasmaExtras.Representation {
                         if (current) {
                             if (current.value === "none") {
                                 cfg_showNetMonitor = false;
-                                page.configurationChanged();
                             } else {
                                 cfg_showNetMonitor = true;
                                 cfg_networkUnit = current.value;
-                                page.configurationChanged();
                             }
                         }
                     }
-
                     Component.onCompleted: {
-                        if (!Plasmoid.configuration.showNetMonitor) {
-                            currentIndex = 0;
-                        } else {
-                            for (var i = 0; i < model.length; i++) {
-                                if (model[i]["value"] === Plasmoid.configuration.networkUnit) {
-                                    currentIndex = i;
-                                    return;
-                                }
-                            }
-                        }
+                        // TODO (3.0): Merge "cfg_showNetMonitor" and "cfg_networkUnit"
+                        currentIndex = cfg_showNetMonitor ? indexOfValue(cfg_networkUnit) : 0;
                     }
                 }
 
@@ -437,11 +418,7 @@ PlasmaExtras.Representation {
 
                             onClicked: {
                                 appsList.currentIndex = index;
-                                var oldValue = cfg_actionService;
                                 cfg_actionService = serviceName;
-                                if (cfg_actionService !== oldValue) {
-                                    page.configurationChanged();
-                                }
                             }
                         }
 

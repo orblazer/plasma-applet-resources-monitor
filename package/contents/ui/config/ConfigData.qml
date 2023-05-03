@@ -14,10 +14,9 @@ PlasmaExtras.Representation {
     id: dataPage
     anchors.fill: parent
 
-    signal configurationChanged
-
     // Network
     readonly property var networkDialect: Functions.getNetworkDialectInfo(Plasmoid.configuration.networkUnit)
+    property var cfg_ignoredNetworkInterfaces
     property alias cfg_networkReceivingTotal: networkReceiving.realValue
     property alias cfg_networkSendingTotal: networkSending.realValue
 
@@ -151,11 +150,11 @@ PlasmaExtras.Representation {
                             }
 
                             text: interfaceName
-                            checked: Plasmoid.configuration.ignoredNetworkInterfaces.indexOf(interfaceName) == -1 && !ignoredByDefault
+                            checked: cfg_ignoredNetworkInterfaces.indexOf(interfaceName) == -1 && !ignoredByDefault
                             enabled: !ignoredByDefault
 
                             onClicked: {
-                                var ignoredNetworkInterfaces = Plasmoid.configuration.ignoredNetworkInterfaces.slice(0); // copy()
+                                var ignoredNetworkInterfaces = cfg_ignoredNetworkInterfaces.slice(0); // copy()
                                 if (checked) {
                                     // Checking, and thus removing from the ignoredNetworkInterfaces
                                     var i = ignoredNetworkInterfaces.indexOf(interfaceName);
@@ -164,9 +163,7 @@ PlasmaExtras.Representation {
                                     // Unchecking, and thus adding to the ignoredNetworkInterfaces
                                     ignoredNetworkInterfaces.push(interfaceName);
                                 }
-                                Plasmoid.configuration.ignoredNetworkInterfaces = ignoredNetworkInterfaces;
-                                // To modify a StringList we need to manually trigger configurationChanged.
-                                dataPage.configurationChanged();
+                                cfg_ignoredNetworkInterfaces = ignoredNetworkInterfaces;
                             }
                         }
                     }
