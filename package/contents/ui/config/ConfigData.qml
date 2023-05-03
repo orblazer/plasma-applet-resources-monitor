@@ -170,24 +170,12 @@ PlasmaExtras.Representation {
                     }
                 }
 
-                // Separator
-                Rectangle {
-                    height: Kirigami.Units.largeSpacing * 2
-                    color: "transparent"
+                // Transfer speed
+                Item {
+                    Kirigami.FormData.label: i18n("Maximum transfer speed")
+                    Kirigami.FormData.isSection: true
                 }
 
-                PlasmaComponents.Label {
-                    text: i18n("Maximum transfer speed")
-                    font.pointSize: PlasmaCore.Theme.defaultFont.pointSize * 1.2
-                }
-
-                // Separator
-                Rectangle {
-                    height: Kirigami.Units.largeSpacing
-                    color: "transparent"
-                }
-
-                // Receiving speed
                 RMControls.PredefinedSpinBox {
                     id: networkReceiving
                     Kirigami.FormData.label: i18nc("Chart config", "Receiving:")
@@ -212,13 +200,6 @@ PlasmaExtras.Representation {
                     }
                 }
 
-                // Separator
-                Rectangle {
-                    height: Kirigami.Units.largeSpacing
-                    color: "transparent"
-                }
-
-                // Sending speed
                 RMControls.PredefinedSpinBox {
                     id: networkSending
                     Kirigami.FormData.label: i18nc("Chart config", "Sending:")
@@ -250,18 +231,12 @@ PlasmaExtras.Representation {
             Kirigami.FormLayout {
                 wideMode: true
 
-                PlasmaComponents.Label {
-                    text: i18n("Maximum transfer speed")
-                    font.pointSize: PlasmaCore.Theme.defaultFont.pointSize * 1.2
+                // Transfer speed
+                Item {
+                    Kirigami.FormData.label: i18n("Maximum transfer speed")
+                    Kirigami.FormData.isSection: true
                 }
 
-                // Separator
-                Rectangle {
-                    height: Kirigami.Units.largeSpacing
-                    color: "transparent"
-                }
-
-                // Read speed
                 RMControls.PredefinedSpinBox {
                     id: diskRead
                     Kirigami.FormData.label: i18nc("Chart config", "Read:")
@@ -286,13 +261,6 @@ PlasmaExtras.Representation {
                     }
                 }
 
-                // Separator
-                Rectangle {
-                    height: Kirigami.Units.largeSpacing
-                    color: "transparent"
-                }
-
-                // Write speed
                 RMControls.PredefinedSpinBox {
                     id: diskWrite
                     Kirigami.FormData.label: i18nc("Chart config", "Write:")
