@@ -1,3 +1,41 @@
+# [2.9.0](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.8.0-hotfix.1...v2.9.0) (2023-05-03)
+
+
+### Bug Fixes
+
+* **config:** prevent too small or unaligned fiels ([4ac3170](https://github.com/orblazer/plasma-applet-resources-monitor/commit/4ac31701b2af4e31e28a64faaf115ffb532f77f8))
+* **config:** right disable memory in percent checkbox ([acc2bf8](https://github.com/orblazer/plasma-applet-resources-monitor/commit/acc2bf8a9852b036ec281a4f38eea26d42ed8a61))
+* **config:** right update for write disk speed ([47d9e8e](https://github.com/orblazer/plasma-applet-resources-monitor/commit/47d9e8ee5dce60f51db64f2ed3c074872f0b928d)), closes [#40](https://github.com/orblazer/plasma-applet-resources-monitor/issues/40)
+* **config:** support old plasma-framework version ([2f9afe1](https://github.com/orblazer/plasma-applet-resources-monitor/commit/2f9afe189675f8a0d76318cc263651f56a15cc2b)), closes [#43](https://github.com/orblazer/plasma-applet-resources-monitor/issues/43)
+* **data:** right initialize sensors when toggle visibility ([6a22eef](https://github.com/orblazer/plasma-applet-resources-monitor/commit/6a22eefa881cc9df3d124bcd83ac572c66ae6212))
+* **graph:** correctly handle threshold values ([99b4774](https://github.com/orblazer/plasma-applet-resources-monitor/commit/99b4774a2b2ef2d93dc91ef9673c450f66db1c46))
+* **graph:** prevent null pointer error on network ([f0b3f9a](https://github.com/orblazer/plasma-applet-resources-monitor/commit/f0b3f9a1c01bcec83276bfaab73828eaab1bb58b))
+* **graph:** right color for critical value ([fe3da26](https://github.com/orblazer/plasma-applet-resources-monitor/commit/fe3da26ab7f97091d93dd1596ef1f070e74f5c57))
+* **graph:** right color for disk write ([bc88aef](https://github.com/orblazer/plasma-applet-resources-monitor/commit/bc88aefe5af91875a2eb89e7b6bf39de9aa900b7)), closes [#39](https://github.com/orblazer/plasma-applet-resources-monitor/issues/39)
+* **graph:** right disable memory graph ([0e8d9a8](https://github.com/orblazer/plasma-applet-resources-monitor/commit/0e8d9a86fff7ee5faec0b9d9895e407520e43c8c)), closes [#42](https://github.com/orblazer/plasma-applet-resources-monitor/issues/42)
+* **graph:** right update when memory unit changed ([9b47018](https://github.com/orblazer/plasma-applet-resources-monitor/commit/9b47018f60f375ccd9b18e692edd9ea708297fef))
+* **graph:** use right history amount ([a7b3a90](https://github.com/orblazer/plasma-applet-resources-monitor/commit/a7b3a90d78cdb6ed6c6d17e05cc886752d8a04ad))
+
+
+### Features
+
+* allow custom ordering graph ([3e22c4c](https://github.com/orblazer/plasma-applet-resources-monitor/commit/3e22c4cfe34bdddba58be15e8ade39013d2c9556)), closes [#30](https://github.com/orblazer/plasma-applet-resources-monitor/issues/30)
+
+
+### Performance Improvements
+
+* direct assign sensors to sensors model ([495aab2](https://github.com/orblazer/plasma-applet-resources-monitor/commit/495aab24a8793c99649ff42d722d19b524e65b8c))
+* update data only on enabled graphs ([70147e5](https://github.com/orblazer/plasma-applet-resources-monitor/commit/70147e5a32a30cf3cd094d16698c6d3d1fe69324))
+* use connections instead property for config ([9d315c3](https://github.com/orblazer/plasma-applet-resources-monitor/commit/9d315c3da03ac2eee0cf8c9a5896a4e763860cd1))
+
+
+### Reverts
+
+* **config:** drop swipe navigation ([494afbf](https://github.com/orblazer/plasma-applet-resources-monitor/commit/494afbf19b23b0f40f1700fa8dd025fe4dec23c1))
+* **graph:** back swap memory to red ([f3fc29f](https://github.com/orblazer/plasma-applet-resources-monitor/commit/f3fc29fc5f75cf4df0167ba754887c6460fef55f))
+
+
+
 # [2.8.0-hotfix.1](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.8.0...v2.8.0-hotfix.1) (2023-04-27)
 
 

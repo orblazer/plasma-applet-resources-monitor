@@ -24,7 +24,7 @@
     "ServiceTypes": [
       "Plasma/Applet"
     ],
-    "Version": "2.8.0-hotfix.1",
+    "Version": "2.9.0",
     "Website": "https://github.com/orblazer/plasma-applet-resources-monitor"
   },
   "X-Plasma-API": "declarativeappletscript",
