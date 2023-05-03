@@ -16,7 +16,7 @@ PlasmaExtras.Representation {
 
     signal configurationChanged
 
-    property alias cfg_updateInterval: updateInterval.valueReal
+    property alias cfg_updateInterval: updateInterval.realValue
     property string cfg_cpuUnit: Plasmoid.configuration.cpuUnit
     property string cfg_memoryUnit: Plasmoid.configuration.memoryUnit
     property string cfg_networkUnit: Plasmoid.configuration.networkUnit

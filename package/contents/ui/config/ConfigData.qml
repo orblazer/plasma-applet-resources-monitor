@@ -22,12 +22,12 @@ PlasmaExtras.Representation {
     property double cfg_diskReadTotal: 0.0
     property double cfg_diskWriteTotal: 0.0
 
-    property double cfg_thresholdWarningCpuTemp: 0
-    property double cfg_thresholdCriticalCpuTemp: 0
+    property alias cfg_thresholdWarningCpuTemp: thresholdWarningCpuTemp.realValue
+    property alias cfg_thresholdCriticalCpuTemp: thresholdCriticalCpuTemp.realValue
     property alias cfg_thresholdWarningMemory: thresholdWarningMemory.value
     property alias cfg_thresholdCriticalMemory: thresholdCriticalMemory.value
-    property double cfg_thresholdWarningGpuTemp: 0
-    property double cfg_thresholdCriticalGpuTemp: 0
+    property alias cfg_thresholdWarningGpuTemp: thresholdWarningGpuTemp.realValue
+    property alias cfg_thresholdCriticalGpuTemp: thresholdCriticalGpuTemp.realValue
 
     readonly property var networkSpeedOptions: [{
             "label": i18n("Custom"),
@@ -195,7 +195,7 @@ PlasmaExtras.Representation {
                     onCurrentIndexChanged: {
                         var current = model[currentIndex];
                         if (current && current.value !== -1) {
-                            customNetworkReceivingTotal.valueReal = current.value / 1000;
+                            customNetworkReceivingTotal.realValue = current.value / 1000;
                         }
                     }
 
@@ -222,15 +222,15 @@ PlasmaExtras.Representation {
                         return valueToText(value, locale) + " M" + networkDialect.suffix;
                     }
 
-                    onValueChanged: {
-                        var newValue = valueReal * 1000;
+                    onRealValueChanged: {
+                        var newValue = realValue * 1000;
                         if (cfg_networkReceivingTotal !== newValue) {
                             cfg_networkReceivingTotal = newValue;
                             dataPage.configurationChanged();
                         }
                     }
                     Component.onCompleted: {
-                        valueReal = parseFloat(Plasmoid.configuration.networkReceivingTotal) / 1000;
+                        realValue = parseFloat(Plasmoid.configuration.networkReceivingTotal) / 1000;
                     }
                 }
 
@@ -250,7 +250,7 @@ PlasmaExtras.Representation {
                     onCurrentIndexChanged: {
                         var current = model[currentIndex];
                         if (current && current.value !== -1) {
-                            customNetworkSendingTotal.valueReal = current.value / 1000;
+                            customNetworkSendingTotal.realValue = current.value / 1000;
                         }
                     }
 
@@ -277,15 +277,15 @@ PlasmaExtras.Representation {
                         return valueToText(value, locale) + " M" + networkDialect.suffix;
                     }
 
-                    onValueChanged: {
-                        var newValue = valueReal * 1000;
+                    onRealValueChanged: {
+                        var newValue = realValue * 1000;
                         if (cfg_networkSendingTotal !== newValue) {
                             cfg_networkSendingTotal = newValue;
                             dataPage.configurationChanged();
                         }
                     }
                     Component.onCompleted: {
-                        valueReal = parseFloat(Plasmoid.configuration.networkSendingTotal) / 1000;
+                        realValue = parseFloat(Plasmoid.configuration.networkSendingTotal) / 1000;
                     }
                 }
             }
@@ -317,7 +317,7 @@ PlasmaExtras.Representation {
                     onCurrentIndexChanged: {
                         var current = model[currentIndex];
                         if (current && current.value !== -1) {
-                            customDiskReadTotal.valueReal = current.value / 1000;
+                            customDiskReadTotal.realValue = current.value / 1000;
                         }
                     }
 
@@ -344,15 +344,15 @@ PlasmaExtras.Representation {
                         return valueToText(value, locale) + " MiB/s";
                     }
 
-                    onValueChanged: {
-                        var newValue = valueReal * 1000;
+                    onRealValueChanged: {
+                        var newValue = realValue * 1000;
                         if (cfg_diskReadTotal !== newValue) {
                             cfg_diskReadTotal = newValue;
                             dataPage.configurationChanged();
                         }
                     }
                     Component.onCompleted: {
-                        valueReal = parseFloat(Plasmoid.configuration.diskReadTotal) / 1000;
+                        realValue = parseFloat(Plasmoid.configuration.diskReadTotal) / 1000;
                     }
                 }
 
@@ -372,7 +372,7 @@ PlasmaExtras.Representation {
                     onCurrentIndexChanged: {
                         var current = model[currentIndex];
                         if (current && current.value !== -1) {
-                            customDiskWriteTotal.valueReal = current.value / 1000;
+                            customDiskWriteTotal.realValue = current.value / 1000;
                         }
                     }
 
@@ -399,15 +399,15 @@ PlasmaExtras.Representation {
                         return valueToText(value, locale) + " MiB/s";
                     }
 
-                    onValueChanged: {
-                        var newValue = valueReal * 1000;
+                    onRealValueChanged: {
+                        var newValue = realValue * 1000;
                         if (cfg_diskWriteTotal !== newValue) {
                             cfg_diskWriteTotal = newValue;
                             dataPage.configurationChanged();
                         }
                     }
                     Component.onCompleted: {
-                        valueReal = parseFloat(Plasmoid.configuration.diskWriteTotal) / 1000;
+                        realValue = parseFloat(Plasmoid.configuration.diskWriteTotal) / 1000;
                     }
                 }
             }
@@ -460,15 +460,6 @@ PlasmaExtras.Representation {
                         textFromValue: function (value, locale) {
                             return valueToText(value, locale) + " °C";
                         }
-                        onValueChanged: {
-                            if (cfg_thresholdWarningCpuTemp !== valueReal) {
-                                cfg_thresholdWarningCpuTemp = valueReal;
-                                dataPage.configurationChanged();
-                            }
-                        }
-                        Component.onCompleted: {
-                            valueReal = parseFloat(Plasmoid.configuration.thresholdWarningCpuTemp);
-                        }
                     }
                     RMControls.SpinBox {
                         id: thresholdCriticalCpuTemp
@@ -480,15 +471,6 @@ PlasmaExtras.Representation {
 
                         textFromValue: function (value, locale) {
                             return valueToText(value, locale) + " °C";
-                        }
-                        onValueChanged: {
-                            if (cfg_thresholdCriticalCpuTemp !== valueReal) {
-                                cfg_thresholdCriticalCpuTemp = valueReal;
-                                dataPage.configurationChanged();
-                            }
-                        }
-                        Component.onCompleted: {
-                            valueReal = parseFloat(Plasmoid.configuration.thresholdCriticalCpuTemp);
                         }
                     }
                 }
@@ -538,15 +520,6 @@ PlasmaExtras.Representation {
                         textFromValue: function (value, locale) {
                             return valueToText(value, locale) + " °C";
                         }
-                        onValueChanged: {
-                            if (cfg_thresholdWarningGpuTemp !== valueReal) {
-                                cfg_thresholdWarningGpuTemp = valueReal;
-                                dataPage.configurationChanged();
-                            }
-                        }
-                        Component.onCompleted: {
-                            valueReal = parseFloat(Plasmoid.configuration.thresholdWarningGpuTemp);
-                        }
                     }
                     RMControls.SpinBox {
                         id: thresholdCriticalGpuTemp
@@ -558,15 +531,6 @@ PlasmaExtras.Representation {
 
                         textFromValue: function (value, locale) {
                             return valueToText(value, locale) + " °C";
-                        }
-                        onValueChanged: {
-                            if (cfg_thresholdCriticalGpuTemp !== valueReal) {
-                                cfg_thresholdCriticalGpuTemp = valueReal;
-                                dataPage.configurationChanged();
-                            }
-                        }
-                        Component.onCompleted: {
-                            valueReal = parseFloat(Plasmoid.configuration.thresholdCriticalGpuTemp);
                         }
                     }
                 }
