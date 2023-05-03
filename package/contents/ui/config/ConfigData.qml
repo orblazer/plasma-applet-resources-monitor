@@ -137,6 +137,7 @@ PlasmaExtras.Representation {
                 QtLayouts.GridLayout {
                     Kirigami.FormData.label: i18n("Network interfaces:")
                     QtLayouts.Layout.fillWidth: true
+
                     columns: 2
                     rowSpacing: Kirigami.Units.smallSpacing
                     columnSpacing: Kirigami.Units.largeSpacing
@@ -191,6 +192,7 @@ PlasmaExtras.Representation {
                     id: networkReceiving
                     Kirigami.FormData.label: i18nc("Chart config", "Receiving:")
                     QtLayouts.Layout.fillWidth: true
+                    QtLayouts.Layout.minimumWidth: predefinedChoices.currentIndex == 0 ? 300 : 0
                     factor: 1000
 
                     predefinedChoices {
@@ -221,6 +223,7 @@ PlasmaExtras.Representation {
                     id: networkSending
                     Kirigami.FormData.label: i18nc("Chart config", "Sending:")
                     QtLayouts.Layout.fillWidth: true
+                    QtLayouts.Layout.minimumWidth: predefinedChoices.currentIndex == 0 ? 300 : 0
                     factor: 1000
 
                     predefinedChoices {
@@ -263,6 +266,7 @@ PlasmaExtras.Representation {
                     id: diskRead
                     Kirigami.FormData.label: i18nc("Chart config", "Read:")
                     QtLayouts.Layout.fillWidth: true
+                    QtLayouts.Layout.minimumWidth: predefinedChoices.currentIndex == 0 ? 300 : 0
                     factor: 1000
 
                     predefinedChoices {
@@ -293,6 +297,7 @@ PlasmaExtras.Representation {
                     id: diskWrite
                     Kirigami.FormData.label: i18nc("Chart config", "Write:")
                     QtLayouts.Layout.fillWidth: true
+                    QtLayouts.Layout.minimumWidth: predefinedChoices.currentIndex == 0 ? 300 : 0
                     factor: 1000
 
                     predefinedChoices {
@@ -314,45 +319,54 @@ PlasmaExtras.Representation {
             }
         }
 
-        // Threshold
+        // Thresholds
         Kirigami.ScrollablePage {
             Kirigami.FormLayout {
+                id: thresholdsPage
                 wideMode: true
 
-                QtLayouts.GridLayout {
+                property double kirigamiWidth: preferredWidth * 2 + Kirigami.Units.largeSpacing
+                property double preferredWidth: {
+                    const minimumWidth = Math.max(80, warningHeader.contentWidth, criticalHeader.contentWidth);
+                    return Math.max(minimumWidth,
+                        // CPU
+                        thresholdWarningCpuTemp.implicitWidth, thresholdCriticalCpuTemp.implicitWidth,
+                        // Memory
+                        thresholdWarningMemory.implicitWidth, thresholdCriticalMemory.implicitWidth,
+                        // Memory
+                        thresholdWarningMemory.implicitWidth, thresholdCriticalMemory.implicitWidth,
+                        // GPU
+                        thresholdWarningGpuTemp.implicitWidth, thresholdCriticalGpuTemp.implicitWidth);
+                }
+
+                // Header
+                QtLayouts.RowLayout {
                     QtLayouts.Layout.fillWidth: true
-                    columns: 3
-                    columnSpacing: Kirigami.Units.largeSpacing
+                    spacing: Kirigami.Units.largeSpacing
 
                     PlasmaComponents.Label {
-                        id: warningText
+                        id: warningHeader
                         text: i18n("Warning")
                         font.pointSize: PlasmaCore.Theme.defaultFont.pointSize * 1.2
-                    }
-
-                    // Separator
-                    Rectangle {
-                        width: thresholdWarningMemory.implicitWidth - warningText.contentWidth - Kirigami.Units.largeSpacing
-                        color: "transparent"
+                        QtLayouts.Layout.preferredWidth: thresholdsPage.preferredWidth
                     }
 
                     PlasmaComponents.Label {
+                        id: criticalHeader
                         text: i18n("Critical")
                         font.pointSize: PlasmaCore.Theme.defaultFont.pointSize * 1.2
                     }
                 }
 
                 // CPU Temperature
-                QtLayouts.GridLayout {
+                QtLayouts.RowLayout {
                     Kirigami.FormData.label: i18n("CPU Temperature:")
-                    QtLayouts.Layout.fillWidth: true
-                    columns: 2
-                    rowSpacing: Kirigami.Units.smallSpacing
-                    columnSpacing: Kirigami.Units.largeSpacing
+                    QtLayouts.Layout.preferredWidth: thresholdsPage.kirigamiWidth
+                    spacing: Kirigami.Units.largeSpacing
 
                     RMControls.SpinBox {
                         id: thresholdWarningCpuTemp
-                        QtLayouts.Layout.fillWidth: true
+                        QtLayouts.Layout.preferredWidth: thresholdsPage.preferredWidth
                         decimals: 1
                         stepSize: 1
                         minimumValue: 0.1
@@ -364,7 +378,7 @@ PlasmaExtras.Representation {
                     }
                     RMControls.SpinBox {
                         id: thresholdCriticalCpuTemp
-                        QtLayouts.Layout.fillWidth: true
+                        QtLayouts.Layout.preferredWidth: thresholdsPage.preferredWidth
                         decimals: 1
                         stepSize: 1
                         minimumValue: 0.1
@@ -377,16 +391,14 @@ PlasmaExtras.Representation {
                 }
 
                 // Memory usage
-                QtLayouts.GridLayout {
+                QtLayouts.RowLayout {
                     Kirigami.FormData.label: i18n("Physical Memory Usage:")
-                    QtLayouts.Layout.fillWidth: true
-                    columns: 2
-                    rowSpacing: Kirigami.Units.smallSpacing
-                    columnSpacing: Kirigami.Units.largeSpacing
+                    QtLayouts.Layout.preferredWidth: thresholdsPage.kirigamiWidth
+                    spacing: Kirigami.Units.largeSpacing
 
                     RMControls.SpinBox {
                         id: thresholdWarningMemory
-                        QtLayouts.Layout.fillWidth: true
+                        QtLayouts.Layout.preferredWidth: thresholdsPage.preferredWidth
 
                         textFromValue: function (value, locale) {
                             return value + " %";
@@ -394,7 +406,7 @@ PlasmaExtras.Representation {
                     }
                     RMControls.SpinBox {
                         id: thresholdCriticalMemory
-                        QtLayouts.Layout.fillWidth: true
+                        QtLayouts.Layout.preferredWidth: thresholdsPage.preferredWidth
 
                         textFromValue: function (value, locale) {
                             return value + " %";
@@ -403,16 +415,15 @@ PlasmaExtras.Representation {
                 }
 
                 // GPU Temperature
-                QtLayouts.GridLayout {
+                QtLayouts.RowLayout {
                     Kirigami.FormData.label: i18n("GPU Temperature:")
-                    QtLayouts.Layout.fillWidth: true
-                    columns: 2
-                    rowSpacing: Kirigami.Units.smallSpacing
-                    columnSpacing: Kirigami.Units.largeSpacing
+                    QtLayouts.Layout.preferredWidth: thresholdsPage.kirigamiWidth
+                    spacing: Kirigami.Units.largeSpacing
 
                     RMControls.SpinBox {
                         id: thresholdWarningGpuTemp
-                        QtLayouts.Layout.fillWidth: true
+                        QtLayouts.Layout.preferredWidth: thresholdsPage.preferredWidth
+
                         decimals: 1
                         stepSize: 1
                         minimumValue: 0.1
@@ -424,7 +435,8 @@ PlasmaExtras.Representation {
                     }
                     RMControls.SpinBox {
                         id: thresholdCriticalGpuTemp
-                        QtLayouts.Layout.fillWidth: true
+                        QtLayouts.Layout.preferredWidth: thresholdsPage.preferredWidth
+
                         decimals: 1
                         stepSize: 1
                         minimumValue: 0.1
