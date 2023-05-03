@@ -322,7 +322,7 @@ PlasmaExtras.Representation {
                     QtControls.CheckBox {
                         id: gpuMemoryInPercent
                         text: i18n("Memory in percent")
-                        enabled: gpuMemoryGraph.checked
+                        enabled: showGpuMonitor.checked
                     }
                     QtControls.CheckBox {
                         id: showGpuTemperature
