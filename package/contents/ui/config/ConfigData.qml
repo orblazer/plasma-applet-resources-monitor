@@ -16,12 +16,16 @@ PlasmaExtras.Representation {
 
     signal configurationChanged
 
+    // Network
     readonly property var networkDialect: Functions.getNetworkDialectInfo(Plasmoid.configuration.networkUnit)
-    property double cfg_networkReceivingTotal: 0.0
-    property double cfg_networkSendingTotal: 0.0
-    property double cfg_diskReadTotal: 0.0
-    property double cfg_diskWriteTotal: 0.0
+    property alias cfg_networkReceivingTotal: networkReceiving.realValue
+    property alias cfg_networkSendingTotal: networkSending.realValue
 
+    // Disks I/O
+    property alias cfg_diskReadTotal: diskRead.realValue
+    property alias cfg_diskWriteTotal: diskWrite.realValue
+
+    // Thresholds
     property alias cfg_thresholdWarningCpuTemp: thresholdWarningCpuTemp.realValue
     property alias cfg_thresholdCriticalCpuTemp: thresholdCriticalCpuTemp.realValue
     property alias cfg_thresholdWarningMemory: thresholdWarningMemory.value
@@ -186,51 +190,26 @@ PlasmaExtras.Representation {
                 }
 
                 // Receiving speed
-                QtControls.ComboBox {
-                    id: networkReceivingTotal
+                RMControls.PredefinedSpinBox {
+                    id: networkReceiving
                     Kirigami.FormData.label: i18nc("Chart config", "Receiving:")
-                    textRole: "label"
-                    model: networkSpeedOptions
-
-                    onCurrentIndexChanged: {
-                        var current = model[currentIndex];
-                        if (current && current.value !== -1) {
-                            customNetworkReceivingTotal.realValue = current.value / 1000;
-                        }
-                    }
-
-                    Component.onCompleted: {
-                        for (var i = 0; i < model.length; i++) {
-                            if (model[i]["value"] === Plasmoid.configuration.networkReceivingTotal) {
-                                networkReceivingTotal.currentIndex = i;
-                                return;
-                            }
-                        }
-                        networkReceivingTotal.currentIndex = 0; // Custom
-                    }
-                }
-                RMControls.SpinBox {
-                    id: customNetworkReceivingTotal
-                    Kirigami.FormData.label: i18n("Custom value:")
                     QtLayouts.Layout.fillWidth: true
-                    decimals: 3
-                    stepSize: 1
-                    minimumValue: 0.001
-                    visible: networkReceivingTotal.currentIndex === 0
+                    factor: 1000
 
-                    textFromValue: function (value, locale) {
-                        return valueToText(value, locale) + " M" + networkDialect.suffix;
+                    predefinedChoices {
+                        textRole: "label"
+                        valueRole: "value"
+                        model: networkSpeedOptions
                     }
 
-                    onRealValueChanged: {
-                        var newValue = realValue * 1000;
-                        if (cfg_networkReceivingTotal !== newValue) {
-                            cfg_networkReceivingTotal = newValue;
-                            dataPage.configurationChanged();
+                    spinBox {
+                        decimals: 3
+                        stepSize: 1
+                        minimumValue: 0.001
+
+                        textFromValue: function (value, locale) {
+                            return spinBox.valueToText(value, locale) + " M" + networkDialect.suffix;
                         }
-                    }
-                    Component.onCompleted: {
-                        realValue = parseFloat(Plasmoid.configuration.networkReceivingTotal) / 1000;
                     }
                 }
 
@@ -241,51 +220,26 @@ PlasmaExtras.Representation {
                 }
 
                 // Sending speed
-                QtControls.ComboBox {
-                    id: networkSendingTotal
+                RMControls.PredefinedSpinBox {
+                    id: networkSending
                     Kirigami.FormData.label: i18nc("Chart config", "Sending:")
-                    textRole: "label"
-                    model: networkSpeedOptions
-
-                    onCurrentIndexChanged: {
-                        var current = model[currentIndex];
-                        if (current && current.value !== -1) {
-                            customNetworkSendingTotal.realValue = current.value / 1000;
-                        }
-                    }
-
-                    Component.onCompleted: {
-                        for (var i = 0; i < model.length; i++) {
-                            if (model[i]["value"] === Plasmoid.configuration.networkSendingTotal) {
-                                networkSendingTotal.currentIndex = i;
-                                return;
-                            }
-                        }
-                        networkSendingTotal.currentIndex = 0; // Custom
-                    }
-                }
-                RMControls.SpinBox {
-                    id: customNetworkSendingTotal
-                    Kirigami.FormData.label: i18n("Custom value:")
                     QtLayouts.Layout.fillWidth: true
-                    decimals: 3
-                    stepSize: 1
-                    minimumValue: 0.001
-                    visible: networkSendingTotal.currentIndex === 0
+                    factor: 1000
 
-                    textFromValue: function (value, locale) {
-                        return valueToText(value, locale) + " M" + networkDialect.suffix;
+                    predefinedChoices {
+                        textRole: "label"
+                        valueRole: "value"
+                        model: networkSpeedOptions
                     }
 
-                    onRealValueChanged: {
-                        var newValue = realValue * 1000;
-                        if (cfg_networkSendingTotal !== newValue) {
-                            cfg_networkSendingTotal = newValue;
-                            dataPage.configurationChanged();
+                    spinBox {
+                        decimals: 3
+                        stepSize: 1
+                        minimumValue: 0.001
+
+                        textFromValue: function (value, locale) {
+                            return spinBox.valueToText(value, locale) + " M" + networkDialect.suffix;
                         }
-                    }
-                    Component.onCompleted: {
-                        realValue = parseFloat(Plasmoid.configuration.networkSendingTotal) / 1000;
                     }
                 }
             }
@@ -308,51 +262,26 @@ PlasmaExtras.Representation {
                 }
 
                 // Read speed
-                QtControls.ComboBox {
-                    id: diskReadTotal
+                RMControls.PredefinedSpinBox {
+                    id: diskRead
                     Kirigami.FormData.label: i18nc("Chart config", "Read:")
-                    textRole: "label"
-                    model: diskSpeedOptions
-
-                    onCurrentIndexChanged: {
-                        var current = model[currentIndex];
-                        if (current && current.value !== -1) {
-                            customDiskReadTotal.realValue = current.value / 1000;
-                        }
-                    }
-
-                    Component.onCompleted: {
-                        for (var i = 0; i < model.length; i++) {
-                            if (model[i]["value"] === Plasmoid.configuration.diskReadTotal) {
-                                diskReadTotal.currentIndex = i;
-                                return;
-                            }
-                        }
-                        diskReadTotal.currentIndex = 0; // Custom
-                    }
-                }
-                RMControls.SpinBox {
-                    id: customDiskReadTotal
-                    Kirigami.FormData.label: i18n("Custom value:")
                     QtLayouts.Layout.fillWidth: true
-                    decimals: 3
-                    stepSize: 1
-                    minimumValue: 0.001
-                    visible: diskReadTotal.currentIndex === 0
+                    factor: 1000
 
-                    textFromValue: function (value, locale) {
-                        return valueToText(value, locale) + " MiB/s";
+                    predefinedChoices {
+                        textRole: "label"
+                        valueRole: "value"
+                        model: diskSpeedOptions
                     }
 
-                    onRealValueChanged: {
-                        var newValue = realValue * 1000;
-                        if (cfg_diskReadTotal !== newValue) {
-                            cfg_diskReadTotal = newValue;
-                            dataPage.configurationChanged();
+                    spinBox {
+                        decimals: 3
+                        stepSize: 1
+                        minimumValue: 0.001
+
+                        textFromValue: function (value, locale) {
+                            return spinBox.valueToText(value, locale) + " M" + networkDialect.suffix;
                         }
-                    }
-                    Component.onCompleted: {
-                        realValue = parseFloat(Plasmoid.configuration.diskReadTotal) / 1000;
                     }
                 }
 
@@ -363,51 +292,26 @@ PlasmaExtras.Representation {
                 }
 
                 // Write speed
-                QtControls.ComboBox {
-                    id: diskWriteTotal
+                RMControls.PredefinedSpinBox {
+                    id: diskWrite
                     Kirigami.FormData.label: i18nc("Chart config", "Write:")
-                    textRole: "label"
-                    model: diskSpeedOptions
-
-                    onCurrentIndexChanged: {
-                        var current = model[currentIndex];
-                        if (current && current.value !== -1) {
-                            customDiskWriteTotal.realValue = current.value / 1000;
-                        }
-                    }
-
-                    Component.onCompleted: {
-                        for (var i = 0; i < model.length; i++) {
-                            if (model[i]["value"] === Plasmoid.configuration.diskWriteTotal) {
-                                diskWriteTotal.currentIndex = i;
-                                return;
-                            }
-                        }
-                        diskWriteTotal.currentIndex = 0; // Custom
-                    }
-                }
-                RMControls.SpinBox {
-                    id: customDiskWriteTotal
-                    Kirigami.FormData.label: i18n("Custom value:")
                     QtLayouts.Layout.fillWidth: true
-                    decimals: 3
-                    stepSize: 1
-                    minimumValue: 0.001
-                    visible: diskWriteTotal.currentIndex === 0
+                    factor: 1000
 
-                    textFromValue: function (value, locale) {
-                        return valueToText(value, locale) + " MiB/s";
+                    predefinedChoices {
+                        textRole: "label"
+                        valueRole: "value"
+                        model: diskSpeedOptions
                     }
 
-                    onRealValueChanged: {
-                        var newValue = realValue * 1000;
-                        if (cfg_diskWriteTotal !== newValue) {
-                            cfg_diskWriteTotal = newValue;
-                            dataPage.configurationChanged();
+                    spinBox {
+                        decimals: 3
+                        stepSize: 1
+                        minimumValue: 0.001
+
+                        textFromValue: function (value, locale) {
+                            return spinBox.valueToText(value, locale) + " M" + networkDialect.suffix;
                         }
-                    }
-                    Component.onCompleted: {
-                        realValue = parseFloat(Plasmoid.configuration.diskWriteTotal) / 1000;
                     }
                 }
             }
