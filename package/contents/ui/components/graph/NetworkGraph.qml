@@ -8,10 +8,10 @@ RMBaseGraph.TwoSensorsGraph {
     id: root
     objectName: "NetworkGraph"
 
-    property var dialect: Functions.getNetworkDialectInfo(Plasmoid.configuration.networkUnit)
+    property var dialect: Functions.getNetworkDialectInfo(plasmoid.configuration.networkUnit)
 
     Connections {
-        target: Plasmoid.configuration
+        target: plasmoid.configuration
         function onIgnoredNetworkInterfacesChanged() {
             _updateSensors();
         }
@@ -32,7 +32,7 @@ RMBaseGraph.TwoSensorsGraph {
     }
 
     // Graph options
-    colors: [(Plasmoid.configuration.customNetDownColor ? Plasmoid.configuration.netDownColor : theme.highlightColor), (Plasmoid.configuration.customNetUpColor ? Plasmoid.configuration.netUpColor : theme.positiveTextColor)]
+    colors: [(plasmoid.configuration.customNetDownColor ? plasmoid.configuration.netDownColor : theme.highlightColor), (plasmoid.configuration.customNetUpColor ? plasmoid.configuration.netUpColor : theme.positiveTextColor)]
 
     // Initialized sensors
     RMComponents.NetworkInterfaceDetector {
@@ -79,7 +79,7 @@ RMBaseGraph.TwoSensorsGraph {
         const sensors = [];
         for (let i = 0; i < networkInterfaces.model.count; i++) {
             const name = networkInterfaces.model.get(i).name;
-            if (Plasmoid.configuration.ignoredNetworkInterfaces.indexOf(name) === -1) {
+            if (plasmoid.configuration.ignoredNetworkInterfaces.indexOf(name) === -1) {
                 sensors.push("network/" + name + "/download", "network/" + name + "/upload");
             }
         }
@@ -88,6 +88,6 @@ RMBaseGraph.TwoSensorsGraph {
     }
 
     function _updateUplimits() {
-        uplimits = [Plasmoid.configuration.networkReceivingTotal * dialect.multiplier, Plasmoid.configuration.networkSendingTotal * dialect.multiplier];
+        uplimits = [plasmoid.configuration.networkReceivingTotal * dialect.multiplier, plasmoid.configuration.networkSendingTotal * dialect.multiplier];
     }
 }

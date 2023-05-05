@@ -17,7 +17,7 @@ RMBaseGraph.BaseSensorGraph {
         anchors.fill: parent
 
         direction: Charts.XYChart.ZeroAtEnd
-        fillOpacity: Plasmoid.configuration.graphFillOpacity / 100
+        fillOpacity: plasmoid.configuration.graphFillOpacity / 100
         smooth: true
         yRange.automatic: false
 
@@ -27,7 +27,7 @@ RMBaseGraph.BaseSensorGraph {
         valueSources: [
             RMBaseGraph.ArrayDataSource {
                 id: chartData
-                maximumHistory: Plasmoid.configuration.historyAmount
+                maximumHistory: plasmoid.configuration.historyAmount
             }
         ]
     }

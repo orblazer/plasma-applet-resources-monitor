@@ -10,7 +10,7 @@ RMBaseGraph.TwoSensorsGraph {
     readonly property var diskIoDialect: Functions.getNetworkDialectInfo("kibibyte")
 
     Connections {
-        target: Plasmoid.configuration
+        target: plasmoid.configuration
         function onReadTotalChanged() {
             _updateUplimits();
         }
@@ -30,9 +30,9 @@ RMBaseGraph.TwoSensorsGraph {
 
     // Graph options
     sensorsModel.sensors: ["disk/all/read", "disk/all/write"]
-    colors: [(Plasmoid.configuration.customDiskReadColor ? Plasmoid.configuration.diskReadColor : theme.highlightColor), (Plasmoid.configuration.customDiskWriteColor ? Plasmoid.configuration.diskWriteColor : theme.positiveTextColor)]
+    colors: [(plasmoid.configuration.customDiskReadColor ? plasmoid.configuration.diskReadColor : theme.highlightColor), (plasmoid.configuration.customDiskWriteColor ? plasmoid.configuration.diskWriteColor : theme.positiveTextColor)]
 
     function _updateUplimits() {
-        uplimits = [Plasmoid.configuration.diskReadTotal * diskIoDialect.multiplier, Plasmoid.configuration.diskWriteTotal * diskIoDialect.multiplier];
+        uplimits = [plasmoid.configuration.diskReadTotal * diskIoDialect.multiplier, plasmoid.configuration.diskWriteTotal * diskIoDialect.multiplier];
     }
 }

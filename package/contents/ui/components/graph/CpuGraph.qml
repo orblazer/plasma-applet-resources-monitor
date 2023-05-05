@@ -7,7 +7,7 @@ RMBaseGraph.SensorGraph {
     objectName: "CpuGraph"
 
     Connections {
-        target: Plasmoid.configuration
+        target: plasmoid.configuration
         function onCpuUnitChanged() {
             _updateSensors();
         }
@@ -17,11 +17,11 @@ RMBaseGraph.SensorGraph {
     }
 
     // Config options
-    property color temperatureColor: Plasmoid.configuration.customCpuTemperatureColor ? Plasmoid.configuration.cpuTemperatureColor : theme.textColor
+    property color temperatureColor: plasmoid.configuration.customCpuTemperatureColor ? plasmoid.configuration.cpuTemperatureColor : theme.textColor
 
     // Graph options
     // NOTE: "sensorsModel.sensors" is set by "_updateSensors"
-    chartColor: Plasmoid.configuration.customCpuColor ? Plasmoid.configuration.cpuColor : theme.highlightColor
+    chartColor: plasmoid.configuration.customCpuColor ? plasmoid.configuration.cpuColor : theme.highlightColor
 
     chart.yRange {
         from: 0
@@ -29,16 +29,16 @@ RMBaseGraph.SensorGraph {
     }
 
     // Labels options
-    thresholds: [undefined, undefined, [Plasmoid.configuration.thresholdWarningCpuTemp, Plasmoid.configuration.thresholdCriticalCpuTemp]]
+    thresholds: [undefined, undefined, [plasmoid.configuration.thresholdWarningCpuTemp, plasmoid.configuration.thresholdCriticalCpuTemp]]
 
     textContainer {
         labelColors: [root.chartColor, undefined, temperatureColor]
         valueColors: [undefined, undefined, temperatureColor]
 
-        labels: ["CPU", (Plasmoid.configuration.showClock ? i18n("⏲ Clock") : ""), (Plasmoid.configuration.showCpuTemperature ? i18n("🌡️ Temp.") : "")]
+        labels: ["CPU", (plasmoid.configuration.showClock ? i18n("⏲ Clock") : ""), (plasmoid.configuration.showCpuTemperature ? i18n("🌡️ Temp.") : "")]
     }
 
     function _updateSensors() {
-        sensorsModel.sensors = ["cpu/all/" + Plasmoid.configuration.cpuUnit, "cpu/all/averageFrequency", "cpu/all/averageTemperature"];
+        sensorsModel.sensors = ["cpu/all/" + plasmoid.configuration.cpuUnit, "cpu/all/averageFrequency", "cpu/all/averageTemperature"];
     }
 }

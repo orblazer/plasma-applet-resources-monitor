@@ -8,10 +8,10 @@ RMBaseGraph.TwoSensorsGraph {
     objectName: "MemoryGraph"
 
     Connections {
-        target: Plasmoid.configuration
+        target: plasmoid.configuration
         function onMemoryUnitChanged() { // Values: usage, system, user
             const oldLimit1 = uplimits[0];
-            if (Plasmoid.configuration.memoryUnit.endsWith("-percent")) {
+            if (plasmoid.configuration.memoryUnit.endsWith("-percent")) {
                 uplimits = [100, 100];
             } else {
                 uplimits = maxQueryModel.maxMemory;
@@ -45,12 +45,12 @@ RMBaseGraph.TwoSensorsGraph {
         valueColors: [undefined, root.colors[1]]
         labelsVisibleWhenZero: [true, false, true]
 
-        labels: ["RAM", (Plasmoid.configuration.memorySwapGraph ? "Swap" : ""), ""]
+        labels: ["RAM", (plasmoid.configuration.memorySwapGraph ? "Swap" : ""), ""]
     }
 
     // Graph options
     // NOTE: "sensorsModel.sensors" is set by "_updateSensors"
-    colors: [(Plasmoid.configuration.customRamColor ? Plasmoid.configuration.ramColor : theme.highlightColor), (Plasmoid.configuration.customSwapColor ? Plasmoid.configuration.swapColor : theme.negativeTextColor)]
+    colors: [(plasmoid.configuration.customRamColor ? plasmoid.configuration.ramColor : theme.highlightColor), (plasmoid.configuration.customSwapColor ? plasmoid.configuration.swapColor : theme.negativeTextColor)]
 
     // Initialize limits and threshold
     Sensors.SensorDataModel {
@@ -69,7 +69,7 @@ RMBaseGraph.TwoSensorsGraph {
             // Update graph Y range and sensors
             if (maxMemory[0] >= 0 && maxMemory[1] >= 0) {
                 enabled = false;
-                if (!Plasmoid.configuration.memoryUnit.endsWith("-percent")) {
+                if (!plasmoid.configuration.memoryUnit.endsWith("-percent")) {
                     root.uplimits = maxMemory;
                 }
                 root._updateThresholds();
@@ -79,19 +79,19 @@ RMBaseGraph.TwoSensorsGraph {
     }
 
     function _updateThresholds() {
-        const thresholdWarningMemory = Plasmoid.configuration.thresholdWarningMemory;
-        const thresholdCriticalMemory = Plasmoid.configuration.thresholdCriticalMemory;
-        if (!Plasmoid.configuration.memoryUnit.endsWith("-percent")) {
+        const thresholdWarningMemory = plasmoid.configuration.thresholdWarningMemory;
+        const thresholdCriticalMemory = plasmoid.configuration.thresholdCriticalMemory;
+        if (!plasmoid.configuration.memoryUnit.endsWith("-percent")) {
             thresholds[0] = [maxQueryModel.maxMemory[0] * (thresholdWarningMemory / 100.0), maxQueryModel.maxMemory[0] * (thresholdCriticalMemory / 100.0)];
         } else {
             thresholds[0] = [thresholdWarningMemory, thresholdCriticalMemory];
         }
     }
     function _updateSensors() {
-        const info = Plasmoid.configuration.memoryUnit.split("-");
+        const info = plasmoid.configuration.memoryUnit.split("-");
         const suffix = info[1] === "percent" ? "Percent" : "";
         const memSensor = "memory/physical/" + (info[0] === "physical" ? "used" : "application") + suffix;
-        if (Plasmoid.configuration.memorySwapGraph) {
+        if (plasmoid.configuration.memorySwapGraph) {
             sensorsModel.sensors = [memSensor, "memory/swap/used" + suffix];
         } else {
             sensorsModel.sensors = [memSensor];

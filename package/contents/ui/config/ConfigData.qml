@@ -15,7 +15,7 @@ PlasmaExtras.Representation {
     anchors.fill: parent
 
     // Network
-    readonly property var networkDialect: Functions.getNetworkDialectInfo(Plasmoid.configuration.networkUnit)
+    readonly property var networkDialect: Functions.getNetworkDialectInfo(plasmoid.configuration.networkUnit)
     property var cfg_ignoredNetworkInterfaces
     property alias cfg_networkReceivingTotal: networkReceiving.realValue
     property alias cfg_networkSendingTotal: networkSending.realValue

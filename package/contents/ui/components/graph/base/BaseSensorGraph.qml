@@ -18,8 +18,8 @@ Item {
 
     // Thresholds properties
     property var thresholds: [undefined, undefined, undefined]
-    property color thresholdWarningColor: Plasmoid.configuration.customWarningColor ? Plasmoid.configuration.warningColor : theme.neutralTextColor
-    property color thresholdCriticalColor: Plasmoid.configuration.customCriticalColor ? Plasmoid.configuration.criticalColor : theme.negativeTextColor
+    property color thresholdWarningColor: plasmoid.configuration.customWarningColor ? plasmoid.configuration.warningColor : theme.neutralTextColor
+    property color thresholdCriticalColor: plasmoid.configuration.customCriticalColor ? plasmoid.configuration.criticalColor : theme.negativeTextColor
 
     // Labels
     RMBaseGraph.GraphText {

@@ -24,19 +24,19 @@ import "./components/graph" as RMGraph
 MouseArea {
     id: root
 
-    readonly property bool vertical: Plasmoid.formFactor === PlasmaCore.Types.Vertical
+    readonly property bool vertical: plasmoid.formFactor === PlasmaCore.Types.Vertical
 
     // Settings properties
-    property bool verticalLayout: Plasmoid.configuration.verticalLayout
-    property double fontScale: (Plasmoid.configuration.fontScale / 100)
+    property bool verticalLayout: plasmoid.configuration.verticalLayout
+    property double fontScale: (plasmoid.configuration.fontScale / 100)
 
     // Component properties
-    property int itemMargin: Plasmoid.configuration.graphMargin
+    property int itemMargin: plasmoid.configuration.graphMargin
     property double parentWidth: parent === null ? 0 : parent.width
     property double parentHeight: parent === null ? 0 : parent.height
     property double initWidth: vertical ? (verticalLayout ? parentWidth : (parentWidth - itemMargin) / 2) : (verticalLayout ? (parentHeight - itemMargin) / 2 : parentHeight)
-    property double itemWidth: Plasmoid.configuration.customGraphWidth ? Plasmoid.configuration.graphWidth : (initWidth * (verticalLayout ? 1 : 1.5))
-    property double itemHeight: Plasmoid.configuration.customGraphHeight ? Plasmoid.configuration.graphHeight : initWidth
+    property double itemWidth: plasmoid.configuration.customGraphWidth ? plasmoid.configuration.graphWidth : (initWidth * (verticalLayout ? 1 : 1.5))
+    property double itemHeight: plasmoid.configuration.customGraphHeight ? plasmoid.configuration.graphHeight : initWidth
     property double fontPixelSize: verticalLayout ? (itemHeight / 1.4 * fontScale) : (itemHeight * fontScale)
 
     Layout.preferredWidth: !verticalLayout ? (itemWidth * graphView.model.length + itemMargin * (graphView.model.length + 1)) : itemWidth
@@ -52,13 +52,13 @@ MouseArea {
     }
 
     onClicked: {
-        kRun.openService(Plasmoid.configuration.actionService);
+        kRun.openService(plasmoid.configuration.actionService);
     }
 
     // Global update timer
     Timer {
         id: updateTask
-        interval: Plasmoid.configuration.updateInterval * 1000
+        interval: plasmoid.configuration.updateInterval * 1000
 
         running: true
         triggeredOnStart: true
@@ -82,17 +82,17 @@ MouseArea {
         orientation: verticalLayout ? ListView.Vertical : ListView.Horizontal
         interactive: false
 
-        model: Plasmoid.configuration.graphOrders.filter(item => {
+        model: plasmoid.configuration.graphOrders.filter(item => {
                 if (item === "cpu") {
-                    return Plasmoid.configuration.showCpuMonitor;
+                    return plasmoid.configuration.showCpuMonitor;
                 } else if (item === "disks") {
-                    return Plasmoid.configuration.showDiskMonitor;
+                    return plasmoid.configuration.showDiskMonitor;
                 } else if (item === "gpu") {
-                    return Plasmoid.configuration.showGpuMonitor;
+                    return plasmoid.configuration.showGpuMonitor;
                 } else if (item === "memory") {
-                    return Plasmoid.configuration.showRamMonitor;
+                    return plasmoid.configuration.showRamMonitor;
                 } else if (item === "network") {
-                    return Plasmoid.configuration.showNetMonitor;
+                    return plasmoid.configuration.showNetMonitor;
                 }
                 return false;
             })
