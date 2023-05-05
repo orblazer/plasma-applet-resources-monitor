@@ -62,12 +62,13 @@ RMBaseGraph.TwoSensorsGraph {
         onDataChanged: {
             // Update values
             const value = parseInt(data(topLeft, Sensors.SensorDataModel.Value));
-            if (!isNaN(value) && maxMemory[topLeft.column] === -1) {
-                maxMemory[topLeft.column] = value;
+            if (isNaN(value) || (topLeft.column === 0 && value <= 0)) {
+                return;
             }
+            maxMemory[topLeft.column] = value;
 
             // Update graph Y range and sensors
-            if (maxMemory[0] >= 0 && maxMemory[1] >= 0) {
+            if (maxMemory[0] > 0 && maxMemory[1] >= 0) {
                 enabled = false;
                 if (!plasmoid.configuration.memoryUnit.endsWith("-percent")) {
                     root.uplimits = maxMemory;
