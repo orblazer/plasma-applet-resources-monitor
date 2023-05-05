@@ -153,6 +153,7 @@ Item {
 
             // Show value on label
             label.text = _formatValue(index, data);
+            label.visible = label.enabled;
         }
         labelChanged(label, data);
     }
