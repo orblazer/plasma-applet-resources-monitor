@@ -295,7 +295,10 @@ PlasmaExtras.Representation {
                 QtControls.ComboBox {
                     id: displayment
                     Kirigami.FormData.label: i18n("Text displayment:")
+
+                    currentIndex: -1
                     textRole: "label"
+                    valueRole: "name"
                     model: [{
                             "label": i18nc("Text displayment", "Always"),
                             "name": "always"
@@ -306,21 +309,18 @@ PlasmaExtras.Representation {
                             "label": i18nc("Text displayment", "Hints when hover"),
                             "name": "hover-hints"
                         }]
-                    onCurrentIndexChanged: cfg_displayment = model[currentIndex]["name"]
 
-                    Component.onCompleted: {
-                        for (var i = 0; i < model.length; i++) {
-                            if (model[i]["name"] === cfg_displayment) {
-                                displayment.currentIndex = i;
-                            }
-                        }
-                    }
+                    onActivated: cfg_displayment = currentValue
+                    Component.onCompleted: currentIndex = indexOfValue(cfg_displayment)
                 }
 
                 QtControls.ComboBox {
                     id: placement
                     Kirigami.FormData.label: i18n("Placement:")
+
+                    currentIndex: -1
                     textRole: "label"
+                    valueRole: "name"
                     model: [{
                             "label": i18nc("Text placement", "Top left"),
                             "name": "top-left"
@@ -334,15 +334,9 @@ PlasmaExtras.Representation {
                             "label": i18nc("Text placement", "Bottom right"),
                             "name": "bottom-right"
                         }]
-                    onCurrentIndexChanged: cfg_placement = model[currentIndex]["name"]
 
-                    Component.onCompleted: {
-                        for (var i = 0; i < model.length; i++) {
-                            if (model[i]["name"] === cfg_placement) {
-                                placement.currentIndex = i;
-                            }
-                        }
-                    }
+                    onActivated: cfg_placement = currentValue
+                    Component.onCompleted: currentIndex = indexOfValue(cfg_placement)
                 }
             }
         }
