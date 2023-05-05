@@ -29,16 +29,15 @@ QtLayouts.RowLayout {
         QtLayouts.Layout.fillWidth: true
         currentIndex: -1
 
-        onCurrentIndexChanged: {
+        onActivated: {
             // Skip update spin box if user select custom option
             if (currentIndex === customValueIndex) {
                 return;
             }
 
             // Set value from choice in spin box (for have only one place to manage value)
-            var current = model[currentIndex];
-            if (current && current.value !== -1) {
-                spinBox.realValue = valueFromPredefinedChoice(current);
+            if (currentValue !== -1) {
+                spinBox.realValue = valueFromPredefinedChoice(currentValue, currentIndex);
             }
         }
 
@@ -54,5 +53,5 @@ QtLayouts.RowLayout {
         visible: predefinedChoices.currentIndex === customValueIndex
     }
 
-    property var valueFromPredefinedChoice: data => data.value / factor
+    property var valueFromPredefinedChoice: (value, index) => value / factor
 }

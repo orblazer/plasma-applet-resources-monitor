@@ -143,15 +143,12 @@ PlasmaExtras.Representation {
                             "value": "user"
                         }]
 
-                    onCurrentIndexChanged: {
-                        var current = model[currentIndex];
-                        if (current) {
-                            if (current.value === "none") {
-                                cfg_showCpuMonitor = false;
-                            } else {
-                                cfg_showCpuMonitor = true;
-                                cfg_cpuUnit = current.value;
-                            }
+                    onActivated: {
+                        if (currentValue === "none") {
+                            cfg_showCpuMonitor = false;
+                        } else {
+                            cfg_showCpuMonitor = true;
+                            cfg_cpuUnit = currentValue;
                         }
                     }
                     Component.onCompleted: {
@@ -216,15 +213,12 @@ PlasmaExtras.Representation {
                             "value": "application-percent"
                         }]
 
-                    onCurrentIndexChanged: {
-                        var current = model[currentIndex];
-                        if (current) {
-                            if (current.value === "none") {
-                                cfg_showRamMonitor = false;
-                            } else {
-                                cfg_showRamMonitor = true;
-                                cfg_memoryUnit = current.value;
-                            }
+                    onActivated: {
+                        if (currentValue === "none") {
+                            cfg_showRamMonitor = false;
+                        } else {
+                            cfg_showRamMonitor = true;
+                            cfg_memoryUnit = currentValue;
                         }
                     }
                     Component.onCompleted: {
@@ -277,15 +271,12 @@ PlasmaExtras.Representation {
                             "value": "kilobyte"
                         }]
 
-                    onCurrentIndexChanged: {
-                        var current = model[currentIndex];
-                        if (current) {
-                            if (current.value === "none") {
-                                cfg_showNetMonitor = false;
-                            } else {
-                                cfg_showNetMonitor = true;
-                                cfg_networkUnit = current.value;
-                            }
+                    onActivated: {
+                        if (currentValue === "none") {
+                            cfg_showNetMonitor = false;
+                        } else {
+                            cfg_showNetMonitor = true;
+                            cfg_networkUnit = currentValue;
                         }
                     }
                     Component.onCompleted: {
