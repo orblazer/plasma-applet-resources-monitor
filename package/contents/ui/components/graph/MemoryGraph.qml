@@ -23,7 +23,7 @@ RMBaseGraph.TwoSensorsGraph {
             }
         }
 
-        function onShowSwapChanged() {
+        function onMemorySwapGraphChanged() {
             _updateSensors();
         }
 

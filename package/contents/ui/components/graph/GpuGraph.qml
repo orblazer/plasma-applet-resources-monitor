@@ -13,7 +13,7 @@ RMBaseGraph.TwoSensorsGraph {
     // Bind config changes
     Connections {
         target: plasmoid.configuration
-        function onMemoryInPercentChanged() {
+        function onGpuMemoryInPercentChanged() {
             uplimits = [100, plasmoid.configuration.gpuMemoryInPercent ? 100 : maxQueryModel.maxMemory];
             _clear();
         }

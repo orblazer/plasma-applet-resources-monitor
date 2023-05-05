@@ -11,10 +11,10 @@ RMBaseGraph.TwoSensorsGraph {
 
     Connections {
         target: plasmoid.configuration
-        function onReadTotalChanged() {
+        function onDiskReadTotalChanged() {
             _updateUplimits();
         }
-        function onWriteTotalChanged() {
+        function onDiskWriteTotalChanged() {
             _updateUplimits();
         }
     }
