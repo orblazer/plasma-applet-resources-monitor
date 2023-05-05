@@ -130,11 +130,10 @@ Item {
             return;
         }
         const data = sensorsModel.getData(index);
-
-        // Fill label with dots if data is not ready
         if (typeof data === 'undefined') {
-            label.text = '...';
-        } else
+            return;
+        }
+
         // Hide can't be zero label
         if (!textContainer.labelsVisibleWhenZero[index] && data.value === 0) {
             label.text = '';

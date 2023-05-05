@@ -62,8 +62,8 @@ Item {
             height: contentHeight
             readonly property int index: 0
 
+            text: "..."
             color: getTextColor(index)
-
             font.pointSize: -1
         }
         PlasmaComponents.Label {
@@ -72,8 +72,8 @@ Item {
             height: contentHeight
             readonly property int index: 1
 
+            text: "..."
             color: getTextColor(index)
-
             font.pointSize: -1
         }
         PlasmaComponents.Label {
@@ -82,8 +82,8 @@ Item {
             height: contentHeight
             readonly property int index: 2
 
+            text: "..."
             color: getTextColor(index)
-
             font.pointSize: -1
         }
 
