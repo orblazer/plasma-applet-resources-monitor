@@ -38,7 +38,7 @@ RMBaseGraph.TwoSensorsGraph {
         for (let i = 0; i < sensorsModel.sensors.length; i++) {
             let value = sensorsModel.getInfo(i);
             if (i === 1 && plasmoid.configuration.gpuMemoryInPercent) {
-                value = value / uplimits[1];
+                value = (value / maxQueryModel.maxMemory) * 100;
             }
             root._insertChartData(i, value);
 
@@ -50,7 +50,7 @@ RMBaseGraph.TwoSensorsGraph {
     }
     _formatValue: (index, data) => {
         if (index === 1 && plasmoid.configuration.gpuMemoryInPercent) {
-            return i18nc("Percent unit", "%1%", Math.round((data.value / uplimits[1]) * 100) / 100);
+            return i18nc("Percent unit", "%1%", Math.round((data.value / maxQueryModel.maxMemory) * 1000) / 10); // This is for round to 1 decimal
         }
         return _defaultFormatValue(index, data);
     }
