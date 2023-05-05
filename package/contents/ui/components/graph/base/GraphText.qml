@@ -27,20 +27,14 @@ Item {
 
     // Bind config changes
     onDisplaymentChanged: {
-        if (displayment === 'always-hints') {
-            valueVisible = false;
-            _setTextAndColor(firstLineLabel, labels[firstLineLabel.index], true);
-            _setTextAndColor(secondLineLabel, labels[secondLineLabel.index], true);
-            _setTextAndColor(thirdLineLabel, labels[thirdLineLabel.index], true);
-        } else if (displayment === 'hover') {
+        if (displayment === 'hover') {
             valueVisible = mouseArea.containsMouse;
+            _setLabelsState(valueVisible);
             if (mouseArea.containsMouse) {
-                _setLabelsState(true);
                 showValueInLabel();
-            } else {
-                _setLabelsState(false);
             }
         } else {
+            _setLabelsState(true);
             showValueInLabel();
             valueVisible = true;
         }
@@ -193,7 +187,7 @@ Item {
         id: mouseArea
         anchors.fill: parent
         acceptedButtons: Qt.NoButton
-        hoverEnabled: displayment !== 'always' && displayment !== 'always-hints'
+        hoverEnabled: displayment !== 'always'
 
         property bool _firstHover: true
         property var _oldLabelsState: []
