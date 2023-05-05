@@ -138,7 +138,6 @@ Item {
         if (!textContainer.labelsVisibleWhenZero[index] && data.value === 0) {
             label.text = '';
             label.visible = false;
-            return;
         } else {
             // Handle threshold value
             if (typeof thresholds[index] !== 'undefined') {
