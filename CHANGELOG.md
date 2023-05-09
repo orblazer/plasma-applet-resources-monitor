@@ -1,3 +1,24 @@
+## [2.9.1](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.9.0...v2.9.1) (2023-05-09)
+
+
+### Bug Fixes
+
+* **config:** right select default value on combobox ([6b15cf3](https://github.com/orblazer/plasma-applet-resources-monitor/commit/6b15cf3058f3857b50126806955ee3d6c1fd83a6))
+* **graph:** correctly init gpu info ([af61440](https://github.com/orblazer/plasma-applet-resources-monitor/commit/af6144082a38faff5f9a8ef2384a308790c440ea)), closes [#45](https://github.com/orblazer/plasma-applet-resources-monitor/issues/45)
+* **graph:** correctly show memory swap after zero value ([99598cb](https://github.com/orblazer/plasma-applet-resources-monitor/commit/99598cb1ab18be316b461eb8ffc1cb194103a6d1))
+* **graph:** ensure memory is not set with invalid value ([2ce5ff9](https://github.com/orblazer/plasma-applet-resources-monitor/commit/2ce5ff9ae4a36b26db4d9ea6fdc063b2a51026f6))
+* **graph:** listen right config property for updates ([0ccdaa3](https://github.com/orblazer/plasma-applet-resources-monitor/commit/0ccdaa3e96afcdb1fcc0c8dccceecf8b3ebc2c0a))
+* **graph:** right handle gpu memory in percent ([ec10b8b](https://github.com/orblazer/plasma-applet-resources-monitor/commit/ec10b8bff117d2775bffd4835e783d9d98dd32d1)), closes [/github.com/orblazer/plasma-applet-resources-monitor/issues/45#issuecomment-1536373480](https://github.com//github.com/orblazer/plasma-applet-resources-monitor/issues/45/issues/issuecomment-1536373480)
+* **graph:** right update and init displayment ([86f3522](https://github.com/orblazer/plasma-applet-resources-monitor/commit/86f3522ea994b542d540d74ce8c20bd6caf1004d))
+* **graph:** show dot even if sensors is not set ([7b0d014](https://github.com/orblazer/plasma-applet-resources-monitor/commit/7b0d0146b595ceaae072652e44b23ffe158e0019))
+
+
+### Reverts
+
+* re use plasmoid context property ([5be4257](https://github.com/orblazer/plasma-applet-resources-monitor/commit/5be4257ba22e1c837dfe4ab18f6809928586a047)), closes [#46](https://github.com/orblazer/plasma-applet-resources-monitor/issues/46)
+
+
+
 # [2.9.0](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.8.0-hotfix.1...v2.9.0) (2023-05-03)
 
 
