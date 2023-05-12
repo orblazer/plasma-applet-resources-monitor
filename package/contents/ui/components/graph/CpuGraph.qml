@@ -1,6 +1,7 @@
 import QtQuick 2.9
 import org.kde.plasma.plasmoid 2.0
 import "./base" as RMBaseGraph
+import "../sensors" as RMSensors
 
 RMBaseGraph.SensorGraph {
     id: root
@@ -12,11 +13,10 @@ RMBaseGraph.SensorGraph {
             _updateSensors();
         }
         function onClockAgregatorChanged() {
-            _updateSensors();
+            if (!manualFrequency.needManual) {
+                _updateSensors();
+            }
         }
-    }
-    Component.onCompleted: {
-        _updateSensors();
     }
 
     // Config options
@@ -42,6 +42,22 @@ RMBaseGraph.SensorGraph {
     }
 
     function _updateSensors() {
-        sensorsModel.sensors = ["cpu/all/" + plasmoid.configuration.cpuUnit, "cpu/all/" + plasmoid.configuration.clockAgregator + "Frequency", "cpu/all/averageTemperature"];
+        sensorsModel.sensors = ["cpu/all/" + plasmoid.configuration.cpuUnit, "cpu/all/" + plasmoid.configuration.clockAgregator + "Frequency", "cpu/cpu0/temperature"];
+    }
+
+    // Manual cpu frequency handle
+    // TODO (3.0): remove this
+    _formatValue: (index, data) => {
+        if (index === 1 && manualFrequency.needManual) {
+            return manualFrequency.getFormattedValue();
+        }
+        return _defaultFormatValue(index, data);
+    }
+
+    RMSensors.CpuFrequency {
+        id: manualFrequency
+        agregator: plasmoid.configuration.clockAgregator
+
+        onReady: _updateSensors()
     }
 }
