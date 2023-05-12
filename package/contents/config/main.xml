@@ -22,6 +22,9 @@
         <entry name="showClock" type="Bool">
             <default>true</default>
         </entry>
+        <entry name="clockAgregator" type="String">
+            <default>average</default>
+        </entry>
         <entry name="showCpuTemperature" type="Bool">
             <default>false</default>
         </entry>

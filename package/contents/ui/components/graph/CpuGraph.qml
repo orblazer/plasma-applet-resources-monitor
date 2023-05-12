@@ -11,6 +11,9 @@ RMBaseGraph.SensorGraph {
         function onCpuUnitChanged() {
             _updateSensors();
         }
+        function onClockAgregatorChanged() {
+            _updateSensors();
+        }
     }
     Component.onCompleted: {
         _updateSensors();
@@ -39,6 +42,6 @@ RMBaseGraph.SensorGraph {
     }
 
     function _updateSensors() {
-        sensorsModel.sensors = ["cpu/all/" + plasmoid.configuration.cpuUnit, "cpu/all/averageFrequency", "cpu/all/averageTemperature"];
+        sensorsModel.sensors = ["cpu/all/" + plasmoid.configuration.cpuUnit, "cpu/all/" + plasmoid.configuration.clockAgregator + "Frequency", "cpu/all/averageTemperature"];
     }
 }

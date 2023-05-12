@@ -19,7 +19,8 @@ PlasmaExtras.Representation {
     // > CPU
     property bool cfg_showCpuMonitor
     property string cfg_cpuUnit
-    property alias cfg_showClock: showCpuClock.checked
+    property bool cfg_showClock
+    property string cfg_clockAgregator
     property alias cfg_showCpuTemperature: showCpuTemperature.checked
     // > Memory
     property bool cfg_showRamMonitor
@@ -157,26 +158,46 @@ PlasmaExtras.Representation {
                     }
                 }
 
-                QtLayouts.GridLayout {
+                QtControls.ComboBox {
                     QtLayouts.Layout.fillWidth: true
-                    columns: 2
-                    rowSpacing: Kirigami.Units.smallSpacing
-                    columnSpacing: Kirigami.Units.largeSpacing
+                    Kirigami.FormData.label: i18n("Clock visibility:")
+                    enabled: cfg_showCpuMonitor
 
-                    QtControls.CheckBox {
-                        id: showCpuClock
-                        text: i18n("Show clock")
-                        enabled: cfg_showCpuMonitor
+                    currentIndex: -1
+                    textRole: "label"
+                    valueRole: "value"
+                    model: [{
+                            "label": i18n("Disabled"),
+                            "value": "none"
+                        }, {
+                            "label": i18nc("Agregator", "Average"),
+                            "value": "average"
+                        }, {
+                            "label": i18nc("Agregator", "Minimum"),
+                            "value": "minimum"
+                        }, {
+                            "label": i18nc("Agregator", "Maximum"),
+                            "value": "maximum"
+                        }]
+
+                    onActivated: {
+                        if (currentValue === "none") {
+                            cfg_showClock = false;
+                        } else {
+                            cfg_showClock = true;
+                            cfg_clockAgregator = currentValue;
+                        }
                     }
-                    QtControls.CheckBox {
-                        id: showCpuTemperature
-                        text: i18n("Show temperature")
-                        enabled: cfg_showCpuMonitor
+                    Component.onCompleted: {
+                        // TODO (3.0): Merge "cfg_showClock" and "cfg_clockAgregator"
+                        currentIndex = cfg_showClock ? indexOfValue(cfg_clockAgregator) : 0;
                     }
-                    Rectangle {
-                        height: Kirigami.Units.largeSpacing
-                        color: "transparent"
-                    }
+                }
+
+                QtControls.CheckBox {
+                    id: showCpuTemperature
+                    text: i18n("Show temperature")
+                    enabled: cfg_showCpuMonitor
                 }
 
                 // Memory
