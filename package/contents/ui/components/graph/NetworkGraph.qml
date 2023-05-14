@@ -41,6 +41,9 @@ RMBaseGraph.TwoSensorsGraph {
     }
 
     // Override methods, for commulate sensors and support custom dialect
+    property var _downloadValue
+    property var _uploadValue
+
     _update: () => {
         // Cummulate sensors by group
         let data;
@@ -56,9 +59,9 @@ RMBaseGraph.TwoSensorsGraph {
             }
         }
 
-        // Fix dialect
-        downloadValue *= dialect.KiBDiff;
-        uploadValue *= dialect.KiBDiff;
+        // Fix dialect AND store it for update label
+        _downloadValue = downloadValue *= dialect.KiBDiff;
+        _uploadValue = uploadValue *= dialect.KiBDiff;
 
         // Insert datas
         root._insertChartData(0, downloadValue);
@@ -70,7 +73,24 @@ RMBaseGraph.TwoSensorsGraph {
             _updateData(1);
         }
     }
-    _formatValue: (_, data) => Functions.formatByteValue(data.value, dialect)
+
+    function _updateData(index) {
+        // Cancel update if first data is not here
+        if (!sensorsModel.hasIndex(0, 0)) {
+            return;
+        }
+
+        // Retrieve label need to update
+        const label = _getLabel(index);
+        if (typeof label === "undefined" || !label.enabled) {
+            return;
+        }
+        const value = index === 0 ? _downloadValue : _uploadValue;
+
+        // Show value on label
+        label.text = Functions.formatByteValue(value, dialect);
+        label.visible = true;
+    }
 
     function _updateSensors() {
         if (typeof networkInterfaces.model.count === "undefined") {

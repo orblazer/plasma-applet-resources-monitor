@@ -20,15 +20,15 @@ function getNetworkDialectInfo(dialect) {
         suffix: i18nc("kilobyte suffix", "Bps"),
         kiloChar: "k",
         KiBDiff: 1.024,
-        multiplier: 1000,
+        multiplier: 1024,
       };
     case "kilobit":
       return {
         name: "kilobit",
         suffix: i18nc("kilobit suffix", "bps"),
         kiloChar: "k",
-        KiBDiff: 8.192,
-        multiplier: 1000,
+        KiBDiff: 8,
+        multiplier: 1024,
       };
     default:
       return {
