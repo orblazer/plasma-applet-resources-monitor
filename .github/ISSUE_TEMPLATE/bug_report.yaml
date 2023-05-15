@@ -1,0 +1,62 @@
+name: Bug report
+description: Create a report to help us improve
+title: "[BUG] "
+labels: [bug]
+assignees: orblazer
+body:
+  - type: textarea
+    attributes:
+      label: Current Behavior
+      description: A concise description of what you're experiencing.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Expected Behavior
+      description: A concise description of what you expected to happen.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Steps To Reproduce
+      description: Steps to reproduce the behavior.
+      placeholder: |
+        1. In this environment...
+        2. With this config...
+        3. Run '...'
+        4. See error...
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Screenshots
+      description: If applicable, add screenshots or video to help explain your problem.
+  - type: textarea
+    attributes:
+      label: Logs
+      description: |
+        The log thrown by widget, this could be retrieve with :
+        1. (**recommended**) running in isolated environment with that  command : `plasmawindowed org.kde.resourcesMonitor-fork`
+        2. running that command : `journalctl /usr/bin/plasmashell -e`
+      render: Text
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Versions
+      description: |
+        examples:
+          - **WWidget**: 2.1.0
+          - **KDE Plasma**: 5.20.0
+          - **KDE Frameworks**: 5.82.0
+      value: |
+        - WWidget:
+        - KDE Plasma:
+        - KDE Framework:
+      render: Markdown
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Additional context
+      description: Add any other context about the problem here.
