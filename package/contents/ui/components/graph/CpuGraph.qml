@@ -42,7 +42,14 @@ RMBaseGraph.SensorGraph {
     }
 
     function _updateSensors() {
-        sensorsModel.sensors = ["cpu/all/" + plasmoid.configuration.cpuUnit, "cpu/all/" + plasmoid.configuration.clockAgregator + "Frequency", "cpu/cpu0/temperature"];
+        // Manual cpu frequency handle
+        // TODO (3.0): remove this
+        let frequencySensorId = "cpu/all/" + plasmoid.configuration.clockAgregator + "Frequency";
+        if (manualFrequency.needManual) {
+            frequencySensorId = "cpu/cpu0/frequency";
+        }
+        // END Manual cpu frequency handle
+        sensorsModel.sensors = ["cpu/all/" + plasmoid.configuration.cpuUnit, frequencySensorId, "cpu/cpu0/temperature"];
     }
 
     // Manual cpu frequency handle
