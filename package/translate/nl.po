@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: resourcesMonitor-fork\n"
 "Report-Msgid-Bugs-To: https://github.com/orblazer/plasma-applet-resources-monitor\n"
-"POT-Creation-Date: 2023-05-17 12:27+0200\n"
-"PO-Revision-Date: 2023-05-17 12:38+0200\n"
+"POT-Creation-Date: 2023-05-17 12:55+0200\n"
+"PO-Revision-Date: 2023-05-17 12:56+0200\n"
 "Last-Translator: orblazer\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
@@ -74,13 +74,13 @@ msgstr "%1%"
 
 #: ../contents/ui/components/graph/NetworkGraph.qml:31
 msgctxt "Graph label"
-msgid "Download"
-msgstr "Download."
+msgid "Receiving"
+msgstr "Ontvangst"
 
 #: ../contents/ui/components/graph/NetworkGraph.qml:31
 msgctxt "Graph label"
-msgid "Upload"
-msgstr "uploaden"
+msgid "Sending"
+msgstr "Verzend."
 
 #: ../contents/ui/config/ConfigAppearance.qml:76 ../contents/ui/config/ConfigAppearance.qml:361
 #: ../contents/ui/config/ConfigGeneral.qml:122
@@ -251,7 +251,7 @@ msgstr "Kies kleur van serie en tekst"
 #: ../contents/ui/config/ConfigAppearance.qml:417 ../contents/ui/config/ConfigData.qml:181
 msgctxt "Chart config"
 msgid "Receiving:"
-msgstr "Ontvangen:"
+msgstr "Ontvangst:"
 
 #: ../contents/ui/config/ConfigAppearance.qml:424 ../contents/ui/config/ConfigData.qml:205
 msgctxt "Chart config"

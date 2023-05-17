@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: resourcesMonitor-fork\n"
 "Report-Msgid-Bugs-To: https://github.com/orblazer/plasma-applet-resources-monitor\n"
-"POT-Creation-Date: 2023-05-17 12:27+0200\n"
+"POT-Creation-Date: 2023-05-17 12:55+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -76,12 +76,12 @@ msgstr ""
 
 #: ../contents/ui/components/graph/NetworkGraph.qml:31
 msgctxt "Graph label"
-msgid "Download"
+msgid "Receiving"
 msgstr ""
 
 #: ../contents/ui/components/graph/NetworkGraph.qml:31
 msgctxt "Graph label"
-msgid "Upload"
+msgid "Sending"
 msgstr ""
 
 #: ../contents/ui/config/ConfigAppearance.qml:76
