@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: resourcesMonitor-fork\n"
 "Report-Msgid-Bugs-To: https://github.com/orblazer/plasma-applet-resources-monitor\n"
-"POT-Creation-Date: 2023-05-12 19:48+0200\n"
+"POT-Creation-Date: 2023-05-17 12:27+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,21 +48,25 @@ msgctxt "kibibyte suffix"
 msgid "iB/s"
 msgstr ""
 
-#: ../contents/ui/components/graph/CpuGraph.qml:42
-msgid "⏲ Clock"
+#: ../contents/ui/components/graph/CpuGraph.qml:41
+msgctxt "Graph label"
+msgid "Clock"
 msgstr ""
 
-#: ../contents/ui/components/graph/CpuGraph.qml:42
+#: ../contents/ui/components/graph/CpuGraph.qml:41
 #: ../contents/ui/components/graph/GpuGraph.qml:29
-msgid "🌡️ Temp."
+msgctxt "Graph label"
+msgid "Temp."
 msgstr ""
 
 #: ../contents/ui/components/graph/DisksGraph.qml:28
-msgid "⇗ Read"
+msgctxt "Graph label"
+msgid "Read"
 msgstr ""
 
 #: ../contents/ui/components/graph/DisksGraph.qml:28
-msgid "⇘ Write"
+msgctxt "Graph label"
+msgid "Write"
 msgstr ""
 
 #: ../contents/ui/components/graph/GpuGraph.qml:53
@@ -71,11 +75,13 @@ msgid "%1%"
 msgstr ""
 
 #: ../contents/ui/components/graph/NetworkGraph.qml:31
-msgid "⇘ Down"
+msgctxt "Graph label"
+msgid "Download"
 msgstr ""
 
 #: ../contents/ui/components/graph/NetworkGraph.qml:31
-msgid "⇗ Up"
+msgctxt "Graph label"
+msgid "Upload"
 msgstr ""
 
 #: ../contents/ui/config/ConfigAppearance.qml:76

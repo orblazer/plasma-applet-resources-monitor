@@ -28,7 +28,7 @@ RMBaseGraph.TwoSensorsGraph {
     // Labels
     textContainer {
         labelColors: root.colors
-        labels: [i18n("⇘ Down"), i18n("⇗ Up"), ""]
+        labels: [i18nc("Graph label", "Download"), i18nc("Graph label", "Upload"), ""]
     }
 
     // Graph options

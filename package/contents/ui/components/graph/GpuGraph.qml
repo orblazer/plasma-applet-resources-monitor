@@ -26,7 +26,7 @@ RMBaseGraph.TwoSensorsGraph {
         labelColors: [root.colors[0], root.colors[1], temperatureColor]
         valueColors: [undefined, undefined, temperatureColor]
 
-        labels: ["GPU", (plasmoid.configuration.gpuMemoryGraph ? "VRAM" : ""), (plasmoid.configuration.showGpuTemperature ? i18n("🌡️ Temp.") : "")]
+        labels: ["GPU", (plasmoid.configuration.gpuMemoryGraph ? "VRAM" : ""), (plasmoid.configuration.showGpuTemperature ? i18nc("Graph label", "Temp.") : "")]
     }
 
     // Graph options

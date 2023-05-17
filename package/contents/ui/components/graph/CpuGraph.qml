@@ -38,7 +38,7 @@ RMBaseGraph.SensorGraph {
         labelColors: [root.chartColor, undefined, temperatureColor]
         valueColors: [undefined, undefined, temperatureColor]
 
-        labels: ["CPU", (plasmoid.configuration.showClock ? i18n("⏲ Clock") : ""), (plasmoid.configuration.showCpuTemperature ? i18n("🌡️ Temp.") : "")]
+        labels: ["CPU", (plasmoid.configuration.showClock ? i18nc("Graph label", "Clock") : ""), (plasmoid.configuration.showCpuTemperature ? i18nc("Graph label", "Temp.") : "")]
     }
 
     function _updateSensors() {

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: resourcesMonitor-fork\n"
 "Report-Msgid-Bugs-To: https://github.com/orblazer/plasma-applet-resources-monitor\n"
-"POT-Creation-Date: 2023-05-12 19:48+0200\n"
-"PO-Revision-Date: 2023-05-01 17:24+0200\n"
+"POT-Creation-Date: 2023-05-17 12:27+0200\n"
+"PO-Revision-Date: 2023-05-17 12:38+0200\n"
 "Last-Translator: orblazer\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
@@ -47,21 +47,25 @@ msgctxt "kibibyte suffix"
 msgid "iB/s"
 msgstr "iB/s"
 
-#: ../contents/ui/components/graph/CpuGraph.qml:42
-msgid "⏲ Clock"
-msgstr "⏲ Klok."
+#: ../contents/ui/components/graph/CpuGraph.qml:41
+msgctxt "Graph label"
+msgid "Clock"
+msgstr "Klok"
 
-#: ../contents/ui/components/graph/CpuGraph.qml:42 ../contents/ui/components/graph/GpuGraph.qml:29
-msgid "🌡️ Temp."
-msgstr "🌡️ Temp."
-
-#: ../contents/ui/components/graph/DisksGraph.qml:28
-msgid "⇗ Read"
-msgstr "⇗ Lees"
+#: ../contents/ui/components/graph/CpuGraph.qml:41 ../contents/ui/components/graph/GpuGraph.qml:29
+msgctxt "Graph label"
+msgid "Temp."
+msgstr "Temp."
 
 #: ../contents/ui/components/graph/DisksGraph.qml:28
-msgid "⇘ Write"
-msgstr "⇘ Schrijf"
+msgctxt "Graph label"
+msgid "Read"
+msgstr "Lees"
+
+#: ../contents/ui/components/graph/DisksGraph.qml:28
+msgctxt "Graph label"
+msgid "Write"
+msgstr "Schrijf"
 
 #: ../contents/ui/components/graph/GpuGraph.qml:53
 msgctxt "Percent unit"
@@ -69,12 +73,14 @@ msgid "%1%"
 msgstr "%1%"
 
 #: ../contents/ui/components/graph/NetworkGraph.qml:31
-msgid "⇘ Down"
-msgstr "⇘ Oml."
+msgctxt "Graph label"
+msgid "Download"
+msgstr "Download."
 
 #: ../contents/ui/components/graph/NetworkGraph.qml:31
-msgid "⇗ Up"
-msgstr "⇗ Omh."
+msgctxt "Graph label"
+msgid "Upload"
+msgstr "uploaden"
 
 #: ../contents/ui/config/ConfigAppearance.qml:76 ../contents/ui/config/ConfigAppearance.qml:361
 #: ../contents/ui/config/ConfigGeneral.qml:122

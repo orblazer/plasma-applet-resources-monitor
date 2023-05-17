@@ -25,7 +25,7 @@ RMBaseGraph.TwoSensorsGraph {
     // Labels
     textContainer {
         labelColors: root.colors
-        labels: [i18n("⇗ Read"), i18n("⇘ Write"), ""]
+        labels: [i18nc("Graph label", "Read"), i18nc("Graph label", "Write"), ""]
     }
 
     // Graph options
