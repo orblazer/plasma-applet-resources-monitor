@@ -1,3 +1,19 @@
+# [2.10.0](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.9.1...v2.10.0) (2023-05-19)
+
+
+### Bug Fixes
+
+* **graph:** per core sensors for pre plasma 5.25 ([5d41c02](https://github.com/orblazer/plasma-applet-resources-monitor/commit/5d41c02189041a26a79b71c5abf22dfbced36f4b)), closes [#47](https://github.com/orblazer/plasma-applet-resources-monitor/issues/47)
+* **graph:** prevent blurry labels in small size ([a86d431](https://github.com/orblazer/plasma-applet-resources-monitor/commit/a86d431199bbfbd4b812a8473699dab5db1030b6))
+* **graph:** right aggregate and use network values ([0816363](https://github.com/orblazer/plasma-applet-resources-monitor/commit/081636330d0f23f96bdd9e3dd27a45e6442dae9d)), closes [#50](https://github.com/orblazer/plasma-applet-resources-monitor/issues/50)
+
+
+### Features
+
+* **data:** allow configure cpu clock aggregator ([b3efc01](https://github.com/orblazer/plasma-applet-resources-monitor/commit/b3efc0192252581c4ef0007e12b464b2bb329430))
+
+
+
 ## [2.9.1](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.9.0...v2.9.1) (2023-05-09)
 
 ### Bug Fixes
