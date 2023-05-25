@@ -46,11 +46,11 @@ body:
       label: Versions
       description: |
         examples:
-          - **WWidget**: 2.1.0
+          - **Widget**: 2.1.0
           - **KDE Plasma**: 5.20.0
           - **KDE Frameworks**: 5.82.0
       value: |
-        - WWidget:
+        - Widget:
         - KDE Plasma:
         - KDE Framework:
       render: Markdown
