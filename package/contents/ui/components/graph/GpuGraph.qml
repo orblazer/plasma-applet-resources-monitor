@@ -17,6 +17,9 @@ RMBaseGraph.TwoSensorsGraph {
             uplimits = [100, plasmoid.configuration.gpuMemoryInPercent ? 100 : maxQueryModel.maxMemory];
             _clear();
         }
+        function onGpuIndexChanged() {
+            maxQueryModel.enabled = true
+        }
     }
 
     // Labels
@@ -58,7 +61,7 @@ RMBaseGraph.TwoSensorsGraph {
     // Initialize limits and threshold
     Sensors.SensorDataModel {
         id: maxQueryModel
-        sensors: ["gpu/gpu0/totalVram"]
+        sensors: ["gpu/" + plasmoid.configuration.gpuIndex + "/totalVram"]
         enabled: true
         property int maxMemory: -1
 
@@ -71,9 +74,12 @@ RMBaseGraph.TwoSensorsGraph {
             enabled = false;
             maxMemory = valueVar;
 
-            // Update graph Y range and sensors
+            // Update graph Y range
             root.uplimits = [100, plasmoid.configuration.gpuMemoryInPercent ? 100 : maxMemory];
-            root.sensorsModel.sensors = ["gpu/gpu0/usage", "gpu/gpu0/usedVram", "gpu/gpu0/temperature"];
+
+            // Update sensors
+            const gpu = plasmoid.configuration.gpuIndex
+            root.sensorsModel.sensors = ["gpu/" + gpu + "/usage", "gpu/" + gpu + "/usedVram", "gpu/" + gpu + "/temperature"];
         }
     }
 }

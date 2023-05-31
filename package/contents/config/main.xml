@@ -81,6 +81,10 @@
             <default>200000.0</default>
         </entry>
 
+        <entry name="gpuIndex" type="String">
+            <default>gpu0</default>
+        </entry>
+
         <entry name="thresholdWarningCpuTemp" type="Double">
             <default>85.0</default>
         </entry>

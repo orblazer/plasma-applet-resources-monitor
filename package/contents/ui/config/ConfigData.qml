@@ -24,6 +24,9 @@ PlasmaExtras.Representation {
     property alias cfg_diskReadTotal: diskRead.realValue
     property alias cfg_diskWriteTotal: diskWrite.realValue
 
+    // GPU
+    property string cfg_gpuIndex
+
     // Thresholds
     property alias cfg_thresholdWarningCpuTemp: thresholdWarningCpuTemp.realValue
     property alias cfg_thresholdCriticalCpuTemp: thresholdCriticalCpuTemp.realValue
@@ -93,6 +96,12 @@ PlasmaExtras.Representation {
     RMComponents.NetworkInterfaceDetector {
         id: networkInterfaces
     }
+    // Detect GPU cards
+    RMComponents.GpuDetector {
+        id: gpuCards
+
+        onReady: gpuCardSelector.select()
+    }
 
     // Tab bar
     header: PlasmaExtras.PlasmoidHeading {
@@ -114,6 +123,11 @@ PlasmaExtras.Representation {
                 icon.name: "drive-harddisk-symbolic"
                 icon.height: PlasmaCore.Units.iconSizes.smallMedium
                 text: i18nc("Chart name", "Disks I/O")
+            }
+            PlasmaComponents.TabButton {
+                icon.name: "video-display-symbolic"
+                icon.height: PlasmaCore.Units.iconSizes.smallMedium
+                text: i18nc("Chart name", "Graphic card")
             }
             PlasmaComponents.TabButton {
                 icon.name: "dialog-warning"
@@ -282,6 +296,29 @@ PlasmaExtras.Representation {
                         textFromValue: function (value, locale) {
                             return spinBox.valueToText(value, locale) + " M" + networkDialect.suffix;
                         }
+                    }
+                }
+            }
+        }
+
+        // GPU
+        Kirigami.ScrollablePage {
+            Kirigami.FormLayout {
+                wideMode: true
+
+                QtControls.ComboBox {
+                    id: gpuCardSelector
+                    QtLayouts.Layout.fillWidth: true
+                    Kirigami.FormData.label: i18n("Graphic card:")
+
+                    currentIndex: -1
+                    textRole: "name"
+                    valueRole: "index"
+                    model: gpuCards.model
+
+                    onActivated: cfg_gpuIndex = currentValue
+                    function select() {
+                        currentIndex = indexOfValue(cfg_gpuIndex);
                     }
                 }
             }
