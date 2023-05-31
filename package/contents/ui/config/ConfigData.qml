@@ -115,19 +115,9 @@ PlasmaExtras.Representation {
             implicitHeight: contentHeight
 
             PlasmaComponents.TabButton {
-                icon.name: "network-wired-symbolic"
+                icon.name: "settings"
                 icon.height: PlasmaCore.Units.iconSizes.smallMedium
-                text: i18nc("Chart name", "Network")
-            }
-            PlasmaComponents.TabButton {
-                icon.name: "drive-harddisk-symbolic"
-                icon.height: PlasmaCore.Units.iconSizes.smallMedium
-                text: i18nc("Chart name", "Disks I/O")
-            }
-            PlasmaComponents.TabButton {
-                icon.name: "video-display-symbolic"
-                icon.height: PlasmaCore.Units.iconSizes.smallMedium
-                text: i18nc("Chart name", "Graphic card")
+                text: i18nc("Config header", "General")
             }
             PlasmaComponents.TabButton {
                 icon.name: "dialog-warning"
@@ -142,12 +132,18 @@ PlasmaExtras.Representation {
         anchors.fill: parent
         currentIndex: bar.currentIndex
 
-        // Network
+        // General
         Kirigami.ScrollablePage {
             Kirigami.FormLayout {
                 wideMode: true
 
-                // Network interfaces
+                // Network
+                Kirigami.Separator {
+                    Kirigami.FormData.label: i18nc("Chart name", "Network")
+                    Kirigami.FormData.isSection: true
+                }
+
+                // Interfaces
                 QtLayouts.GridLayout {
                     Kirigami.FormData.label: i18n("Network interfaces:")
                     QtLayouts.Layout.fillWidth: true
@@ -237,15 +233,13 @@ PlasmaExtras.Representation {
                         }
                     }
                 }
-            }
-        }
 
-        // Disk I/O
-        Kirigami.ScrollablePage {
-            Kirigami.FormLayout {
-                wideMode: true
+                // Disk I/O
+                Kirigami.Separator {
+                    Kirigami.FormData.label: i18nc("Chart name", "Disks I/O")
+                    Kirigami.FormData.isSection: true
+                }
 
-                // Transfer speed
                 Item {
                     Kirigami.FormData.label: i18n("Maximum transfer speed")
                     Kirigami.FormData.isSection: true
@@ -298,13 +292,12 @@ PlasmaExtras.Representation {
                         }
                     }
                 }
-            }
-        }
 
-        // GPU
-        Kirigami.ScrollablePage {
-            Kirigami.FormLayout {
-                wideMode: true
+                // GPU
+                Kirigami.Separator {
+                    Kirigami.FormData.label: i18nc("Config header", "Graphic card")
+                    Kirigami.FormData.isSection: true
+                }
 
                 QtControls.ComboBox {
                     id: gpuCardSelector

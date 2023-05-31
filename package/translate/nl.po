@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: resourcesMonitor-fork\n"
 "Report-Msgid-Bugs-To: https://github.com/orblazer/plasma-applet-resources-monitor\n"
-"POT-Creation-Date: 2023-05-31 18:14+0200\n"
-"PO-Revision-Date: 2023-05-31 18:15+0200\n"
+"POT-Creation-Date: 2023-05-31 18:43+0200\n"
+"PO-Revision-Date: 2023-05-31 18:44+0200\n"
 "Last-Translator: orblazer\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.0\n"
 
-#: ../contents/config/config.qml:6 ../contents/ui/config/ConfigGeneral.qml:79
+#: ../contents/config/config.qml:6 ../contents/ui/config/ConfigData.qml:120 ../contents/ui/config/ConfigGeneral.qml:79
 msgctxt "Config header"
 msgid "General"
 msgstr "Algemeen"
@@ -101,13 +101,13 @@ msgid "GPU"
 msgstr "GPU"
 
 #: ../contents/ui/config/ConfigAppearance.qml:91 ../contents/ui/config/ConfigAppearance.qml:468
-#: ../contents/ui/config/ConfigData.qml:125 ../contents/ui/config/ConfigGeneral.qml:352
+#: ../contents/ui/config/ConfigData.qml:239 ../contents/ui/config/ConfigGeneral.qml:352
 msgctxt "Chart name"
 msgid "Disks I/O"
 msgstr "Schijven I/O"
 
 #: ../contents/ui/config/ConfigAppearance.qml:96 ../contents/ui/config/ConfigAppearance.qml:411
-#: ../contents/ui/config/ConfigData.qml:120 ../contents/ui/config/ConfigGeneral.qml:270
+#: ../contents/ui/config/ConfigData.qml:142 ../contents/ui/config/ConfigGeneral.qml:270
 msgctxt "Chart name"
 msgid "Network"
 msgstr "Netwerk"
@@ -248,12 +248,12 @@ msgctxt "Chart color"
 msgid "Choose color of series and text"
 msgstr "Kies kleur van serie en tekst"
 
-#: ../contents/ui/config/ConfigAppearance.qml:417 ../contents/ui/config/ConfigData.qml:195
+#: ../contents/ui/config/ConfigAppearance.qml:417 ../contents/ui/config/ConfigData.qml:191
 msgctxt "Chart config"
 msgid "Receiving:"
 msgstr "Ontvangst:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:424 ../contents/ui/config/ConfigData.qml:219
+#: ../contents/ui/config/ConfigAppearance.qml:424 ../contents/ui/config/ConfigData.qml:215
 msgctxt "Chart config"
 msgid "Sending:"
 msgstr "Verzending:"
@@ -263,12 +263,12 @@ msgctxt "Chart config"
 msgid "Memory:"
 msgstr "Geheugen"
 
-#: ../contents/ui/config/ConfigAppearance.qml:474 ../contents/ui/config/ConfigData.qml:256
+#: ../contents/ui/config/ConfigAppearance.qml:474 ../contents/ui/config/ConfigData.qml:250
 msgctxt "Chart config"
 msgid "Read:"
 msgstr "Lees:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:481 ../contents/ui/config/ConfigData.qml:280
+#: ../contents/ui/config/ConfigAppearance.qml:481 ../contents/ui/config/ConfigData.qml:274
 msgctxt "Chart config"
 msgid "Write:"
 msgstr "Schrijf:"
@@ -297,45 +297,45 @@ msgstr "Tekstkleur kiezen wanneer de waarde in kritieke status is"
 msgid "Custom"
 msgstr "Aangepast"
 
-#: ../contents/ui/config/ConfigData.qml:130
-msgctxt "Chart name"
-msgid "Graphic card"
-msgstr "Grafische kaart"
-
-#: ../contents/ui/config/ConfigData.qml:135
+#: ../contents/ui/config/ConfigData.qml:125
 msgctxt "Config header"
 msgid "Thresholds"
 msgstr "Drempels"
 
-#: ../contents/ui/config/ConfigData.qml:152
+#: ../contents/ui/config/ConfigData.qml:148
 msgid "Network interfaces:"
 msgstr "Netwerkkaarten:"
 
-#: ../contents/ui/config/ConfigData.qml:189 ../contents/ui/config/ConfigData.qml:250
+#: ../contents/ui/config/ConfigData.qml:185 ../contents/ui/config/ConfigData.qml:244
 msgid "Maximum transfer speed"
 msgstr "Maximale overdrachtssnelheid"
 
-#: ../contents/ui/config/ConfigData.qml:312
+#: ../contents/ui/config/ConfigData.qml:298
+msgctxt "Config header"
+msgid "Graphic card"
+msgstr "Grafische kaart"
+
+#: ../contents/ui/config/ConfigData.qml:305
 msgid "Graphic card:"
 msgstr "Grafische kaart:"
 
-#: ../contents/ui/config/ConfigData.qml:354
+#: ../contents/ui/config/ConfigData.qml:347
 msgid "Warning"
 msgstr "Waarschuwing"
 
-#: ../contents/ui/config/ConfigData.qml:361
+#: ../contents/ui/config/ConfigData.qml:354
 msgid "Critical"
 msgstr "Kritisch"
 
-#: ../contents/ui/config/ConfigData.qml:368
+#: ../contents/ui/config/ConfigData.qml:361
 msgid "CPU Temperature:"
 msgstr "CPU-temperatuur:"
 
-#: ../contents/ui/config/ConfigData.qml:400
+#: ../contents/ui/config/ConfigData.qml:393
 msgid "Physical Memory Usage:"
 msgstr "Fysiek geheugengebruik:"
 
-#: ../contents/ui/config/ConfigData.qml:424
+#: ../contents/ui/config/ConfigData.qml:417
 msgid "GPU Temperature:"
 msgstr "GPU-temperatuur:"
 
