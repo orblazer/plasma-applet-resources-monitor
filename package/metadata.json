@@ -21,12 +21,11 @@
     "Name": "Resources Monitor (fork)",
     "Name[fr]": "Moniteur des ressources (fork)",
     "Name[nl]": "Systeembronmonitor (afsplitsing)",
-    "ServiceTypes": [
-      "Plasma/Applet"
-    ],
     "Version": "2.10.0",
-    "Website": "https://github.com/orblazer/plasma-applet-resources-monitor"
+    "Website": "https://github.com/orblazer/plasma-applet-resources-monitor",
+    "BugReportUrl": "https://github.com/orblazer/plasma-applet-resources-monitor/issues"
   },
   "X-Plasma-API": "declarativeappletscript",
-  "X-Plasma-MainScript": "ui/main.qml"
+  "X-Plasma-MainScript": "ui/main.qml",
+  "KPackageStructure": "Plasma/Applet"
 }
