@@ -1,3 +1,12 @@
+## [2.10.1](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.10.0...v2.10.1) (2023-05-31)
+
+
+### Bug Fixes
+
+* **graph:** allow choose right gpu ([c193172](https://github.com/orblazer/plasma-applet-resources-monitor/commit/c19317233ff1f8aa68fc2f3c3dff352fa95e7430)), closes [#52](https://github.com/orblazer/plasma-applet-resources-monitor/issues/52)
+
+
+
 # [2.10.0](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.9.1...v2.10.0) (2023-05-19)
 
 
