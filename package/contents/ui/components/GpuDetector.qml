@@ -1,8 +1,8 @@
 import QtQuick 2.0
-import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.kitemmodels 1.0 as KItemModels
 import org.kde.ksysguard.sensors 1.0 as Sensors
 
-QtObject {
+KItemModels.KSortFilterProxyModel {
     id: detector
 
     property var model: []
@@ -11,44 +11,63 @@ QtObject {
 
     signal ready
 
-    property var _dataSource: PlasmaCore.DataSource {
-        engine: "executable"
-        connectedSources: []
-
-        onNewData: {
-            const count = parseInt(data["stdout"].trim().split(':')[0]);
-
-            // List sensors and init model data
-            const sensors = [];
-            for (let i = 0; i < count; i++) {
-                sensors.push("gpu/gpu" + i + "/name");
-                _privateModel.append({
-                        "index": "gpu" + i,
-                        "name": ""
-                    });
-            }
-            _sensors.sensors = sensors;
-            disconnectSource(sourceName); // cmd finished
-        }
-
-        Component.onCompleted: {
-            connectSource("lspci | grep ' VGA ' | tail -n 1 | cut -d' ' -f 1");
+    // Find all gpus
+    sourceModel: KItemModels.KDescendantsProxyModel {
+        model: Sensors.SensorTreeModel {
         }
     }
 
+    property var _regex: /gpu\/(gpu\d)\/name/
+    property var _tmpSensors: []
+    filterRowCallback: function (row, parent) {
+        const sensorId = sourceModel.data(sourceModel.index(row, 0), Sensors.SensorTreeModel.SensorId);
+        const found = sensorId.match(_regex);
+        if (found && _tmpSensors.findIndex(item => item === sensorId) === -1) {
+            _tmpSensors.push(sensorId);
+            _privateModel.append({
+                    "index": found[1],
+                    "name": ""
+                });
+        }
+    }
+
+    // Find name of GPU
+    property var _nameRegex: /.*\[(.*)\]/
     property var _sensors: Sensors.SensorDataModel {
         updateRateLimit: -1
         property var retrievedData: 0
 
         onDataChanged: {
-            _privateModel.setProperty(topLeft.column, "name", data(topLeft, Sensors.SensorDataModel.Value));
+            let name = data(topLeft, Sensors.SensorDataModel.Value);
+
+            // Special case for non NVIDIA graphic card (eg. in AMD the name look like "Navi 21 [Radeon RX 6950 XT]")
+            const found = name.match(_nameRegex);
+            if (found) {
+                if (found[1].startsWith("Radeon")) {
+                    name = "AMD ";
+                } else {
+                    name = "Intel ";
+                }
+                name += found[1];
+            }
+            _privateModel.setProperty(topLeft.column, "name", name);
 
             // Stop sensors and update model
             if (++retrievedData === sensors.length) {
                 enabled = false;
                 detector.model = _privateModel;
-                detector.ready()
+                detector.ready();
             }
+        }
+    }
+
+    property var _timer: Timer {
+        running: true
+        triggeredOnStart: true
+
+        onTriggered: {
+            running = false;
+            _sensors.sensors = _tmpSensors;
         }
     }
 }
