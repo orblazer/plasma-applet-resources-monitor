@@ -1,3 +1,12 @@
+## [2.10.2](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.10.1...v2.10.2) (2023-08-29)
+
+
+### Bug Fixes
+
+* **config:**  right way to find gpu cards ([47ebe7a](https://github.com/orblazer/plasma-applet-resources-monitor/commit/47ebe7aa229579eab212ccbb4356df652d71ba81)), closes [#58](https://github.com/orblazer/plasma-applet-resources-monitor/issues/58)
+
+
+
 ## [2.10.1](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.10.0...v2.10.1) (2023-05-31)
 
 
