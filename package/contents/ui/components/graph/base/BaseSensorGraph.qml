@@ -24,6 +24,7 @@ Item {
     // Labels
     RMBaseGraph.GraphText {
         id: textContainer
+        enabled: plasmoid.configuration.displayment != 'never'
         anchors.fill: parent
         z: 1
 
@@ -106,7 +107,7 @@ Item {
             root._insertChartData(i, sensorsModel.getInfo(i));
 
             // Update label
-            if (textContainer.valueVisible) {
+            if (textContainer.enabled && textContainer.valueVisible) {
                 _updateData(i);
             }
         }

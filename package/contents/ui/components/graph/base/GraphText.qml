@@ -23,7 +23,7 @@ Item {
     property var labelsVisibleWhenZero: [true, true, true]
 
     // Config aliases
-    property string displayment: plasmoid.configuration.displayment // Values: always, hover, hover-hints
+    property string displayment: plasmoid.configuration.displayment // Values: always, hover, hover-hints, never
 
     // Bind config changes
     onDisplaymentChanged: {

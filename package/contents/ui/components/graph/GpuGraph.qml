@@ -46,7 +46,7 @@ RMBaseGraph.TwoSensorsGraph {
             root._insertChartData(i, value);
 
             // Update label
-            if (textContainer.valueVisible) {
+            if (textContainer.enabled && textContainer.valueVisible) {
                 _updateData(i);
             }
         }

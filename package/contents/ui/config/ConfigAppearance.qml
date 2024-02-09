@@ -308,6 +308,9 @@ PlasmaExtras.Representation {
                         }, {
                             "label": i18nc("Text displayment", "Hints when hover"),
                             "name": "hover-hints"
+                        }, {
+                            "label": i18nc("Text displayment", "Never"),
+                            "name": "never"
                         }]
 
                     onActivated: cfg_displayment = currentValue
