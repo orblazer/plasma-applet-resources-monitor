@@ -1,0 +1,483 @@
+# Translation of resourcesMonitor-fork in german
+# Copyright (C) 2024
+# This file is distributed under the same license as the resourcesMonitor-fork package.
+# madeddy <saxony@earth.sol>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: resourcesMonitor-fork\n"
+"Report-Msgid-Bugs-To: https://github.com/orblazer/plasma-applet-resources-monitor\n"
+"POT-Creation-Date: 2024-01-18 14:19+0200\n"
+"PO-Revision-Date: 2024-01-19 12:35+0100\n"
+"Last-Translator: madeddy <saxony@earth.sol>\n"
+"Language-Team: \n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.0.1\n"
+
+#: ../contents/config/config.qml:6 ../contents/ui/config/ConfigData.qml:120
+#: ../contents/ui/config/ConfigGeneral.qml:79
+msgctxt "Config header"
+msgid "General"
+msgstr "Allgemein"
+
+#: ../contents/config/config.qml:11
+msgctxt "Config header"
+msgid "Data"
+msgstr "Daten"
+
+#: ../contents/config/config.qml:16
+msgctxt "Config header"
+msgid "Appearance"
+msgstr "Erscheinungsbild"
+
+#: ../contents/ui/components/functions.js:20
+msgctxt "kilobyte suffix"
+msgid "Bps"
+msgstr "Bps"
+
+#: ../contents/ui/components/functions.js:28
+msgctxt "kilobit suffix"
+msgid "bps"
+msgstr "bps"
+
+#: ../contents/ui/components/functions.js:36
+msgctxt "kibibyte suffix"
+msgid "iB/s"
+msgstr "iB/s"
+
+#: ../contents/ui/components/graph/CpuGraph.qml:41
+msgctxt "Graph label"
+msgid "Clock"
+msgstr "Takt"
+
+#: ../contents/ui/components/graph/CpuGraph.qml:41
+#: ../contents/ui/components/graph/GpuGraph.qml:32
+msgctxt "Graph label"
+msgid "Temp."
+msgstr "Temp."
+
+#: ../contents/ui/components/graph/DisksGraph.qml:28
+msgctxt "Graph label"
+msgid "Read"
+msgstr "Lesen"
+
+#: ../contents/ui/components/graph/DisksGraph.qml:28
+msgctxt "Graph label"
+msgid "Write"
+msgstr "Schreiben"
+
+#: ../contents/ui/components/graph/GpuGraph.qml:56
+msgctxt "Percent unit"
+msgid "%1%"
+msgstr "%1%"
+
+#: ../contents/ui/components/graph/NetworkGraph.qml:31
+msgctxt "Graph label"
+msgid "Receiving"
+msgstr "Empfangen"
+
+#: ../contents/ui/components/graph/NetworkGraph.qml:31
+msgctxt "Graph label"
+msgid "Sending"
+msgstr "Senden"
+
+#: ../contents/ui/config/ConfigAppearance.qml:76
+#: ../contents/ui/config/ConfigAppearance.qml:361
+#: ../contents/ui/config/ConfigGeneral.qml:122
+msgctxt "Chart name"
+msgid "CPU"
+msgstr "CPU"
+
+#: ../contents/ui/config/ConfigAppearance.qml:81
+#: ../contents/ui/config/ConfigAppearance.qml:386
+#: ../contents/ui/config/ConfigGeneral.qml:209
+msgctxt "Chart name"
+msgid "Memory"
+msgstr "Speicher"
+
+#: ../contents/ui/config/ConfigAppearance.qml:86
+#: ../contents/ui/config/ConfigAppearance.qml:436
+#: ../contents/ui/config/ConfigGeneral.qml:315
+msgctxt "Chart name"
+msgid "GPU"
+msgstr "GPU"
+
+#: ../contents/ui/config/ConfigAppearance.qml:91
+#: ../contents/ui/config/ConfigAppearance.qml:468
+#: ../contents/ui/config/ConfigData.qml:239
+#: ../contents/ui/config/ConfigGeneral.qml:352
+msgctxt "Chart name"
+msgid "Disks I/O"
+msgstr "Disks I/O"
+
+#: ../contents/ui/config/ConfigAppearance.qml:96
+#: ../contents/ui/config/ConfigAppearance.qml:411
+#: ../contents/ui/config/ConfigData.qml:142
+#: ../contents/ui/config/ConfigGeneral.qml:270
+msgctxt "Chart name"
+msgid "Network"
+msgstr "Netzwerk"
+
+#: ../contents/ui/config/ConfigAppearance.qml:115
+#: ../contents/ui/config/ConfigGeneral.qml:116
+msgctxt "Config header"
+msgid "Charts"
+msgstr "Diagramme"
+
+#: ../contents/ui/config/ConfigAppearance.qml:120
+msgctxt "Config header"
+msgid "Text"
+msgstr "Text"
+
+#: ../contents/ui/config/ConfigAppearance.qml:125
+msgctxt "Config header"
+msgid "Colors"
+msgstr "Farben"
+
+#: ../contents/ui/config/ConfigAppearance.qml:143
+msgid "Vertical layout"
+msgstr "Vertikale Anordnung"
+
+#: ../contents/ui/config/ConfigAppearance.qml:148
+msgid "History amount:"
+msgstr "Verlaufslänge:"
+
+#: ../contents/ui/config/ConfigAppearance.qml:155
+msgid "Width:"
+msgstr "Breite:"
+
+#: ../contents/ui/config/ConfigAppearance.qml:162
+msgid "Height:"
+msgstr "Höhe:"
+
+#: ../contents/ui/config/ConfigAppearance.qml:169
+msgid "Margin:"
+msgstr "Rand:"
+
+#: ../contents/ui/config/ConfigAppearance.qml:180
+msgid "Fill opacity:"
+msgstr "Deckkraft der Füllung:"
+
+#: ../contents/ui/config/ConfigAppearance.qml:192
+msgid "Charts order"
+msgstr "Reihenfolge der Diagramme"
+
+#: ../contents/ui/config/ConfigAppearance.qml:280
+msgid "Drop shadows"
+msgstr "Schlagschatten"
+
+#: ../contents/ui/config/ConfigAppearance.qml:285
+msgid "Font scale:"
+msgstr "Schriftgröße:"
+
+#: ../contents/ui/config/ConfigAppearance.qml:297
+msgid "Text displayment:"
+msgstr "Textanzeige:"
+
+#: ../contents/ui/config/ConfigAppearance.qml:303
+msgctxt "Text displayment"
+msgid "Always"
+msgstr "Immer"
+
+#: ../contents/ui/config/ConfigAppearance.qml:306
+msgctxt "Text displayment"
+msgid "On hover"
+msgstr "Beim darauf zeigen"
+
+#: ../contents/ui/config/ConfigAppearance.qml:309
+msgctxt "Text displayment"
+msgid "Hints when hover"
+msgstr "Hinweise beim darauf zeigen"
+
+#: ../contents/ui/config/ConfigAppearance.qml:319
+msgid "Placement:"
+msgstr "Platzierung:"
+
+#: ../contents/ui/config/ConfigAppearance.qml:325
+msgctxt "Text placement"
+msgid "Top left"
+msgstr "Oben links"
+
+#: ../contents/ui/config/ConfigAppearance.qml:328
+msgctxt "Text placement"
+msgid "Top right"
+msgstr "Oben rechts"
+
+#: ../contents/ui/config/ConfigAppearance.qml:331
+msgctxt "Text placement"
+msgid "Bottom left"
+msgstr "Unten links"
+
+#: ../contents/ui/config/ConfigAppearance.qml:334
+msgctxt "Text placement"
+msgid "Bottom right"
+msgstr "Unten rechts"
+
+#: ../contents/ui/config/ConfigAppearance.qml:351
+msgid "Charts colors"
+msgstr "Diagrammfarben"
+
+#: ../contents/ui/config/ConfigAppearance.qml:367
+#: ../contents/ui/config/ConfigAppearance.qml:442
+msgctxt "Chart config"
+msgid "Usage:"
+msgstr "Nutzung:"
+
+#: ../contents/ui/config/ConfigAppearance.qml:369
+#: ../contents/ui/config/ConfigAppearance.qml:394
+#: ../contents/ui/config/ConfigAppearance.qml:419
+#: ../contents/ui/config/ConfigAppearance.qml:426
+#: ../contents/ui/config/ConfigAppearance.qml:444
+#: ../contents/ui/config/ConfigAppearance.qml:451
+#: ../contents/ui/config/ConfigAppearance.qml:476
+#: ../contents/ui/config/ConfigAppearance.qml:483
+msgctxt "Chart color"
+msgid "Choose series color"
+msgstr "Wähle Graphenfarbe"
+
+#: ../contents/ui/config/ConfigAppearance.qml:374
+#: ../contents/ui/config/ConfigAppearance.qml:456
+msgctxt "Chart config"
+msgid "Temperature:"
+msgstr "Temperatur:"
+
+#: ../contents/ui/config/ConfigAppearance.qml:376
+#: ../contents/ui/config/ConfigAppearance.qml:458
+msgctxt "Chart color"
+msgid "Choose text color"
+msgstr "Wähle Textfarbe"
+
+#: ../contents/ui/config/ConfigAppearance.qml:392
+msgctxt "Chart config"
+msgid "Physical:"
+msgstr "Physisch:"
+
+#: ../contents/ui/config/ConfigAppearance.qml:399
+msgctxt "Chart config"
+msgid "Swap:"
+msgstr "Swap:"
+
+#: ../contents/ui/config/ConfigAppearance.qml:401
+msgctxt "Chart color"
+msgid "Choose color of series and text"
+msgstr "Wähle Graphen- und Textfarbe"
+
+#: ../contents/ui/config/ConfigAppearance.qml:417
+#: ../contents/ui/config/ConfigData.qml:191
+msgctxt "Chart config"
+msgid "Receiving:"
+msgstr "Empfangen:"
+
+#: ../contents/ui/config/ConfigAppearance.qml:424
+#: ../contents/ui/config/ConfigData.qml:215
+msgctxt "Chart config"
+msgid "Sending:"
+msgstr "Senden:"
+
+#: ../contents/ui/config/ConfigAppearance.qml:449
+msgctxt "Chart config"
+msgid "Memory:"
+msgstr "Speicher:"
+
+#: ../contents/ui/config/ConfigAppearance.qml:474
+#: ../contents/ui/config/ConfigData.qml:250
+msgctxt "Chart config"
+msgid "Read:"
+msgstr "Lesen:"
+
+#: ../contents/ui/config/ConfigAppearance.qml:481
+#: ../contents/ui/config/ConfigData.qml:274
+msgctxt "Chart config"
+msgid "Write:"
+msgstr "Schreiben:"
+
+#: ../contents/ui/config/ConfigAppearance.qml:489
+msgid "Threshold text colors"
+msgstr "Textfarbe des Schwellenwertes"
+
+#: ../contents/ui/config/ConfigAppearance.qml:495
+msgid "Warning status:"
+msgstr "Warnstatus:"
+
+#: ../contents/ui/config/ConfigAppearance.qml:497
+msgid "Choose text color when the value is in warning status"
+msgstr "Wähle die Textfarbe wenn der Wert Warnstatus hat"
+
+#: ../contents/ui/config/ConfigAppearance.qml:502
+msgid "Critical status:"
+msgstr "Kritischer Status:"
+
+#: ../contents/ui/config/ConfigAppearance.qml:504
+msgid "Choose text color when the value is in critical status"
+msgstr "Wähle die Textfarbe wenn der Wert Kritischen Status hat"
+
+#: ../contents/ui/config/ConfigData.qml:39
+#: ../contents/ui/config/ConfigData.qml:67
+msgid "Custom"
+msgstr "Angepasst"
+
+#: ../contents/ui/config/ConfigData.qml:125
+msgctxt "Config header"
+msgid "Thresholds"
+msgstr "Schwellenwerte"
+
+#: ../contents/ui/config/ConfigData.qml:148
+msgid "Network interfaces:"
+msgstr "Netzwerkschnittstellen:"
+
+#: ../contents/ui/config/ConfigData.qml:185
+#: ../contents/ui/config/ConfigData.qml:244
+msgid "Maximum transfer speed"
+msgstr "Maximale Übertragungsgeschwindigkeit"
+
+#: ../contents/ui/config/ConfigData.qml:298
+msgctxt "Config header"
+msgid "Graphic card"
+msgstr "Grafikkarte"
+
+#: ../contents/ui/config/ConfigData.qml:305
+msgid "Graphic card:"
+msgstr "Grafikkarte:"
+
+#: ../contents/ui/config/ConfigData.qml:347
+msgid "Warning"
+msgstr "Warnung"
+
+#: ../contents/ui/config/ConfigData.qml:354
+msgid "Critical"
+msgstr "Kritisch"
+
+#: ../contents/ui/config/ConfigData.qml:361
+msgid "CPU Temperature:"
+msgstr "CPU Temperatur:"
+
+#: ../contents/ui/config/ConfigData.qml:393
+msgid "Physical Memory Usage:"
+msgstr "Auslastung des physischen Speichers:"
+
+#: ../contents/ui/config/ConfigData.qml:417
+msgid "GPU Temperature:"
+msgstr "GPU Temperatur:"
+
+#: ../contents/ui/config/ConfigGeneral.qml:84
+msgctxt "Config header"
+msgid "Click action"
+msgstr "Aktion beim darauf Klicken"
+
+#: ../contents/ui/config/ConfigGeneral.qml:101
+msgid "Update interval:"
+msgstr "Aktualisierungsintervall:"
+
+#: ../contents/ui/config/ConfigGeneral.qml:110
+msgid "%1 seconds"
+msgstr "%1 Sekunden"
+
+#: ../contents/ui/config/ConfigGeneral.qml:128
+#: ../contents/ui/config/ConfigGeneral.qml:215
+#: ../contents/ui/config/ConfigGeneral.qml:276
+msgid "Visibility:"
+msgstr "Sichtbarkeit:"
+
+#: ../contents/ui/config/ConfigGeneral.qml:134
+#: ../contents/ui/config/ConfigGeneral.qml:170
+#: ../contents/ui/config/ConfigGeneral.qml:221
+#: ../contents/ui/config/ConfigGeneral.qml:282
+msgid "Disabled"
+msgstr "Deaktiviert"
+
+#: ../contents/ui/config/ConfigGeneral.qml:137
+msgid "Total usage"
+msgstr "Gesamtauslastung"
+
+#: ../contents/ui/config/ConfigGeneral.qml:140
+msgid "System usage"
+msgstr "Systemauslastung"
+
+#: ../contents/ui/config/ConfigGeneral.qml:143
+msgid "User usage"
+msgstr "Benutzerauslastung"
+
+#: ../contents/ui/config/ConfigGeneral.qml:163
+msgid "Clock visibility:"
+msgstr "Sichtbarkeit des Taktes:"
+
+#: ../contents/ui/config/ConfigGeneral.qml:173
+msgctxt "Agregator"
+msgid "Average"
+msgstr "Durchschnitt"
+
+#: ../contents/ui/config/ConfigGeneral.qml:176
+msgctxt "Agregator"
+msgid "Minimum"
+msgstr "Minimum"
+
+#: ../contents/ui/config/ConfigGeneral.qml:179
+msgctxt "Agregator"
+msgid "Maximum"
+msgstr "Maximum"
+
+#: ../contents/ui/config/ConfigGeneral.qml:199
+#: ../contents/ui/config/ConfigGeneral.qml:341
+msgid "Show temperature"
+msgstr "Zeige Temperatur"
+
+#: ../contents/ui/config/ConfigGeneral.qml:224
+msgid "Physical memory (in KiB)"
+msgstr "Physischer Speicher (in KiB)"
+
+#: ../contents/ui/config/ConfigGeneral.qml:227
+msgid "Physical memory (in %)"
+msgstr "Physischer Speicher (in %)"
+
+#: ../contents/ui/config/ConfigGeneral.qml:230
+msgid "Application memory (in KiB)"
+msgstr "Anwendungsspeicher (in KiB)"
+
+#: ../contents/ui/config/ConfigGeneral.qml:233
+msgid "Application memory (in %)"
+msgstr "Anwendungsspeicher (in %)"
+
+#: ../contents/ui/config/ConfigGeneral.qml:259
+msgid "Show swap"
+msgstr "Zeige Auslagerungsspeicher"
+
+#: ../contents/ui/config/ConfigGeneral.qml:285
+msgid "In kibibyte (KiB/s)"
+msgstr "In Kibibyte (KiB/s)"
+
+#: ../contents/ui/config/ConfigGeneral.qml:288
+msgid "In kilobit (Kbps)"
+msgstr "In Kilobit (Kbps)"
+
+#: ../contents/ui/config/ConfigGeneral.qml:291
+msgid "In kilobyte (KBps)"
+msgstr "In Kilobyte (KBps)"
+
+#: ../contents/ui/config/ConfigGeneral.qml:327
+#: ../contents/ui/config/ConfigGeneral.qml:364
+msgid "Enabled?"
+msgstr "Aktiviert?"
+
+#: ../contents/ui/config/ConfigGeneral.qml:331
+msgid "Show memory"
+msgstr "Zeige Speicher"
+
+#: ../contents/ui/config/ConfigGeneral.qml:336
+msgid "Memory in percent"
+msgstr "Speicher in Prozent"
+
+#: ../contents/ui/config/ConfigGeneral.qml:380
+msgid "Search an application:"
+msgstr "Suche eine Anwendung:"
+
+#: ../contents/ui/config/ConfigGeneral.qml:382
+msgid "Application name"
+msgstr "Anwendungsname"
+
+#: ../contents/ui/config/ConfigGeneral.qml:389
+msgid "Applications"
+msgstr "Anwendungen"
