@@ -35,62 +35,90 @@ PlasmaExtras.Representation {
     property alias cfg_thresholdWarningGpuTemp: thresholdWarningGpuTemp.realValue
     property alias cfg_thresholdCriticalGpuTemp: thresholdCriticalGpuTemp.realValue
 
-    readonly property var networkSpeedOptions: [{
+    readonly property var networkSpeedOptions: [
+        {
             "label": i18n("Custom"),
             "value": -1
-        }, {
+        },
+        {
+            "label": i18n("Automatic"),
+            "value": 0.0
+        },
+        {
             "label": "100 " + networkDialect.kiloChar + networkDialect.suffix,
             "value": 100.0
-        }, {
+        },
+        {
             "label": "1 M" + networkDialect.suffix,
             "value": 1000.0
-        }, {
+        },
+        {
             "label": "10 M" + networkDialect.suffix,
             "value": 10000.0
-        }, {
+        },
+        {
             "label": "100 M" + networkDialect.suffix,
             "value": 100000.0
-        }, {
+        },
+        {
             "label": "1 G" + networkDialect.suffix,
             "value": 1000000.0
-        }, {
+        },
+        {
             "label": "2.5 G" + networkDialect.suffix,
             "value": 2500000.0
-        }, {
+        },
+        {
             "label": "5 G" + networkDialect.suffix,
             "value": 5000000.0
-        }, {
+        },
+        {
             "label": "10 G" + networkDialect.suffix,
             "value": 10000000.0
-        }]
-    readonly property var diskSpeedOptions: [{
+        }
+    ]
+    readonly property var diskSpeedOptions: [
+        {
             "label": i18n("Custom"),
             "value": -1
-        }, {
+        },
+        {
+            "label": i18n("Automatic"),
+            "value": 0.0
+        },
+        {
             "label": "10 MiB/s",
             "value": 10000.0
-        }, {
+        },
+        {
             "label": "100 MiB/s",
             "value": 100000.0
-        }, {
+        },
+        {
             "label": "200 MiB/s",
             "value": 200000.0
-        }, {
+        },
+        {
             "label": "500 MiB/s",
             "value": 500000.0
-        }, {
+        },
+        {
             "label": "1 GiB/s",
             "value": 1000000.0
-        }, {
+        },
+        {
             "label": "2 GiB/s",
             "value": 2000000.0
-        }, {
+        },
+        {
             "label": "5 GiB/s",
             "value": 5000000.0
-        }, {
+        },
+        {
             "label": "10 GiB/s",
             "value": 10000000.0
-        }]
+        }
+    ]
 
     // Detect network interfaces
     RMComponents.NetworkInterfaceDetector {
@@ -327,14 +355,14 @@ PlasmaExtras.Representation {
                 property double preferredWidth: {
                     const minimumWidth = Math.max(80, warningHeader.contentWidth, criticalHeader.contentWidth);
                     return Math.max(minimumWidth,
-                        // CPU
-                        thresholdWarningCpuTemp.implicitWidth, thresholdCriticalCpuTemp.implicitWidth,
-                        // Memory
-                        thresholdWarningMemory.implicitWidth, thresholdCriticalMemory.implicitWidth,
-                        // Memory
-                        thresholdWarningMemory.implicitWidth, thresholdCriticalMemory.implicitWidth,
-                        // GPU
-                        thresholdWarningGpuTemp.implicitWidth, thresholdCriticalGpuTemp.implicitWidth);
+                    // CPU
+                    thresholdWarningCpuTemp.implicitWidth, thresholdCriticalCpuTemp.implicitWidth,
+                    // Memory
+                    thresholdWarningMemory.implicitWidth, thresholdCriticalMemory.implicitWidth,
+                    // Memory
+                    thresholdWarningMemory.implicitWidth, thresholdCriticalMemory.implicitWidth,
+                    // GPU
+                    thresholdWarningGpuTemp.implicitWidth, thresholdCriticalGpuTemp.implicitWidth);
                 }
 
                 // Header

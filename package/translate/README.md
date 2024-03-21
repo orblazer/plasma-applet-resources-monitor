@@ -31,6 +31,7 @@ Or if you're able to work with "github's" mechanics and "npm":
 
 |  Locale  |  Lines  | % Done|
 |----------|---------|-------|
-| Template |      95 |       |
-| fr       |   95/95 |  100% |
-| nl       |   95/95 |  100% |
+| Template |      97 |       |
+| de       |   96/97 |   98% |
+| fr       |   96/97 |   98% |
+| nl       |   96/97 |   98% |

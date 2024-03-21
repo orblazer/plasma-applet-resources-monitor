@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: resourcesMonitor-fork\n"
 "Report-Msgid-Bugs-To: https://github.com/orblazer/plasma-applet-resources-monitor\n"
-"POT-Creation-Date: 2024-01-18 14:19+0200\n"
+"POT-Creation-Date: 2024-03-21 14:22+0100\n"
 "PO-Revision-Date: 2024-01-19 12:35+0100\n"
 "Last-Translator: madeddy <saxony@earth.sol>\n"
 "Language-Team: \n"
@@ -18,8 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.0.1\n"
 
-#: ../contents/config/config.qml:6 ../contents/ui/config/ConfigData.qml:120
-#: ../contents/ui/config/ConfigGeneral.qml:79
+#: ../contents/config/config.qml:6 ../contents/ui/config/ConfigData.qml:148 ../contents/ui/config/ConfigGeneral.qml:79
 msgctxt "Config header"
 msgid "General"
 msgstr "Allgemein"
@@ -54,8 +53,7 @@ msgctxt "Graph label"
 msgid "Clock"
 msgstr "Takt"
 
-#: ../contents/ui/components/graph/CpuGraph.qml:41
-#: ../contents/ui/components/graph/GpuGraph.qml:32
+#: ../contents/ui/components/graph/CpuGraph.qml:41 ../contents/ui/components/graph/GpuGraph.qml:32
 msgctxt "Graph label"
 msgid "Temp."
 msgstr "Temp."
@@ -85,281 +83,264 @@ msgctxt "Graph label"
 msgid "Sending"
 msgstr "Senden"
 
-#: ../contents/ui/config/ConfigAppearance.qml:76
-#: ../contents/ui/config/ConfigAppearance.qml:361
+#: ../contents/ui/config/ConfigAppearance.qml:77 ../contents/ui/config/ConfigAppearance.qml:365
 #: ../contents/ui/config/ConfigGeneral.qml:122
 msgctxt "Chart name"
 msgid "CPU"
 msgstr "CPU"
 
-#: ../contents/ui/config/ConfigAppearance.qml:81
-#: ../contents/ui/config/ConfigAppearance.qml:386
+#: ../contents/ui/config/ConfigAppearance.qml:82 ../contents/ui/config/ConfigAppearance.qml:390
 #: ../contents/ui/config/ConfigGeneral.qml:209
 msgctxt "Chart name"
 msgid "Memory"
 msgstr "Speicher"
 
-#: ../contents/ui/config/ConfigAppearance.qml:86
-#: ../contents/ui/config/ConfigAppearance.qml:436
+#: ../contents/ui/config/ConfigAppearance.qml:87 ../contents/ui/config/ConfigAppearance.qml:440
 #: ../contents/ui/config/ConfigGeneral.qml:315
 msgctxt "Chart name"
 msgid "GPU"
 msgstr "GPU"
 
-#: ../contents/ui/config/ConfigAppearance.qml:91
-#: ../contents/ui/config/ConfigAppearance.qml:468
-#: ../contents/ui/config/ConfigData.qml:239
-#: ../contents/ui/config/ConfigGeneral.qml:352
+#: ../contents/ui/config/ConfigAppearance.qml:92 ../contents/ui/config/ConfigAppearance.qml:472
+#: ../contents/ui/config/ConfigData.qml:267 ../contents/ui/config/ConfigGeneral.qml:352
 msgctxt "Chart name"
 msgid "Disks I/O"
 msgstr "Disks I/O"
 
-#: ../contents/ui/config/ConfigAppearance.qml:96
-#: ../contents/ui/config/ConfigAppearance.qml:411
-#: ../contents/ui/config/ConfigData.qml:142
-#: ../contents/ui/config/ConfigGeneral.qml:270
+#: ../contents/ui/config/ConfigAppearance.qml:97 ../contents/ui/config/ConfigAppearance.qml:415
+#: ../contents/ui/config/ConfigData.qml:170 ../contents/ui/config/ConfigGeneral.qml:270
 msgctxt "Chart name"
 msgid "Network"
 msgstr "Netzwerk"
 
-#: ../contents/ui/config/ConfigAppearance.qml:115
-#: ../contents/ui/config/ConfigGeneral.qml:116
+#: ../contents/ui/config/ConfigAppearance.qml:116 ../contents/ui/config/ConfigGeneral.qml:116
 msgctxt "Config header"
 msgid "Charts"
 msgstr "Diagramme"
 
-#: ../contents/ui/config/ConfigAppearance.qml:120
+#: ../contents/ui/config/ConfigAppearance.qml:121
 msgctxt "Config header"
 msgid "Text"
 msgstr "Text"
 
-#: ../contents/ui/config/ConfigAppearance.qml:125
+#: ../contents/ui/config/ConfigAppearance.qml:126
 msgctxt "Config header"
 msgid "Colors"
 msgstr "Farben"
 
-#: ../contents/ui/config/ConfigAppearance.qml:143
+#: ../contents/ui/config/ConfigAppearance.qml:144
 msgid "Vertical layout"
 msgstr "Vertikale Anordnung"
 
-#: ../contents/ui/config/ConfigAppearance.qml:148
+#: ../contents/ui/config/ConfigAppearance.qml:149
 msgid "History amount:"
 msgstr "Verlaufslänge:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:155
+#: ../contents/ui/config/ConfigAppearance.qml:156
 msgid "Width:"
 msgstr "Breite:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:162
+#: ../contents/ui/config/ConfigAppearance.qml:163
 msgid "Height:"
 msgstr "Höhe:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:169
+#: ../contents/ui/config/ConfigAppearance.qml:170
 msgid "Margin:"
 msgstr "Rand:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:180
+#: ../contents/ui/config/ConfigAppearance.qml:181
 msgid "Fill opacity:"
 msgstr "Deckkraft der Füllung:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:192
+#: ../contents/ui/config/ConfigAppearance.qml:193
 msgid "Charts order"
 msgstr "Reihenfolge der Diagramme"
 
-#: ../contents/ui/config/ConfigAppearance.qml:280
+#: ../contents/ui/config/ConfigAppearance.qml:281
 msgid "Drop shadows"
 msgstr "Schlagschatten"
 
-#: ../contents/ui/config/ConfigAppearance.qml:285
+#: ../contents/ui/config/ConfigAppearance.qml:286
 msgid "Font scale:"
 msgstr "Schriftgröße:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:297
+#: ../contents/ui/config/ConfigAppearance.qml:298
 msgid "Text displayment:"
 msgstr "Textanzeige:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:303
+#: ../contents/ui/config/ConfigAppearance.qml:304
 msgctxt "Text displayment"
 msgid "Always"
 msgstr "Immer"
 
-#: ../contents/ui/config/ConfigAppearance.qml:306
+#: ../contents/ui/config/ConfigAppearance.qml:307
 msgctxt "Text displayment"
 msgid "On hover"
 msgstr "Beim darauf zeigen"
 
-#: ../contents/ui/config/ConfigAppearance.qml:309
+#: ../contents/ui/config/ConfigAppearance.qml:310
 msgctxt "Text displayment"
 msgid "Hints when hover"
 msgstr "Hinweise beim darauf zeigen"
 
-#: ../contents/ui/config/ConfigAppearance.qml:319
+#: ../contents/ui/config/ConfigAppearance.qml:323
 msgid "Placement:"
 msgstr "Platzierung:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:325
+#: ../contents/ui/config/ConfigAppearance.qml:329
 msgctxt "Text placement"
 msgid "Top left"
 msgstr "Oben links"
 
-#: ../contents/ui/config/ConfigAppearance.qml:328
+#: ../contents/ui/config/ConfigAppearance.qml:332
 msgctxt "Text placement"
 msgid "Top right"
 msgstr "Oben rechts"
 
-#: ../contents/ui/config/ConfigAppearance.qml:331
+#: ../contents/ui/config/ConfigAppearance.qml:335
 msgctxt "Text placement"
 msgid "Bottom left"
 msgstr "Unten links"
 
-#: ../contents/ui/config/ConfigAppearance.qml:334
+#: ../contents/ui/config/ConfigAppearance.qml:338
 msgctxt "Text placement"
 msgid "Bottom right"
 msgstr "Unten rechts"
 
-#: ../contents/ui/config/ConfigAppearance.qml:351
+#: ../contents/ui/config/ConfigAppearance.qml:355
 msgid "Charts colors"
 msgstr "Diagrammfarben"
 
-#: ../contents/ui/config/ConfigAppearance.qml:367
-#: ../contents/ui/config/ConfigAppearance.qml:442
+#: ../contents/ui/config/ConfigAppearance.qml:371 ../contents/ui/config/ConfigAppearance.qml:446
 msgctxt "Chart config"
 msgid "Usage:"
 msgstr "Nutzung:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:369
-#: ../contents/ui/config/ConfigAppearance.qml:394
-#: ../contents/ui/config/ConfigAppearance.qml:419
-#: ../contents/ui/config/ConfigAppearance.qml:426
-#: ../contents/ui/config/ConfigAppearance.qml:444
-#: ../contents/ui/config/ConfigAppearance.qml:451
-#: ../contents/ui/config/ConfigAppearance.qml:476
-#: ../contents/ui/config/ConfigAppearance.qml:483
+#: ../contents/ui/config/ConfigAppearance.qml:373 ../contents/ui/config/ConfigAppearance.qml:398
+#: ../contents/ui/config/ConfigAppearance.qml:423 ../contents/ui/config/ConfigAppearance.qml:430
+#: ../contents/ui/config/ConfigAppearance.qml:448 ../contents/ui/config/ConfigAppearance.qml:455
+#: ../contents/ui/config/ConfigAppearance.qml:480 ../contents/ui/config/ConfigAppearance.qml:487
 msgctxt "Chart color"
 msgid "Choose series color"
 msgstr "Wähle Graphenfarbe"
 
-#: ../contents/ui/config/ConfigAppearance.qml:374
-#: ../contents/ui/config/ConfigAppearance.qml:456
+#: ../contents/ui/config/ConfigAppearance.qml:378 ../contents/ui/config/ConfigAppearance.qml:460
 msgctxt "Chart config"
 msgid "Temperature:"
 msgstr "Temperatur:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:376
-#: ../contents/ui/config/ConfigAppearance.qml:458
+#: ../contents/ui/config/ConfigAppearance.qml:380 ../contents/ui/config/ConfigAppearance.qml:462
 msgctxt "Chart color"
 msgid "Choose text color"
 msgstr "Wähle Textfarbe"
 
-#: ../contents/ui/config/ConfigAppearance.qml:392
+#: ../contents/ui/config/ConfigAppearance.qml:396
 msgctxt "Chart config"
 msgid "Physical:"
 msgstr "Physisch:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:399
+#: ../contents/ui/config/ConfigAppearance.qml:403
 msgctxt "Chart config"
 msgid "Swap:"
 msgstr "Swap:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:401
+#: ../contents/ui/config/ConfigAppearance.qml:405
 msgctxt "Chart color"
 msgid "Choose color of series and text"
 msgstr "Wähle Graphen- und Textfarbe"
 
-#: ../contents/ui/config/ConfigAppearance.qml:417
-#: ../contents/ui/config/ConfigData.qml:191
+#: ../contents/ui/config/ConfigAppearance.qml:421 ../contents/ui/config/ConfigData.qml:219
 msgctxt "Chart config"
 msgid "Receiving:"
 msgstr "Empfangen:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:424
-#: ../contents/ui/config/ConfigData.qml:215
+#: ../contents/ui/config/ConfigAppearance.qml:428 ../contents/ui/config/ConfigData.qml:243
 msgctxt "Chart config"
 msgid "Sending:"
 msgstr "Senden:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:449
+#: ../contents/ui/config/ConfigAppearance.qml:453
 msgctxt "Chart config"
 msgid "Memory:"
 msgstr "Speicher:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:474
-#: ../contents/ui/config/ConfigData.qml:250
+#: ../contents/ui/config/ConfigAppearance.qml:478 ../contents/ui/config/ConfigData.qml:278
 msgctxt "Chart config"
 msgid "Read:"
 msgstr "Lesen:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:481
-#: ../contents/ui/config/ConfigData.qml:274
+#: ../contents/ui/config/ConfigAppearance.qml:485 ../contents/ui/config/ConfigData.qml:302
 msgctxt "Chart config"
 msgid "Write:"
 msgstr "Schreiben:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:489
+#: ../contents/ui/config/ConfigAppearance.qml:493
 msgid "Threshold text colors"
 msgstr "Textfarbe des Schwellenwertes"
 
-#: ../contents/ui/config/ConfigAppearance.qml:495
+#: ../contents/ui/config/ConfigAppearance.qml:499
 msgid "Warning status:"
 msgstr "Warnstatus:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:497
+#: ../contents/ui/config/ConfigAppearance.qml:501
 msgid "Choose text color when the value is in warning status"
 msgstr "Wähle die Textfarbe wenn der Wert Warnstatus hat"
 
-#: ../contents/ui/config/ConfigAppearance.qml:502
+#: ../contents/ui/config/ConfigAppearance.qml:506
 msgid "Critical status:"
 msgstr "Kritischer Status:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:504
+#: ../contents/ui/config/ConfigAppearance.qml:508
 msgid "Choose text color when the value is in critical status"
 msgstr "Wähle die Textfarbe wenn der Wert Kritischen Status hat"
 
-#: ../contents/ui/config/ConfigData.qml:39
-#: ../contents/ui/config/ConfigData.qml:67
+#: ../contents/ui/config/ConfigData.qml:40 ../contents/ui/config/ConfigData.qml:82
 msgid "Custom"
 msgstr "Angepasst"
 
-#: ../contents/ui/config/ConfigData.qml:125
+#: ../contents/ui/config/ConfigData.qml:44 ../contents/ui/config/ConfigData.qml:86
+msgid "Automatic"
+msgstr "Automatisch"
+
+#: ../contents/ui/config/ConfigData.qml:153
 msgctxt "Config header"
 msgid "Thresholds"
 msgstr "Schwellenwerte"
 
-#: ../contents/ui/config/ConfigData.qml:148
+#: ../contents/ui/config/ConfigData.qml:176
 msgid "Network interfaces:"
 msgstr "Netzwerkschnittstellen:"
 
-#: ../contents/ui/config/ConfigData.qml:185
-#: ../contents/ui/config/ConfigData.qml:244
+#: ../contents/ui/config/ConfigData.qml:213 ../contents/ui/config/ConfigData.qml:272
 msgid "Maximum transfer speed"
 msgstr "Maximale Übertragungsgeschwindigkeit"
 
-#: ../contents/ui/config/ConfigData.qml:298
+#: ../contents/ui/config/ConfigData.qml:326
 msgctxt "Config header"
 msgid "Graphic card"
 msgstr "Grafikkarte"
 
-#: ../contents/ui/config/ConfigData.qml:305
+#: ../contents/ui/config/ConfigData.qml:333
 msgid "Graphic card:"
 msgstr "Grafikkarte:"
 
-#: ../contents/ui/config/ConfigData.qml:347
+#: ../contents/ui/config/ConfigData.qml:375
 msgid "Warning"
 msgstr "Warnung"
 
-#: ../contents/ui/config/ConfigData.qml:354
+#: ../contents/ui/config/ConfigData.qml:382
 msgid "Critical"
 msgstr "Kritisch"
 
-#: ../contents/ui/config/ConfigData.qml:361
+#: ../contents/ui/config/ConfigData.qml:389
 msgid "CPU Temperature:"
 msgstr "CPU Temperatur:"
 
-#: ../contents/ui/config/ConfigData.qml:393
+#: ../contents/ui/config/ConfigData.qml:421
 msgid "Physical Memory Usage:"
 msgstr "Auslastung des physischen Speichers:"
 
-#: ../contents/ui/config/ConfigData.qml:417
+#: ../contents/ui/config/ConfigData.qml:445
 msgid "GPU Temperature:"
 msgstr "GPU Temperatur:"
 
@@ -376,16 +357,13 @@ msgstr "Aktualisierungsintervall:"
 msgid "%1 seconds"
 msgstr "%1 Sekunden"
 
-#: ../contents/ui/config/ConfigGeneral.qml:128
-#: ../contents/ui/config/ConfigGeneral.qml:215
+#: ../contents/ui/config/ConfigGeneral.qml:128 ../contents/ui/config/ConfigGeneral.qml:215
 #: ../contents/ui/config/ConfigGeneral.qml:276
 msgid "Visibility:"
 msgstr "Sichtbarkeit:"
 
-#: ../contents/ui/config/ConfigGeneral.qml:134
-#: ../contents/ui/config/ConfigGeneral.qml:170
-#: ../contents/ui/config/ConfigGeneral.qml:221
-#: ../contents/ui/config/ConfigGeneral.qml:282
+#: ../contents/ui/config/ConfigGeneral.qml:134 ../contents/ui/config/ConfigGeneral.qml:170
+#: ../contents/ui/config/ConfigGeneral.qml:221 ../contents/ui/config/ConfigGeneral.qml:282
 msgid "Disabled"
 msgstr "Deaktiviert"
 
@@ -420,8 +398,7 @@ msgctxt "Agregator"
 msgid "Maximum"
 msgstr "Maximum"
 
-#: ../contents/ui/config/ConfigGeneral.qml:199
-#: ../contents/ui/config/ConfigGeneral.qml:341
+#: ../contents/ui/config/ConfigGeneral.qml:199 ../contents/ui/config/ConfigGeneral.qml:341
 msgid "Show temperature"
 msgstr "Zeige Temperatur"
 
@@ -457,8 +434,7 @@ msgstr "In Kilobit (Kbps)"
 msgid "In kilobyte (KBps)"
 msgstr "In Kilobyte (KBps)"
 
-#: ../contents/ui/config/ConfigGeneral.qml:327
-#: ../contents/ui/config/ConfigGeneral.qml:364
+#: ../contents/ui/config/ConfigGeneral.qml:327 ../contents/ui/config/ConfigGeneral.qml:364
 msgid "Enabled?"
 msgstr "Aktiviert?"
 

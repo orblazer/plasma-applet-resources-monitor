@@ -16,6 +16,8 @@ RMBaseGraph.BaseSensorGraph {
     onUplimitsChanged: {
         firstChart.yRange.to = uplimits[0];
         secondChart.yRange.to = uplimits[1];
+        firstChart.yRange.automatic = uplimits[0] == 0;
+        secondChart.yRange.automatic = uplimits[1] == 0;
     }
 
     Connections {
