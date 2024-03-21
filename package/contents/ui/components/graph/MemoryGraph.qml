@@ -113,8 +113,8 @@ RMBaseGraph.TwoSensorsGraph {
         const type = info[0] === "physical" ? "used" : "application"
         const suffix = info[1] === "percent" ? "Percent" : "";
         const memSensor = "memory/physical/" + type + suffix;
-        const secondSensor;
-        switch (plasmoid.configuration.memorySecondUnit) {
+        let secondSensor;
+        switch (secondUnit) {
         case "percent":
             secondSensor = "memory/physical/" + type + "Percent";
             textContainer.labels[1] = i18nc("Graph label", "Percent.");
