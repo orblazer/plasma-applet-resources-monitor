@@ -1,35 +1,41 @@
 import QtQuick 2.15
-import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.kitemmodels 1.0 as KItemModels
+import org.kde.ksysguard.sensors 1.0 as Sensors
 
-QtObject {
+KItemModels.KSortFilterProxyModel {
     id: detector
+    signal ready
 
-    property var model: []
-
-    property var _dataSource: PlasmaCore.DataSource {
-        id: dataSource
-        engine: "executable"
-        connectedSources: []
-
-        property var excludedInterface: /^(?!lo|bridge|usbus|bond)(.*)$/
-
-        onNewData: {
-            var interfaces = data["stdout"].trim().split('\n');
-            for (var i = 0; i < interfaces.length; i++) {
-                if (excludedInterface.test(interfaces[i])) {
-                    _privateModel.append({
-                            "name": interfaces[i]
-                        });
-                }
-            }
-            detector.model = _privateModel;
-            disconnectSource(sourceName); // cmd finished
-        }
-
-        Component.onCompleted: {
-            connectSource("ip -o link show | awk -F': ' '{print $2}'");
+    // Find all gpus
+    sourceModel: KItemModels.KDescendantsProxyModel {
+        model: Sensors.SensorTreeModel {
         }
     }
 
-    property var _privateModel: ListModel {}
+    property var _regex: /network\/\w+\/network/
+    filterRowCallback: function (row, parent) {
+        const sensorId = sourceModel.data(sourceModel.index(row, 0, parent), Sensors.SensorTreeModel.SensorId);
+        if (_regex.test(sensorId)) {
+            return true;
+        }
+        return false;
+    }
+
+    property var _timer: Timer {
+        running: true
+        interval: 100
+
+        onTriggered: {
+            running = false;
+            ready();
+        }
+    }
+
+    function getInterfaceName(row) {
+        const sensortId = data(index(row, 0), Sensors.SensorTreeModel.SensorId);
+        if (typeof sensortId === 'undefined') {
+            return undefined;
+        }
+        return sensortId.replace('network/', '').replace('/network', '');
+    }
 }

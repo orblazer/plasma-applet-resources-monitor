@@ -181,9 +181,9 @@ PlasmaExtras.Representation {
                     columnSpacing: Kirigami.Units.largeSpacing
 
                     Repeater {
-                        model: networkInterfaces.model
+                        model: networkInterfaces
                         QtControls.CheckBox {
-                            readonly property string interfaceName: modelData
+                            readonly property string interfaceName: model.SensorId.replace('network/', '').replace('/network', '')
                             readonly property bool ignoredByDefault: {
                                 return /^(docker|tun|tap)(\d+)/.test(interfaceName); // Ignore docker and tun/tap networks
                             }

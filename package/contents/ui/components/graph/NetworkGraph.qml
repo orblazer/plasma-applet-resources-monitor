@@ -37,7 +37,7 @@ RMBaseGraph.TwoSensorsGraph {
     // Initialized sensors
     RMComponents.NetworkInterfaceDetector {
         id: networkInterfaces
-        onModelChanged: _updateSensors()
+        onReady: _updateSensors()
     }
 
     // Override methods, for commulate sensors and support custom dialect
@@ -93,12 +93,15 @@ RMBaseGraph.TwoSensorsGraph {
     }
 
     function _updateSensors() {
-        if (typeof networkInterfaces.model.count === "undefined") {
+        if (typeof networkInterfaces.count === "undefined") {
             return;
         }
         const sensors = [];
-        for (let i = 0; i < networkInterfaces.model.count; i++) {
-            const name = networkInterfaces.model.get(i).name;
+        for (let i = 0; i < networkInterfaces.count; i++) {
+            const name = networkInterfaces.getInterfaceName(i);
+            if (typeof name === 'undefined') {
+                continue;
+            }
             if (plasmoid.configuration.ignoredNetworkInterfaces.indexOf(name) === -1) {
                 sensors.push("network/" + name + "/download", "network/" + name + "/upload");
             }
