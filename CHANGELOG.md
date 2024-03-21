@@ -1,3 +1,13 @@
+## [2.11.1](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.11.0...v2.11.1) (2024-03-21)
+
+
+### Bug Fixes
+
+* **graph:** clear second line when change visibility at memory ([f57205d](https://github.com/orblazer/plasma-applet-resources-monitor/commit/f57205d16da1346f2487b6576547af83c2c876b5))
+* **graph:** right init and update memory ([fac0812](https://github.com/orblazer/plasma-applet-resources-monitor/commit/fac0812bb3a6b5afab09361065f6eadbc32fff49)), closes [#72](https://github.com/orblazer/plasma-applet-resources-monitor/issues/72)
+
+
+
 # [2.11.0](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.10.2...v2.11.0) (2024-03-21)
 
 
