@@ -1,3 +1,20 @@
+# [2.11.0](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.10.2...v2.11.0) (2024-03-21)
+
+
+### Bug Fixes
+
+* **i18n:** add missing translation ([a87b9e5](https://github.com/orblazer/plasma-applet-resources-monitor/commit/a87b9e5887773f05effc3b7430806070fd017960))
+
+
+### Features
+
+* **graph:** allow choose second line in memory ([d304fe8](https://github.com/orblazer/plasma-applet-resources-monitor/commit/d304fe8ffdcebdf58d1e54a223040a7e12bd1918)), closes [#31](https://github.com/orblazer/plasma-applet-resources-monitor/issues/31)
+* **graph:** allow disable history ([f757ae1](https://github.com/orblazer/plasma-applet-resources-monitor/commit/f757ae1c6353c1c7d56642b9e993d67604cc09c1)), closes [#56](https://github.com/orblazer/plasma-applet-resources-monitor/issues/56)
+* **graph:** alow automatic limit for network and disk ([9f42de9](https://github.com/orblazer/plasma-applet-resources-monitor/commit/9f42de91f2539823fcc04d3982afdca523d50fae)), closes [#54](https://github.com/orblazer/plasma-applet-resources-monitor/issues/54)
+* allow disable graph text ([f475487](https://github.com/orblazer/plasma-applet-resources-monitor/commit/f475487e9c7ba003a7741bea811fb346ad8e40f9)), closes [#66](https://github.com/orblazer/plasma-applet-resources-monitor/issues/66)
+
+
+
 ## [2.10.2](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.10.1...v2.10.2) (2023-08-29)
 
 
