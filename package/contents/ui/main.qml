@@ -20,6 +20,7 @@ import org.kde.plasma.plasmoid 2.0
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.kio 1.0 as Kio
 import "./components/graph" as RMGraph
+import "./components/functions.js" as Functions
 
 MouseArea {
     id: root
@@ -35,8 +36,8 @@ MouseArea {
     property double parentWidth: parent === null ? 0 : parent.width
     property double parentHeight: parent === null ? 0 : parent.height
     property double initWidth: vertical ? (verticalLayout ? parentWidth : (parentWidth - itemMargin) / 2) : (verticalLayout ? (parentHeight - itemMargin) / 2 : parentHeight)
-    property double itemWidth: plasmoid.configuration.customGraphWidth ? plasmoid.configuration.graphWidth : Math.round(initWidth * (verticalLayout ? 1 : 1.5))
-    property double itemHeight: plasmoid.configuration.customGraphHeight ? plasmoid.configuration.graphHeight : Math.round(initWidth)
+    property double itemWidth: Functions.getCustomConfig("graphWidth", Math.round(initWidth * (verticalLayout ? 1 : 1.5)))
+    property double itemHeight: Functions.getCustomConfig("graphHeight", Math.round(initWidth))
     property double fontPixelSize: Math.round(verticalLayout ? (itemHeight / 1.4 * fontScale) : (itemHeight * fontScale))
 
     Layout.preferredWidth: !verticalLayout ? (itemWidth * graphView.model.length + itemMargin * (graphView.model.length + 1)) : itemWidth

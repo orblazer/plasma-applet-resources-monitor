@@ -4,6 +4,7 @@ import org.kde.plasma.components 2.0 as PlasmaComponents
 import org.kde.ksysguard.sensors 1.0 as Sensors
 import org.kde.ksysguard.formatter 1.0 as Formatter
 import "./" as RMBaseGraph
+import "../../functions.js" as Functions
 
 Item {
     id: root
@@ -18,8 +19,8 @@ Item {
 
     // Thresholds properties
     property var thresholds: [undefined, undefined, undefined]
-    property color thresholdWarningColor: plasmoid.configuration.customWarningColor ? plasmoid.configuration.warningColor : theme.neutralTextColor
-    property color thresholdCriticalColor: plasmoid.configuration.customCriticalColor ? plasmoid.configuration.criticalColor : theme.negativeTextColor
+    property color thresholdWarningColor: Functions.getCustomConfig("warningColor", theme.neutralTextColor)
+    property color thresholdCriticalColor: Functions.getCustomConfig("criticalColor", theme.negativeTextColor)
 
     // Labels
     RMBaseGraph.GraphText {

@@ -2,10 +2,13 @@ import QtQuick 2.9
 import org.kde.plasma.plasmoid 2.0
 import "./base" as RMBaseGraph
 import "../sensors" as RMSensors
+import "../functions.js" as Functions
 
 RMBaseGraph.SensorGraph {
     id: root
     objectName: "CpuGraph"
+
+     property color temperatureColor: Functions.getCustomConfig("cpuTemperatureColor", theme.textColor)
 
     Connections {
         target: plasmoid.configuration
@@ -19,12 +22,9 @@ RMBaseGraph.SensorGraph {
         }
     }
 
-    // Config options
-    property color temperatureColor: plasmoid.configuration.customCpuTemperatureColor ? plasmoid.configuration.cpuTemperatureColor : theme.textColor
-
     // Graph options
     // NOTE: "sensorsModel.sensors" is set by "_updateSensors"
-    chartColor: plasmoid.configuration.customCpuColor ? plasmoid.configuration.cpuColor : theme.highlightColor
+    chartColor: Functions.getCustomConfig("cpuColor", theme.highlightColor)
 
     chart.yRange {
         from: 0

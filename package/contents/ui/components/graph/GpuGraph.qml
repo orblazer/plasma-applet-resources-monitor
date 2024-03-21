@@ -2,13 +2,14 @@ import QtQuick 2.9
 import org.kde.plasma.plasmoid 2.0
 import org.kde.ksysguard.sensors 1.0 as Sensors
 import "./base" as RMBaseGraph
+import "../functions.js" as Functions
 
 RMBaseGraph.TwoSensorsGraph {
     id: root
     objectName: "GpuGraph"
 
     // Config options
-    property color temperatureColor: plasmoid.configuration.customGpuTemperatureColor ? plasmoid.configuration.gpuTemperatureColor : theme.textColor
+    property color temperatureColor: Functions.getCustomConfig("gpuTemperatureColor", theme.textColor)
 
     // Bind config changes
     Connections {
@@ -34,7 +35,7 @@ RMBaseGraph.TwoSensorsGraph {
 
     // Graph options
     // NOTE: "sensorsModel.sensors" set from "maxQueryModel"
-    colors: [(plasmoid.configuration.customGpuColor ? plasmoid.configuration.gpuColor : theme.highlightColor), (plasmoid.configuration.customGpuMemoryColor ? plasmoid.configuration.gpuMemoryColor : theme.positiveTextColor)]
+    colors: [Functions.getCustomConfig("gpuColor", theme.highlightColor), Functions.getCustomProperty("gpuMemoryColor", theme.positiveTextColor)]
 
     // Override methods, for handle memeory in percent
     _update: () => {

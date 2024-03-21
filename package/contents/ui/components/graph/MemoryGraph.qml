@@ -2,6 +2,7 @@ import QtQuick 2.9
 import org.kde.plasma.plasmoid 2.0
 import org.kde.ksysguard.sensors 1.0 as Sensors
 import "./base" as RMBaseGraph
+import "../functions.js" as Functions
 
 RMBaseGraph.TwoSensorsGraph {
     id: root
@@ -55,8 +56,7 @@ RMBaseGraph.TwoSensorsGraph {
 
     // Graph options
     // NOTE: "sensorsModel.sensors" is set by "_updateSensorsAndLabels"
-    // NOTE: "colors" is set by "_updateSensorsAndLabels"
-    colors: [(plasmoid.configuration.customRamColor ? plasmoid.configuration.ramColor : theme.highlightColor), (plasmoid.configuration.memorySwapGraph ? (plasmoid.configuration.customSwapColor ? plasmoid.configuration.swapColor : theme.negativeTextColor) : undefined)]
+    colors: [Functions.getCustomConfig("ramColor", theme.highlightColor), (secondChartVisible ? Functions.getCustomConfig("swapColor", theme.negativeTextColor) : undefined)]
     secondChartVisible: plasmoid.configuration.memorySwapGraph
 
     // Initialize limits and threshold

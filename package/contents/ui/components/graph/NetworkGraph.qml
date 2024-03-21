@@ -32,7 +32,7 @@ RMBaseGraph.TwoSensorsGraph {
     }
 
     // Graph options
-    colors: [(plasmoid.configuration.customNetDownColor ? plasmoid.configuration.netDownColor : theme.highlightColor), (plasmoid.configuration.customNetUpColor ? plasmoid.configuration.netUpColor : theme.positiveTextColor)]
+    colors: [Functions.getCustomConfig("netDownColor", theme.highlightColor), Functions.getCustomConfig("netUpColor", theme.positiveTextColor)]
 
     // Initialized sensors
     RMComponents.NetworkInterfaceDetector {

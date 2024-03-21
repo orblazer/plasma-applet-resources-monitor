@@ -76,3 +76,19 @@ function formatByteValue(value, dialect, precision = 1) {
     dialect.suffix
   );
 }
+
+/**
+ * Get customizable config property, fallback to default value if is not customized.
+ * @param {string} property The config property name
+ * @param {object} fallback The fallback value
+ */
+function getCustomConfig(property, fallback) {
+  if (
+    plasmoid.configuration[
+      `custom${property.charAt(0).toUpperCase() + property.slice(1)}`
+    ]
+  ) {
+    return plasmoid.configuration[property];
+  }
+  return fallback;
+}
