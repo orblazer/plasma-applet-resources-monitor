@@ -182,6 +182,11 @@ msgctxt "Text displayment"
 msgid "Hints when hover"
 msgstr "Tip tonen na aanwijzen"
 
+#: ../contents/ui/config/ConfigAppearance.qml:313
+msgctxt "Text displayment"
+msgid "Never"
+msgstr "Nooit"
+
 #: ../contents/ui/config/ConfigAppearance.qml:323
 msgid "Placement:"
 msgstr "Locatie:"
