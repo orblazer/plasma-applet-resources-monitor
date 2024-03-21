@@ -181,14 +181,14 @@ PlasmaExtras.Representation {
                     id: graphWidth
                     Kirigami.FormData.label: i18n("Width:")
                     QtLayouts.Layout.fillWidth: true
-                    from: 1
+                    from: 20
                     to: 1000
                 }
                 RMControls.CustomizableSize {
                     id: graphHeight
                     Kirigami.FormData.label: i18n("Height:")
                     QtLayouts.Layout.fillWidth: true
-                    from: 1
+                    from: 20
                     to: 1000
                 }
                 RMControls.SpinBox {
@@ -206,7 +206,7 @@ PlasmaExtras.Representation {
                     id: graphFillOpacity
                     Kirigami.FormData.label: i18n("Fill opacity:")
                     QtLayouts.Layout.fillWidth: true
-                    from: 1
+                    from: 0
                     to: 100
 
                     textFromValue: function (value, locale) {
