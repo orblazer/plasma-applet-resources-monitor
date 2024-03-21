@@ -97,6 +97,7 @@ RMBaseGraph.TwoSensorsGraph {
     }
     function _updateSensorsAndLabels() {
         const info = plasmoid.configuration.memoryUnit.split("-");
+        const oldSecondLabel = textContainer.labels[1];
 
         // Retrieve second line unit
         let secondUnit = plasmoid.configuration.memorySecondUnit;
@@ -110,7 +111,7 @@ RMBaseGraph.TwoSensorsGraph {
         }
 
         // Define sensors and second label
-        const type = info[0] === "physical" ? "used" : "application"
+        const type = info[0] === "physical" ? "used" : "application";
         const suffix = info[1] === "percent" ? "Percent" : "";
         const memSensor = "memory/physical/" + type + suffix;
         let secondSensor;
@@ -130,8 +131,18 @@ RMBaseGraph.TwoSensorsGraph {
         case "none":
             sensorsModel.sensors = [memSensor];
             textContainer.labels[1] = "";
+
+            // Force update labels
+            if (oldSecondLabel != "") {
+                textContainer.labels = textContainer.labels;
+            }
             return;
         }
         sensorsModel.sensors = [memSensor, secondSensor];
+
+        // Force update labels
+        if (oldSecondLabel != textContainer.labels[1]) {
+            textContainer.labels = textContainer.labels;
+        }
     }
 }
