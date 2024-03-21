@@ -1,3 +1,4 @@
+import QtQuick 2.9
 import org.kde.plasma.plasmoid 2.0
 import org.kde.quickcharts 1.0 as Charts
 import "./" as RMBaseGraph
@@ -11,10 +12,20 @@ RMBaseGraph.BaseSensorGraph {
     // Graph properties
     property color chartColor: theme.highlightColor
 
+    Connections {
+        target: plasmoid.configuration
+        function onEnableHistoryChanged() {
+            if (plasmoid.configuration.enableHistory) {
+                chartData.clear();
+            }
+        }
+    }
+
     // Graph
     Charts.LineChart {
         id: chart
         anchors.fill: parent
+        visible: plasmoid.configuration.enableHistory
 
         direction: Charts.XYChart.ZeroAtEnd
         fillOpacity: plasmoid.configuration.graphFillOpacity / 100
@@ -40,7 +51,9 @@ RMBaseGraph.BaseSensorGraph {
     }
     _insertChartData: (column, value) => {
         if (column == 0) {
-            chartData.insertValue(value);
+            if (plasmoid.configuration.enableHistory) {
+                chartData.insertValue(value);
+            }
             root.chartDataChanged(0);
         }
     }

@@ -1,3 +1,4 @@
+import QtQuick 2.9
 import org.kde.plasma.plasmoid 2.0
 import org.kde.quickcharts 1.0 as Charts
 import "./" as RMBaseGraph
@@ -9,6 +10,7 @@ RMBaseGraph.BaseSensorGraph {
 
     // Graph properties
     property var colors: [theme.highlightColor, theme.textColor]
+    property var enableHistory: plasmoid.configuration.enableHistory
 
     // Bind properties changes
     onUplimitsChanged: {
@@ -16,10 +18,22 @@ RMBaseGraph.BaseSensorGraph {
         secondChart.yRange.to = uplimits[1];
     }
 
+    Connections {
+        target: plasmoid.configuration
+        function onEnableHistoryChanged() {
+            enableHistory = plasmoid.configuration.enableHistory;
+            if (enableHistory) {
+                firstChartData.clear();
+                secondChartData.clear();
+            }
+        }
+    }
+
     // Graphs
     Charts.LineChart {
         id: secondChart
         anchors.fill: parent
+        visible: enableHistory
 
         direction: Charts.XYChart.ZeroAtEnd
         fillOpacity: plasmoid.configuration.graphFillOpacity / 100
@@ -39,6 +53,7 @@ RMBaseGraph.BaseSensorGraph {
     Charts.LineChart {
         id: firstChart
         anchors.fill: parent
+        visible: enableHistory
 
         direction: Charts.XYChart.ZeroAtEnd
         fillOpacity: plasmoid.configuration.graphFillOpacity / 100
@@ -57,18 +72,22 @@ RMBaseGraph.BaseSensorGraph {
     }
 
     _clear: () => {
-        firstChartData.clear()
-        secondChartData.clear()
+        firstChartData.clear();
+        secondChartData.clear();
         for (let i = 0; i < sensorsModel.sensors.length; i++) {
             _updateData(i);
         }
     }
     _insertChartData: (column, value) => {
         if (column == 0) {
-            firstChartData.insertValue(value);
+            if (enableHistory) {
+                firstChartData.insertValue(value);
+            }
             root.chartDataChanged(0);
         } else if (column == 1) {
-            secondChartData.insertValue(value);
+            if (enableHistory) {
+                secondChartData.insertValue(value);
+            }
             root.chartDataChanged(1);
         }
     }

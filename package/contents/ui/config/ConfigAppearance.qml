@@ -15,6 +15,7 @@ PlasmaExtras.Representation {
 
     // Chart
     property alias cfg_verticalLayout: verticalLayout.checked
+    property alias cfg_enableHistory: historyAmount.customized
     property alias cfg_historyAmount: historyAmount.value
     property alias cfg_customGraphWidth: graphWidth.customized
     property alias cfg_graphWidth: graphWidth.value
@@ -143,7 +144,7 @@ PlasmaExtras.Representation {
                     text: i18n("Vertical layout")
                 }
 
-                RMControls.SpinBox {
+                RMControls.CustomizableAmount {
                     id: historyAmount
                     Kirigami.FormData.label: i18n("History amount:")
                     QtLayouts.Layout.fillWidth: true
