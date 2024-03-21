@@ -35,6 +35,9 @@
         <entry name="memoryUnit" type="String">
             <default>physical</default>
         </entry>
+        <entry name="memorySecondUnit" type="String">
+            <default></default> <!-- TODO (3.0): set default to "swap:" -->
+        </entry>
         <entry name="memorySwapGraph" type="Bool">
             <default>true</default>
         </entry>

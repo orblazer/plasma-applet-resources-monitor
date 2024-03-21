@@ -11,6 +11,7 @@ RMBaseGraph.BaseSensorGraph {
     // Graph properties
     property var colors: [theme.highlightColor, theme.textColor]
     property var enableHistory: plasmoid.configuration.enableHistory
+    property alias secondChartVisible: secondChart.visible
 
     // Bind properties changes
     onUplimitsChanged: {

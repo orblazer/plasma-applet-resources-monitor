@@ -17,14 +17,18 @@ RMBaseGraph.TwoSensorsGraph {
                 uplimits = maxQueryModel.maxMemory;
             }
             _updateThresholds();
-            _updateSensors();
+            _updateSensorsAndLabels();
             if (oldLimit1 != uplimits[0]) {
                 _clear();
             }
         }
 
+        function onMemorySecondUnitChanged() {
+            _updateSensorsAndLabels();
+        }
+        // TODO (3.0): Remove this legacy property
         function onMemorySwapGraphChanged() {
-            _updateSensors();
+            _updateSensorsAndLabels();
         }
 
         function onThresholdWarningMemoryChanged() {
@@ -36,21 +40,24 @@ RMBaseGraph.TwoSensorsGraph {
     }
     Component.onCompleted: {
         _updateThresholds();
-        _updateSensors();
+        _updateSensorsAndLabels();
     }
 
     // Labels
     textContainer {
         labelColors: root.colors
-        valueColors: [undefined, root.colors[1]]
+        valueColors: [undefined, plasmoid.configuration.memorySwapGraph ? root.colors[1] : undefined]
         labelsVisibleWhenZero: [true, false, true]
 
-        labels: ["RAM", (plasmoid.configuration.memorySwapGraph ? "Swap" : ""), ""]
+        // NOTE: second label is set by "_updateSensorsAndLabels"
+        labels: ["RAM", "...", ""]
     }
 
     // Graph options
-    // NOTE: "sensorsModel.sensors" is set by "_updateSensors"
-    colors: [(plasmoid.configuration.customRamColor ? plasmoid.configuration.ramColor : theme.highlightColor), (plasmoid.configuration.customSwapColor ? plasmoid.configuration.swapColor : theme.negativeTextColor)]
+    // NOTE: "sensorsModel.sensors" is set by "_updateSensorsAndLabels"
+    // NOTE: "colors" is set by "_updateSensorsAndLabels"
+    colors: [(plasmoid.configuration.customRamColor ? plasmoid.configuration.ramColor : theme.highlightColor), (plasmoid.configuration.memorySwapGraph ? (plasmoid.configuration.customSwapColor ? plasmoid.configuration.swapColor : theme.negativeTextColor) : undefined)]
+    secondChartVisible: plasmoid.configuration.memorySwapGraph
 
     // Initialize limits and threshold
     Sensors.SensorDataModel {
@@ -74,7 +81,7 @@ RMBaseGraph.TwoSensorsGraph {
                     root.uplimits = maxMemory;
                 }
                 root._updateThresholds();
-                root._updateSensors();
+                root._updateSensorsAndLabels();
             }
         }
     }
@@ -88,14 +95,43 @@ RMBaseGraph.TwoSensorsGraph {
             thresholds[0] = [thresholdWarningMemory, thresholdCriticalMemory];
         }
     }
-    function _updateSensors() {
+    function _updateSensorsAndLabels() {
         const info = plasmoid.configuration.memoryUnit.split("-");
-        const suffix = info[1] === "percent" ? "Percent" : "";
-        const memSensor = "memory/physical/" + (info[0] === "physical" ? "used" : "application") + suffix;
-        if (plasmoid.configuration.memorySwapGraph) {
-            sensorsModel.sensors = [memSensor, "memory/swap/used" + suffix];
-        } else {
-            sensorsModel.sensors = [memSensor];
+
+        // Retrieve second line unit
+        let secondUnit = plasmoid.configuration.memorySecondUnit;
+        // TODO (3.0): Remove this legacy condition
+        if (secondUnit == "") {
+            if (plasmoid.configuration.memorySwapGraph) {
+                secondUnit = "swap" + (info[1] === "percent" ? "-percent" : "");
+            } else {
+                secondUnit = "none";
+            }
         }
+
+        // Define sensors and second label
+        const type = info[0] === "physical" ? "used" : "application"
+        const suffix = info[1] === "percent" ? "Percent" : "";
+        const memSensor = "memory/physical/" + type + suffix;
+        const secondSensor;
+        switch (plasmoid.configuration.memorySecondUnit) {
+        case "percent":
+            secondSensor = "memory/physical/" + type + "Percent";
+            textContainer.labels[1] = i18nc("Graph label", "Percent.");
+            break;
+        case "swap":
+            secondSensor = "memory/swap/used";
+            textContainer.labels[1] = "Swap";
+            break;
+        case "swap-percent":
+            secondSensor = "memory/swap/usedPercent";
+            textContainer.labels[1] = "Swap";
+            break;
+        case "none":
+            sensorsModel.sensors = [memSensor];
+            textContainer.labels[1] = "";
+            return;
+        }
+        sensorsModel.sensors = [memSensor, secondSensor];
     }
 }

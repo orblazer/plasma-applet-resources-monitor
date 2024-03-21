@@ -25,7 +25,8 @@ PlasmaExtras.Representation {
     // > Memory
     property bool cfg_showRamMonitor
     property string cfg_memoryUnit
-    property alias cfg_memorySwapGraph: memorySwapGraph.checked
+    property string cfg_memorySecondUnit
+    property bool cfg_memorySwapGraph
     // > Network
     property bool cfg_showNetMonitor
     property string cfg_networkUnit
@@ -130,19 +131,24 @@ PlasmaExtras.Representation {
                     currentIndex: -1
                     textRole: "label"
                     valueRole: "value"
-                    model: [{
+                    model: [
+                        {
                             "label": i18n("Disabled"),
                             "value": "none"
-                        }, {
+                        },
+                        {
                             "label": i18n("Total usage"),
                             "value": "usage"
-                        }, {
+                        },
+                        {
                             "label": i18n("System usage"),
                             "value": "system"
-                        }, {
+                        },
+                        {
                             "label": i18n("User usage"),
                             "value": "user"
-                        }]
+                        }
+                    ]
 
                     onActivated: {
                         if (currentValue === "none") {
@@ -166,19 +172,24 @@ PlasmaExtras.Representation {
                     currentIndex: -1
                     textRole: "label"
                     valueRole: "value"
-                    model: [{
+                    model: [
+                        {
                             "label": i18n("Disabled"),
                             "value": "none"
-                        }, {
+                        },
+                        {
                             "label": i18nc("Agregator", "Average"),
                             "value": "average"
-                        }, {
+                        },
+                        {
                             "label": i18nc("Agregator", "Minimum"),
                             "value": "minimum"
-                        }, {
+                        },
+                        {
                             "label": i18nc("Agregator", "Maximum"),
                             "value": "maximum"
-                        }]
+                        }
+                    ]
 
                     onActivated: {
                         if (currentValue === "none") {
@@ -217,22 +228,28 @@ PlasmaExtras.Representation {
                     currentIndex: -1
                     textRole: "label"
                     valueRole: "value"
-                    model: [{
+                    model: [
+                        {
                             "label": i18n("Disabled"),
                             "value": "none"
-                        }, {
+                        },
+                        {
                             "label": i18n("Physical memory (in KiB)"),
                             "value": "physical"
-                        }, {
+                        },
+                        {
                             "label": i18n("Physical memory (in %)"),
                             "value": "physical-percent"
-                        }, {
+                        },
+                        {
                             "label": i18n("Application memory (in KiB)"),
                             "value": "application"
-                        }, {
+                        },
+                        {
                             "label": i18n("Application memory (in %)"),
                             "value": "application-percent"
-                        }]
+                        }
+                    ]
 
                     onActivated: {
                         if (currentValue === "none") {
@@ -241,6 +258,17 @@ PlasmaExtras.Representation {
                             cfg_showRamMonitor = true;
                             cfg_memoryUnit = currentValue;
                         }
+
+                        // TODO (3.0): Remove this
+                        // Sync swap show in percent or not (legacy behavior)
+                        if (currentValue.endsWith("-percent") && memorySecondLine.currentIndex == 1) {
+                            plasmoid.configuration.memorySecondUnit = cfg_memorySecondUnit = "swap-percent";
+                            memorySecondLine.currentIndex = 2;
+                        } else if (!currentValue.endsWith("-percent") && memorySecondLine.currentIndex == 2) {
+                            plasmoid.configuration.memorySecondUnit = cfg_memorySecondUnit = "swap";
+                            memorySecondLine.currentIndex = 1;
+                        }
+
                     }
                     Component.onCompleted: {
                         // TODO (3.0): Merge "cfg_showRamMonitor" and "cfg_memoryUnit"
@@ -248,16 +276,60 @@ PlasmaExtras.Representation {
                     }
                 }
 
-                QtLayouts.GridLayout {
+                QtControls.ComboBox {
+                    id: memorySecondLine
                     QtLayouts.Layout.fillWidth: true
-                    columns: 2
-                    rowSpacing: Kirigami.Units.smallSpacing
-                    columnSpacing: Kirigami.Units.largeSpacing
+                    Kirigami.FormData.label: i18n("Second line:")
+                    enabled: cfg_showRamMonitor
 
-                    QtControls.CheckBox {
-                        id: memorySwapGraph
-                        text: i18n("Show swap")
-                        enabled: cfg_showRamMonitor
+                    currentIndex: -1
+                    textRole: "label"
+                    valueRole: "value"
+                    model: [
+                        {
+                            "label": i18n("Disabled"),
+                            "value": "none"
+                        },
+                        {
+                            "label": i18n("Swap"),
+                            "value": "swap"
+                        },
+                        {
+                            "label": i18n("Swap (in %)"),
+                            "value": "swap-percent"
+                        },
+                        {
+                            "label": i18n("Memory (in %)"),
+                            "value": "percent"
+                        }
+                    ]
+
+                    onActivated: {
+                        if (currentValue === "none") {
+                            cfg_memorySwapGraph = false;
+                            cfg_memorySecondUnit = "none";
+                        } else if (currentValue === "swap") {
+                            cfg_memorySwapGraph = true;
+                            cfg_memorySecondUnit = "swap";
+                        } else if (currentValue === "swap-percent") {
+                            cfg_memorySwapGraph = true;
+                            cfg_memorySecondUnit = "swap-percent";
+                        } else {
+                            cfg_memorySwapGraph = false;
+                            cfg_memorySecondUnit = currentValue;
+                        }
+                    }
+                    Component.onCompleted: {
+                        // TODO (3.0): Remove this legacy load
+                        if (cfg_memorySecondUnit == "") {
+                            if (cfg_memorySwapGraph && cfg_memoryUnit.endsWith("-percent")) {
+                                currentIndex = 2;
+                            } else {
+                                currentIndex = Number(cfg_memorySwapGraph);
+                            }
+                            return;
+                        }
+                        currentIndex = indexOfValue(cfg_memorySecondUnit);
                     }
                 }
 
@@ -278,19 +350,24 @@ PlasmaExtras.Representation {
                     currentIndex: -1
                     textRole: "label"
                     valueRole: "value"
-                    model: [{
+                    model: [
+                        {
                             "label": i18n("Disabled"),
                             "value": "none"
-                        }, {
+                        },
+                        {
                             "label": i18n("In kibibyte (KiB/s)"),
                             "value": "kibibyte"
-                        }, {
+                        },
+                        {
                             "label": i18n("In kilobit (Kbps)"),
                             "value": "kilobit"
-                        }, {
+                        },
+                        {
                             "label": i18n("In kilobyte (KBps)"),
                             "value": "kilobyte"
-                        }]
+                        }
+                    ]
 
                     onActivated: {
                         if (currentValue === "none") {
