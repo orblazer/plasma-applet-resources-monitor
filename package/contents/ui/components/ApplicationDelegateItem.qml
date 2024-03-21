@@ -1,9 +1,9 @@
-import QtQuick 2.0
-import QtQuick.Controls 2.12 as QtControls
+import QtQuick 2.15
+import QtQuick.Controls 2.15 as QtControls
 import QtQuick.Layouts 1.1 as QtLayouts
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 2.0 as PlasmaComponents
-import org.kde.kirigami 2.6 as Kirigami
+import org.kde.kirigami 2.20 as Kirigami
 
 MouseArea {
     id: root

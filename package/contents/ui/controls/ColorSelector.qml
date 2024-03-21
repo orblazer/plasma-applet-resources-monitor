@@ -1,7 +1,7 @@
-import QtQuick 2.2
+import QtQuick 2.15
 import QtQuick.Dialogs 1.0 as QtDialog
 import org.kde.plasma.components 3.0 as PlasmaComponents
-import org.kde.kirigami 2.6 as Kirigami
+import org.kde.kirigami 2.20 as Kirigami
 
 PlasmaComponents.Button {
     id: colorSelector

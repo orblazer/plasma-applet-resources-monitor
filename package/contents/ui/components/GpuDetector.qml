@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.15
 import org.kde.kitemmodels 1.0 as KItemModels
 import org.kde.ksysguard.sensors 1.0 as Sensors
 

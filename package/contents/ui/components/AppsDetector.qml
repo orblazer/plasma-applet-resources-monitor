@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.15
 import org.kde.plasma.core 2.1 as PlasmaCore
 
 PlasmaCore.SortFilterModel {
