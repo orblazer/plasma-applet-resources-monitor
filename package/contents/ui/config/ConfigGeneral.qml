@@ -40,28 +40,6 @@ PlasmaExtras.Representation {
     // Click action
     property string cfg_actionService
 
-    // Apps model
-    RMComponents.AppsDetector {
-        id: appsModel
-
-        filterString: appsFilter.text
-        filterCallback: function (index, value) {
-            var search = filterString.toLowerCase();
-            if (search.length === 0) {
-                return true;
-            }
-            if (value.toLowerCase().indexOf(search) !== -1) {
-                return true;
-            }
-            if (sourceModel.get(index).menuId.replace(".desktop", "").toLowerCase().indexOf(search) !== -1) {
-                return true;
-            }
-            return false;
-        }
-
-        onFilterStringChanged: appsList.updateCurrentIndex()
-    }
-
     // Tab bar
     header: PlasmaExtras.PlasmoidHeading {
         location: PlasmaExtras.PlasmoidHeading.Location.Header
@@ -451,8 +429,8 @@ PlasmaExtras.Representation {
             Kirigami.FormLayout {
                 wideMode: true
 
-                QtControls.TextField {
-                    id: appsFilter
+                Kirigami.SearchField {
+                    id: appsSearchField
                     Kirigami.FormData.label: i18n("Search an application:")
                     QtLayouts.Layout.fillWidth: true
                     placeholderText: i18n("Application name")
@@ -485,10 +463,21 @@ PlasmaExtras.Representation {
 
                     ListView {
                         id: appsList
-
-                        model: appsModel
                         clip: true
                         interactive: true
+                        boundsBehavior: Flickable.StopAtBounds
+
+                        // this causes us to load at least one delegate
+                        // this is essential in guessing the contentHeight
+                        // which is needed to initially resize the popup
+                        cacheBuffer: 1
+
+                        model: RMComponents.AppsDetector {
+                            id: appsModel
+
+                            filterString: appsSearchField.text
+                            onFilterStringChanged: appsList.updateCurrentIndex()
+                        }
 
                         highlight: PlasmaExtras.Highlight {
                         }
@@ -513,13 +502,7 @@ PlasmaExtras.Representation {
                         Component.onCompleted: updateCurrentIndex()
 
                         function updateCurrentIndex() {
-                            for (var i = 0; i < model.count; i++) {
-                                if (model.get(i).menuId === cfg_actionService + ".desktop") {
-                                    currentIndex = i;
-                                    return;
-                                }
-                            }
-                            currentIndex = -1;
+                            currentIndex = currentIndex = appsModel.findIndex(cfg_actionService + ".desktop");
                         }
                     }
                 }
