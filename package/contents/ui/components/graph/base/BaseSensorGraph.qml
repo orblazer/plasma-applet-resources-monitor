@@ -19,8 +19,8 @@ Item {
 
     // Thresholds properties
     property var thresholds: [undefined, undefined, undefined]
-    property color thresholdWarningColor: Functions.getCustomConfig("warningColor", theme.neutralTextColor)
-    property color thresholdCriticalColor: Functions.getCustomConfig("criticalColor", theme.negativeTextColor)
+    property color thresholdWarningColor: Functions.getColor("warningColor")
+    property color thresholdCriticalColor: Functions.getColor("criticalColor")
 
     // Labels
     RMBaseGraph.GraphText {

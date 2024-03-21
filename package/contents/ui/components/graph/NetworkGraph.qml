@@ -32,7 +32,7 @@ RMBaseGraph.TwoSensorsGraph {
     }
 
     // Graph options
-    colors: [Functions.getCustomConfig("netDownColor", theme.highlightColor), Functions.getCustomConfig("netUpColor", theme.positiveTextColor)]
+    colors: [Functions.getColor("netDownColor"), Functions.getColor("netUpColor")]
 
     // Initialized sensors
     RMComponents.NetworkInterfaceDetector {

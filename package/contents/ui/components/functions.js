@@ -92,3 +92,16 @@ function getCustomConfig(property, fallback) {
   }
   return fallback;
 }
+
+/**
+ * Get color, if the value not start with "#" its return the theme color. If property have no value i'ts fallback to "theme.textColor"
+ * @param {string} property The config property name
+ * @returns The color color
+ */
+function getColor(property) {
+  const value = plasmoid.configuration[property];
+  if (value.startsWith("#")) {
+    return value;
+  }
+  return theme[value] || theme.textColor;
+}

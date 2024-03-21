@@ -30,7 +30,7 @@ RMBaseGraph.TwoSensorsGraph {
 
     // Graph options
     sensorsModel.sensors: ["disk/all/read", "disk/all/write"]
-    colors: [Functions.getCustomConfig("diskReadColor", theme.highlightColor), Functions.getCustomProperty("diskWriteColor", theme.positiveTextColor)]
+    colors: [Functions.getColor("diskReadColor"), Functions.getColor("diskWriteColor")]
 
     function _updateUplimits() {
         uplimits = [plasmoid.configuration.diskReadTotal * diskIoDialect.multiplier, plasmoid.configuration.diskWriteTotal * diskIoDialect.multiplier];

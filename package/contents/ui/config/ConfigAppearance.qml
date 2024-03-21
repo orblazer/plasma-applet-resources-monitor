@@ -33,36 +33,23 @@ PlasmaExtras.Representation {
 
     // Colors
     // > CPU
-    property alias cfg_customCpuColor: cpuColor.customized
     property alias cfg_cpuColor: cpuColor.value
-    property alias cfg_customCpuTemperatureColor: cpuTemperatureColor.customized
     property alias cfg_cpuTemperatureColor: cpuTemperatureColor.value
     // > Memory
-    property alias cfg_customRamColor: ramColor.customized
-    property alias cfg_ramColor: ramColor.value
-    property alias cfg_customSwapColor: swapColor.customized
-    property alias cfg_swapColor: swapColor.value
+    property alias cfg_memColor: memColor.value
+    property alias cfg_memSecondColor: memSecondColor.value
     // > Network
-    property alias cfg_customNetDownColor: netDownColor.customized
     property alias cfg_netDownColor: netDownColor.value
-    property alias cfg_customNetUpColor: netUpColor.customized
     property alias cfg_netUpColor: netUpColor.value
     // > GPU
-    property alias cfg_customGpuColor: gpuColor.customized
     property alias cfg_gpuColor: gpuColor.value
-    property alias cfg_customGpuMemoryColor: gpuMemoryColor.customized
     property alias cfg_gpuMemoryColor: gpuMemoryColor.value
-    property alias cfg_customGpuTemperatureColor: gpuTemperatureColor.customized
     property alias cfg_gpuTemperatureColor: gpuTemperatureColor.value
     // > Disk
-    property alias cfg_customDiskReadColor: diskReadColor.customized
     property alias cfg_diskReadColor: diskReadColor.value
-    property alias cfg_customDiskWriteColor: diskWriteColor.customized
     property alias cfg_diskWriteColor: diskWriteColor.value
     // > Threshold
-    property alias cfg_customWarningColor: warningColor.customized
     property alias cfg_warningColor: warningColor.value
-    property alias cfg_customCriticalColor: criticalColor.customized
     property alias cfg_criticalColor: criticalColor.value
 
     property color textColor: theme.textColor
@@ -369,16 +356,12 @@ PlasmaExtras.Representation {
                 RMControls.ColorSelector {
                     id: cpuColor
                     Kirigami.FormData.label: i18nc("Chart config", "Usage:")
-
                     dialogTitle: i18nc("Chart color", "Choose series color")
-                    defaultColor: primaryColor
                 }
                 RMControls.ColorSelector {
                     id: cpuTemperatureColor
                     Kirigami.FormData.label: i18nc("Chart config", "Temperature:")
-
                     dialogTitle: i18nc("Chart color", "Choose text color")
-                    defaultColor: textColor
                 }
 
                 // > Memory
@@ -392,18 +375,14 @@ PlasmaExtras.Representation {
                 }
 
                 RMControls.ColorSelector {
-                    id: ramColor
+                    id: memColor
                     Kirigami.FormData.label: i18nc("Chart config", "Physical:")
-
                     dialogTitle: i18nc("Chart color", "Choose series color")
-                    defaultColor: primaryColor
                 }
                 RMControls.ColorSelector {
-                    id: swapColor
+                    id: memSecondColor
                     Kirigami.FormData.label: i18nc("Chart config", "Swap:")
-
                     dialogTitle: i18nc("Chart color", "Choose color of series and text")
-                    defaultColor: negativeColor
                 }
 
                 // > Network
@@ -419,16 +398,12 @@ PlasmaExtras.Representation {
                 RMControls.ColorSelector {
                     id: netDownColor
                     Kirigami.FormData.label: i18nc("Chart config", "Receiving:")
-
                     dialogTitle: i18nc("Chart color", "Choose series color")
-                    defaultColor: primaryColor
                 }
                 RMControls.ColorSelector {
                     id: netUpColor
                     Kirigami.FormData.label: i18nc("Chart config", "Sending:")
-
                     dialogTitle: i18nc("Chart color", "Choose series color")
-                    defaultColor: positiveColor
                 }
 
                 // > GPU
@@ -444,23 +419,17 @@ PlasmaExtras.Representation {
                 RMControls.ColorSelector {
                     id: gpuColor
                     Kirigami.FormData.label: i18nc("Chart config", "Usage:")
-
                     dialogTitle: i18nc("Chart color", "Choose series color")
-                    defaultColor: primaryColor
                 }
                 RMControls.ColorSelector {
                     id: gpuMemoryColor
                     Kirigami.FormData.label: i18nc("Chart config", "Memory:")
-
                     dialogTitle: i18nc("Chart color", "Choose series color")
-                    defaultColor: positiveColor
                 }
                 RMControls.ColorSelector {
                     id: gpuTemperatureColor
                     Kirigami.FormData.label: i18nc("Chart config", "Temperature:")
-
                     dialogTitle: i18nc("Chart color", "Choose text color")
-                    defaultColor: textColor
                 }
 
                 // > Disk I/O
@@ -476,16 +445,12 @@ PlasmaExtras.Representation {
                 RMControls.ColorSelector {
                     id: diskReadColor
                     Kirigami.FormData.label: i18nc("Chart config", "Read:")
-
                     dialogTitle: i18nc("Chart color", "Choose series color")
-                    defaultColor: primaryColor
                 }
                 RMControls.ColorSelector {
                     id: diskWriteColor
                     Kirigami.FormData.label: i18nc("Chart config", "Write:")
-
                     dialogTitle: i18nc("Chart color", "Choose series color")
-                    defaultColor: positiveColor
                 }
 
                 // Thresholds
@@ -497,16 +462,12 @@ PlasmaExtras.Representation {
                 RMControls.ColorSelector {
                     id: warningColor
                     Kirigami.FormData.label: i18n("Warning status:")
-
                     dialogTitle: i18n("Choose text color when the value is in warning status")
-                    defaultColor: neutralColor
                 }
                 RMControls.ColorSelector {
                     id: criticalColor
                     Kirigami.FormData.label: i18n("Critical status:")
-
                     dialogTitle: i18n("Choose text color when the value is in critical status")
-                    defaultColor: negativeColor
                 }
             }
         }

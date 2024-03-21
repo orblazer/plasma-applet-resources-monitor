@@ -13,40 +13,56 @@
             <default>org.kde.plasma-systemmonitor</default>
         </entry>
 
-        <entry name="showCpuMonitor" type="Bool">
-            <default>true</default>
-        </entry>
         <entry name="cpuUnit" type="String">
+            <choices>
+                <choice name="none" />
+                <choice name="usage" />
+                <choice name="system" />
+                <choice name="user" />
+            </choices>
             <default>usage</default>
         </entry>
-        <entry name="showClock" type="Bool">
-            <default>true</default>
-        </entry>
-        <entry name="clockAgregator" type="String">
+        <entry name="cpuClockAgregator" type="String">
+            <choices>
+                <choice name="none" />
+                <choice name="average" />
+                <choice name="minimum" />
+                <choice name="maximum" />
+            </choices>
             <default>average</default>
         </entry>
         <entry name="showCpuTemperature" type="Bool">
             <default>false</default>
         </entry>
 
-        <entry name="showRamMonitor" type="Bool">
-            <default>true</default>
-        </entry>
         <entry name="memoryUnit" type="String">
+            <choices>
+                <choice name="none" />
+                <choice name="physical" />
+                <choice name="physical-percent" />
+                <choice name="application" />
+                <choice name="application-percent" />
+            </choices>
             <default>physical</default>
         </entry>
         <entry name="memorySecondUnit" type="String">
-            <default></default> <!-- TODO (3.0): set default to "swap:" -->
-        </entry>
-        <entry name="memorySwapGraph" type="Bool">
-            <default>true</default>
+            <choices>
+                <choice name="none" />
+                <choice name="swap" />
+                <choice name="swap-percent" />
+                <choice name="memory-percent" />
+            </choices>
+            <default>swap</default>
         </entry>
 
-        <entry name="showNetMonitor" type="Bool">
-            <default>false</default>
-        </entry>
         <entry name="networkUnit" type="String">
-            <default>kibibyte</default>
+            <choices>
+                <choice name="none" />
+                <choice name="kibibyte" />
+                <choice name="kilobit" />
+                <choice name="kilobyte" />
+            </choices>
+            <default>none</default>
         </entry>
 
         <entry name="showGpuMonitor" type="Bool">
@@ -151,75 +167,49 @@
             <default>cpu,memory,gpu,disks,network</default>
         </entry>
 
-        <entry name="customCpuColor" type="Bool">
-            <default>false</default>
+        <entry name="cpuColor" type="String">
+            <default>highlightColor</default>
         </entry>
-        <entry name="cpuColor" type="Color">
-        </entry>
-        <entry name="customCpuTemperatureColor" type="Bool">
-            <default>false</default>
-        </entry>
-        <entry name="cpuTemperatureColor" type="Color">
+        <entry name="cpuTemperatureColor" type="String">
+            <default>textColor</default>
         </entry>
 
-        <entry name="customRamColor" type="Bool">
-            <default>false</default>
+        <entry name="memColor" type="String">
+            <default>highlightColor</default>
         </entry>
-        <entry name="ramColor" type="Color">
-        </entry>
-        <entry name="customSwapColor" type="Bool">
-            <default>false</default>
-        </entry>
-        <entry name="swapColor" type="Color">
+        <entry name="memSecondColor" type="String">
+            <default>negativeTextColor</default>
         </entry>
 
-        <entry name="customNetDownColor" type="Bool">
-            <default>false</default>
+        <entry name="netDownColor" type="String">
+            <default>highlightColor</default>
         </entry>
-        <entry name="netDownColor" type="Color">
-        </entry>
-        <entry name="customNetUpColor" type="Bool">
-            <default>false</default>
-        </entry>
-        <entry name="netUpColor" type="Color">
+        <entry name="netUpColor" type="String">
+            <default>positiveTextColor</default>
         </entry>
 
-        <entry name="customGpuColor" type="Bool">
-            <default>false</default>
+        <entry name="gpuColor" type="String">
+            <default>highlightColor</default>
         </entry>
-        <entry name="gpuColor" type="Color">
+        <entry name="gpuMemoryColor" type="String">
+            <default>positiveTextColor</default>
         </entry>
-        <entry name="customGpuMemoryColor" type="Bool">
-            <default>false</default>
-        </entry>
-        <entry name="gpuMemoryColor" type="Color">
-        </entry>
-        <entry name="customGpuTemperatureColor" type="Bool">
-            <default>false</default>
-        </entry>
-        <entry name="gpuTemperatureColor" type="Color">
+        <entry name="gpuTemperatureColor" type="String">
+            <default>textColor</default>
         </entry>
 
-        <entry name="customDiskReadColor" type="Bool">
-            <default>false</default>
+        <entry name="diskReadColor" type="String">
+            <default>highlightColor</default>
         </entry>
-        <entry name="diskReadColor" type="Color">
-        </entry>
-        <entry name="customDiskWriteColor" type="Bool">
-            <default>false</default>
-        </entry>
-        <entry name="diskWriteColor" type="Color">
+        <entry name="diskWriteColor" type="String">
+            <default>positiveTextColor</default>
         </entry>
 
-        <entry name="customWarningColor" type="Bool">
-            <default>false</default>
+        <entry name="warningColor" type="String">
+            <default>neutralTextColor</default>
         </entry>
-        <entry name="warningColor" type="Color">
-        </entry>
-        <entry name="customCriticalColor" type="Bool">
-            <default>false</default>
-        </entry>
-        <entry name="criticalColor" type="Color">
+        <entry name="criticalColor" type="String">
+            <default>negativeTextColor</default>
         </entry>
     </group>
 

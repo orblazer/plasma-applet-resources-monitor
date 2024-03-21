@@ -84,19 +84,19 @@ MouseArea {
         interactive: false
 
         model: plasmoid.configuration.graphOrders.filter(item => {
-                if (item === "cpu") {
-                    return plasmoid.configuration.showCpuMonitor;
-                } else if (item === "disks") {
-                    return plasmoid.configuration.showDiskMonitor;
-                } else if (item === "gpu") {
-                    return plasmoid.configuration.showGpuMonitor;
-                } else if (item === "memory") {
-                    return plasmoid.configuration.showRamMonitor;
-                } else if (item === "network") {
-                    return plasmoid.configuration.showNetMonitor;
-                }
-                return false;
-            })
+            if (item === "cpu") {
+                return plasmoid.configuration.cpuUnit !== "none";
+            } else if (item === "disks") {
+                return plasmoid.configuration.showDiskMonitor;
+            } else if (item === "gpu") {
+                return plasmoid.configuration.showGpuMonitor;
+            } else if (item === "memory") {
+                return plasmoid.configuration.memoryUnit !== "none";
+            } else if (item === "network") {
+                return plasmoid.configuration.networkUnit !== "none";
+            }
+            return false;
+        })
 
         delegate: Loader {
             source: _graphIdToFilename(modelData)

@@ -8,6 +8,10 @@ RMBaseGraph.TwoSensorsGraph {
     id: root
     objectName: "MemoryGraph"
 
+    // Config shrotcut
+    property bool showSwap: plasmoid.configuration.memorySecondUnit.startsWith("swap")
+
+    // Handle config update and init
     Connections {
         target: plasmoid.configuration
         function onMemoryUnitChanged() { // Values: usage, system, user
@@ -27,10 +31,6 @@ RMBaseGraph.TwoSensorsGraph {
         function onMemorySecondUnitChanged() {
             _updateSensorsAndLabels();
         }
-        // TODO (3.0): Remove this legacy property
-        function onMemorySwapGraphChanged() {
-            _updateSensorsAndLabels();
-        }
 
         function onThresholdWarningMemoryChanged() {
             _updateThresholds();
@@ -47,7 +47,7 @@ RMBaseGraph.TwoSensorsGraph {
     // Labels
     textContainer {
         labelColors: root.colors
-        valueColors: [undefined, plasmoid.configuration.memorySwapGraph ? root.colors[1] : undefined]
+        valueColors: [undefined, showSwap ? root.colors[1] : undefined]
         labelsVisibleWhenZero: [true, false, true]
 
         // NOTE: second label is set by "_updateSensorsAndLabels"
@@ -56,8 +56,8 @@ RMBaseGraph.TwoSensorsGraph {
 
     // Graph options
     // NOTE: "sensorsModel.sensors" is set by "_updateSensorsAndLabels"
-    colors: [Functions.getCustomConfig("ramColor", theme.highlightColor), (secondChartVisible ? Functions.getCustomConfig("swapColor", theme.negativeTextColor) : undefined)]
-    secondChartVisible: plasmoid.configuration.memorySwapGraph
+    colors: [Functions.getColor("memColor"), Functions.getColor("memSecondColor")]
+    secondChartVisible: showSwap
 
     // Initialize limits and threshold
     Sensors.SensorDataModel {
@@ -99,24 +99,13 @@ RMBaseGraph.TwoSensorsGraph {
         const info = plasmoid.configuration.memoryUnit.split("-");
         const oldSecondLabel = textContainer.labels[1];
 
-        // Retrieve second line unit
-        let secondUnit = plasmoid.configuration.memorySecondUnit;
-        // TODO (3.0): Remove this legacy condition
-        if (secondUnit == "") {
-            if (plasmoid.configuration.memorySwapGraph) {
-                secondUnit = "swap" + (info[1] === "percent" ? "-percent" : "");
-            } else {
-                secondUnit = "none";
-            }
-        }
-
         // Define sensors and second label
         const type = info[0] === "physical" ? "used" : "application";
         const suffix = info[1] === "percent" ? "Percent" : "";
-        const memSensor = "memory/physical/" + type + suffix;
+        const firstSensor = "memory/physical/" + type + suffix;
         let secondSensor;
-        switch (secondUnit) {
-        case "percent":
+        switch (plasmoid.configuration.memorySecondUnit) {
+        case "memory-percent":
             secondSensor = "memory/physical/" + type + "Percent";
             textContainer.labels[1] = i18nc("Graph label", "Percent.");
             break;
@@ -129,7 +118,7 @@ RMBaseGraph.TwoSensorsGraph {
             textContainer.labels[1] = "Swap";
             break;
         case "none":
-            sensorsModel.sensors = [memSensor];
+            sensorsModel.sensors = [firstSensor];
             textContainer.labels[1] = "";
 
             // Force update labels
@@ -138,7 +127,7 @@ RMBaseGraph.TwoSensorsGraph {
             }
             return;
         }
-        sensorsModel.sensors = [memSensor, secondSensor];
+        sensorsModel.sensors = [firstSensor, secondSensor];
 
         // Force update labels
         if (oldSecondLabel != textContainer.labels[1]) {

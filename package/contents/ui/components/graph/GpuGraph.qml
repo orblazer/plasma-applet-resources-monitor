@@ -9,7 +9,7 @@ RMBaseGraph.TwoSensorsGraph {
     objectName: "GpuGraph"
 
     // Config options
-    property color temperatureColor: Functions.getCustomConfig("gpuTemperatureColor", theme.textColor)
+    property color temperatureColor: Functions.getColor("gpuTemperatureColor")
 
     // Bind config changes
     Connections {
@@ -35,7 +35,7 @@ RMBaseGraph.TwoSensorsGraph {
 
     // Graph options
     // NOTE: "sensorsModel.sensors" set from "maxQueryModel"
-    colors: [Functions.getCustomConfig("gpuColor", theme.highlightColor), Functions.getCustomProperty("gpuMemoryColor", theme.positiveTextColor)]
+    colors: [Functions.getColor("gpuColor"), Functions.getColor("gpuMemoryColor")]
 
     // Override methods, for handle memeory in percent
     _update: () => {

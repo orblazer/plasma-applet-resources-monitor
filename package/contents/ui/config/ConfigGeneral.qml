@@ -16,18 +16,14 @@ PlasmaExtras.Representation {
     // Charts
     property alias cfg_updateInterval: updateInterval.realValue
     // > CPU
-    property bool cfg_showCpuMonitor
     property string cfg_cpuUnit
-    property bool cfg_showClock
-    property string cfg_clockAgregator
+    property bool showCpuMonitor: cfg_cpuUnit !== "none"
+    property string cfg_cpuClockAgregator
     property alias cfg_showCpuTemperature: showCpuTemperature.checked
     // > Memory
-    property bool cfg_showRamMonitor
     property string cfg_memoryUnit
     property string cfg_memorySecondUnit
-    property bool cfg_memorySwapGraph
     // > Network
-    property bool cfg_showNetMonitor
     property string cfg_networkUnit
     // > GPU
     property alias cfg_showGpuMonitor: showGpuMonitor.checked
@@ -127,24 +123,14 @@ PlasmaExtras.Representation {
                         }
                     ]
 
-                    onActivated: {
-                        if (currentValue === "none") {
-                            cfg_showCpuMonitor = false;
-                        } else {
-                            cfg_showCpuMonitor = true;
-                            cfg_cpuUnit = currentValue;
-                        }
-                    }
-                    Component.onCompleted: {
-                        // TODO (3.0): Merge "cfg_showCpuMonitor" and "cfg_cpuUnit"
-                        currentIndex = cfg_showCpuMonitor ? indexOfValue(cfg_cpuUnit) : 0;
-                    }
+                    onActivated: cfg_cpuUnit = currentValue
+                    Component.onCompleted: currentIndex = indexOfValue(cfg_cpuUnit)
                 }
 
                 QtControls.ComboBox {
                     QtLayouts.Layout.fillWidth: true
                     Kirigami.FormData.label: i18n("Clock visibility:")
-                    enabled: cfg_showCpuMonitor
+                    enabled: showCpuMonitor
 
                     currentIndex: -1
                     textRole: "label"
@@ -168,24 +154,14 @@ PlasmaExtras.Representation {
                         }
                     ]
 
-                    onActivated: {
-                        if (currentValue === "none") {
-                            cfg_showClock = false;
-                        } else {
-                            cfg_showClock = true;
-                            cfg_clockAgregator = currentValue;
-                        }
-                    }
-                    Component.onCompleted: {
-                        // TODO (3.0): Merge "cfg_showClock" and "cfg_clockAgregator"
-                        currentIndex = cfg_showClock ? indexOfValue(cfg_clockAgregator) : 0;
-                    }
+                    onActivated: cfg_cpuClockAgregator = currentValue
+                    Component.onCompleted: currentIndex = indexOfValue(cfg_cpuClockAgregator)
                 }
 
                 QtControls.CheckBox {
                     id: showCpuTemperature
                     text: i18n("Show temperature")
-                    enabled: cfg_showCpuMonitor
+                    enabled: showCpuMonitor
                 }
 
                 // Memory
@@ -228,36 +204,14 @@ PlasmaExtras.Representation {
                         }
                     ]
 
-                    onActivated: {
-                        if (currentValue === "none") {
-                            cfg_showRamMonitor = false;
-                        } else {
-                            cfg_showRamMonitor = true;
-                            cfg_memoryUnit = currentValue;
-                        }
-
-                        // TODO (3.0): Remove this
-                        // Sync swap show in percent or not (legacy behavior)
-                        if (currentValue.endsWith("-percent") && memorySecondLine.currentIndex == 1) {
-                            plasmoid.configuration.memorySecondUnit = cfg_memorySecondUnit = "swap-percent";
-                            memorySecondLine.currentIndex = 2;
-                        } else if (!currentValue.endsWith("-percent") && memorySecondLine.currentIndex == 2) {
-                            plasmoid.configuration.memorySecondUnit = cfg_memorySecondUnit = "swap";
-                            memorySecondLine.currentIndex = 1;
-                        }
-
-                    }
-                    Component.onCompleted: {
-                        // TODO (3.0): Merge "cfg_showRamMonitor" and "cfg_memoryUnit"
-                        currentIndex = cfg_showRamMonitor ? indexOfValue(cfg_memoryUnit) : 0;
-                    }
+                    onActivated: cfg_memoryUnit = currentValue
+                    Component.onCompleted: currentIndex = indexOfValue(cfg_memoryUnit)
                 }
 
                 QtControls.ComboBox {
-                    id: memorySecondLine
                     QtLayouts.Layout.fillWidth: true
                     Kirigami.FormData.label: i18n("Second line:")
-                    enabled: cfg_showRamMonitor
+                    enabled: cfg_memoryUnit !== "none"
 
                     currentIndex: -1
                     textRole: "label"
@@ -277,37 +231,12 @@ PlasmaExtras.Representation {
                         },
                         {
                             "label": i18n("Memory (in %)"),
-                            "value": "percent"
+                            "value": "memory-percent"
                         }
                     ]
 
-                    onActivated: {
-                        if (currentValue === "none") {
-                            cfg_memorySwapGraph = false;
-                            cfg_memorySecondUnit = "none";
-                        } else if (currentValue === "swap") {
-                            cfg_memorySwapGraph = true;
-                            cfg_memorySecondUnit = "swap";
-                        } else if (currentValue === "swap-percent") {
-                            cfg_memorySwapGraph = true;
-                            cfg_memorySecondUnit = "swap-percent";
-                        } else {
-                            cfg_memorySwapGraph = false;
-                            cfg_memorySecondUnit = currentValue;
-                        }
-                    }
-                    Component.onCompleted: {
-                        // TODO (3.0): Remove this legacy load
-                        if (cfg_memorySecondUnit == "") {
-                            if (cfg_memorySwapGraph && cfg_memoryUnit.endsWith("-percent")) {
-                                currentIndex = 2;
-                            } else {
-                                currentIndex = Number(cfg_memorySwapGraph);
-                            }
-                            return;
-                        }
-                        currentIndex = indexOfValue(cfg_memorySecondUnit);
-                    }
+                    onActivated: cfg_memorySecondUnit = currentValue
+                    Component.onCompleted: currentIndex = indexOfValue(cfg_memorySecondUnit)
                 }
 
                 // Network
@@ -346,18 +275,8 @@ PlasmaExtras.Representation {
                         }
                     ]
 
-                    onActivated: {
-                        if (currentValue === "none") {
-                            cfg_showNetMonitor = false;
-                        } else {
-                            cfg_showNetMonitor = true;
-                            cfg_networkUnit = currentValue;
-                        }
-                    }
-                    Component.onCompleted: {
-                        // TODO (3.0): Merge "cfg_showNetMonitor" and "cfg_networkUnit"
-                        currentIndex = cfg_showNetMonitor ? indexOfValue(cfg_networkUnit) : 0;
-                    }
+                    onActivated: cfg_networkUnit = currentValue
+                    Component.onCompleted: currentIndex = indexOfValue(cfg_networkUnit)
                 }
 
                 // GPU
