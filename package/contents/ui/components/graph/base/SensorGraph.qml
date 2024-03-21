@@ -12,20 +12,11 @@ RMBaseGraph.BaseSensorGraph {
     // Graph properties
     property color chartColor: theme.highlightColor
 
-    Connections {
-        target: plasmoid.configuration
-        function onEnableHistoryChanged() {
-            if (plasmoid.configuration.enableHistory) {
-                chartData.clear();
-            }
-        }
-    }
-
     // Graph
     Charts.LineChart {
         id: chart
         anchors.fill: parent
-        visible: plasmoid.configuration.enableHistory
+        visible: plasmoid.configuration.historyAmount > 0
 
         direction: Charts.XYChart.ZeroAtEnd
         fillOpacity: plasmoid.configuration.graphFillOpacity / 100
@@ -51,9 +42,7 @@ RMBaseGraph.BaseSensorGraph {
     }
     _insertChartData: (column, value) => {
         if (column == 0) {
-            if (plasmoid.configuration.enableHistory) {
-                chartData.insertValue(value);
-            }
+            chartData.insertValue(value);
             root.chartDataChanged(0);
         }
     }

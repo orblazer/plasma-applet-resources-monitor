@@ -15,8 +15,7 @@ PlasmaExtras.Representation {
 
     // Chart
     property alias cfg_verticalLayout: verticalLayout.checked
-    property alias cfg_enableHistory: historyAmount.customized
-    property alias cfg_historyAmount: historyAmount.value
+    property alias cfg_historyAmount: historyAmount.realValue
     property alias cfg_customGraphWidth: graphWidth.customized
     property alias cfg_graphWidth: graphWidth.value
     property alias cfg_customGraphHeight: graphHeight.customized
@@ -131,11 +130,51 @@ PlasmaExtras.Representation {
                     text: i18n("Vertical layout")
                 }
 
-                RMControls.CustomizableAmount {
+                RMControls.PredefinedSpinBox {
                     id: historyAmount
                     Kirigami.FormData.label: i18n("History amount:")
                     QtLayouts.Layout.fillWidth: true
-                    from: 2
+                    QtLayouts.Layout.minimumWidth: predefinedChoices.currentIndex == 0 ? 300 : 0
+
+                    predefinedChoices {
+                        textRole: "label"
+                        valueRole: "value"
+                        model: [
+                            {
+                                "label": i18n("Custom"),
+                                "value": -1
+                            },
+                            {
+                                "label": i18n("Disabled"),
+                                "value": 0
+                            },
+                            {
+                                "label": "10",
+                                "value": 10
+                            },
+                            {
+                                "label": "20",
+                                "value": 20
+                            },
+                            {
+                                "label": "30",
+                                "value": 30
+                            },
+                            {
+                                "label": "40",
+                                "value": 40
+                            },
+                            {
+                                "label": "50",
+                                "value": 50
+                            }
+                        ]
+                    }
+
+                    spinBox {
+                        stepSize: 1
+                        minimumValue: 2
+                    }
                 }
 
                 RMControls.CustomizableSize {
@@ -287,19 +326,24 @@ PlasmaExtras.Representation {
                     currentIndex: -1
                     textRole: "label"
                     valueRole: "name"
-                    model: [{
+                    model: [
+                        {
                             "label": i18nc("Text displayment", "Always"),
                             "name": "always"
-                        }, {
+                        },
+                        {
                             "label": i18nc("Text displayment", "On hover"),
                             "name": "hover"
-                        }, {
+                        },
+                        {
                             "label": i18nc("Text displayment", "Hints when hover"),
                             "name": "hover-hints"
-                        }, {
+                        },
+                        {
                             "label": i18nc("Text displayment", "Never"),
                             "name": "never"
-                        }]
+                        }
+                    ]
 
                     onActivated: cfg_displayment = currentValue
                     Component.onCompleted: currentIndex = indexOfValue(cfg_displayment)
@@ -312,19 +356,24 @@ PlasmaExtras.Representation {
                     currentIndex: -1
                     textRole: "label"
                     valueRole: "name"
-                    model: [{
+                    model: [
+                        {
                             "label": i18nc("Text placement", "Top left"),
                             "name": "top-left"
-                        }, {
+                        },
+                        {
                             "label": i18nc("Text placement", "Top right"),
                             "name": "top-right"
-                        }, {
+                        },
+                        {
                             "label": i18nc("Text placement", "Bottom left"),
                             "name": "bottom-left"
-                        }, {
+                        },
+                        {
                             "label": i18nc("Text placement", "Bottom right"),
                             "name": "bottom-right"
-                        }]
+                        }
+                    ]
 
                     onActivated: cfg_placement = currentValue
                     Component.onCompleted: currentIndex = indexOfValue(cfg_placement)

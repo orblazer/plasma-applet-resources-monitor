@@ -57,7 +57,7 @@ RMBaseGraph.TwoSensorsGraph {
     // Graph options
     // NOTE: "sensorsModel.sensors" is set by "_updateSensorsAndLabels"
     colors: [Functions.getColor("memColor"), Functions.getColor("memSecondColor")]
-    secondChartVisible: showSwap
+    secondChartVisible: showSwap && plasmoid.configuration.historyAmount > 0
 
     // Initialize limits and threshold
     Sensors.SensorDataModel {

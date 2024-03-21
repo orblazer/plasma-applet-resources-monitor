@@ -128,9 +128,6 @@
         <entry name="verticalLayout" type="Bool">
             <default>false</default>
         </entry>
-        <entry name="enableHistory" type="Bool">
-            <default>true</default>
-        </entry>
         <entry name="historyAmount" type="Int">
             <default>10</default>
         </entry>
