@@ -14,6 +14,9 @@ PlasmaExtras.Representation {
     id: dataPage
     anchors.fill: parent
 
+    // CPU
+    property alias cfg_cpuECoresCount: cpuECoresCount.value
+
     // Network
     readonly property var networkDialect: Functions.getNetworkDialectInfo(plasmoid.configuration.networkUnit)
     property var cfg_ignoredNetworkInterfaces
@@ -164,6 +167,26 @@ PlasmaExtras.Representation {
         Kirigami.ScrollablePage {
             Kirigami.FormLayout {
                 wideMode: true
+
+                // CPU
+                Kirigami.Separator {
+                    Kirigami.FormData.label: i18nc("Chart name", "CPU")
+                    Kirigami.FormData.isSection: true
+                }
+
+                // Define Number of E-Cores, it's used for separating Intel
+                // E-cores and P-Cores when calculating CPU frequency,
+                // because they have different frequencies.
+                RMControls.SpinBox {
+                    id: cpuECoresCount
+                    Kirigami.FormData.label: i18n("E-cores")
+                    QtLayouts.Layout.fillWidth: true
+                }
+                Kirigami.InlineMessage {
+                    visible: true
+                    QtLayouts.Layout.fillWidth: true
+                    text: i18n("<b>Intel 12+ gen Only</b><br>Define number of E-Cores your CPU have. This is for separating from P-Cores in cpu frequency.")
+                }
 
                 // Network
                 Kirigami.Separator {

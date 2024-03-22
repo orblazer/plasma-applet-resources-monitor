@@ -9,8 +9,8 @@ RMBaseGraph.SensorGraph {
     objectName: "CpuGraph"
 
     // Config shrotcut
-    property bool showClock: plasmoid.configuration.cpuClockAgregator !== "none"
-    property string clockAgregator: (plasmoid.configuration.cpuClockAgregator !== "none" ? plasmoid.configuration.cpuClockAgregator : "maximum")
+    property bool showClock: plasmoid.configuration.cpuClockType !== "none"
+    property bool clockIsEcores: plasmoid.configuration.cpuClockType === "ecores"
     property color temperatureColor: Functions.getColor("cpuTemperatureColor")
 
     // Handle config update
@@ -18,11 +18,6 @@ RMBaseGraph.SensorGraph {
         target: plasmoid.configuration
         function onCpuUnitChanged() {
             _updateSensors();
-        }
-        function onCpuClockAgregatorChanged() {
-            if (!manualFrequency.needManual) {
-                _updateSensors();
-            }
         }
     }
 
@@ -45,30 +40,23 @@ RMBaseGraph.SensorGraph {
         labels: ["CPU", (showClock ? i18nc("Graph label", "Clock") : ""), (plasmoid.configuration.showCpuTemperature ? i18nc("Graph label", "Temp.") : "")]
     }
 
-    // Manual cpu frequency handle
-    // TODO (3.0): remove this
+    // CPU frequency handle
     _formatValue: (index, data) => {
-        if (index === 1 && manualFrequency.needManual) {
-            return manualFrequency.getFormattedValue();
+        if (index === 1) {
+            return cpuFrequenry.getFormattedValue(clockIsEcores);
         }
         return _defaultFormatValue(index, data);
     }
 
     RMSensors.CpuFrequency {
-        id: manualFrequency
-        agregator: clockAgregator
+        id: cpuFrequenry
+        enabled: showClock
+        agregator: plasmoid.configuration.cpuClockAgregator
 
         onReady: _updateSensors()
     }
 
     function _updateSensors() {
-        // Manual cpu frequency handle
-    // TODO (3.0): remove this
-        let frequencySensorId = "cpu/all/" + clockAgregator + "Frequency";
-        if (manualFrequency.needManual) {
-            frequencySensorId = "cpu/cpu0/frequency";
-        }
-        // END Manual cpu frequency handle
-        sensorsModel.sensors = ["cpu/all/" + plasmoid.configuration.cpuUnit, frequencySensorId, "cpu/cpu0/temperature"];
+        sensorsModel.sensors = ["cpu/all/" + plasmoid.configuration.cpuUnit, "cpu/cpu0/frequency", "cpu/cpu0/temperature"];
     }
 }

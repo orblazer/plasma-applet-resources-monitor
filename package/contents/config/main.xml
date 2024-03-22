@@ -22,9 +22,16 @@
             </choices>
             <default>usage</default>
         </entry>
-        <entry name="cpuClockAgregator" type="String">
+        <entry name="cpuClockType" type="String">
             <choices>
                 <choice name="none" />
+                <choice name="classic" />
+                <choice name="ecores" />
+            </choices>
+            <default>classic</default>
+        </entry>
+        <entry name="cpuClockAgregator" type="String">
+            <choices>
                 <choice name="average" />
                 <choice name="minimum" />
                 <choice name="maximum" />
@@ -84,6 +91,10 @@
     </group>
 
     <group name="Data">
+        <entry name="cpuECoresCount" type="Int">
+            <default>0</default>
+        </entry>
+
         <entry name="ignoredNetworkInterfaces" type="StringList">
         </entry>
         <entry name="networkReceivingTotal" type="Double">

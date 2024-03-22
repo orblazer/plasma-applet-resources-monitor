@@ -18,6 +18,7 @@ PlasmaExtras.Representation {
     // > CPU
     property string cfg_cpuUnit
     property bool showCpuMonitor: cfg_cpuUnit !== "none"
+    property string cfg_cpuClockType
     property string cfg_cpuClockAgregator
     property alias cfg_showCpuTemperature: showCpuTemperature.checked
     // > Memory
@@ -140,6 +141,29 @@ PlasmaExtras.Representation {
                             "label": i18n("Disabled"),
                             "value": "none"
                         },
+                        {
+                            "label": i18n("Classic / P-cores"),
+                            "value": "classic"
+                        },
+                        {
+                            "label": i18n("E-cores"),
+                            "value": "ecores"
+                        }
+                    ]
+
+                    onActivated: cfg_cpuClockType = currentValue
+                    Component.onCompleted: currentIndex = indexOfValue(cfg_cpuClockType)
+                }
+
+                QtControls.ComboBox {
+                    QtLayouts.Layout.fillWidth: true
+                    Kirigami.FormData.label: i18n("Clock aggregator:")
+                    enabled: showCpuMonitor
+
+                    currentIndex: -1
+                    textRole: "label"
+                    valueRole: "value"
+                    model: [
                         {
                             "label": i18nc("Agregator", "Average"),
                             "value": "average"
