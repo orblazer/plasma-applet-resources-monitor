@@ -49,7 +49,7 @@ RMBaseGraph.TwoSensorsGraph {
         let data;
         let downloadValue = 0, uploadValue = 0;
         for (let i = 0; i < sensorsModel.sensors.length; i++) {
-            data = sensorsModel.getData(i);
+            data = sensorsModel.getValue(i);
             if (typeof data === "undefined") {
                 continue;
             } else if (data.sensorId.indexOf('/download') !== -1) {

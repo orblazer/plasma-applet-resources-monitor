@@ -47,32 +47,30 @@ Item {
         enabled: root.visible
 
         /**
-         * Get the data from sensor
+         * Get the value and sensor ID from sensor
          * @param {number} column The sensors index
          * @returns The data value, formatted value and sensor id
          */
-        function getData(column) {
+        function getValue(column) {
             if (!hasIndex(0, column)) {
                 return undefined;
             }
             const indexVar = index(0, column);
-            const value = data(indexVar, Sensors.SensorDataModel.Value);
-            const res = {
+            return {
                 "sensorId": data(indexVar, Sensors.SensorDataModel.SensorId),
-                "value": value
+                "value": data(indexVar, Sensors.SensorDataModel.Value)
             };
-            return res;
         }
 
         /**
-         * Get info from sensor
+         * Get data from sensor
          * @param {number} column The sensor index
          * @param {number} role The role id
-         * @returns The sensor info
+         * @returns The sensor data
          */
-        function getInfo(column, role = Sensors.SensorDataModel.Value) {
+        function getData(column, role = Sensors.SensorDataModel.Value) {
             if (!hasIndex(0, column)) {
-                return 0;
+                return undefined;
             }
             return data(index(0, column), role);
         }
@@ -105,7 +103,12 @@ Item {
     }
     property var _update: () => {
         for (let i = 0; i < sensorsModel.sensors.length; i++) {
-            root._insertChartData(i, sensorsModel.getInfo(i));
+            const data = sensorsModel.getData(i);
+            // Skip not founded sensor
+            if (typeof data === 'undefined') {
+                continue;
+            }
+            const value = root._insertChartData(i, data);
 
             // Update label
             if (textContainer.enabled && textContainer.valueVisible) {
@@ -131,7 +134,7 @@ Item {
         if (typeof label === "undefined" || !label.enabled) {
             return;
         }
-        const data = sensorsModel.getData(index);
+        const data = sensorsModel.getValue(index);
         if (typeof data === 'undefined') {
             return;
         }
@@ -161,6 +164,6 @@ Item {
 
     property var _formatValue: _defaultFormatValue
     function _defaultFormatValue(index, data) {
-        return Formatter.Formatter.formatValueShowNull(data.value, sensorsModel.getInfo(index, Sensors.SensorDataModel.Unit));
+        return Formatter.Formatter.formatValueShowNull(data.value, sensorsModel.getData(index, Sensors.SensorDataModel.Unit));
     }
 }

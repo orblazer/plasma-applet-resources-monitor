@@ -40,7 +40,7 @@ RMBaseGraph.TwoSensorsGraph {
     // Override methods, for handle memeory in percent
     _update: () => {
         for (let i = 0; i < sensorsModel.sensors.length; i++) {
-            let value = sensorsModel.getInfo(i);
+            let value = sensorsModel.getValue(i);
             if (i === 1 && plasmoid.configuration.gpuMemoryInPercent) {
                 value = (value / maxQueryModel.maxMemory) * 100;
             }
