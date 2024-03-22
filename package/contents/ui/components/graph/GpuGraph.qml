@@ -10,6 +10,7 @@ RMBaseGraph.TwoSensorsGraph {
 
     // Config options
     property color temperatureColor: Functions.getColor("gpuTemperatureColor")
+    property bool memoryInPercent: plasmoid.configuration.gpuMemoryUnit.endsWith("-percent")
 
     // Bind config changes
     Connections {
@@ -32,11 +33,11 @@ RMBaseGraph.TwoSensorsGraph {
     // Graph options
     // NOTE: "sensorsModel.sensors" set from "maxQueryModel"
     colors: [Functions.getColor("gpuColor"), Functions.getColor("gpuMemoryColor")]
-    secondChartVisible: plasmoid.configuration.gpuMemoryGraph
+    secondChartVisible: plasmoid.configuration.gpuMemoryUnit !== "none"
 
     // Override methods, for handle memeory in percent
     _formatValue: (index, data) => {
-        if (index === 1 && plasmoid.configuration.gpuMemoryInPercent) {
+        if (index === 1 && memoryInPercent) {
             return i18nc("Percent unit", "%1%", Math.round((data.value / maxQueryModel.maxMemory) * 1000) / 10); // This is for round to 1 decimal
         }
         return _defaultFormatValue(index, data);

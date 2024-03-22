@@ -75,11 +75,13 @@
         <entry name="showGpuMonitor" type="Bool">
             <default>false</default>
         </entry>
-        <entry name="gpuMemoryInPercent" type="Bool">
-            <default>false</default>
-        </entry>
-        <entry name="gpuMemoryGraph" type="Bool">
-            <default>true</default>
+        <entry name="gpuMemoryUnit" type="String">
+            <choices>
+                <choice name="none" />
+                <choice name="memory" />
+                <choice name="memory-percent" />
+            </choices>
+            <default>memory</default>
         </entry>
         <entry name="showGpuTemperature" type="Bool">
             <default>false</default>

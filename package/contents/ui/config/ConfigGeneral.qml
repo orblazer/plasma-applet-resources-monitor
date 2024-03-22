@@ -27,12 +27,11 @@ PlasmaExtras.Representation {
     // > Network
     property string cfg_networkUnit
     // > GPU
-    property alias cfg_showGpuMonitor: showGpuMonitor.checked
-    property alias cfg_gpuMemoryInPercent: gpuMemoryInPercent.checked
-    property alias cfg_gpuMemoryGraph: gpuMemoryGraph.checked
+    property bool cfg_showGpuMonitor
+    property string cfg_gpuMemoryUnit
     property alias cfg_showGpuTemperature: showGpuTemperature.checked
     // > Disks I/O
-    property alias cfg_showDiskMonitor: showDiskMonitor.checked
+    property bool cfg_showDiskMonitor
 
     // Click action
     property string cfg_actionService
@@ -130,7 +129,7 @@ PlasmaExtras.Representation {
 
                 QtControls.ComboBox {
                     QtLayouts.Layout.fillWidth: true
-                    Kirigami.FormData.label: i18n("Clock visibility:")
+                    Kirigami.FormData.label: i18n("Second Line:")
                     enabled: showCpuMonitor
 
                     currentIndex: -1
@@ -142,11 +141,11 @@ PlasmaExtras.Representation {
                             "value": "none"
                         },
                         {
-                            "label": i18n("Classic / P-cores"),
+                            "label": i18n("Classic/P-cores clock frequency"),
                             "value": "classic"
                         },
                         {
-                            "label": i18n("E-cores"),
+                            "label": i18n("E-cores clock frequency"),
                             "value": "ecores"
                         }
                     ]
@@ -313,31 +312,57 @@ PlasmaExtras.Representation {
                     Kirigami.FormData.isSection: true
                 }
 
-                QtLayouts.GridLayout {
+                QtControls.ComboBox {
                     QtLayouts.Layout.fillWidth: true
-                    columns: 2
-                    rowSpacing: Kirigami.Units.smallSpacing
-                    columnSpacing: Kirigami.Units.largeSpacing
+                    Kirigami.FormData.label: i18n("Visibility:")
 
-                    QtControls.CheckBox {
-                        id: showGpuMonitor
-                        text: i18n("Enabled?")
-                    }
-                    QtControls.CheckBox {
-                        id: gpuMemoryGraph
-                        text: i18n("Show memory")
-                        enabled: showGpuMonitor.checked
-                    }
-                    QtControls.CheckBox {
-                        id: gpuMemoryInPercent
-                        text: i18n("Memory in percent")
-                        enabled: showGpuMonitor.checked
-                    }
-                    QtControls.CheckBox {
-                        id: showGpuTemperature
-                        text: i18n("Show temperature")
-                        enabled: showGpuMonitor.checked
-                    }
+                    currentIndex: -1
+                    textRole: "label"
+                    valueRole: "value"
+                    model: [
+                        {
+                            "label": i18n("Disabled"),
+                            "value": false
+                        },
+                        {
+                            "label": i18n("Visible"),
+                            "value": true
+                        }
+                    ]
+
+                    onActivated: cfg_showGpuMonitor = currentValue
+                    Component.onCompleted: currentIndex = indexOfValue(cfg_showGpuMonitor)
+                }
+                QtControls.ComboBox {
+                    QtLayouts.Layout.fillWidth: true
+                    Kirigami.FormData.label: i18n("Second Line:")
+                    enabled: cfg_showGpuMonitor
+
+                    currentIndex: -1
+                    textRole: "label"
+                    valueRole: "value"
+                    model: [
+                        {
+                            "label": i18n("Disabled"),
+                            "value": "none"
+                        },
+                        {
+                            "label": i18n("Memory (in KiB)"),
+                            "value": "memory"
+                        },
+                        {
+                            "label": i18n("Memory (in %)"),
+                            "value": "memory-percent"
+                        }
+                    ]
+
+                    onActivated: cfg_gpuMemoryUnit = currentValue
+                    Component.onCompleted: currentIndex = indexOfValue(cfg_gpuMemoryUnit)
+                }
+                QtControls.CheckBox {
+                    id: showGpuTemperature
+                    text: i18n("Show temperature")
+                    enabled: cfg_showGpuMonitor
                 }
 
                 // Disk I/O
@@ -350,16 +375,26 @@ PlasmaExtras.Representation {
                     Kirigami.FormData.isSection: true
                 }
 
-                QtLayouts.GridLayout {
+                QtControls.ComboBox {
                     QtLayouts.Layout.fillWidth: true
-                    columns: 2
-                    rowSpacing: Kirigami.Units.smallSpacing
-                    columnSpacing: Kirigami.Units.largeSpacing
+                    Kirigami.FormData.label: i18n("Visibility:")
 
-                    QtControls.CheckBox {
-                        id: showDiskMonitor
-                        text: i18n("Enabled?")
-                    }
+                    currentIndex: -1
+                    textRole: "label"
+                    valueRole: "value"
+                    model: [
+                        {
+                            "label": i18n("Disabled"),
+                            "value": false
+                        },
+                        {
+                            "label": i18n("Visible"),
+                            "value": true
+                        }
+                    ]
+
+                    onActivated: cfg_showDiskMonitor = currentValue
+                    Component.onCompleted: currentIndex = indexOfValue(cfg_showDiskMonitor)
                 }
             }
         }
