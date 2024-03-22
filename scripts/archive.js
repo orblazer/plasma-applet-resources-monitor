@@ -1,14 +1,15 @@
-const fs = require("fs");
-const { resolve } = require("path");
-const archive = require("archiver")("zip");
-const { version } = require("../package.json");
+import archiver from "archiver";
+import { createWriteStream } from "fs";
+import { resolve } from "path";
+import { version } from "../package.json";
 
 const source = resolve(__dirname, "../package");
-const output = fs.createWriteStream(
+const output = createWriteStream(
   resolve(__dirname, `../resourcesMonitor-fork-${version}.plasmoid`)
 );
 
 // Create archive
+const archive = archiver("zip");
 archive
   .directory(source, false)
   .pipe(output)
