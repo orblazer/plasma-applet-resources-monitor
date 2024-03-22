@@ -18,7 +18,6 @@ import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import org.kde.plasma.plasmoid 2.0
 import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.kio 1.0 as Kio
 import "./components/graph" as RMGraph
 import "./components/functions.js" as Functions
 
@@ -30,6 +29,7 @@ MouseArea {
     // Settings properties
     property bool verticalLayout: plasmoid.configuration.verticalLayout
     property double fontScale: (plasmoid.configuration.fontScale / 100)
+    property bool haveClickAction: plasmoid.configuration.clickActionCommand !== ""
 
     // Component properties
     property int itemMargin: plasmoid.configuration.graphMargin
@@ -48,12 +48,18 @@ MouseArea {
     Plasmoid.preferredRepresentation: Plasmoid.fullRepresentation
 
     // Click action
-    Kio.KRun {
-        id: kRun
+    //? NOTE: This is hacky way for replace "Kio.KRun" due to limitation of access to C++ in widget without deploying package
+    //? This have a lot limitation due to cannot open applications with `kioclient exec`, `kstart --application` or `xdg-open`.
+    PlasmaCore.DataSource {
+        id: runner
+        engine: "executable"
+        connectedSources: []
+        onNewData: disconnectSource(sourceName)
     }
-
     onClicked: {
-        kRun.openService(plasmoid.configuration.actionService);
+        if (haveClickAction) {
+            runner.connectSource(plasmoid.configuration.clickActionCommand);
+        }
     }
 
     // Global update timer

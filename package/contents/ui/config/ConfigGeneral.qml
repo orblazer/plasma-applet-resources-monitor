@@ -34,7 +34,7 @@ PlasmaExtras.Representation {
     property bool cfg_showDiskMonitor
 
     // Click action
-    property string cfg_actionService
+    property alias cfg_clickActionCommand: clickActionCommand.text
 
     // Tab bar
     header: PlasmaExtras.PlasmoidHeading {
@@ -400,89 +400,39 @@ PlasmaExtras.Representation {
         }
 
         // Click action
-        QtLayouts.ColumnLayout {
-            id: clickPage
-            spacing: Kirigami.Units.largeSpacing
-
+        Kirigami.ScrollablePage {
             Kirigami.FormLayout {
                 wideMode: true
 
-                Kirigami.SearchField {
-                    id: appsSearchField
-                    Kirigami.FormData.label: i18n("Search an application:")
+                RMControls.PredefinedTextField {
+                    id: clickActionCommand
+                    Kirigami.FormData.label: i18nc("Chart config", "Action:")
                     QtLayouts.Layout.fillWidth: true
-                    placeholderText: i18n("Application name")
-                    inputMethodHints: Qt.ImhNoPredictiveText
-                }
-            }
+                    customValueIndex: 1
 
-            // Apps list
-            PlasmaComponents.Label {
-                text: i18n("Applications")
-                font.pointSize: PlasmaCore.Theme.defaultFont.pointSize * 1.2
-            }
-
-            Item {
-                QtLayouts.Layout.fillWidth: true
-                QtLayouts.Layout.fillHeight: true
-
-                Rectangle {
-                    anchors.fill: parent
-                    color: theme.headerBackgroundColor
-                    border.color: theme.complementaryBackgroundColor
-                    border.width: 1
-                    radius: 4
-                }
-
-                PlasmaComponents.ScrollView {
-                    anchors.fill: parent
-                    anchors.margins: 10
-                    anchors.rightMargin: 5
-
-                    ListView {
-                        id: appsList
-                        clip: true
-                        interactive: true
-                        boundsBehavior: Flickable.StopAtBounds
-
-                        // this causes us to load at least one delegate
-                        // this is essential in guessing the contentHeight
-                        // which is needed to initially resize the popup
-                        cacheBuffer: 1
-
-                        model: RMComponents.AppsDetector {
-                            id: appsModel
-
-                            filterString: appsSearchField.text
-                            onFilterStringChanged: appsList.updateCurrentIndex()
-                        }
-
-                        highlight: PlasmaExtras.Highlight {
-                        }
-                        highlightMoveDuration: 0
-                        highlightMoveVelocity: -1
-
-                        delegate: RMComponents.ApplicationDelegateItem {
-                            width: root.width
-
-                            serviceName: model.menuId.replace(".desktop", "")
-                            name: model.name
-                            comment: model.comment
-                            iconName: model.iconName
-                            selected: ListView.isCurrentItem
-
-                            onClicked: {
-                                appsList.currentIndex = index;
-                                cfg_actionService = serviceName;
+                    predefinedChoices {
+                        textRole: "label"
+                        valueRole: "value"
+                        model: [
+                            {
+                                "label": i18n("Disabled"),
+                                "value": ""
+                            },
+                            {
+                                "label": i18n("Custom command"),
+                                "value": "." // Prevent collide with "disabled" state
+                            },
+                            {
+                                "label": i18n("Open Plasma system monitor"),
+                                "value": "plasma-systemmonitor"
                             }
-                        }
-
-                        Component.onCompleted: updateCurrentIndex()
-
-                        function updateCurrentIndex() {
-                            currentIndex = currentIndex = appsModel.findIndex(cfg_actionService + ".desktop");
-                        }
+                        ]
                     }
+                }
+                Kirigami.InlineMessage {
+                    visible: clickActionCommand.predefinedChoices.currentIndex == 1
+                    QtLayouts.Layout.fillWidth: true
+                    text: i18n("Command wich be executed, but this have some limitation like \"<code>kioclient exec</code>\" or other similar command not work.")
                 }
             }
         }

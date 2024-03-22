@@ -9,10 +9,6 @@
             <default>1.0</default>
         </entry>
 
-        <entry name="actionService" type="String">
-            <default>org.kde.plasma-systemmonitor</default>
-        </entry>
-
         <entry name="cpuUnit" type="String">
             <choices>
                 <choice name="none" />
@@ -89,6 +85,10 @@
 
         <entry name="showDiskMonitor" type="Bool">
             <default>false</default>
+        </entry>
+
+        <entry name="clickActionCommand" type="String">
+            <default>plasma-systemmonitor</default>
         </entry>
     </group>
 
