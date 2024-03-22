@@ -1,16 +1,13 @@
-# plasma-applet-resources-monitor (fork)
+# Resources monitor (fork) - Plasma widget
 
 Plasmoid for monitoring CPU, memory and network traffic
 
 ## Why this project ?
 
-This is for active maintain and improve the original widget.
+This project was originally developed by @kotelnik ([Resources Monitor - Pling](https://www.pling.com/p/998908)) and mostly only for porting the maintenance through KDE versions.
+But now this widget have a lot more configurations and metrics can be tracked.
 
-**Notable changes**:
-
-- Add network graph
-- Improve graphics (by using an real chart and by add more customization)
-- Fix a lot à bug
+The evolution of this project led it to a new name and the detachment of the fork.
 
 ## Installation
 
@@ -40,6 +37,6 @@ Think to [sponsor me on Paypal](https://www.paypal.me/orblazer) for help me to m
 
 1. Clone this repo
 2. Run the app
-   - *With NPM*: `npm run dev`
-   - *With Yarn*: `yarn dev`
-   - *Shell*: `./scripts/test.sh`
+   - _With NPM_: `npm run dev`
+   - _With Yarn_: `yarn dev`
+   - _Shell_: `./scripts/test.sh`
