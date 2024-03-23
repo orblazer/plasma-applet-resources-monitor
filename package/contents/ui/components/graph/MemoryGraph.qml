@@ -10,24 +10,14 @@ RMBaseGraph.TwoSensorsGraph {
 
     // Config shrotcut
     property bool showSwap: plasmoid.configuration.memorySecondUnit.startsWith("swap")
+    property var fieldInPercent: [plasmoid.configuration.memoryUnit.endsWith("-percent"), plasmoid.configuration.memorySecondUnit === "swap-percent"]
 
     // Handle config update and init
     Connections {
         target: plasmoid.configuration
         function onMemoryUnitChanged() { // Values: usage, system, user
-            const oldLimit1 = uplimits[0];
-            if (plasmoid.configuration.memoryUnit.endsWith("-percent")) {
-                uplimits = [100, 100];
-            } else {
-                uplimits = maxQueryModel.maxMemory;
-            }
-            _updateThresholds();
             _updateSensorsAndLabels();
-            if (oldLimit1 != uplimits[0]) {
-                _clear();
-            }
         }
-
         function onMemorySecondUnitChanged() {
             _updateSensorsAndLabels();
         }
@@ -59,6 +49,14 @@ RMBaseGraph.TwoSensorsGraph {
     colors: [Functions.getColor("memColor"), Functions.getColor("memSecondColor")]
     secondChartVisible: showSwap && plasmoid.configuration.historyAmount > 0
 
+    // Override methods, for handle memeory in percent
+    _formatValue: (index, data) => {
+        if (fieldInPercent[index]) {
+            return i18nc("Percent unit", "%1%", Math.round((data.value / maxQueryModel.maxMemory[index]) * 1000) / 10); // This is for round to 1 decimal
+        }
+        return _defaultFormatValue(index, data);
+    }
+
     // Initialize limits and threshold
     Sensors.SensorDataModel {
         id: maxQueryModel
@@ -77,9 +75,7 @@ RMBaseGraph.TwoSensorsGraph {
             // Update graph Y range and sensors
             if (maxMemory[0] > 0 && maxMemory[1] >= 0) {
                 enabled = false;
-                if (!plasmoid.configuration.memoryUnit.endsWith("-percent")) {
-                    root.uplimits = maxMemory;
-                }
+                root.uplimits = maxMemory;
                 root._updateThresholds();
                 root._updateSensorsAndLabels();
             }
@@ -89,11 +85,7 @@ RMBaseGraph.TwoSensorsGraph {
     function _updateThresholds() {
         const thresholdWarningMemory = plasmoid.configuration.thresholdWarningMemory;
         const thresholdCriticalMemory = plasmoid.configuration.thresholdCriticalMemory;
-        if (!plasmoid.configuration.memoryUnit.endsWith("-percent")) {
-            thresholds[0] = [maxQueryModel.maxMemory[0] * (thresholdWarningMemory / 100.0), maxQueryModel.maxMemory[0] * (thresholdCriticalMemory / 100.0)];
-        } else {
-            thresholds[0] = [thresholdWarningMemory, thresholdCriticalMemory];
-        }
+        thresholds[0] = [maxQueryModel.maxMemory[0] * (thresholdWarningMemory / 100.0), maxQueryModel.maxMemory[0] * (thresholdCriticalMemory / 100.0)];
     }
     function _updateSensorsAndLabels() {
         const info = plasmoid.configuration.memoryUnit.split("-");
@@ -101,8 +93,7 @@ RMBaseGraph.TwoSensorsGraph {
 
         // Define sensors and second label
         const type = info[0] === "physical" ? "used" : "application";
-        const suffix = info[1] === "percent" ? "Percent" : "";
-        const firstSensor = "memory/physical/" + type + suffix;
+        const firstSensor = "memory/physical/" + type;
         let secondSensor;
         switch (plasmoid.configuration.memorySecondUnit) {
         case "memory-percent":
@@ -110,11 +101,8 @@ RMBaseGraph.TwoSensorsGraph {
             textContainer.labels[1] = i18nc("Graph label", "Percent.");
             break;
         case "swap":
-            secondSensor = "memory/swap/used";
-            textContainer.labels[1] = "Swap";
-            break;
         case "swap-percent":
-            secondSensor = "memory/swap/usedPercent";
+            secondSensor = "memory/swap/used";
             textContainer.labels[1] = "Swap";
             break;
         case "none":
