@@ -1,5 +1,4 @@
 import QtQuick 2.15
-import QtGraphicalEffects 1.15
 import org.kde.plasma.plasmoid 2.0
 import org.kde.plasma.components 3.0 as PlasmaComponents
 
@@ -64,6 +63,8 @@ Item {
 
             text: "..."
             color: getTextColor(index)
+            style: plasmoid.configuration.enableShadows ? Text.Outline : Text.Normal
+            styleColor: theme.backgroundColor
             font.pointSize: -1
         }
         PlasmaComponents.Label {
@@ -74,6 +75,8 @@ Item {
 
             text: "..."
             color: getTextColor(index)
+            style: plasmoid.configuration.enableShadows ? Text.Outline : Text.Normal
+            styleColor: theme.backgroundColor
             font.pointSize: -1
         }
         PlasmaComponents.Label {
@@ -84,6 +87,8 @@ Item {
 
             text: "..."
             color: getTextColor(index)
+            style: plasmoid.configuration.enableShadows ? Text.Outline : Text.Normal
+            styleColor: theme.backgroundColor
             font.pointSize: -1
         }
 
@@ -170,16 +175,6 @@ Item {
                 }
             }
         ]
-    }
-
-    DropShadow {
-        visible: plasmoid.configuration.enableShadows
-        anchors.fill: textContainer
-        radius: 1
-        spread: 1
-        fast: true
-        color: theme.backgroundColor
-        source: textContainer
     }
 
     // Action

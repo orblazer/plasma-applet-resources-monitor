@@ -14,9 +14,6 @@ The evolution of this project led it to a new name and the detachment of the for
 1. Install the **required dependencies** :
 
    - `libksysguard` (normally include by default)
-   - `qt5-graphicaleffects`
-
-     e.g. package for kubuntu users: `libqt5qml-graphicaleffects`
 
 2. Install the widget :
 
