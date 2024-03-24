@@ -1,9 +1,9 @@
-import QtQuick 2.15
-import QtQuick.Layouts 1.15 as QtLayouts
-import QtQuick.Controls 2.0 as QQC2
-import QtQuick.Dialogs 1.0 as QtDialog
-import org.kde.plasma.components 3.0 as PlasmaComponents
-import org.kde.kirigami 2.20 as Kirigami
+import QtQuick
+import QtQuick.Layouts as QtLayouts
+import QtQuick.Controls as QQC2
+import QtQuick.Dialogs as QtDialog
+import org.kde.plasma.components as PlasmaComponents
+import org.kde.kirigami as Kirigami
 
 QtLayouts.RowLayout {
     spacing: Kirigami.Units.largeSpacing
@@ -87,13 +87,13 @@ QtLayouts.RowLayout {
     Rectangle {
         QtLayouts.Layout.preferredHeight: parent.height
         QtLayouts.Layout.preferredWidth: parent.height
-        color: value.startsWith("#") ? value : theme[value]
+        color: (value.startsWith("#") ? value : Kirigami.Theme[value]) || "#000"
         radius: 2
     }
 
     QtDialog.ColorDialog {
         id: colorDialog
-        currentColor: value
-        onAccepted: value = currentColor
+        selectedColor: value
+        onAccepted: value = selectedColor
     }
 }

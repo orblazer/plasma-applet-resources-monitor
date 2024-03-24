@@ -1,6 +1,6 @@
-import QtQuick 2.15
-import org.kde.kitemmodels 1.0 as KItemModels
-import org.kde.ksysguard.sensors 1.0 as Sensors
+import QtQuick
+import org.kde.kitemmodels as KItemModels
+import org.kde.ksysguard.sensors as Sensors
 
 KItemModels.KSortFilterProxyModel {
     id: detector

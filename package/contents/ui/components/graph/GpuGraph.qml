@@ -1,39 +1,39 @@
-import QtQuick 2.15
-import org.kde.plasma.plasmoid 2.0
-import org.kde.ksysguard.sensors 1.0 as Sensors
+import QtQuick
+import org.kde.plasma.plasmoid
+import org.kde.ksysguard.sensors as Sensors
 import "./base" as RMBaseGraph
-import "../functions.js" as Functions
+import "../functions.mjs" as Functions
 
 RMBaseGraph.TwoSensorsGraph {
     id: root
     objectName: "GpuGraph"
 
     // Config options
-    property color temperatureColor: Functions.getColor("gpuTemperatureColor")
-    property bool memoryInPercent: plasmoid.configuration.gpuMemoryUnit.endsWith("-percent")
+    property color temperatureColor: Functions.resolveColor(Plasmoid.configuration.gpuTemperatureColor)
+    property bool memoryInPercent: Plasmoid.configuration.gpuMemoryUnit.endsWith("-percent")
 
     // Bind config changes
     Connections {
-        target: plasmoid.configuration
+        target: Plasmoid.configuration
         function onGpuIndexChanged() {
             maxQueryModel.enabled = true
         }
     }
 
     // Labels
-    thresholds: [undefined, undefined, [plasmoid.configuration.thresholdWarningGpuTemp, plasmoid.configuration.thresholdCriticalGpuTemp]]
+    thresholds: [undefined, undefined, [Plasmoid.configuration.thresholdWarningGpuTemp, Plasmoid.configuration.thresholdCriticalGpuTemp]]
 
     textContainer {
         labelColors: [root.colors[0], root.colors[1], temperatureColor]
         valueColors: [undefined, undefined, temperatureColor]
 
-        labels: ["GPU", (secondChartVisible ? "VRAM" : ""), (plasmoid.configuration.showGpuTemperature ? i18nc("Graph label", "Temp.") : "")]
+        labels: ["GPU", (secondChartVisible ? "VRAM" : ""), (Plasmoid.configuration.showGpuTemperature ? i18nc("Graph label", "Temp.") : "")]
     }
 
     // Graph options
     // NOTE: "sensorsModel.sensors" set from "maxQueryModel"
-    colors: [Functions.getColor("gpuColor"), Functions.getColor("gpuMemoryColor")]
-    secondChartVisible: plasmoid.configuration.gpuMemoryUnit !== "none"
+    colors: [Functions.resolveColor(Plasmoid.configuration.gpuColor), Functions.resolveColor(Plasmoid.configuration.gpuMemoryColor)]
+    secondChartVisible: Plasmoid.configuration.gpuMemoryUnit !== "none"
 
     // Override methods, for handle memeory in percent
     _formatValue: (index, data) => {
@@ -46,7 +46,7 @@ RMBaseGraph.TwoSensorsGraph {
     // Initialize limits and threshold
     Sensors.SensorDataModel {
         id: maxQueryModel
-        sensors: ["gpu/" + plasmoid.configuration.gpuIndex + "/totalVram"]
+        sensors: ["gpu/" + Plasmoid.configuration.gpuIndex + "/totalVram"]
         enabled: true
         property int maxMemory: -1
 
@@ -63,7 +63,7 @@ RMBaseGraph.TwoSensorsGraph {
             root.uplimits = [100, maxMemory];
 
             // Update sensors
-            const gpu = plasmoid.configuration.gpuIndex
+            const gpu = Plasmoid.configuration.gpuIndex
             root.sensorsModel.sensors = ["gpu/" + gpu + "/usage", "gpu/" + gpu + "/usedVram", "gpu/" + gpu + "/temperature"];
         }
     }

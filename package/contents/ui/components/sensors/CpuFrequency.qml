@@ -1,12 +1,13 @@
-import QtQuick 2.15
-import org.kde.ksysguard.sensors 1.0 as Sensors
-import org.kde.ksysguard.formatter 1.0 as Formatter
+import QtQuick
+import org.kde.ksysguard.sensors as Sensors
+import org.kde.ksysguard.formatter as Formatter
 
 Sensors.SensorDataModel {
     id: root
     property int _coreCount
 
     property string agregator: "average" // Possible value: average, minimum, maximum
+    property int eCoresCount: 0
 
     signal ready
 
@@ -15,7 +16,7 @@ Sensors.SensorDataModel {
     }
 
     function getValue(eCores = false) {
-        const pCoresCount = _coreCount - plasmoid.configuration.cpuECoresCount;
+        const pCoresCount = _coreCount - eCoresCount;
         // Retrieve cores frequencies
         let values = [];
         const start = eCores ? pCoresCount : 0;

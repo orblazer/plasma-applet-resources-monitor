@@ -1,25 +1,24 @@
-import QtQuick 2.15
-import QtQuick.Controls 2.15 as QtControls
-import QtQuick.Layouts 1.15 as QtLayouts
-import org.kde.kirigami 2.20 as Kirigami
-import org.kde.plasma.plasmoid 2.0
-import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.plasma.components 3.0 as PlasmaComponents
-import org.kde.plasma.extras 2.0 as PlasmaExtras
+import QtQuick
+import QtQuick.Controls as QtControls
+import QtQuick.Layouts as QtLayouts
+import org.kde.kirigami as Kirigami
+import org.kde.kcmutils as KCM
+import org.kde.plasma.plasmoid
+import org.kde.plasma.components as PlasmaComponents
 import "../components" as RMComponents
 import "../controls" as RMControls
-import "../components/functions.js" as Functions
+import "../components/functions.mjs" as Functions
 
-PlasmaExtras.Representation {
-    id: dataPage
-    anchors.fill: parent
+KCM.AbstractKCM {
+    // Make pages fill the whole view by default
+    Kirigami.ColumnView.fillWidth: true
 
     // CPU
     property alias cfg_cpuECoresCount: cpuECoresCount.value
 
     // Network
-    readonly property var networkDialect: Functions.getNetworkDialectInfo(plasmoid.configuration.networkUnit)
-    property var cfg_ignoredNetworkInterfaces
+    readonly property var networkDialect: Functions.getNetworkDialectInfo(Plasmoid.configuration.networkUnit, i18nc)
+    property var cfg_ignoredNetworkInterfaces: []
     property alias cfg_networkReceivingTotal: networkReceiving.realValue
     property alias cfg_networkSendingTotal: networkSending.realValue
 
@@ -135,36 +134,29 @@ PlasmaExtras.Representation {
     }
 
     // Tab bar
-    header: PlasmaExtras.PlasmoidHeading {
-        location: PlasmaExtras.PlasmoidHeading.Location.Header
+    header: PlasmaComponents.TabBar {
+        id: bar
 
-        PlasmaComponents.TabBar {
-            id: bar
-
-            position: PlasmaComponents.TabBar.Header
-            anchors.fill: parent
-            implicitHeight: contentHeight
-
-            PlasmaComponents.TabButton {
-                icon.name: "settings"
-                icon.height: PlasmaCore.Units.iconSizes.smallMedium
-                text: i18nc("Config header", "General")
-            }
-            PlasmaComponents.TabButton {
-                icon.name: "dialog-warning"
-                icon.height: PlasmaCore.Units.iconSizes.smallMedium
-                text: i18nc("Config header", "Thresholds")
-            }
+        PlasmaComponents.TabButton {
+            icon.name: "settings"
+            icon.height: Kirigami.Units.iconSizes.smallMedium
+            text: i18nc("Config header", "General")
+        }
+        PlasmaComponents.TabButton {
+            icon.name: "dialog-warning"
+            icon.height: Kirigami.Units.iconSizes.smallMedium
+            text: i18nc("Config header", "Thresholds")
         }
     }
 
-    QtLayouts.StackLayout {
-        id: pageContent
+    Kirigami.ScrollablePage {
         anchors.fill: parent
-        currentIndex: bar.currentIndex
 
-        // General
-        Kirigami.ScrollablePage {
+        QtLayouts.StackLayout {
+            currentIndex: bar.currentIndex
+            QtLayouts.Layout.fillWidth: true
+
+            // General
             Kirigami.FormLayout {
                 wideMode: true
 
@@ -172,6 +164,7 @@ PlasmaExtras.Representation {
                 Kirigami.Separator {
                     Kirigami.FormData.label: i18nc("Chart name", "CPU")
                     Kirigami.FormData.isSection: true
+                    QtLayouts.Layout.minimumWidth: 200 // Prevent too small inputs
                 }
 
                 // Define Number of E-Cores, it's used for separating Intel
@@ -366,10 +359,8 @@ PlasmaExtras.Representation {
                     }
                 }
             }
-        }
 
-        // Thresholds
-        Kirigami.ScrollablePage {
+            // Thresholds
             Kirigami.FormLayout {
                 id: thresholdsPage
                 wideMode: true
@@ -396,14 +387,14 @@ PlasmaExtras.Representation {
                     PlasmaComponents.Label {
                         id: warningHeader
                         text: i18n("Warning")
-                        font.pointSize: PlasmaCore.Theme.defaultFont.pointSize * 1.2
+                        font.pointSize: Kirigami.Theme.defaultFont.pointSize * 1.2
                         QtLayouts.Layout.preferredWidth: thresholdsPage.preferredWidth
                     }
 
                     PlasmaComponents.Label {
                         id: criticalHeader
                         text: i18n("Critical")
-                        font.pointSize: PlasmaCore.Theme.defaultFont.pointSize * 1.2
+                        font.pointSize: Kirigami.Theme.defaultFont.pointSize * 1.2
                     }
                 }
 

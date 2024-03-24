@@ -1,5 +1,5 @@
-import QtQuick 2.15
-import org.kde.plasma.plasmoid 2.0
+import QtQuick
+import org.kde.plasma.plasmoid
 import "./base" as RMBaseGraph
 import "../" as RMComponents
 import "../functions.js" as Functions
@@ -8,10 +8,10 @@ RMBaseGraph.TwoSensorsGraph {
     id: root
     objectName: "NetworkGraph"
 
-    property var dialect: Functions.getNetworkDialectInfo(plasmoid.configuration.networkUnit)
+    property var dialect: Functions.getNetworkDialectInfo(Plasmoid.configuration.networkUnit, i18nc)
 
     Connections {
-        target: plasmoid.configuration
+        target: Plasmoid.configuration
         function onIgnoredNetworkInterfacesChanged() {
             _updateSensors();
         }
@@ -32,7 +32,7 @@ RMBaseGraph.TwoSensorsGraph {
     }
 
     // Graph options
-    colors: [Functions.getColor("netDownColor"), Functions.getColor("netUpColor")]
+    colors: [Functions.resolveColor(Plasmoid.configuration.netDownColor), Functions.resolveColor(Plasmoid.configuration.netUpColor)]
 
     // Initialized sensors
     RMComponents.NetworkInterfaceDetector {
@@ -102,7 +102,7 @@ RMBaseGraph.TwoSensorsGraph {
             if (typeof name === 'undefined') {
                 continue;
             }
-            if (plasmoid.configuration.ignoredNetworkInterfaces.indexOf(name) === -1) {
+            if (Plasmoid.configuration.ignoredNetworkInterfaces.indexOf(name) === -1) {
                 sensors.push("network/" + name + "/download", "network/" + name + "/upload");
             }
         }
@@ -111,6 +111,6 @@ RMBaseGraph.TwoSensorsGraph {
     }
 
     function _updateUplimits() {
-        uplimits = [plasmoid.configuration.networkReceivingTotal * dialect.multiplier, plasmoid.configuration.networkSendingTotal * dialect.multiplier];
+        uplimits = [Plasmoid.configuration.networkReceivingTotal * dialect.multiplier, Plasmoid.configuration.networkSendingTotal * dialect.multiplier];
     }
 }

@@ -1,26 +1,27 @@
-import QtQuick 2.15
-import QtQuick.Controls 2.15 as QtControls
-import QtQuick.Layouts 1.15 as QtLayouts
-import org.kde.kirigami 2.20 as Kirigami
-import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.plasma.plasmoid 2.0
-import org.kde.plasma.components 3.0 as PlasmaComponents
-import org.kde.plasma.extras 2.0 as PlasmaExtras
+import QtQuick
+import QtQuick.Controls as QtControls
+import QtQuick.Layouts as QtLayouts
+import org.kde.kirigami as Kirigami
+import org.kde.kcmutils as KCM
+import org.kde.plasma.plasmoid
+import org.kde.plasma.components as PlasmaComponents
 import "../components" as RMComponents
 import "../controls" as RMControls
 
-PlasmaExtras.Representation {
-    id: page
-    anchors.fill: parent
+KCM.AbstractKCM {
+    // Make pages fill the whole view by default
+    Kirigami.ColumnView.fillWidth: true
 
     // Charts
     property alias cfg_updateInterval: updateInterval.realValue
+    // property int cfg_updateInterval
     // > CPU
     property string cfg_cpuUnit
     property bool showCpuMonitor: cfg_cpuUnit !== "none"
     property string cfg_cpuClockType
     property string cfg_cpuClockAgregator
     property alias cfg_showCpuTemperature: showCpuTemperature.checked
+    // property bool cfg_showCpuTemperature
     // > Memory
     property string cfg_memoryUnit
     property string cfg_memorySecondUnit
@@ -30,6 +31,7 @@ PlasmaExtras.Representation {
     property bool cfg_showGpuMonitor
     property string cfg_gpuMemoryUnit
     property alias cfg_showGpuTemperature: showGpuTemperature.checked
+    // property bool cfg_showGpuTemperature
     // > Disks I/O
     property bool cfg_showDiskMonitor
 
@@ -37,36 +39,29 @@ PlasmaExtras.Representation {
     property alias cfg_clickActionCommand: clickActionCommand.text
 
     // Tab bar
-    header: PlasmaExtras.PlasmoidHeading {
-        location: PlasmaExtras.PlasmoidHeading.Location.Header
+    header: PlasmaComponents.TabBar {
+        id: bar
 
-        PlasmaComponents.TabBar {
-            id: bar
-
-            position: PlasmaComponents.TabBar.Header
-            anchors.fill: parent
-            implicitHeight: contentHeight
-
-            PlasmaComponents.TabButton {
-                icon.name: "settings"
-                icon.height: PlasmaCore.Units.iconSizes.smallMedium
-                text: i18nc("Config header", "General")
-            }
-            PlasmaComponents.TabButton {
-                icon.name: "input-mouse-symbolic"
-                icon.height: PlasmaCore.Units.iconSizes.smallMedium
-                text: i18nc("Config header", "Click action")
-            }
+        PlasmaComponents.TabButton {
+            icon.name: "settings"
+            icon.height: Kirigami.Units.iconSizes.smallMedium
+            text: i18nc("Config header", "General")
+        }
+        PlasmaComponents.TabButton {
+            icon.name: "input-mouse-symbolic"
+            icon.height: Kirigami.Units.iconSizes.smallMedium
+            text: i18nc("Config header", "Click action")
         }
     }
 
-    QtLayouts.StackLayout {
-        id: pageContent
+    Kirigami.ScrollablePage {
         anchors.fill: parent
-        currentIndex: bar.currentIndex
 
-        // General
-        Kirigami.ScrollablePage {
+        QtLayouts.StackLayout {
+            currentIndex: bar.currentIndex
+            QtLayouts.Layout.fillWidth: true
+
+            // General
             Kirigami.FormLayout {
                 wideMode: true
 
@@ -397,10 +392,8 @@ PlasmaExtras.Representation {
                     Component.onCompleted: currentIndex = indexOfValue(cfg_showDiskMonitor)
                 }
             }
-        }
 
-        // Click action
-        Kirigami.ScrollablePage {
+            // Click action
             Kirigami.FormLayout {
                 wideMode: true
 

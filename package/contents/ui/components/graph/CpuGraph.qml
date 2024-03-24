@@ -1,21 +1,22 @@
-import QtQuick 2.15
-import org.kde.plasma.plasmoid 2.0
+import QtQuick
+import org.kde.plasma.plasmoid
+import org.kde.kirigami as Kirigami
 import "./base" as RMBaseGraph
 import "../sensors" as RMSensors
-import "../functions.js" as Functions
+import "../functions.mjs" as Functions
 
 RMBaseGraph.SensorGraph {
     id: root
     objectName: "CpuGraph"
 
     // Config shrotcut
-    property bool showClock: plasmoid.configuration.cpuClockType !== "none"
-    property bool clockIsEcores: plasmoid.configuration.cpuClockType === "ecores"
-    property color temperatureColor: Functions.getColor("cpuTemperatureColor")
+    property bool showClock: Plasmoid.configuration.cpuClockType !== "none"
+    property bool clockIsEcores: Plasmoid.configuration.cpuClockType === "ecores"
+    property color temperatureColor: Functions.resolveColor(Plasmoid.configuration.cpuTemperatureColor)
 
     // Handle config update
     Connections {
-        target: plasmoid.configuration
+        target: Plasmoid.configuration
         function onCpuUnitChanged() {
             _updateSensors();
         }
@@ -23,7 +24,7 @@ RMBaseGraph.SensorGraph {
 
     // Graph options
     // NOTE: "sensorsModel.sensors" is set by "_updateSensors"
-    chartColor: Functions.getColor("cpuColor")
+    chartColor: Functions.resolveColor(Plasmoid.configuration.cpuColor)
 
     chart.yRange {
         from: 0
@@ -31,13 +32,13 @@ RMBaseGraph.SensorGraph {
     }
 
     // Labels options
-    thresholds: [undefined, undefined, [plasmoid.configuration.thresholdWarningCpuTemp, plasmoid.configuration.thresholdCriticalCpuTemp]]
+    thresholds: [undefined, undefined, [Plasmoid.configuration.thresholdWarningCpuTemp, Plasmoid.configuration.thresholdCriticalCpuTemp]]
 
     textContainer {
         labelColors: [root.chartColor, undefined, temperatureColor]
         valueColors: [undefined, undefined, temperatureColor]
 
-        labels: ["CPU", (showClock ? i18nc("Graph label", "Clock") : ""), (plasmoid.configuration.showCpuTemperature ? i18nc("Graph label", "Temp.") : "")]
+        labels: ["CPU", (showClock ? i18nc("Graph label", "Clock") : ""), (Plasmoid.configuration.showCpuTemperature ? i18nc("Graph label", "Temp.") : "")]
     }
 
     // CPU frequency handle
@@ -51,12 +52,13 @@ RMBaseGraph.SensorGraph {
     RMSensors.CpuFrequency {
         id: cpuFrequenry
         enabled: showClock
-        agregator: plasmoid.configuration.cpuClockAgregator
+        agregator: Plasmoid.configuration.cpuClockAgregator
+        eCoresCount: Plasmoid.configuration.cpuECoresCount
 
         onReady: _updateSensors()
     }
 
     function _updateSensors() {
-        sensorsModel.sensors = ["cpu/all/" + plasmoid.configuration.cpuUnit, "cpu/cpu0/frequency", "cpu/cpu0/temperature"];
+        sensorsModel.sensors = ["cpu/all/" + Plasmoid.configuration.cpuUnit, "cpu/cpu0/frequency", "cpu/cpu0/temperature"];
     }
 }

@@ -1,6 +1,7 @@
-import QtQuick 2.15
-import org.kde.plasma.plasmoid 2.0
-import org.kde.quickcharts 1.0 as Charts
+import QtQuick
+import org.kde.plasma.plasmoid
+import org.kde.quickcharts as Charts
+import org.kde.kirigami as Kirigami
 import "./" as RMBaseGraph
 
 RMBaseGraph.BaseSensorGraph {
@@ -10,16 +11,16 @@ RMBaseGraph.BaseSensorGraph {
     property alias chart: chart
 
     // Graph properties
-    property color chartColor: theme.highlightColor
+    property color chartColor: Kirigami.Theme.highlightColor
 
     // Graph
     Charts.LineChart {
         id: chart
         anchors.fill: parent
-        visible: plasmoid.configuration.historyAmount > 0
+        visible: Plasmoid.configuration.historyAmount > 0
 
         direction: Charts.XYChart.ZeroAtEnd
-        fillOpacity: plasmoid.configuration.graphFillOpacity / 100
+        fillOpacity: Plasmoid.configuration.graphFillOpacity / 100
         smooth: true
         yRange.automatic: false
 
@@ -29,7 +30,7 @@ RMBaseGraph.BaseSensorGraph {
         valueSources: [
             RMBaseGraph.ArrayDataSource {
                 id: chartData
-                maximumHistory: plasmoid.configuration.historyAmount
+                maximumHistory: Plasmoid.configuration.historyAmount
             }
         ]
     }

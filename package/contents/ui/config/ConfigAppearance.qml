@@ -1,17 +1,15 @@
-import QtQuick 2.15
-import QtQuick.Controls 2.15 as QtControls
-import QtQuick.Layouts 1.15 as QtLayouts
-import org.kde.kirigami 2.20 as Kirigami
-import org.kde.plasma.plasmoid 2.0
-import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.plasma.components 3.0 as PlasmaComponents
-import org.kde.plasma.extras 2.0 as PlasmaExtras
+import QtQuick
+import QtQuick.Controls as QtControls
+import QtQuick.Layouts as QtLayouts
+import org.kde.kirigami as Kirigami
+import org.kde.kcmutils as KCM
+import org.kde.plasma.plasmoid
+import org.kde.plasma.components as PlasmaComponents
 import "../controls" as RMControls
-import "../components" as RMComponents
 
-PlasmaExtras.Representation {
-    id: page
-    anchors.fill: parent
+KCM.AbstractKCM {
+    // Make pages fill the whole view by default
+    Kirigami.ColumnView.fillWidth: true
 
     // Chart
     property alias cfg_verticalLayout: verticalLayout.checked
@@ -22,7 +20,7 @@ PlasmaExtras.Representation {
     property alias cfg_graphHeight: graphHeight.value
     property alias cfg_graphMargin: graphMargin.value
     property alias cfg_graphFillOpacity: graphFillOpacity.value
-    property var cfg_graphOrders
+    property var cfg_graphOrders: []
 
     // Text
     property alias cfg_enableShadows: enableShadows.checked
@@ -50,12 +48,6 @@ PlasmaExtras.Representation {
     // > Threshold
     property alias cfg_warningColor: warningColor.value
     property alias cfg_criticalColor: criticalColor.value
-
-    property color textColor: theme.textColor
-    property color primaryColor: theme.highlightColor
-    property color positiveColor: theme.positiveTextColor
-    property color neutralColor: theme.neutralTextColor
-    property color negativeColor: theme.negativeTextColor
 
     property var monitors: {
         "cpu": {
@@ -86,41 +78,34 @@ PlasmaExtras.Representation {
     }
 
     // Tab bar
-    header: PlasmaExtras.PlasmoidHeading {
-        location: PlasmaExtras.PlasmoidHeading.Location.Header
+    header: PlasmaComponents.TabBar {
+        id: bar
 
-        PlasmaComponents.TabBar {
-            id: bar
-
-            position: PlasmaComponents.TabBar.Header
-            anchors.fill: parent
-            implicitHeight: contentHeight
-
-            PlasmaComponents.TabButton {
-                icon.name: "office-chart-line-stacked"
-                icon.height: PlasmaCore.Units.iconSizes.smallMedium
-                text: i18nc("Config header", "Charts")
-            }
-            PlasmaComponents.TabButton {
-                icon.name: "dialog-text-and-font"
-                icon.height: PlasmaCore.Units.iconSizes.smallMedium
-                text: i18nc("Config header", "Text")
-            }
-            PlasmaComponents.TabButton {
-                icon.name: "color-select"
-                icon.height: PlasmaCore.Units.iconSizes.smallMedium
-                text: i18nc("Config header", "Colors")
-            }
+        PlasmaComponents.TabButton {
+            icon.name: "office-chart-line-stacked"
+            icon.height: Kirigami.Units.iconSizes.smallMedium
+            text: i18nc("Config header", "Charts")
+        }
+        PlasmaComponents.TabButton {
+            icon.name: "dialog-text-and-font"
+            icon.height: Kirigami.Units.iconSizes.smallMedium
+            text: i18nc("Config header", "Text")
+        }
+        PlasmaComponents.TabButton {
+            icon.name: "color-select"
+            icon.height: Kirigami.Units.iconSizes.smallMedium
+            text: i18nc("Config header", "Colors")
         }
     }
 
-    QtLayouts.StackLayout {
-        id: pageContent
+    Kirigami.ScrollablePage {
         anchors.fill: parent
-        currentIndex: bar.currentIndex
 
-        // Charts
-        Kirigami.ScrollablePage {
+        QtLayouts.StackLayout {
+            currentIndex: bar.currentIndex
+            QtLayouts.Layout.fillWidth: true
+
+            // Charts
             Kirigami.FormLayout {
                 id: graphPage
                 wideMode: true
@@ -181,15 +166,21 @@ PlasmaExtras.Representation {
                     id: graphWidth
                     Kirigami.FormData.label: i18n("Width:")
                     QtLayouts.Layout.fillWidth: true
-                    from: 20
-                    to: 1000
+
+                    spinBox {
+                        from: 20
+                        to: 1000
+                    }
                 }
                 RMControls.CustomizableSize {
                     id: graphHeight
                     Kirigami.FormData.label: i18n("Height:")
                     QtLayouts.Layout.fillWidth: true
-                    from: 20
-                    to: 1000
+
+                    spinBox {
+                        from: 20
+                        to: 1000
+                    }
                 }
                 RMControls.SpinBox {
                     id: graphMargin
@@ -243,7 +234,10 @@ PlasmaExtras.Representation {
                         }
                     }
 
-                    delegate: Kirigami.DelegateRecycler {
+                    delegate: Loader {
+                        required property var index
+                        required property var model
+
                         width: graphsList.width
                         sourceComponent: delegateComponent
 
@@ -259,13 +253,22 @@ PlasmaExtras.Representation {
                         }
                     }
 
+                    // Background
+                    Rectangle {
+                        z: -1
+                        Kirigami.Theme.colorSet: Kirigami.Theme.View
+                        Kirigami.Theme.inherit: false
+                        color: Kirigami.Theme.backgroundColor
+                        anchors.fill: parent
+                    }
+
+                    // Item
                     Component {
                         id: delegateComponent
-                        Kirigami.AbstractListItem {
+                        QtControls.ItemDelegate {
                             id: listItem
-
-                            backgroundColor: theme.headerBackgroundColor
-                            separatorVisible: true
+                            hoverEnabled: true
+                            Kirigami.Theme.useAlternateBackgroundColor: Kirigami.Theme.alternateBackgroundColor
 
                             contentItem: QtLayouts.RowLayout {
                                 spacing: Kirigami.Units.largeSpacing
@@ -280,9 +283,9 @@ PlasmaExtras.Representation {
                                     }
                                 }
 
-                                PlasmaCore.IconItem {
+                                Kirigami.Icon {
                                     source: model.icon
-                                    width: PlasmaCore.Units.iconSizes.smallMedium
+                                    width: Kirigami.Units.iconSizes.smallMedium
                                     height: width
                                 }
                                 PlasmaComponents.Label {
@@ -294,10 +297,8 @@ PlasmaExtras.Representation {
                     }
                 }
             }
-        }
 
-        // Text
-        Kirigami.ScrollablePage {
+            // Text
             Kirigami.FormLayout {
                 id: textPage
                 wideMode: true
@@ -379,10 +380,8 @@ PlasmaExtras.Representation {
                     Component.onCompleted: currentIndex = indexOfValue(cfg_placement)
                 }
             }
-        }
 
-        // Colors
-        Kirigami.ScrollablePage {
+            // Colors
             Kirigami.FormLayout {
                 id: colorsPage
 

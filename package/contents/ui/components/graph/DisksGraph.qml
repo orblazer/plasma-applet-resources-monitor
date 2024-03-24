@@ -1,16 +1,16 @@
-import QtQuick 2.15
-import org.kde.plasma.plasmoid 2.0
+import QtQuick
+import org.kde.plasma.plasmoid
 import "./base" as RMBaseGraph
-import "../functions.js" as Functions
+import "../functions.mjs" as Functions
 
 RMBaseGraph.TwoSensorsGraph {
     id: root
     objectName: "DisksGraph"
 
-    readonly property var diskIoDialect: Functions.getNetworkDialectInfo("kibibyte")
+    readonly property var diskIoDialect: Functions.getNetworkDialectInfo("kibibyte", i18nc)
 
     Connections {
-        target: plasmoid.configuration
+        target: Plasmoid.configuration
         function onDiskReadTotalChanged() {
             _updateUplimits();
         }
@@ -30,9 +30,9 @@ RMBaseGraph.TwoSensorsGraph {
 
     // Graph options
     sensorsModel.sensors: ["disk/all/read", "disk/all/write"]
-    colors: [Functions.getColor("diskReadColor"), Functions.getColor("diskWriteColor")]
+    colors: [Functions.resolveColor(Plasmoid.configuration.diskReadColor), Functions.resolveColor(Plasmoid.configuration.diskWriteColor)]
 
     function _updateUplimits() {
-        uplimits = [plasmoid.configuration.diskReadTotal * diskIoDialect.multiplier, plasmoid.configuration.diskWriteTotal * diskIoDialect.multiplier];
+        uplimits = [Plasmoid.configuration.diskReadTotal * diskIoDialect.multiplier, Plasmoid.configuration.diskWriteTotal * diskIoDialect.multiplier];
     }
 }

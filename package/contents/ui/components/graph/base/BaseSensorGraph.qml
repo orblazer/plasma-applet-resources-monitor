@@ -1,10 +1,10 @@
-import QtQuick 2.15
-import org.kde.plasma.plasmoid 2.0
-import org.kde.plasma.components 3.0 as PlasmaComponents
-import org.kde.ksysguard.sensors 1.0 as Sensors
-import org.kde.ksysguard.formatter 1.0 as Formatter
+import QtQuick
+import org.kde.plasma.plasmoid
+import org.kde.plasma.components as PlasmaComponents
+import org.kde.ksysguard.sensors as Sensors
+import org.kde.ksysguard.formatter as Formatter
 import "./" as RMBaseGraph
-import "../../functions.js" as Functions
+import "../../functions.mjs" as Functions
 
 Item {
     id: root
@@ -19,13 +19,13 @@ Item {
 
     // Thresholds properties
     property var thresholds: [undefined, undefined, undefined]
-    property color thresholdWarningColor: Functions.getColor("warningColor")
-    property color thresholdCriticalColor: Functions.getColor("criticalColor")
+    property color thresholdWarningColor: Functions.resolveColor(Plasmoid.configuration.warningColor)
+    property color thresholdCriticalColor: Functions.resolveColor(Plasmoid.configuration.criticalColor)
 
     // Labels
     RMBaseGraph.GraphText {
         id: textContainer
-        enabled: plasmoid.configuration.displayment != 'never'
+        enabled: Plasmoid.configuration.displayment != 'never'
         anchors.fill: parent
         z: 1
 

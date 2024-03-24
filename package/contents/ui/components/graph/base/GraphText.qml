@@ -1,6 +1,7 @@
-import QtQuick 2.15
-import org.kde.plasma.plasmoid 2.0
-import org.kde.plasma.components 3.0 as PlasmaComponents
+import QtQuick
+import org.kde.plasma.plasmoid
+import org.kde.plasma.components as PlasmaComponents
+import org.kde.kirigami as Kirigami
 
 Item {
     id: graphText
@@ -16,13 +17,13 @@ Item {
 
     // Text properties
     property var labels: ["", "", ""]
-    property var valueColors: [theme.textColor, theme.textColor, theme.textColor]
-    property var labelColors: [theme.highlightColor, theme.textColor, theme.textColor]
+    property var valueColors: [Kirigami.Theme.textColor, Kirigami.Theme.textColor, Kirigami.Theme.textColor]
+    property var labelColors: [Kirigami.Theme.highlightColor, Kirigami.Theme.textColor, Kirigami.Theme.textColor]
 
     property var labelsVisibleWhenZero: [true, true, true]
 
     // Config aliases
-    property string displayment: plasmoid.configuration.displayment // Values: always, hover, hover-hints, never
+    property string displayment: Plasmoid.configuration.displayment // Values: always, hover, hover-hints, never
 
     // Bind config changes
     onDisplaymentChanged: {
@@ -50,7 +51,7 @@ Item {
     Flow {
         id: textContainer
         width: parent.width
-        state: plasmoid.configuration.placement // Values: top-right, top-left, bottom-right, bottom-left
+        state: Plasmoid.configuration.placement // Values: top-right, top-left, bottom-right, bottom-left
         spacing: -2
         flow: Flow.TopToBottom
 
@@ -64,7 +65,7 @@ Item {
             text: "..."
             color: getTextColor(index)
             style: plasmoid.configuration.enableShadows ? Text.Outline : Text.Normal
-            styleColor: theme.backgroundColor
+            styleColor: Kirigami.Theme.backgroundColor
             font.pointSize: -1
         }
         PlasmaComponents.Label {
@@ -76,7 +77,7 @@ Item {
             text: "..."
             color: getTextColor(index)
             style: plasmoid.configuration.enableShadows ? Text.Outline : Text.Normal
-            styleColor: theme.backgroundColor
+            styleColor: Kirigami.Theme.backgroundColor
             font.pointSize: -1
         }
         PlasmaComponents.Label {
@@ -88,7 +89,7 @@ Item {
             text: "..."
             color: getTextColor(index)
             style: plasmoid.configuration.enableShadows ? Text.Outline : Text.Normal
-            styleColor: theme.backgroundColor
+            styleColor: Kirigami.Theme.backgroundColor
             font.pointSize: -1
         }
 
@@ -229,9 +230,9 @@ Item {
 
     function getTextColor(index, isLabel = false) {
         if (isLabel) {
-            return labelColors[index] || theme.textColor;
+            return labelColors[index] || Kirigami.Theme.textColor;
         }
-        return valueColors[index] || theme.textColor;
+        return valueColors[index] || Kirigami.Theme.textColor;
     }
     function _setLabelsState(state) {
         if (state) {

@@ -1,20 +1,38 @@
-import QtQuick 2.15
-import org.kde.kirigami 2.20 as Kirigami
+import QtQuick
+import QtQuick.Layouts as QtLayouts
+import QtQuick.Controls as QQC2
+import org.kde.kirigami as Kirigami
 import "./" as RMControls
 
-RMControls.SpinBox {
-    id: customizableSize
+QtLayouts.RowLayout {
+    spacing: Kirigami.Units.smallSpacing
 
-    property bool customized
+    property alias checkbox: checkbox
+    property alias spinBox: spinBox
 
-    // Customized checkbox
-    enabled: Kirigami.FormData.checked
-    Kirigami.FormData.checkable: true
-    Kirigami.FormData.checked: customized
-    onEnabledChanged: customized = enabled
+    property alias customized: checkbox.checked
+    property alias value: spinBox.realValue
+
+    QQC2.ToolTip.visible: ma.containsMouse
+    QQC2.ToolTip.text: i18n("Check the box to customize")
 
     // Component
-    textFromValue: function (value, locale) {
-        return valueToText(value, locale) + " px";
+    QQC2.CheckBox {
+        id: checkbox
+    }
+    RMControls.SpinBox {
+        id: spinBox
+        QtLayouts.Layout.fillWidth: true
+        enabled: customized
+
+        textFromValue: function (value, locale) {
+            return valueToText(value, locale) + " px";
+        }
+
+        MouseArea {
+            id: ma
+            anchors.fill: parent
+            hoverEnabled: true
+        }
     }
 }

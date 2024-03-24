@@ -27,7 +27,6 @@
     "Website": "https://github.com/orblazer/plasma-applet-resources-monitor",
     "BugReportUrl": "https://github.com/orblazer/plasma-applet-resources-monitor/issues"
   },
-  "X-Plasma-API": "declarativeappletscript",
-  "X-Plasma-MainScript": "ui/main.qml",
+  "X-Plasma-API-Minimum-Version": "6.0",
   "KPackageStructure": "Plasma/Applet"
 }

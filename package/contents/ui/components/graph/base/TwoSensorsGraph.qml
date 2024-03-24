@@ -1,6 +1,7 @@
-import QtQuick 2.15
-import org.kde.plasma.plasmoid 2.0
-import org.kde.quickcharts 1.0 as Charts
+import QtQuick
+import org.kde.plasma.plasmoid
+import org.kde.quickcharts as Charts
+import org.kde.kirigami as Kirigami
 import "./" as RMBaseGraph
 
 RMBaseGraph.BaseSensorGraph {
@@ -9,8 +10,8 @@ RMBaseGraph.BaseSensorGraph {
     property var uplimits: [100, 100]
 
     // Graph properties
-    property var colors: [theme.highlightColor, theme.textColor]
-    property bool enableHistory: plasmoid.configuration.historyAmount > 0
+    property var colors: [Kirigami.Theme.highlightColor, Kirigami.Theme.textColor]
+    property bool enableHistory: Plasmoid.configuration.historyAmount > 0
     property bool secondChartVisible: true
 
     // Bind properties changes
@@ -28,7 +29,7 @@ RMBaseGraph.BaseSensorGraph {
         visible: enableHistory && secondChartVisible
 
         direction: Charts.XYChart.ZeroAtEnd
-        fillOpacity: plasmoid.configuration.graphFillOpacity / 100
+        fillOpacity: Plasmoid.configuration.graphFillOpacity / 100
         smooth: true
         yRange.automatic: false
 
@@ -38,7 +39,7 @@ RMBaseGraph.BaseSensorGraph {
         valueSources: [
             RMBaseGraph.ArrayDataSource {
                 id: secondChartData
-                maximumHistory: plasmoid.configuration.historyAmount
+                maximumHistory: Plasmoid.configuration.historyAmount
             }
         ]
     }
@@ -48,7 +49,7 @@ RMBaseGraph.BaseSensorGraph {
         visible: enableHistory && secondChartVisible
 
         direction: Charts.XYChart.ZeroAtEnd
-        fillOpacity: plasmoid.configuration.graphFillOpacity / 100
+        fillOpacity: Plasmoid.configuration.graphFillOpacity / 100
         smooth: true
         yRange.automatic: false
 
@@ -58,7 +59,7 @@ RMBaseGraph.BaseSensorGraph {
         valueSources: [
             RMBaseGraph.ArrayDataSource {
                 id: firstChartData
-                maximumHistory: plasmoid.configuration.historyAmount
+                maximumHistory: Plasmoid.configuration.historyAmount
             }
         ]
     }

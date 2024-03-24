@@ -23,9 +23,10 @@ RMControls.SpinBox {
     }
 }
  */
-import QtQuick 2.15
-import QtQuick.Controls 2.15 as QQC2
-import org.kde.plasma.core 2.0 as PlasmaCore
+import QtQuick
+import QtQuick.Controls as QQC2
+import org.kde.plasma.core as PlasmaCore
+import org.kde.kirigami as Kirigami
 
 QQC2.SpinBox {
     id: control
@@ -80,9 +81,9 @@ QQC2.SpinBox {
         opacity: enabled ? 1 : 0.5
         text: control.displayText
         font: control.font
-        color: PlasmaCore.Theme.viewTextColor
-        selectionColor: PlasmaCore.Theme.highlightColor
-        selectedTextColor: PlasmaCore.Theme.highlightedTextColor
+        color: Kirigami.Theme.textColor
+        selectionColor: Kirigami.Theme.highlightColor
+        selectedTextColor: Kirigami.Theme.highlightedTextColor
         verticalAlignment: Qt.AlignVCenter
         readOnly: !control.editable
         validator: control.validator

@@ -1,5 +1,5 @@
-import QtQuick 2.15
-import org.kde.quickcharts 1.0 as Charts
+import QtQuick
+import org.kde.quickcharts as Charts
 
 Charts.ArraySource {
     property int maximumHistory: -1

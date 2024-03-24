@@ -1,7 +1,7 @@
-import QtQuick 2.0
-import QtQuick.Layouts 1.15 as QtLayouts
-import QtQuick.Controls 2.0 as QQC2
-import org.kde.kirigami 2.6 as Kirigami
+import QtQuick
+import QtQuick.Layouts as QtLayouts
+import QtQuick.Controls as QQC2
+import org.kde.kirigami as Kirigami
 import "./" as RMControls
 
 QtLayouts.RowLayout {

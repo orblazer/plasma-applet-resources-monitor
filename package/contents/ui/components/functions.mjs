@@ -1,4 +1,25 @@
 /**
+ * This contains selectable kirigami colors
+ * ? This is for allowing access to `kirigami.Theme` (bypass QML limitation)
+ */
+const _kirigamiTheme = {
+  textColor: "",
+  highlightedTextColor: "",
+  linkColor: "",
+  visitedLinkColor: "",
+  negativeTextColor: "",
+  neutralTextColor: "",
+  positiveTextColor: "",
+  backgroundColor: "",
+  highlightColor: "",
+};
+export function init(kirigamiTheme) {
+  Object.keys(_kirigamiTheme).forEach(
+    (key) => (_kirigamiTheme[key] = kirigamiTheme[key])
+  );
+}
+
+/**
  * @typedef {object} BinaryUnit
  * @property {string} name The name
  * @property {string} suffix The suffix
@@ -10,9 +31,13 @@
 /**
  * Get the binary unit from they name
  * @param {string} dialect The binary unit name
+ * @param {function} i18nc The "i18nc" function //? bypass QML limitation
  * @returns {BinaryUnit} The binary unit
  */
-function getNetworkDialectInfo(dialect) {
+export function getNetworkDialectInfo(
+  dialect,
+  i18nc = (_ = "", def = "") => def
+) {
   switch (dialect) {
     case "kilobyte":
       return {
@@ -49,7 +74,7 @@ function getNetworkDialectInfo(dialect) {
  * @param {number} [precision=1] Number of places after the decimal point to use.
  * @returns Converted value as a translated string including the units.
  */
-function formatByteValue(value, dialect, precision = 1) {
+export function formatByteValue(value, dialect, precision = 1) {
   if (value === 0 || isNaN(parseInt(value))) {
     return "0 " + dialect.suffix.replace("i", "");
   } else if (dialect.name === "kibibyte" && value <= dialect.multiplier) {
@@ -78,30 +103,13 @@ function formatByteValue(value, dialect, precision = 1) {
 }
 
 /**
- * Get customizable config property, fallback to default value if is not customized.
- * @param {string} property The config property name
- * @param {object} fallback The fallback value
- */
-function getCustomConfig(property, fallback) {
-  if (
-    plasmoid.configuration[
-      `custom${property.charAt(0).toUpperCase() + property.slice(1)}`
-    ]
-  ) {
-    return plasmoid.configuration[property];
-  }
-  return fallback;
-}
-
-/**
- * Get color, if the value not start with "#" its return the theme color. If property have no value i'ts fallback to "theme.textColor"
- * @param {string} property The config property name
+ * Resolve color when is name based
+ * @param {string} color The color value
  * @returns The color color
  */
-function getColor(property) {
-  const value = plasmoid.configuration[property];
-  if (value.startsWith("#")) {
-    return value;
+export function resolveColor(color) {
+  if (color.startsWith("#")) {
+    return color;
   }
-  return theme[value] || theme.textColor;
+  return _kirigamiTheme[color] || _kirigamiTheme.textColor;
 }
