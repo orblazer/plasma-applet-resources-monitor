@@ -1,64 +1,55 @@
 import QtQuick
 import org.kde.plasma.plasmoid
-import org.kde.kirigami as Kirigami
 import "./base" as RMBaseGraph
 import "../sensors" as RMSensors
-import "../functions.mjs" as Functions
 
 RMBaseGraph.SensorGraph {
     id: root
     objectName: "CpuGraph"
 
-    // Config shrotcut
-    property bool showClock: Plasmoid.configuration.cpuClockType !== "none"
-    property bool clockIsEcores: Plasmoid.configuration.cpuClockType === "ecores"
-    property color temperatureColor: Functions.resolveColor(Plasmoid.configuration.cpuTemperatureColor)
+    // Settings
+    property string clockAgregator: "average" // Values: average, minimum, maximum
+    property int eCoresCount: 0
 
-    // Handle config update
-    Connections {
-        target: Plasmoid.configuration
-        function onCpuUnitChanged() {
-            _updateSensors();
-        }
-    }
+    // Config shortcut
+    property bool showClock: sensorsType[1] !== "none"
+    property bool clockIsEcores: sensorsType[1] === "ecores"
 
     // Graph options
     // NOTE: "sensorsModel.sensors" is set by "_updateSensors"
-    chartColor: Functions.resolveColor(Plasmoid.configuration.cpuColor)
-
     chart.yRange {
         from: 0
         to: 100
     }
 
     // Labels options
-    thresholds: [undefined, undefined, [Plasmoid.configuration.thresholdWarningCpuTemp, Plasmoid.configuration.thresholdCriticalCpuTemp]]
-
+    thresholdIndex: 2
+    realThresholds: thresholds // No change needed, simply map it
     textContainer {
-        labelColors: [root.chartColor, undefined, temperatureColor]
-        valueColors: [undefined, undefined, temperatureColor]
+        labelColors: [root.colors[0], undefined, root.colors[2]]
+        valueColors: [undefined, undefined, root.colors[2]]
 
-        labels: ["CPU", (showClock ? i18nc("Graph label", "Clock") : ""), (Plasmoid.configuration.showCpuTemperature ? i18nc("Graph label", "Temp.") : "")]
+        labels: ["CPU", (root.showClock ? i18nc("Graph label", "Clock") : ""), (root.sensorsType[2] ? i18nc("Graph label", "Temp.") : "")]
     }
 
     // CPU frequency handle
     _formatValue: (index, data) => {
         if (index === 1) {
-            return cpuFrequenry.getFormattedValue(clockIsEcores);
+            return cpuFrequenry.getFormattedValue(root.clockIsEcores);
         }
         return _defaultFormatValue(index, data);
     }
 
     RMSensors.CpuFrequency {
         id: cpuFrequenry
-        enabled: showClock
-        agregator: Plasmoid.configuration.cpuClockAgregator
-        eCoresCount: Plasmoid.configuration.cpuECoresCount
+        enabled: root.showClock
+        agregator: root.clockAgregator
+        eCoresCount: root.eCoresCount
 
-        onReady: _updateSensors()
+        onReady: root._updateSensors()
     }
 
     function _updateSensors() {
-        sensorsModel.sensors = ["cpu/all/" + Plasmoid.configuration.cpuUnit, "cpu/cpu0/frequency", "cpu/cpu0/temperature"];
+        sensorsModel.sensors = ["cpu/all/" + sensorsType[0], "cpu/cpu0/frequency", "cpu/cpu0/temperature"];
     }
 }

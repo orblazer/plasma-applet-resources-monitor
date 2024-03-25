@@ -2,42 +2,18 @@ import QtQuick
 import org.kde.plasma.plasmoid
 import org.kde.ksysguard.sensors as Sensors
 import "./base" as RMBaseGraph
-import "../functions.mjs" as Functions
 
 RMBaseGraph.TwoSensorsGraph {
     id: root
     objectName: "MemoryGraph"
 
     // Config shrotcut
-    property bool showSwap: Plasmoid.configuration.memorySecondUnit.startsWith("swap")
-    property var fieldInPercent: [Plasmoid.configuration.memoryUnit.endsWith("-percent"), Plasmoid.configuration.memorySecondUnit === "swap-percent"]
-
-    // Handle config update and init
-    Connections {
-        target: Plasmoid.configuration
-        function onMemoryUnitChanged() { // Values: usage, system, user
-            _updateSensorsAndLabels();
-        }
-        function onMemorySecondUnitChanged() {
-            _updateSensorsAndLabels();
-        }
-
-        function onThresholdWarningMemoryChanged() {
-            _updateThresholds();
-        }
-        function onThresholdCriticalMemoryChanged() {
-            _updateThresholds();
-        }
-    }
-    Component.onCompleted: {
-        _updateThresholds();
-        _updateSensorsAndLabels();
-    }
+    property bool showSwap: sensorsType[1].startsWith("swap")
+    property var fieldInPercent: [sensorsType[0].endsWith("-percent"), sensorsType[1] === "swap-percent"]
 
     // Labels
     textContainer {
-        labelColors: root.colors
-        valueColors: [undefined, showSwap ? root.colors[1] : undefined]
+        valueColors: [undefined, root.showSwap ? root.colors[1] : undefined]
         labelsVisibleWhenZero: [true, false, true]
 
         // NOTE: second label is set by "_updateSensorsAndLabels"
@@ -46,7 +22,6 @@ RMBaseGraph.TwoSensorsGraph {
 
     // Graph options
     // NOTE: "sensorsModel.sensors" is set by "_updateSensorsAndLabels"
-    colors: [Functions.resolveColor(Plasmoid.configuration.memColor), Functions.resolveColor(Plasmoid.configuration.memSecondColor)]
     secondChartVisible: showSwap && Plasmoid.configuration.historyAmount > 0
 
     // Override methods, for handle memeory in percent
@@ -75,27 +50,22 @@ RMBaseGraph.TwoSensorsGraph {
             // Update graph Y range and sensors
             if (maxMemory[0] > 0 && maxMemory[1] >= 0) {
                 enabled = false;
-                root.uplimits = maxMemory;
-                root._updateThresholds();
+                root.realUplimits = maxMemory;
+                root.realThresholds = [maxMemory[0] * (root.thresholds[0] / 100.0), maxMemory[0] * (root.thresholds[1] / 100.0)];
                 root._updateSensorsAndLabels();
             }
         }
     }
 
-    function _updateThresholds() {
-        const thresholdWarningMemory = Plasmoid.configuration.thresholdWarningMemory;
-        const thresholdCriticalMemory = Plasmoid.configuration.thresholdCriticalMemory;
-        thresholds[0] = [maxQueryModel.maxMemory[0] * (thresholdWarningMemory / 100.0), maxQueryModel.maxMemory[0] * (thresholdCriticalMemory / 100.0)];
-    }
     function _updateSensorsAndLabels() {
-        const info = Plasmoid.configuration.memoryUnit.split("-");
+        const info = sensorsType[0].split("-");
         const oldSecondLabel = textContainer.labels[1];
 
         // Define sensors and second label
         const type = info[0] === "physical" ? "used" : "application";
         const firstSensor = "memory/physical/" + type;
         let secondSensor;
-        switch (Plasmoid.configuration.memorySecondUnit) {
+        switch (sensorsType[1]) {
         case "memory-percent":
             secondSensor = "memory/physical/" + type + "Percent";
             textContainer.labels[1] = i18nc("Graph label", "Percent.");

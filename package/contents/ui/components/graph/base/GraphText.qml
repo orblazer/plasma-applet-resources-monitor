@@ -2,6 +2,7 @@ import QtQuick
 import org.kde.plasma.plasmoid
 import org.kde.plasma.components as PlasmaComponents
 import org.kde.kirigami as Kirigami
+import "../../functions.mjs" as Functions
 
 Item {
     id: graphText
@@ -17,8 +18,10 @@ Item {
 
     // Text properties
     property var labels: ["", "", ""]
-    property var valueColors: [Kirigami.Theme.textColor, Kirigami.Theme.textColor, Kirigami.Theme.textColor]
-    property var labelColors: [Kirigami.Theme.highlightColor, Kirigami.Theme.textColor, Kirigami.Theme.textColor]
+    property var valueColors: [undefined, undefined, undefined]
+    property var _valueColors: [undefined, undefined, undefined] // Internal
+    property var labelColors: [undefiend, undefined, undefined]
+    property var _labelColors: [Kirigami.Theme.highlightColor, undefined, undefined] // Internal
 
     property var labelsVisibleWhenZero: [true, true, true]
 
@@ -45,6 +48,14 @@ Item {
         firstLineLabel.enabled = firstLineLabel.visible = labels[0] != "";
         secondLineLabel.enabled = secondLineLabel.visible = labels[1] != "";
         thirdLineLabel.enabled = thirdLineLabel.visible = labels[2] != "";
+    }
+    onValueColorsChanged: {
+        // Resolve colors
+        _valueColors = valueColors.map(v => Functions.resolveColor(v));
+    }
+    onLabelColorsChanged: {
+        // Resolve colors
+        _labelColors = labelColors.map(v => Functions.resolveColor(v));
     }
 
     // Labels
@@ -230,9 +241,9 @@ Item {
 
     function getTextColor(index, isLabel = false) {
         if (isLabel) {
-            return labelColors[index] || Kirigami.Theme.textColor;
+            return _labelColors[index] ?? Kirigami.Theme.textColor;
         }
-        return valueColors[index] || Kirigami.Theme.textColor;
+        return _valueColors[index] ?? Kirigami.Theme.textColor;
     }
     function _setLabelsState(state) {
         if (state) {

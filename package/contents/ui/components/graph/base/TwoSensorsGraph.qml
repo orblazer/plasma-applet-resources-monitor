@@ -1,25 +1,26 @@
 import QtQuick
 import org.kde.plasma.plasmoid
 import org.kde.quickcharts as Charts
-import org.kde.kirigami as Kirigami
 import "./" as RMBaseGraph
+import "../../functions.mjs" as Functions
 
 RMBaseGraph.BaseSensorGraph {
     id: root
 
-    property var uplimits: [100, 100]
+    // property bool ready: true // Define if
 
     // Graph properties
-    property var colors: [Kirigami.Theme.highlightColor, Kirigami.Theme.textColor]
     property bool enableHistory: Plasmoid.configuration.historyAmount > 0
     property bool secondChartVisible: true
+    property var uplimits: [] // ONLY USED FOR CONFIG!
+    property var realUplimits: [100, 100]
 
     // Bind properties changes
-    onUplimitsChanged: {
-        firstChart.yRange.to = uplimits[0];
-        secondChart.yRange.to = uplimits[1];
-        firstChart.yRange.automatic = uplimits[0] == 0;
-        secondChart.yRange.automatic = uplimits[1] == 0;
+    onRealUplimitsChanged: {
+        firstChart.yRange.to = realUplimits[0];
+        secondChart.yRange.to = realUplimits[1];
+        firstChart.yRange.automatic = realUplimits[0] == 0;
+        secondChart.yRange.automatic = realUplimits[1] == 0;
     }
 
     // Graphs
@@ -34,7 +35,7 @@ RMBaseGraph.BaseSensorGraph {
         yRange.automatic: false
 
         colorSource: Charts.SingleValueSource {
-            value: colors[1]
+            value: Functions.resolveColor(colors[1])
         }
         valueSources: [
             RMBaseGraph.ArrayDataSource {
@@ -54,7 +55,7 @@ RMBaseGraph.BaseSensorGraph {
         yRange.automatic: false
 
         colorSource: Charts.SingleValueSource {
-            value: colors[0]
+            value: Functions.resolveColor(colors[0])
         }
         valueSources: [
             RMBaseGraph.ArrayDataSource {

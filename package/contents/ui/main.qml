@@ -26,6 +26,7 @@ import "./components/graph" as RMGraph
 PlasmoidItem {
     id: root
 
+    readonly property int graphVersion: 1 //? Bump when some settings changes in "graphs" structure
     readonly property bool vertical: Plasmoid.formFactor === PlasmaCore.Types.Vertical
 
     // Settings properties
@@ -40,12 +41,14 @@ PlasmoidItem {
     property double itemWidth: _getCustomConfig("graphWidth", Math.round(initWidth * (verticalLayout ? 1 : 1.5)))
     property double itemHeight: _getCustomConfig("graphHeight", Math.round(initWidth))
     property double fontPixelSize: Math.round(verticalLayout ? (itemHeight / 1.4 * fontScale) : (itemHeight * fontScale))
+    property var graphsModel: (JSON.parse(Plasmoid.configuration.graphs) || []).filter(v => v._v === graphVersion)
 
     // Initialize JS functions
     Component.onCompleted: Functions.init(Kirigami.Theme)
 
     // Content
-    preferredRepresentation: fullRepresentation
+    Plasmoid.configurationRequired: graphsModel.length === 0 // Check if graphs is valid and have some items
+    preferredRepresentation: Plasmoid.configurationRequired ? compactRepresentation : fullRepresentation
     fullRepresentation: MouseArea {
         Layout.preferredWidth: !verticalLayout ? (itemWidth * graphView.model.length + itemMargin * (graphView.model.length + 1)) : itemWidth
         Layout.preferredHeight: verticalLayout ? (itemHeight * graphView.model.length + itemMargin * (graphView.model.length + 1)) : itemHeight
@@ -93,24 +96,13 @@ PlasmoidItem {
             spacing: itemMargin
             orientation: verticalLayout ? ListView.Vertical : ListView.Horizontal
             interactive: false
+            reuseItems: true
 
-            model: Plasmoid.configuration.graphOrders.filter(item => {
-                if (item === "cpu") {
-                    return Plasmoid.configuration.cpuUnit !== "none";
-                } else if (item === "disks") {
-                    return Plasmoid.configuration.showDiskMonitor;
-                } else if (item === "gpu") {
-                    return Plasmoid.configuration.showGpuMonitor;
-                } else if (item === "memory") {
-                    return Plasmoid.configuration.memoryUnit !== "none";
-                } else if (item === "network") {
-                    return Plasmoid.configuration.networkUnit !== "none";
-                }
-                return false;
-            })
+            // TODO: Better handle "graphs" change
+            model: graphsModel
 
             delegate: Loader {
-                source: _graphIdToFilename(modelData)
+                required property var modelData
 
                 width: itemWidth
                 height: itemHeight
@@ -120,6 +112,17 @@ PlasmoidItem {
                     item.textContainer.secondLineLabel.font.pixelSize = Qt.binding(() => root.fontPixelSize);
                     item.textContainer.thirdLineLabel.font.pixelSize = Qt.binding(() => root.fontPixelSize);
                 }
+                Component.onCompleted: {
+                    const filename = (modelData.type.charAt(0).toUpperCase() + modelData.type.slice(1)) + "Graph";
+                    const source = `./components/graph/${filename}.qml`;
+
+                    // Remove internal props
+                    delete modelData._v;
+                    delete modelData.type;
+
+                    // Load graph
+                    setSource(source, modelData);
+                }
             }
 
             function getGraph(index) {
@@ -127,11 +130,6 @@ PlasmoidItem {
                 return loaderItem !== null ? loaderItem.item : null;
             }
         }
-    }
-
-    function _graphIdToFilename(graphId) {
-        const filename = (graphId.charAt(0).toUpperCase() + graphId.slice(1)) + "Graph";
-        return "./components/graph/" + filename + ".qml";
     }
 
     function _getCustomConfig(property, fallback) {

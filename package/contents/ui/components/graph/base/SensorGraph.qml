@@ -1,17 +1,14 @@
 import QtQuick
 import org.kde.plasma.plasmoid
 import org.kde.quickcharts as Charts
-import org.kde.kirigami as Kirigami
 import "./" as RMBaseGraph
+import "../../functions.mjs" as Functions
 
 RMBaseGraph.BaseSensorGraph {
     id: root
 
     // Aliases
     property alias chart: chart
-
-    // Graph properties
-    property color chartColor: Kirigami.Theme.highlightColor
 
     // Graph
     Charts.LineChart {
@@ -25,7 +22,7 @@ RMBaseGraph.BaseSensorGraph {
         yRange.automatic: false
 
         colorSource: Charts.SingleValueSource {
-            value: chartColor
+            value: Functions.resolveColor(colors[0])
         }
         valueSources: [
             RMBaseGraph.ArrayDataSource {

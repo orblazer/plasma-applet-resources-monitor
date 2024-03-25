@@ -108,7 +108,9 @@ export function formatByteValue(value, dialect, precision = 1) {
  * @returns The color color
  */
 export function resolveColor(color) {
-  if (color.startsWith("#")) {
+  if (!color) {
+    return undefined;
+  } else if (color.startsWith("#")) {
     return color;
   }
   return _kirigamiTheme[color] || _kirigamiTheme.textColor;

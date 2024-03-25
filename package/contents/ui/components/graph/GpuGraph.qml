@@ -2,38 +2,29 @@ import QtQuick
 import org.kde.plasma.plasmoid
 import org.kde.ksysguard.sensors as Sensors
 import "./base" as RMBaseGraph
-import "../functions.mjs" as Functions
 
 RMBaseGraph.TwoSensorsGraph {
     id: root
     objectName: "GpuGraph"
 
-    // Config options
-    property color temperatureColor: Functions.resolveColor(Plasmoid.configuration.gpuTemperatureColor)
-    property bool memoryInPercent: Plasmoid.configuration.gpuMemoryUnit.endsWith("-percent")
+    // Settings
+    property string gpuIndex: "" // Gpu sensor index (eg: gpu0, gpu1)
 
-    // Bind config changes
-    Connections {
-        target: Plasmoid.configuration
-        function onGpuIndexChanged() {
-            maxQueryModel.enabled = true
-        }
-    }
+    // Config shortcut
+    property bool memoryInPercent: sensorsType[0].endsWith("-percent")
 
     // Labels
-    thresholds: [undefined, undefined, [Plasmoid.configuration.thresholdWarningGpuTemp, Plasmoid.configuration.thresholdCriticalGpuTemp]]
-
+    thresholdIndex: 2
+    realThresholds: thresholds // No change needed, simply map it
     textContainer {
-        labelColors: [root.colors[0], root.colors[1], temperatureColor]
-        valueColors: [undefined, undefined, temperatureColor]
+        valueColors: [undefined, undefined, root.colors[2]]
 
-        labels: ["GPU", (secondChartVisible ? "VRAM" : ""), (Plasmoid.configuration.showGpuTemperature ? i18nc("Graph label", "Temp.") : "")]
+        labels: ["GPU", (secondChartVisible ? "VRAM" : ""), (sensorsType[1] ? i18nc("Graph label", "Temp.") : "")]
     }
 
     // Graph options
     // NOTE: "sensorsModel.sensors" set from "maxQueryModel"
-    colors: [Functions.resolveColor(Plasmoid.configuration.gpuColor), Functions.resolveColor(Plasmoid.configuration.gpuMemoryColor)]
-    secondChartVisible: Plasmoid.configuration.gpuMemoryUnit !== "none"
+    secondChartVisible: sensorsType[0] !== "none"
 
     // Override methods, for handle memeory in percent
     _formatValue: (index, data) => {
@@ -46,7 +37,7 @@ RMBaseGraph.TwoSensorsGraph {
     // Initialize limits and threshold
     Sensors.SensorDataModel {
         id: maxQueryModel
-        sensors: ["gpu/" + Plasmoid.configuration.gpuIndex + "/totalVram"]
+        sensors: [`gpu/${gpuIndex}/totalVram`]
         enabled: true
         property int maxMemory: -1
 
@@ -63,8 +54,7 @@ RMBaseGraph.TwoSensorsGraph {
             root.uplimits = [100, maxMemory];
 
             // Update sensors
-            const gpu = Plasmoid.configuration.gpuIndex
-            root.sensorsModel.sensors = ["gpu/" + gpu + "/usage", "gpu/" + gpu + "/usedVram", "gpu/" + gpu + "/temperature"];
+            root.sensorsModel.sensors = [`gpu/${gpuIndex}/usage`, `gpu/${gpuIndex}/usedVram`, `gpu/${gpuIndex}/temperature`];
         }
     }
 }

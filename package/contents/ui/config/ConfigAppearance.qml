@@ -5,7 +5,7 @@ import org.kde.kirigami as Kirigami
 import org.kde.kcmutils as KCM
 import org.kde.plasma.plasmoid
 import org.kde.plasma.components as PlasmaComponents
-import "../controls" as RMControls
+import "./controls" as RMControls
 
 KCM.AbstractKCM {
     // Make pages fill the whole view by default
@@ -20,7 +20,6 @@ KCM.AbstractKCM {
     property alias cfg_graphHeight: graphHeight.value
     property alias cfg_graphMargin: graphMargin.value
     property alias cfg_graphFillOpacity: graphFillOpacity.value
-    property var cfg_graphOrders: []
 
     // Text
     property alias cfg_enableShadows: enableShadows.checked
@@ -29,53 +28,15 @@ KCM.AbstractKCM {
     property string cfg_displayment
 
     // Colors
-    // > CPU
-    property alias cfg_cpuColor: cpuColor.value
-    property alias cfg_cpuTemperatureColor: cpuTemperatureColor.value
-    // > Memory
-    property alias cfg_memColor: memColor.value
-    property alias cfg_memSecondColor: memSecondColor.value
-    // > Network
-    property alias cfg_netDownColor: netDownColor.value
-    property alias cfg_netUpColor: netUpColor.value
-    // > GPU
-    property alias cfg_gpuColor: gpuColor.value
-    property alias cfg_gpuMemoryColor: gpuMemoryColor.value
-    property alias cfg_gpuTemperatureColor: gpuTemperatureColor.value
-    // > Disk
-    property alias cfg_diskReadColor: diskReadColor.value
-    property alias cfg_diskWriteColor: diskWriteColor.value
     // > Threshold
     property alias cfg_warningColor: warningColor.value
     property alias cfg_criticalColor: criticalColor.value
 
-    property var monitors: {
-        "cpu": {
-            "id": "cpu",
-            "name": i18nc("Chart name", "CPU"),
-            "icon": "cpu-symbolic"
-        },
-        "memory": {
-            "id": "memory",
-            "name": i18nc("Chart name", "Memory"),
-            "icon": "memory-symbolic"
-        },
-        "gpu": {
-            "id": "gpu",
-            "name": i18nc("Chart name", "GPU"),
-            "icon": "freon-gpu-temperature-symbolic"
-        },
-        "disks": {
-            "id": "disks",
-            "name": i18nc("Chart name", "Disks I/O"),
-            "icon": "drive-harddisk-symbolic"
-        },
-        "network": {
-            "id": "network",
-            "name": i18nc("Chart name", "Network"),
-            "icon": "network-wired-symbolic"
-        }
-    }
+    //#region // HACK: Present to suppress errors (https://bugs.kde.org/show_bug.cgi?id=484541)
+    property var cfg_graphs
+    property var cfg_updateInterval
+    property var cfg_clickActionCommand
+    //#endregion
 
     // Tab bar
     header: PlasmaComponents.TabBar {
@@ -107,9 +68,6 @@ KCM.AbstractKCM {
 
             // Charts
             Kirigami.FormLayout {
-                id: graphPage
-                wideMode: true
-
                 QtControls.CheckBox {
                     id: verticalLayout
                     text: i18n("Vertical layout")
@@ -204,105 +162,10 @@ KCM.AbstractKCM {
                         return valueToText(value, locale) + "%";
                     }
                 }
-
-                // order
-                Item {
-                    Kirigami.FormData.label: i18n("Charts order")
-                    Kirigami.FormData.isSection: true
-                }
-
-                ListView {
-                    id: graphsList
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-
-                    clip: true
-                    interactive: false
-
-                    property int listViewHeight: 0
-                    implicitHeight: listViewHeight
-
-                    model: ListModel {
-                        Component.onCompleted: cfg_graphOrders.map(id => monitors[id]).forEach(item => append(item))
-
-                        function toJS() {
-                            const result = [];
-                            for (let i = 0; i < count; i++) {
-                                result.push(get(i));
-                            }
-                            return result;
-                        }
-                    }
-
-                    delegate: Loader {
-                        required property var index
-                        required property var model
-
-                        width: graphsList.width
-                        sourceComponent: delegateComponent
-
-                        Component.onCompleted: {
-                            graphsList.listViewHeight += height + 1;
-                        }
-                    }
-
-                    moveDisplaced: Transition {
-                        YAnimator {
-                            duration: Kirigami.Units.longDuration
-                            easing.type: Easing.InOutQuad
-                        }
-                    }
-
-                    // Background
-                    Rectangle {
-                        z: -1
-                        Kirigami.Theme.colorSet: Kirigami.Theme.View
-                        Kirigami.Theme.inherit: false
-                        color: Kirigami.Theme.backgroundColor
-                        anchors.fill: parent
-                    }
-
-                    // Item
-                    Component {
-                        id: delegateComponent
-                        QtControls.ItemDelegate {
-                            id: listItem
-                            hoverEnabled: true
-                            Kirigami.Theme.useAlternateBackgroundColor: Kirigami.Theme.alternateBackgroundColor
-
-                            contentItem: QtLayouts.RowLayout {
-                                spacing: Kirigami.Units.largeSpacing
-
-                                Kirigami.ListItemDragHandle {
-                                    listView: graphsList
-                                    listItem: listItem
-                                    onMoveRequested: graphsList.model.move(oldIndex, newIndex, 1)
-
-                                    onDropped: {
-                                        cfg_graphOrders = graphsList.model.toJS().map(item => item.id);
-                                    }
-                                }
-
-                                Kirigami.Icon {
-                                    source: model.icon
-                                    width: Kirigami.Units.iconSizes.smallMedium
-                                    height: width
-                                }
-                                PlasmaComponents.Label {
-                                    text: model.name
-                                    QtLayouts.Layout.fillWidth: true
-                                }
-                            }
-                        }
-                    }
-                }
             }
 
             // Text
             Kirigami.FormLayout {
-                id: textPage
-                wideMode: true
-
                 QtControls.CheckBox {
                     id: enableShadows
                     text: i18n("Drop shadows")
@@ -323,6 +186,7 @@ KCM.AbstractKCM {
                 QtControls.ComboBox {
                     id: displayment
                     Kirigami.FormData.label: i18n("Text displayment:")
+                    QtLayouts.Layout.fillWidth: true
 
                     currentIndex: -1
                     textRole: "label"
@@ -353,6 +217,7 @@ KCM.AbstractKCM {
                 QtControls.ComboBox {
                     id: placement
                     Kirigami.FormData.label: i18n("Placement:")
+                    QtLayouts.Layout.fillWidth: true
 
                     currentIndex: -1
                     textRole: "label"
@@ -383,124 +248,6 @@ KCM.AbstractKCM {
 
             // Colors
             Kirigami.FormLayout {
-                id: colorsPage
-
-                // Charts
-                Kirigami.Separator {
-                    Kirigami.FormData.label: i18n("Charts colors")
-                    Kirigami.FormData.isSection: true
-                }
-
-                // > CPU
-                Rectangle {
-                    height: Kirigami.Units.largeSpacing
-                    color: "transparent"
-                }
-                Item {
-                    Kirigami.FormData.label: i18nc("Chart name", "CPU")
-                    Kirigami.FormData.isSection: true
-                }
-
-                RMControls.ColorSelector {
-                    id: cpuColor
-                    Kirigami.FormData.label: i18nc("Chart config", "Usage:")
-                    dialogTitle: i18nc("Chart color", "Choose series color")
-                }
-                RMControls.ColorSelector {
-                    id: cpuTemperatureColor
-                    Kirigami.FormData.label: i18nc("Chart config", "Temperature:")
-                    dialogTitle: i18nc("Chart color", "Choose text color")
-                }
-
-                // > Memory
-                Rectangle {
-                    height: Kirigami.Units.largeSpacing
-                    color: "transparent"
-                }
-                Item {
-                    Kirigami.FormData.label: i18nc("Chart name", "Memory")
-                    Kirigami.FormData.isSection: true
-                }
-
-                RMControls.ColorSelector {
-                    id: memColor
-                    Kirigami.FormData.label: i18nc("Chart config", "Physical:")
-                    dialogTitle: i18nc("Chart color", "Choose series color")
-                }
-                RMControls.ColorSelector {
-                    id: memSecondColor
-                    Kirigami.FormData.label: i18nc("Chart config", "Swap:")
-                    dialogTitle: i18nc("Chart color", "Choose color of series and text")
-                }
-
-                // > Network
-                Rectangle {
-                    height: Kirigami.Units.largeSpacing
-                    color: "transparent"
-                }
-                Item {
-                    Kirigami.FormData.label: i18nc("Chart name", "Network")
-                    Kirigami.FormData.isSection: true
-                }
-
-                RMControls.ColorSelector {
-                    id: netDownColor
-                    Kirigami.FormData.label: i18nc("Chart config", "Receiving:")
-                    dialogTitle: i18nc("Chart color", "Choose series color")
-                }
-                RMControls.ColorSelector {
-                    id: netUpColor
-                    Kirigami.FormData.label: i18nc("Chart config", "Sending:")
-                    dialogTitle: i18nc("Chart color", "Choose series color")
-                }
-
-                // > GPU
-                Rectangle {
-                    height: Kirigami.Units.largeSpacing
-                    color: "transparent"
-                }
-                Item {
-                    Kirigami.FormData.label: i18nc("Chart name", "GPU")
-                    Kirigami.FormData.isSection: true
-                }
-
-                RMControls.ColorSelector {
-                    id: gpuColor
-                    Kirigami.FormData.label: i18nc("Chart config", "Usage:")
-                    dialogTitle: i18nc("Chart color", "Choose series color")
-                }
-                RMControls.ColorSelector {
-                    id: gpuMemoryColor
-                    Kirigami.FormData.label: i18nc("Chart config", "Memory:")
-                    dialogTitle: i18nc("Chart color", "Choose series color")
-                }
-                RMControls.ColorSelector {
-                    id: gpuTemperatureColor
-                    Kirigami.FormData.label: i18nc("Chart config", "Temperature:")
-                    dialogTitle: i18nc("Chart color", "Choose text color")
-                }
-
-                // > Disk I/O
-                Rectangle {
-                    height: Kirigami.Units.largeSpacing
-                    color: "transparent"
-                }
-                Item {
-                    Kirigami.FormData.label: i18nc("Chart name", "Disks I/O")
-                    Kirigami.FormData.isSection: true
-                }
-
-                RMControls.ColorSelector {
-                    id: diskReadColor
-                    Kirigami.FormData.label: i18nc("Chart config", "Read:")
-                    dialogTitle: i18nc("Chart color", "Choose series color")
-                }
-                RMControls.ColorSelector {
-                    id: diskWriteColor
-                    Kirigami.FormData.label: i18nc("Chart config", "Write:")
-                    dialogTitle: i18nc("Chart color", "Choose series color")
-                }
-
                 // Thresholds
                 Kirigami.Separator {
                     Kirigami.FormData.label: i18n("Threshold text colors")
@@ -509,13 +256,13 @@ KCM.AbstractKCM {
 
                 RMControls.ColorSelector {
                     id: warningColor
-                    Kirigami.FormData.label: i18n("Warning status:")
-                    dialogTitle: i18n("Choose text color when the value is in warning status")
+                    Kirigami.FormData.label: i18n("Warning:")
+                    dialogTitle: i18nc("Chart color", "Choose text color")
                 }
                 RMControls.ColorSelector {
                     id: criticalColor
-                    Kirigami.FormData.label: i18n("Critical status:")
-                    dialogTitle: i18n("Choose text color when the value is in critical status")
+                    Kirigami.FormData.label: i18n("Critical:")
+                    dialogTitle: i18nc("Chart color", "Choose text color")
                 }
             }
         }

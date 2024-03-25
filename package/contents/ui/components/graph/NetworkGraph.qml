@@ -2,37 +2,26 @@ import QtQuick
 import org.kde.plasma.plasmoid
 import "./base" as RMBaseGraph
 import "../" as RMComponents
-import "../functions.js" as Functions
+import "../functions.mjs" as Functions
 
 RMBaseGraph.TwoSensorsGraph {
     id: root
     objectName: "NetworkGraph"
 
-    property var dialect: Functions.getNetworkDialectInfo(Plasmoid.configuration.networkUnit, i18nc)
+    // Settings
+    property var ignoredInterfaces: []
 
-    Connections {
-        target: Plasmoid.configuration
-        function onIgnoredNetworkInterfacesChanged() {
-            _updateSensors();
-        }
+    property var dialect: Functions.getNetworkDialectInfo(sensorsType[0], i18nc)
 
-        function onNetworkReceivingTotalChanged() {
-            _updateUplimits();
-        }
-        function onNetworkSendingTotalChanged() {
-            _updateUplimits();
-        }
+    // Apply dialect to uplimits
+    Component.onCompleted: {
+        realUplimits = [uplimits[0] * dialect.multiplier, uplimits[1] * dialect.multiplier];
     }
-    Component.onCompleted: _updateUplimits()
 
     // Labels
     textContainer {
-        labelColors: root.colors
         labels: [i18nc("Graph label", "Receiving"), i18nc("Graph label", "Sending"), ""]
     }
-
-    // Graph options
-    colors: [Functions.resolveColor(Plasmoid.configuration.netDownColor), Functions.resolveColor(Plasmoid.configuration.netUpColor)]
 
     // Initialized sensors
     RMComponents.NetworkInterfaceDetector {
@@ -102,15 +91,10 @@ RMBaseGraph.TwoSensorsGraph {
             if (typeof name === 'undefined') {
                 continue;
             }
-            if (Plasmoid.configuration.ignoredNetworkInterfaces.indexOf(name) === -1) {
+            if (root.ignoredInterfaces.indexOf(name) === -1) {
                 sensors.push("network/" + name + "/download", "network/" + name + "/upload");
             }
         }
         sensorsModel.sensors = sensors;
-        _clear();
-    }
-
-    function _updateUplimits() {
-        uplimits = [Plasmoid.configuration.networkReceivingTotal * dialect.multiplier, Plasmoid.configuration.networkSendingTotal * dialect.multiplier];
     }
 }

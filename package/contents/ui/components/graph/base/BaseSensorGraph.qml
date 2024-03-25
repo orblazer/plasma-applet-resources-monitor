@@ -17,10 +17,16 @@ Item {
     readonly property alias textContainer: textContainer
     readonly property alias sensorsModel: sensorsModel
 
+    // Graph properties
+    property var colors: [undefined, undefined, undefined] // Common graph settins
+    property var sensorsType: [] // Present because is graph settins
+
     // Thresholds properties
-    property var thresholds: [undefined, undefined, undefined]
-    property color thresholdWarningColor: Functions.resolveColor(Plasmoid.configuration.warningColor)
-    property color thresholdCriticalColor: Functions.resolveColor(Plasmoid.configuration.criticalColor)
+    property int thresholdIndex: -1 // Sensor index used for threshold
+    property var thresholds: [] // ONLY USED FOR CONFIG (graph settins)! | fomart: [warning, critical]
+    property var realThresholds: [] // fomart: [warning, critical]
+    readonly property color thresholdWarningColor: Functions.resolveColor(Plasmoid.configuration.warningColor)
+    readonly property color thresholdCriticalColor: Functions.resolveColor(Plasmoid.configuration.criticalColor)
 
     // Labels
     RMBaseGraph.GraphText {
@@ -28,6 +34,7 @@ Item {
         enabled: Plasmoid.configuration.displayment != 'never'
         anchors.fill: parent
         z: 1
+        labelColors: root.colors
 
         onShowValueInLabel: {
             // Update labels
@@ -44,7 +51,6 @@ Item {
     Sensors.SensorDataModel {
         id: sensorsModel
         updateRateLimit: -1
-        enabled: root.visible
 
         /**
          * Get the value and sensor ID from sensor
@@ -73,24 +79,6 @@ Item {
                 return undefined;
             }
             return data(index(0, column), role);
-        }
-    }
-
-    Connections {
-        target: root
-
-        /**
-         * Re assign sensorsModel.sensors when enable visibility for right initialize it.
-         * This is due to an issue when set sensors and model is disabled, the sensors is never initialized
-         * Bug reported at : https://bugs.kde.org/show_bug.cgi?id=469234
-         */
-        function onVisibleChanged() {
-            if (!root.visible) {
-                return;
-            }
-            const sensors = sensorsModel.sensors;
-            sensorsModel.sensors = [];
-            sensorsModel.sensors = sensors;
         }
     }
 
@@ -145,10 +133,10 @@ Item {
             label.visible = false;
         } else {
             // Handle threshold value
-            if (typeof thresholds[index] !== 'undefined') {
-                if (data.value >= thresholds[index][1]) {
+            if (index === thresholdIndex && realThresholds.length > 0) {
+                if (data.value >= realThresholds[1]) {
                     label.color = thresholdCriticalColor;
-                } else if (data.value >= thresholds[index][0]) {
+                } else if (data.value >= realThresholds[0]) {
                     label.color = thresholdWarningColor;
                 } else {
                     label.color = textContainer.getTextColor(index);

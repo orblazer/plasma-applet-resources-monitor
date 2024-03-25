@@ -50,6 +50,7 @@ QtLayouts.RowLayout {
     RMControls.SpinBox {
         id: spinBox
         QtLayouts.Layout.fillWidth: true
+        QtLayouts.Layout.minimumWidth: 120
         visible: predefinedChoices.currentIndex === customValueIndex
     }
 
