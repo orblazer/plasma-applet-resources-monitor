@@ -163,9 +163,8 @@ Kirigami.FormLayout {
         spinBox {
             decimals: 3
             stepSize: 1
-            minimumValue: 0.001
-
-            textFromValue: (value, locale) => spinBox.valueToText(value, locale) + " M" + dialect.suffix
+            realFrom: 0.001
+            suffix: " M" + dialect.suffix
         }
     }
     RMControls.PredefinedSpinBox {
@@ -189,9 +188,8 @@ Kirigami.FormLayout {
         spinBox {
             decimals: 3
             stepSize: 1
-            minimumValue: 0.001
-
-            textFromValue: (value, locale) => spinBox.valueToText(value, locale) + " M" + dialect.suffix
+            realFrom: 0.001
+            suffix: " M" + dialect.suffix
         }
     }
 

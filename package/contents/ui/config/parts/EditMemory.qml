@@ -97,9 +97,9 @@ Kirigami.FormLayout {
 
         decimals: 1
         stepSize: 1
-        minimumValue: 0.1
-        maximumValue: 100
-        textFromValue: (value, locale) => valueToText(value, locale) + " %"
+        realFrom: 0.1
+        realTo: 100
+        suffix: "%"
     }
 
     // Colors

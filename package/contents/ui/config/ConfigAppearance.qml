@@ -116,7 +116,7 @@ KCM.AbstractKCM {
 
                     spinBox {
                         stepSize: 1
-                        minimumValue: 2
+                        realFrom: 2
                     }
                 }
 
@@ -146,10 +146,7 @@ KCM.AbstractKCM {
                     QtLayouts.Layout.fillWidth: true
                     from: 1
                     to: 1000
-
-                    textFromValue: function (value, locale) {
-                        return valueToText(value, locale) + " px";
-                    }
+                    suffix: " px"
                 }
                 RMControls.SpinBox {
                     id: graphFillOpacity
@@ -157,10 +154,7 @@ KCM.AbstractKCM {
                     QtLayouts.Layout.fillWidth: true
                     from: 0
                     to: 100
-
-                    textFromValue: function (value, locale) {
-                        return valueToText(value, locale) + "%";
-                    }
+                    suffix: "%"
                 }
             }
 
@@ -177,10 +171,7 @@ KCM.AbstractKCM {
                     QtLayouts.Layout.fillWidth: true
                     from: 1
                     to: 100
-
-                    textFromValue: function (value, locale) {
-                        return valueToText(value, locale) + "%";
-                    }
+                    suffix: "%"
                 }
 
                 QtControls.ComboBox {

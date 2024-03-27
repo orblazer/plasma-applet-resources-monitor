@@ -90,9 +90,8 @@ Kirigami.FormLayout {
         spinBox {
             decimals: 3
             stepSize: 1
-            minimumValue: 0.001
-
-            textFromValue: (value, locale) => spinBox.valueToText(value, locale) + " MiB/s"
+            realFrom: 0.001
+            suffix: " MiB/s"
         }
     }
     RMControls.PredefinedSpinBox {
@@ -116,9 +115,8 @@ Kirigami.FormLayout {
         spinBox {
             decimals: 3
             stepSize: 1
-            minimumValue: 0.001
-
-            textFromValue: (value, locale) => spinBox.valueToText(value, locale) + " MiB/s"
+            realFrom: 0.001
+            suffix: " MiB/s"
         }
     }
 

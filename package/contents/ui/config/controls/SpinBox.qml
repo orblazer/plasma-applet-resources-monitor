@@ -1,25 +1,21 @@
 /**
  * Example:
-import "./components/controls" as RMControls
 // Integer
 RMControls.SpinBox {
     from: 0
     to: 1000
     stepSize: 5
-
-    textFromValue: function(value, locale) {
-        return valueToText(value, locale) + " px"
-    }
+    suffix: " px"
 }
 // Double
 RMControls.SpinBox {
     decimals: 3
-    minimumValue: 0.0
-    maximumValue: 1000.0
-    stepSize: Math.round(0.5 * factor)
+    realFrom: 0.0
+    realTo: 1000.0
+    stepSize: decimalToInt(0.5)
 
-    textFromValue: function(value, locale) {
-        return valueToText(value, locale) + " m"
+    textFromValue: (value, locale) => {
+        return formatValue(value, locale) + " m"
     }
 }
  */
@@ -28,67 +24,63 @@ import QtQuick.Controls as QQC2
 import org.kde.plasma.core as PlasmaCore
 import org.kde.kirigami as Kirigami
 
+// Original SpinBox: https://github.com/qt/qtdeclarative/blob/dev/src/quickcontrols/basic/SpinBox.qml
+// Inspired by: https://github.com/mpaperno/maxLibQt/blob/master/src/quick/maxLibQt/controls/MLDoubleSpinBox.qm
 QQC2.SpinBox {
     id: control
     editable: true
+    inputMethodHints: Qt.ImhFormattedNumbersOnly
 
-    readonly property real factor: Math.pow(10, decimals)
-    readonly property int spinBox_MININT: Math.ceil(-2147483648 / factor)
-    readonly property int spinBox_MAXINT: Math.floor(2147483647 / factor)
+    implicitWidth: implicitBackgroundWidth + leftInset + rightInset // Don't resize spinbox if contentItem change
 
-    value: Math.round(realValue * factor)
-    from: Math.round(minimumValue * factor)
-    to: Math.round(maximumValue * factor)
+    readonly property int decimalFactor: Math.pow(10, decimals)
 
-    // Copry from https://doc.qt.io/qt-5/qml-qtquick-controls2-spinbox.html#custom-values
+    // Custom properties
     property int decimals: 0
     property real realValue
+    property real realFrom: 0
+    property real realTo: Math.floor(2147483647 / decimalFactor)
+    property string suffix: ""
 
-    property real minimumValue: 0
-    property real maximumValue: spinBox_MAXINT
-
-    // Bind "realValue" to "value" and "factor"
-    Component.onCompleted: {
-        realValue = Qt.binding(() => value / factor);
-    }
-
+    // Internal properties
+    value: decimalToInt(realValue)
+    from: decimalToInt(realFrom)
+    to: decimalToInt(realTo)
     validator: DoubleValidator {
         locale: control.locale.name
-        bottom: Math.min(control.from, control.to)
-        top: Math.max(control.from, control.to)
+        bottom: Math.min(control.realFrom, control.realTo)
+        top: Math.max(control.realFrom, control.realTo)
+        notation: DoubleValidator.StandardNotation
+        decimals: control.decimals
     }
 
-    textFromValue: valueToText
+    Component.onCompleted: realValue = Qt.binding(() => value / decimalFactor)
+
+    // Text format
+    textFromValue: (value, locale) => formatValue(value, locale) + suffix
     valueFromText: (text, locale) => {
-        text = text.replace(/[^\-\.\d]/g, ""); // Remove non digit characters
-        if (text === ".") {
+        text = text.replace(new RegExp(`[^\\+\\-\\d${locale.decimalPoint + locale.exponential}]`, "gi"), "");
+        if (!text.length) {
             text = "0";
         }
-        return Number.fromLocaleString(locale, text) * factor;
-    }
-
-    property var valueToText: (value, locale) => {
-        // "toLocaleString" has no concept of "the minimum amount of
-        // digits to represent this number", so we need to calculate this
-        // manually. This ensures that things like "0" and "10" will be
-        // displayed without any decimals, while things like "2.2" and
-        // "3.87" will be displayed with the right number of decimals.
-        const realValue = Number(value / factor);
-        return realValue.toLocaleString(locale, 'f', countDecimals(realValue));
+        return Number.fromLocaleString(locale, text) * decimalFactor
     }
 
     contentItem: TextInput {
-        opacity: enabled ? 1 : 0.5
-        text: control.displayText
+        z: 2
+        text: control.textFromValue(control.value, control.locale)
+        clip: width < implicitWidth
+        selectByMouse: true
+
         font: control.font
-        color: Kirigami.Theme.textColor
-        selectionColor: Kirigami.Theme.highlightColor
-        selectedTextColor: Kirigami.Theme.highlightedTextColor
+        color: control.palette.text
+        selectionColor: control.palette.highlight
+        selectedTextColor: control.palette.highlightedText
         verticalAlignment: Qt.AlignVCenter
+
         readOnly: !control.editable
         validator: control.validator
         inputMethodHints: control.inputMethodHints
-        selectByMouse: true
 
         // Accept return/enter key
         Keys.onReturnPressed: returnPressed = true
@@ -117,10 +109,29 @@ QQC2.SpinBox {
         }
     }
 
-    function countDecimals(value) {
-        if (Math.floor(value) === value) {
-            return 0;
+    // Wheel/scroll action detection area
+    MouseArea {
+        anchors.fill: control
+        z: control.contentItem.z + 1
+        acceptedButtons: Qt.NoButton
+        onWheel: wheel => {
+            var delta = (wheel.angleDelta.y === 0.0 ? -wheel.angleDelta.x : wheel.angleDelta.y) / 120;
+            if (wheel.inverted) {
+                delta *= -1;
+            }
+            control.value += stepSize * delta;
+            control.focus = true;
         }
-        return value.toString().split(".")[1].length || 0;
+    }
+
+    /**
+     * Utils functions
+     */
+    function formatValue(value, locale) {
+        return Number(value / decimalFactor).toLocaleString(locale, "f", decimals);
+    }
+
+    function decimalToInt(decimal) {
+        return decimal * decimalFactor;
     }
 }

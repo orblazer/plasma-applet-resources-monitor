@@ -11,15 +11,14 @@ RowLayout {
 
     property alias warningSpinBox: warningSpinBox
     property alias criticalSpinBox: criticalSpinBox
-    property alias valueToText: warningSpinBox.valueToText
 
     // Properties
     property var values: []
     property int decimals: 0
     property int stepSize: 1
-    property real minimumValue: 0
-    property real maximumValue
-    property var textFromValue: valueToText
+    property real realFrom: 0
+    property real realTo
+    property string suffix: ""
 
     Component.onCompleted: {
         warningSpinBox.realValue = values[0]
@@ -41,9 +40,9 @@ RowLayout {
 
         decimals: root.decimals
         stepSize: root.stepSize
-        minimumValue: root.minimumValue
-        maximumValue: root.maximumValue
-        textFromValue: root.textFromValue
+        realFrom: root.realFrom
+        realTo: root.realTo
+        suffix: root.suffix
     }
 
     RMControls.SpinBox {
@@ -61,8 +60,8 @@ RowLayout {
 
         decimals: root.decimals
         stepSize: root.stepSize
-        minimumValue: root.minimumValue
-        maximumValue: root.maximumValue
-        textFromValue: root.textFromValue
+        realFrom: root.realFrom
+        realTo: root.realTo
+        suffix: root.suffix
     }
 }

@@ -24,10 +24,7 @@ QtLayouts.RowLayout {
         id: spinBox
         QtLayouts.Layout.fillWidth: true
         enabled: customized
-
-        textFromValue: function (value, locale) {
-            return valueToText(value, locale) + " px";
-        }
+        suffix: " px"
 
         MouseArea {
             id: ma

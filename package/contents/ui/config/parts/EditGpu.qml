@@ -90,9 +90,9 @@ Kirigami.FormLayout {
 
         decimals: 1
         stepSize: 1
-        minimumValue: 0.1
-        maximumValue: 120
-        textFromValue: (value, locale) => valueToText(value, locale) + " °C"
+        realFrom: 0.1
+        realTo: 120
+        suffix: " °C"
     }
 
     // Colors

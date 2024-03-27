@@ -39,11 +39,11 @@ KCM.SimpleKCM {
             Layout.fillWidth: true
 
             decimals: 1
-            minimumValue: 0.1
-            maximumValue: 3600.0
-            stepSize: Math.round(0.1 * factor)
+            realFrom: 0.1
+            realTo: 3600.0
+            stepSize: decimalToInt(0.1)
 
-            textFromValue: (value, locale) => i18n("%1 seconds", valueToText(value, locale))
+            textFromValue: (value, locale) => i18n("%1 seconds", formatValue(value, locale))
         }
 
         // Click action

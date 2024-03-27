@@ -12,13 +12,11 @@ QtLayouts.RowLayout {
 
     property int customValueIndex: 0
     property real factor: 1 // This is for auto convert from Kilo, Mega, etc
-
-    property real value: Math.round(realValue / factor)
     property real realValue
 
     Component.onCompleted: {
         // Initialize spin real value
-        spinBox.realValue = value;
+        spinBox.realValue = realValue / factor;
 
         // Bind "realValue" to "spinBox.realValue" and "factor"
         realValue = Qt.binding(() => spinBox.realValue * factor);
