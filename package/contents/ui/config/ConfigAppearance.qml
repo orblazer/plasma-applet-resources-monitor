@@ -12,7 +12,6 @@ KCM.AbstractKCM {
     Kirigami.ColumnView.fillWidth: true
 
     // Chart
-    property alias cfg_verticalLayout: verticalLayout.checked
     property alias cfg_historyAmount: historyAmount.realValue
     property alias cfg_customGraphWidth: graphWidth.customized
     property alias cfg_graphWidth: graphWidth.value
@@ -68,11 +67,6 @@ KCM.AbstractKCM {
 
             // Charts
             Kirigami.FormLayout {
-                QtControls.CheckBox {
-                    id: verticalLayout
-                    text: i18n("Vertical layout")
-                }
-
                 RMControls.PredefinedSpinBox {
                     id: historyAmount
                     Kirigami.FormData.label: i18n("History amount:")
