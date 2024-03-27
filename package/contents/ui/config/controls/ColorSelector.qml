@@ -6,6 +6,7 @@ import org.kde.plasma.components as PlasmaComponents
 import org.kde.kirigami as Kirigami
 
 QtLayouts.RowLayout {
+    id: root
     spacing: Kirigami.Units.largeSpacing
 
     // Aliases
@@ -16,6 +17,7 @@ QtLayouts.RowLayout {
 
     // Components
     QQC2.ComboBox {
+        id: select
         QtLayouts.Layout.fillWidth: true
         currentIndex: -1
         textRole: "label"
@@ -87,13 +89,34 @@ QtLayouts.RowLayout {
     Rectangle {
         QtLayouts.Layout.preferredHeight: parent.height
         QtLayouts.Layout.preferredWidth: parent.height
-        color: (value.startsWith("#") ? value : Kirigami.Theme[value]) || "#000"
+        color: colorDialog.selectedColor
         radius: 2
+
+        QQC2.ToolTip.visible: ma.containsMouse
+        QQC2.ToolTip.text: i18nc("@info:tooltip", "Click to customize color")
+
+        MouseArea {
+            id: ma
+            anchors.fill: parent
+            hoverEnabled: true
+
+            onClicked: colorDialog.open()
+        }
     }
 
     QtDialog.ColorDialog {
         id: colorDialog
-        selectedColor: value
-        onAccepted: value = selectedColor
+        selectedColor: _resolveColor(value)
+        onAccepted: {
+            select.currentIndex = 0;
+            value = selectedColor;
+        }
+    }
+
+    function _resolveColor(value) {
+        if (value.startsWith("#")) {
+            return value;
+        }
+        return Kirigami.Theme[value] || "#000";
     }
 }
