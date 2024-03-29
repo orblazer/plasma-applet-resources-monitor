@@ -1,11 +1,13 @@
 import archiver from "archiver";
 import { createWriteStream } from "fs";
+import { readFile } from "fs/promises";
 import { resolve } from "path";
-import { version } from "../package.json";
 
-const source = resolve(__dirname, "../package");
+const { version } = JSON.parse(await readFile(resolve("package.json")));
+
+const source = resolve("package");
 const output = createWriteStream(
-  resolve(__dirname, `../resourcesMonitor-fork-${version}.plasmoid`)
+  resolve(`resourcesMonitor-fork-${version}.plasmoid`)
 );
 
 // Create archive

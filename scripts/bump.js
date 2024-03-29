@@ -1,9 +1,10 @@
 import { readFile, writeFile } from "fs/promises";
 import { resolve } from "path";
-import { version } from "../package.json";
+
+const { version } = JSON.parse(await readFile(resolve("package.json")));
 
 // Bump version in desktop file
-const file = resolve(__dirname, "../package/metadata.json");
+const file = resolve("package/metadata.json");
 readFile(file, "utf-8").then((data) => {
   const jsonData = JSON.parse(data);
   jsonData.KPlugin.Version = version;
