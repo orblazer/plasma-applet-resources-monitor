@@ -11,7 +11,7 @@ RMBaseGraph.BaseSensorGraph {
     // Graph properties
     property var colors: [theme.highlightColor, theme.textColor]
     property var enableHistory: plasmoid.configuration.enableHistory
-    property alias secondChartVisible: secondChart.visible
+    property bool secondChartVisible: true
 
     // Bind properties changes
     onUplimitsChanged: {
@@ -56,7 +56,7 @@ RMBaseGraph.BaseSensorGraph {
     Charts.LineChart {
         id: firstChart
         anchors.fill: parent
-        visible: enableHistory
+        visible: enableHistory && secondChartVisible
 
         direction: Charts.XYChart.ZeroAtEnd
         fillOpacity: plasmoid.configuration.graphFillOpacity / 100
