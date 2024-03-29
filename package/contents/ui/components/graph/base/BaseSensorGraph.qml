@@ -1,6 +1,5 @@
 import QtQuick
 import org.kde.plasma.plasmoid
-import org.kde.plasma.components as PlasmaComponents
 import org.kde.ksysguard.sensors as Sensors
 import org.kde.ksysguard.formatter as Formatter
 import "./" as RMBaseGraph
@@ -9,21 +8,17 @@ import "../../functions.mjs" as Functions
 Item {
     id: root
 
-    signal chartDataChanged(int index)
-    signal showValueInLabel
-    signal labelChanged(PlasmaComponents.Label label, var value)
-
     // Aliases
     readonly property alias textContainer: textContainer
     readonly property alias sensorsModel: sensorsModel
 
     // Graph properties
     property var colors: [undefined, undefined, undefined] // Common graph settins
-    property var sensorsType: [] // Present because is graph settins
+    property var sensorsType: [] // Present because is graph settings
 
     // Thresholds properties
     property int thresholdIndex: -1 // Sensor index used for threshold
-    property var thresholds: [] // ONLY USED FOR CONFIG (graph settins)! | fomart: [warning, critical]
+    property var thresholds: [] // ONLY USED FOR CONFIG (graph settings)! | See "realThresholds"
     property var realThresholds: [] // fomart: [warning, critical]
     readonly property color thresholdWarningColor: Functions.resolveColor(Plasmoid.configuration.warningColor)
     readonly property color thresholdCriticalColor: Functions.resolveColor(Plasmoid.configuration.criticalColor)
@@ -34,17 +29,9 @@ Item {
         enabled: Plasmoid.configuration.displayment != 'never'
         anchors.fill: parent
         z: 1
-        labelColors: root.colors
+        hintColors: root.colors
 
-        onShowValueInLabel: {
-            // Update labels
-            for (let i = 0; i < sensorsModel.sensors.length; i++) {
-                _updateData(i);
-            }
-
-            // Emit signal
-            root.showValueInLabel();
-        }
+        onShowValues: _update()
     }
 
     // Retrieve data from sensors, and update labels
@@ -84,59 +71,39 @@ Item {
 
     // Process functions
     property var _insertChartData: (column, value) => {} // NOTE: this is implemented by children
-    property var _clear: () => {
-        for (let i = 0; i < sensorsModel.sensors.length; i++) {
-            _updateData(i);
-        }
-    }
     property var _update: () => {
         for (let i = 0; i < sensorsModel.sensors.length; i++) {
-            const data = sensorsModel.getData(i);
+            const value = sensorsModel.getData(i);
             // Skip not founded sensor
-            if (typeof data === 'undefined') {
+            if (typeof value === 'undefined') {
                 continue;
             }
-            const value = root._insertChartData(i, data);
+            root._insertChartData(i, value);
 
             // Update label
             if (textContainer.enabled && textContainer.valueVisible) {
-                _updateData(i);
+                _updateLabel(i, value);
             }
         }
     }
 
-    function _getLabel(index) {
-        if (index === 0) {
-            return textContainer.firstLineLabel;
-        } else if (index === 1) {
-            return textContainer.secondLineLabel;
-        } else if (index === 2) {
-            return textContainer.thirdLineLabel;
-        }
-        return undefined;
-    }
-
-    function _updateData(index) {
-        // Retrieve label need to update
-        const label = _getLabel(index);
+    function _updateLabel(index, value) {
+        // Retrieve label need to update and data
+        const label = textContainer.getLabel(index);
         if (typeof label === "undefined" || !label.enabled) {
-            return;
-        }
-        const data = sensorsModel.getValue(index);
-        if (typeof data === 'undefined') {
             return;
         }
 
         // Hide can't be zero label
-        if (!textContainer.labelsVisibleWhenZero[index] && data.value === 0) {
+        if (!textContainer.labelsVisibleWhenZero[index] && value === 0) {
             label.text = '';
             label.visible = false;
         } else {
             // Handle threshold value
             if (index === thresholdIndex && realThresholds.length > 0) {
-                if (data.value >= realThresholds[1]) {
+                if (value >= realThresholds[1]) {
                     label.color = thresholdCriticalColor;
-                } else if (data.value >= realThresholds[0]) {
+                } else if (value >= realThresholds[0]) {
                     label.color = thresholdWarningColor;
                 } else {
                     label.color = textContainer.getTextColor(index);
@@ -144,14 +111,12 @@ Item {
             }
 
             // Show value on label
-            label.text = _formatValue(index, data);
-            label.visible = label.enabled;
+            label.text = _formatValue(index, value);
         }
-        labelChanged(label, data);
     }
 
     property var _formatValue: _defaultFormatValue
-    function _defaultFormatValue(index, data) {
-        return Formatter.Formatter.formatValueShowNull(data.value, sensorsModel.getData(index, Sensors.SensorDataModel.Unit));
+    function _defaultFormatValue(index, value) {
+        return Formatter.Formatter.formatValueShowNull(value, sensorsModel.getData(index, Sensors.SensorDataModel.Unit));
     }
 }

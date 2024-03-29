@@ -19,19 +19,20 @@ RMBaseGraph.TwoSensorsGraph {
     textContainer {
         valueColors: [undefined, undefined, root.colors[2]]
 
-        labels: ["GPU", (secondChartVisible ? "VRAM" : ""), (sensorsType[1] ? i18nc("Graph label", "Temp.") : "")]
+        hints: ["GPU", (secondChartVisible ? "VRAM" : ""), (sensorsType[1] ? i18nc("Graph label", "Temp.") : "")]
     }
 
     // Graph options
-    // NOTE: "sensorsModel.sensors" set from "maxQueryModel"
+    realUplimits: [100, maxQueryModel.maxMemory]
+    sensorsModel.sensors: [`gpu/${gpuIndex}/usage`, `gpu/${gpuIndex}/usedVram`, `gpu/${gpuIndex}/temperature`]
     secondChartVisible: sensorsType[0] !== "none"
 
     // Override methods, for handle memeory in percent
-    _formatValue: (index, data) => {
+    _formatValue: (index, value) => {
         if (index === 1 && memoryInPercent) {
-            return i18nc("Percent unit", "%1%", Math.round((data.value / maxQueryModel.maxMemory) * 1000) / 10); // This is for round to 1 decimal
+            return i18nc("Percent unit", "%1%", Math.round((value / maxQueryModel.maxMemory) * 1000) / 10); // This is for round to 1 decimal
         }
-        return _defaultFormatValue(index, data);
+        return _defaultFormatValue(index, value);
     }
 
     // Initialize limits and threshold
@@ -49,12 +50,6 @@ RMBaseGraph.TwoSensorsGraph {
             }
             enabled = false;
             maxMemory = valueVar;
-
-            // Update graph Y range
-            root.uplimits = [100, maxMemory];
-
-            // Update sensors
-            root.sensorsModel.sensors = [`gpu/${gpuIndex}/usage`, `gpu/${gpuIndex}/usedVram`, `gpu/${gpuIndex}/temperature`];
         }
     }
 }

@@ -65,20 +65,11 @@ RMBaseGraph.BaseSensorGraph {
         ]
     }
 
-    _clear: () => {
-        firstChartData.clear();
-        secondChartData.clear();
-        for (let i = 0; i < sensorsModel.sensors.length; i++) {
-            _updateData(i);
-        }
-    }
     _insertChartData: (column, value) => {
         if (column == 0) {
             firstChartData.insertValue(value);
-            root.chartDataChanged(0);
         } else if (column == 1) {
             secondChartData.insertValue(value);
-            root.chartDataChanged(1);
         }
     }
 }

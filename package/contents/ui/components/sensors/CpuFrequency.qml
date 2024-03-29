@@ -4,6 +4,8 @@ import org.kde.ksysguard.formatter as Formatter
 
 Sensors.SensorDataModel {
     id: root
+    updateRateLimit: -1
+
     property int _coreCount
 
     property string agregator: "average" // Possible value: average, minimum, maximum
@@ -17,6 +19,7 @@ Sensors.SensorDataModel {
 
     function getValue(eCores = false) {
         const pCoresCount = _coreCount - eCoresCount;
+
         // Retrieve cores frequencies
         let values = [];
         const start = eCores ? pCoresCount : 0;
@@ -39,25 +42,25 @@ Sensors.SensorDataModel {
         return undefined;
     }
 
-    updateRateLimit: -1
-    Component.onCompleted: {
-        sensors = ["cpu/all/coreCount"];
-    }
-
-    property bool _initialized
-    property Timer _timer: Timer {
+    // Initialize sensors by retrieving core count, then set to N frequency sensor
+    sensors: ["cpu/all/coreCount"]
+    readonly property Timer _initialize: Timer {
         running: enabled
-        interval: 100 // Wait to be sure all sensors metadata has retrieved
+        triggeredOnStart: true
+
+        // Wait to be sure all sensors metadata has retrieved
+        repeat: true
+        interval: 100
 
         onTriggered: {
-            /// Prevent running multiple times
-            if (_initialized) {
+            // Prevent error if metadata is not yet retrieved
+            if (!root.hasIndex(0, 0)) {
                 return;
             }
-            _initialized = true;
+            _initialize.running = false; // Stop running if data is available
 
             // Fill sensors with all cores
-            _coreCount = data(index(0, 0));
+            _coreCount = root.data(root.index(0, 0));
             const sensors = [];
             for (let i = 0; i < _coreCount; i++) {
                 sensors[i] = "cpu/cpu" + i + "/frequency";

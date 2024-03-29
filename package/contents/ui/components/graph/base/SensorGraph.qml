@@ -19,6 +19,7 @@ RMBaseGraph.BaseSensorGraph {
         direction: Charts.XYChart.ZeroAtEnd
         fillOpacity: Plasmoid.configuration.graphFillOpacity / 100
         smooth: true
+        yRange.to: 100
         yRange.automatic: false
 
         colorSource: Charts.SingleValueSource {
@@ -32,16 +33,9 @@ RMBaseGraph.BaseSensorGraph {
         ]
     }
 
-    _clear: () => {
-        chartData.clear();
-        for (let i = 0; i < sensorsModel.sensors.length; i++) {
-            _updateData(i);
-        }
-    }
     _insertChartData: (column, value) => {
         if (column == 0) {
             chartData.insertValue(value);
-            root.chartDataChanged(0);
         }
     }
 }

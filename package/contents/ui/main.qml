@@ -87,9 +87,7 @@ PlasmoidItem {
             height: itemHeight
 
             onLoaded: {
-                item.textContainer.firstLineLabel.font.pixelSize = Qt.binding(() => root.fontPixelSize);
-                item.textContainer.secondLineLabel.font.pixelSize = Qt.binding(() => root.fontPixelSize);
-                item.textContainer.thirdLineLabel.font.pixelSize = Qt.binding(() => root.fontPixelSize);
+                item.textContainer.fontSize = Qt.binding(() => root.fontPixelSize);
             }
             Component.onCompleted: {
                 const typeCaptitalized = modelData.type.charAt(0).toUpperCase() + modelData.type.slice(1);
