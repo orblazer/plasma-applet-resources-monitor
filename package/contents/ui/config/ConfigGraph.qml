@@ -35,6 +35,7 @@ KCM.ScrollViewKCM {
     property var cfg_warningColor
     property var cfg_criticalColor
     property var cfg_updateInterval
+    property var cfg_clickAction
     property var cfg_clickActionCommand
     //#endregion
 

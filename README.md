@@ -11,9 +11,15 @@ The evolution of this project led it to a new name and the detachment of the for
 
 ## Installation
 
-1. Install the **required dependencies** :
+1. Install the **dependencies** :
+
+   **required dependencies**:
 
    - `libksysguard` (normally include by default)
+
+   **optional dependencies**:
+
+   - `plasma-addons` (or similar name) : This is only required if you want select an application to run
 
 2. Install the widget :
 

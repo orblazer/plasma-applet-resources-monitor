@@ -34,6 +34,7 @@ KCM.AbstractKCM {
     //#region // HACK: Present to suppress errors (https://bugs.kde.org/show_bug.cgi?id=484541)
     property var cfg_graphs
     property var cfg_updateInterval
+    property var cfg_clickAction
     property var cfg_clickActionCommand
     //#endregion
 

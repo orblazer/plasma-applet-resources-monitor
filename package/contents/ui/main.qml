@@ -58,6 +58,8 @@ PlasmoidItem {
     property double fontPixelSize: Math.round(isVertical ? (itemHeight / 1.4 * fontScale) : (itemHeight * fontScale))
     property var graphsModel: (JSON.parse(Plasmoid.configuration.graphs) || []).filter(v => v._v === graphVersion)
 
+    property string clickAction: Plasmoid.configuration.clickAction
+
     // Initialize JS functions
     Component.onCompleted: Functions.init(Kirigami.Theme)
 
@@ -113,18 +115,35 @@ PlasmoidItem {
         MouseArea {
             anchors.fill: parent
             acceptedButtons: Qt.LeftButton
+            enabled: clickAction !== "none"
 
+            Loader {
+                id: appLauncher
+                active: clickAction === "application"
+                source: "./components/AppLauncher.qml"
+
+                function run(url) {
+                    if (status === Loader.Ready) {
+                        item.openUrl(url);
+                    }
+                }
+            }
             //? NOTE: This is hacky way for replace "Kio.KRun" due to limitation of access to C++ in widget without deploying package
-            //? This have a lot limitation due to cannot open applications with `kioclient exec`, `kstart --application` or `xdg-open`.
+            //? This have a some limitation due to cannot open applications with `kioclient exec`, `kstart --application` or `xdg-open`.
             Plasma5Support.DataSource {
                 id: runner
                 engine: "executable"
                 connectedSources: []
                 onNewData: disconnectSource(sourceName)
             }
+
             onClicked: {
                 if (Plasmoid.configuration.clickActionCommand !== "") {
-                    runner.connectSource(Plasmoid.configuration.clickActionCommand);
+                    if (clickAction === "application") {
+                        appLauncher.run(Plasmoid.configuration.clickActionCommand);
+                    } else {
+                        runner.connectSource(Plasmoid.configuration.clickActionCommand);
+                    }
                 }
             }
         }
