@@ -6,7 +6,7 @@ Sensors.SensorDataModel {
     id: root
     updateRateLimit: -1
 
-    property int _coreCount
+    property int _coreCount: 0
 
     property string agregator: "average" // Possible value: average, minimum, maximum
     property int eCoresCount: 0
@@ -18,6 +18,9 @@ Sensors.SensorDataModel {
     }
 
     function getValue(eCores = false) {
+        if (_coreCount === 0) {
+            return undefined;
+        }
         const pCoresCount = _coreCount - eCoresCount;
 
         // Retrieve cores frequencies
