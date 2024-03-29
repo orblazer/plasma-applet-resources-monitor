@@ -1,3 +1,12 @@
+## [2.11.2](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.11.1...v2.11.2) (2024-03-29)
+
+
+### Bug Fixes
+
+* **graph:** right disable secondary chart ([8fa1fb6](https://github.com/orblazer/plasma-applet-resources-monitor/commit/8fa1fb66eac136e8052b602305564bd98a83c91e)), closes [#56](https://github.com/orblazer/plasma-applet-resources-monitor/issues/56)
+
+
+
 ## [2.11.1](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.11.0...v2.11.1) (2024-03-21)
 
 
