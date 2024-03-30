@@ -16,28 +16,11 @@ Kirigami.FormLayout {
      *   "type": "gpu",
      *   "colors": ["usageColor", "memoryColor", "tempColor"],
      *   "sensorsType": ["memory", temperature], // Values: "none/memory/memory-percent" | true/false
-     *   "gpuIndex": "gpu0",
+     *   "device": "gpu0", // Device index (eg. gpu0, gpu1) | [managed by graphs]
      *   "thresholds": [0, 0], // Temperature
      * }
      */
     required property var item
-    required property var gpuCards // contains list of GPUs
-
-    QQC2.ComboBox {
-        Layout.fillWidth: true
-        Kirigami.FormData.label: i18n("Graphic card:")
-
-        currentIndex: -1
-        textRole: "name"
-        valueRole: "index"
-        model: gpuCards
-
-        Component.onCompleted: currentIndex = indexOfValue(item.gpuIndex)
-        onActivated: {
-            item.gpuIndex = currentValue;
-            root.changed();
-        }
-    }
 
     QQC2.ComboBox {
         Layout.fillWidth: true

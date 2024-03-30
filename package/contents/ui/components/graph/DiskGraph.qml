@@ -5,7 +5,10 @@ import "../../code/dialect.js" as Dialect
 
 RMBaseGraph.TwoSensorsGraph {
     id: root
-    objectName: "DisksGraph"
+    objectName: "DiskGraph"
+
+    // Settings
+    property string device: "all" // Device id (eg: sda, sdc) | Could be "all"
 
     // Apply dialect to uplimits
     readonly property var diskIoDialect: Dialect.getNetworkDialectInfo("kibibyte", i18nc)
@@ -21,5 +24,5 @@ RMBaseGraph.TwoSensorsGraph {
 
     // Graph options
     realUplimits: [uplimits[0] * diskIoDialect.multiplier, uplimits[1] * diskIoDialect.multiplier]
-    sensorsModel.sensors: sensorsType[0] ? ["disk/all/read", "disk/all/write"] : ["disk/all/write", "disk/all/read"]
+    sensorsModel.sensors: sensorsType[0] ? [`disk/${device}/read`, `disk/${device}/write`] : [`disk/${device}/write`, `disk/${device}/read`]
 }

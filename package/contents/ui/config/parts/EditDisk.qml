@@ -13,9 +13,10 @@ Kirigami.FormLayout {
      * Settings format:
      * {
      *   "_v": 1, // Version of data (for compatibility)
-     *   "type": "disks",
+     *   "type": "disk",
      *   "colors": ["readColor", "writeColor"],
      *   "sensorsType": [invert], // Values: true/false (swap r/w)
+     *   "device": "all", // Device id (eg. sda, sdc) | Could be "all" | [managed by graphs]
      *   "uplimits": [0, 0] // Chart1, Chart2
      * }
      */

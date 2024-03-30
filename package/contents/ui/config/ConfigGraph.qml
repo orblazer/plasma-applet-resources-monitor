@@ -38,67 +38,48 @@ KCM.ScrollViewKCM {
 
     // Uncomment for development
     /* Component.onCompleted: {
-        addGraph("gpu");
+        addGraph("gpu", "gpu1");
         addGraph("network");
         addGraph("disks");
     } */
 
     // Graphs infos amd default values
-    readonly property var graphInfos: {
+    readonly property var graphDefaultValues: {
         "cpu": {
-            "name": i18nc("Chart name", "CPU"),
-            "icon": "cpu-symbolic",
-            "default": {
-                "colors": ["highlightColor", "textColor", "textColor"],
-                "sensorsType": ["usage", "clock", false],
-                "clockAgregator": "average",
-                "eCoresCount": "",
-                "thresholds": [85, 105]
-            }
+            "colors": ["highlightColor", "textColor", "textColor"],
+            "sensorsType": ["usage", "clock", false],
+            "clockAgregator": "average",
+            "eCoresCount": "",
+            "thresholds": [85, 105]
         },
         "memory": {
-            "name": i18nc("Chart name", "Memory"),
-            "icon": "memory-symbolic",
-            "default": {
-                "colors": ["highlightColor", "negativeTextColor"],
-                "sensorsType": ["physical", "swap"],
-                "thresholds": [70, 90]
-            }
+            "colors": ["highlightColor", "negativeTextColor"],
+            "sensorsType": ["physical", "swap"],
+            "thresholds": [70, 90]
         },
         "gpu": {
-            "name": i18nc("Chart name", "GPU"),
-            "icon": "freon-gpu-temperature-symbolic",
-            "default": {
-                "colors": ["highlightColor", "positiveTextColor", "textColor"],
-                "sensorsType": ["memory", false],
-                // "gpuIndex" defined in "addGraph"
-                "thresholds": [70, 90]
-            }
+            "colors": ["highlightColor", "positiveTextColor", "textColor"],
+            "sensorsType": ["memory", false],
+            // "device" defined in "addGraph"
+            "thresholds": [70, 90]
         },
         "network": {
-            "name": i18nc("Chart name", "Network"),
-            "icon": "network-wired-symbolic",
-            "default": {
-                "colors": ["highlightColor", "positiveTextColor"],
-                "sensorsType": [false, "kibibyte"],
-                "uplimits": [100000, 100000],
-                "ignoredInterfaces": []
-            }
+            "colors": ["highlightColor", "positiveTextColor"],
+            "sensorsType": [false, "kibibyte"],
+            "uplimits": [100000, 100000],
+            "ignoredInterfaces": []
         },
-        "disks": {
-            "name": i18nc("Chart name", "Disks I/O"),
-            "icon": "drive-harddisk-symbolic",
-            "default": {
-                "colors": ["highlightColor", "positiveTextColor"],
-                "sensorsType": [false],
-                "uplimits": [200000, 200000]
-            }
+        "disk": {
+            "colors": ["highlightColor", "positiveTextColor"],
+            "sensorsType": [false],
+            // "device" defined in "addGraph"
+            "uplimits": [200000, 200000]
         }
     }
 
-    // List GPU cards
-    RMComponents.GpuDetector {
-        id: gpuCards
+    // Retrieve available graphs
+    AvailableGraphProxy {
+        id: availableGraphs
     }
 
     // Content
@@ -111,13 +92,16 @@ KCM.ScrollViewKCM {
         model: ListModel {
             Component.onCompleted: {
                 Object.values(graphs).forEach(v => append({
-                        type: v.type
+                        type: v.type,
+                        device: v.device ?? v.type
                     }));
             }
         }
 
         delegate: Item {
             // External item required to make Kirigami.ListItemDragHandle work
+            readonly property var graphInfo: availableGraphs.findByDevice(model.device)  //? `device = type` when "type" is not "gpu" or "disk"
+
             width: graphsView.width
             implicitHeight: graphItem.implicitHeight
 
@@ -143,29 +127,29 @@ KCM.ScrollViewKCM {
 
                     // Content
                     Kirigami.Icon {
-                        source: graphInfos[model.type].icon
+                        source: graphInfo.icon
                         width: Kirigami.Units.iconSizes.smallMedium
                         height: width
                     }
                     QQC2.Label {
                         id: name
                         Layout.fillWidth: true
-                        text: graphInfos[model.type].name
+                        text: graphInfo.name
                         textFormat: Text.PlainText
                     }
 
                     // Actions
                     DelegateButton {
                         icon.name: "edit-entry-symbolic"
-                        text: i18nc("@info:tooltip", "Edit %1 graph", name.text)
+                        text: i18nc("@info:tooltip", "Edit \"%1\" graph", name.text)
 
                         onClicked: {
-                            editDialog.openFor(index);
+                            editDialog.openFor(index, name.text);
                         }
                     }
                     DelegateButton {
                         icon.name: "edit-delete"
-                        text: i18nc("@info:tooltip", "Delete %1 graph", name.text)
+                        text: i18nc("@info:tooltip", "Delete \"%1\" graph", name.text)
 
                         onClicked: {
                             removePrompt.graphIndex = index;
@@ -216,10 +200,11 @@ KCM.ScrollViewKCM {
         width: graphsView.width - Kirigami.Units.gridUnit * 4
         height: graphsView.height
 
-        title: i18nc("@title:window", "Edit graph")
+        title: i18nc("@title:window", "Edit graph: %1", graphName)
         standardButtons: Kirigami.Dialog.Ok | Kirigami.Dialog.Cancel
 
         property int graphIndex
+        property string graphName
 
         property bool needSave: false
         onAccepted: {
@@ -245,21 +230,19 @@ KCM.ScrollViewKCM {
         /**
          * Open edit modal for specific graph
          * @param {number} index The graph index
+         * @param {string} name The graph name
          */
-        function openFor(index) {
+        function openFor(index, name) {
             const item = graphs[index];
             const filename = "Edit" + (item.type.charAt(0).toUpperCase() + item.type.slice(1));
             const source = `./parts/${filename}.qml`;
 
             // Load settings page
-            let props = {
-                item
-            };
-            if (item.type === "gpu") {
-                props.gpuCards = gpuCards.model;
-            }
             graphIndex = index;
-            contentItem.setSource(source, props);
+            graphName = name;
+            contentItem.setSource(source, {
+                item
+            });
         }
     }
 
@@ -276,26 +259,23 @@ KCM.ScrollViewKCM {
 
         ListView {
             id: addGraphView
+            clip: true
+            reuseItems: true
+            model: availableGraphs
 
-            model: ListModel {
-                Component.onCompleted: {
-                    Object.entries(graphInfos).forEach(([k, v]) => {
-                        append({
-                            type: k,
-                            name: v.name,
-                            icon: v.icon
-                        });
-                    });
+            section {
+                property: "section"
+                delegate: Kirigami.ListSectionHeader {
+                    required property string section
+                    width: addGraphView.width
+                    text: section
                 }
             }
-
-            // clip: true
-            reuseItems: true
 
             delegate: Kirigami.SwipeListItem {
                 width: addGraphView.width
                 // Disable when graph is already present
-                enabled: !root.graphExist(model.type)
+                enabled: !root.graphExist(model.device)
 
                 contentItem: RowLayout {
                     // Content
@@ -320,7 +300,7 @@ KCM.ScrollViewKCM {
                         hoverEnabled: enabled
 
                         onClicked: {
-                            addGraph(model.type);
+                            addGraph(model.type, model.device);
                             addDialog.needSave = true;
                         }
                     }
@@ -370,13 +350,13 @@ KCM.ScrollViewKCM {
     }
 
     /**
-     * Check if graph of an specified type exist
-     * @param {string} type The graph type want to be checked
+     * Check if graph of an specified device exist
+     * @param {string} value The graph device (device = type when not GPU or disk) want to be checked
      * @returns {boolean} The graph already exist or not
      */
-    function graphExist(type) {
+    function graphExist(value) {
         for (let i = 0; i < graphsView.count; i++) {
-            if (graphsView.model.get(i).type === type) {
+            if (graphsView.model.get(i).device === value) {
                 return true;
             }
         }
@@ -386,10 +366,11 @@ KCM.ScrollViewKCM {
     /**
      * Add an new graph
      * @param {string} type The graph type want to be added
+     * @param {string} [device] The device want to be added (eg. gpu0)
      */
-    function addGraph(type) {
+    function addGraph(type, device) {
         // Retrieve default values and check if type is valid
-        let defaultVals = graphInfos[type]?.default;
+        let defaultVals = graphDefaultValues[type];
         if (typeof defaultVals === "undefined") {
             return;
         }
@@ -402,17 +383,16 @@ KCM.ScrollViewKCM {
         //? Foreach due to can't use spredd in QML
         Object.entries(defaultVals).forEach(([k, v]) => item[k] = v);
 
-        // Define "gpuIndex" on "gpu" type
-        if (type === "gpu") {
-            item.gpuIndex = (gpuCards.model[0] ?? {
-                    index: "unknown"
-                }).index;
+        // Define "device" on "gpu" type
+        if (type === "gpu" || type === "disk") {
+            item.device = device;
         }
 
         // Add graph to lists
         graphs.push(item);
         graphsView.model.append({
-            type: type
+            type,
+            device
         });
     }
 }

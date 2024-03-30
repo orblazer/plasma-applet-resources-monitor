@@ -8,7 +8,7 @@ RMBaseGraph.TwoSensorsGraph {
     objectName: "GpuGraph"
 
     // Settings
-    property string gpuIndex: "" // Gpu sensor index (eg: gpu0, gpu1)
+    property string device: "gpu0" // Device index (eg: gpu0, gpu1)
 
     // Config shortcut
     property bool memoryInPercent: sensorsType[0].endsWith("-percent")
@@ -24,7 +24,7 @@ RMBaseGraph.TwoSensorsGraph {
 
     // Graph options
     realUplimits: [100, maxQueryModel.maxMemory]
-    sensorsModel.sensors: [`gpu/${gpuIndex}/usage`, `gpu/${gpuIndex}/usedVram`, `gpu/${gpuIndex}/temperature`]
+    sensorsModel.sensors: [`gpu/${device}/usage`, `gpu/${device}/usedVram`, `gpu/${device}/temperature`]
     secondChartVisible: sensorsType[0] !== "none"
 
     // Override methods, for handle memeory in percent
@@ -38,7 +38,7 @@ RMBaseGraph.TwoSensorsGraph {
     // Initialize limits and threshold
     Sensors.SensorDataModel {
         id: maxQueryModel
-        sensors: [`gpu/${gpuIndex}/totalVram`]
+        sensors: [`gpu/${device}/totalVram`]
         enabled: true
         property int maxMemory: -1
 
