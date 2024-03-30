@@ -110,8 +110,8 @@ PlasmoidItem {
             spacing: Plasmoid.configuration.graphMargin
             flow: isVertical ? Flow.TopToBottom : Flow.LeftToRight
 
-            itemWidth: Math.min(_getCustomConfig("graphWidth", Math.round(initGraphSize * (isVertical ? 1 : 1.4))), root.width)
-            itemHeight: Math.min(_getCustomConfig("graphHeight", initGraphSize), root.height)
+            itemWidth: _getCustomConfig("graphWidth", Math.round(initGraphSize * (isVertical ? 1 : 1.4)))
+            itemHeight: _getCustomConfig("graphHeight", initGraphSize)
             fontPixelSize: Math.round(isVertical ? (itemHeight / 1.4 * fontScale) : (itemHeight * fontScale))
         }
     }
