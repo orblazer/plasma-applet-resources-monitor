@@ -1,11 +1,10 @@
 import QtQuick
-import QtQuick.Layouts as QtLayouts
+import QtQuick.Layouts
 import QtQuick.Controls as QQC2
 import QtQuick.Dialogs as QtDialog
-import org.kde.plasma.components as PlasmaComponents
 import org.kde.kirigami as Kirigami
 
-QtLayouts.RowLayout {
+RowLayout {
     id: root
     spacing: Kirigami.Units.largeSpacing
 
@@ -18,7 +17,7 @@ QtLayouts.RowLayout {
     // Components
     QQC2.ComboBox {
         id: select
-        QtLayouts.Layout.fillWidth: true
+        Layout.fillWidth: true
         currentIndex: -1
         textRole: "label"
         valueRole: "value"
@@ -87,8 +86,8 @@ QtLayouts.RowLayout {
     }
 
     Rectangle {
-        QtLayouts.Layout.preferredHeight: parent.height
-        QtLayouts.Layout.preferredWidth: parent.height
+        Layout.preferredHeight: parent.height
+        Layout.preferredWidth: parent.height
         color: colorDialog.selectedColor
         radius: 2
 

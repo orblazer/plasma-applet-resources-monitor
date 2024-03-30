@@ -1,10 +1,8 @@
 import QtQuick
 import org.kde.plasma.plasmoid
 import org.kde.quickcharts as Charts
-import "./" as RMBaseGraph
-import "../../functions.mjs" as Functions
 
-RMBaseGraph.BaseSensorGraph {
+BaseSensorGraph {
     id: root
 
     // Aliases
@@ -23,10 +21,10 @@ RMBaseGraph.BaseSensorGraph {
         yRange.automatic: false
 
         colorSource: Charts.SingleValueSource {
-            value: Functions.resolveColor(colors[0])
+            value: textContainer._resolveColor(colors[0])
         }
         valueSources: [
-            RMBaseGraph.ArrayDataSource {
+            ArrayDataSource {
                 id: chartData
                 maximumHistory: Plasmoid.configuration.historyAmount
             }

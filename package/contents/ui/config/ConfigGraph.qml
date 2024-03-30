@@ -4,10 +4,7 @@ import QtQuick.Controls as QQC2
 import org.kde.kirigami as Kirigami
 import org.kde.kcmutils as KCM
 import org.kde.plasma.plasmoid
-import org.kde.plasma.components as PlasmaComponents
 import "../components" as RMComponents
-import "../components/functions.mjs" as Functions
-import "./controls" as RMControls
 
 KCM.ScrollViewKCM {
     id: root

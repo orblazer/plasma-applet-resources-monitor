@@ -19,9 +19,6 @@ import QtQuick.Layouts
 import org.kde.plasma.plasmoid
 import org.kde.plasma.core as PlasmaCore
 import org.kde.plasma.plasma5support as Plasma5Support
-import org.kde.kirigami as Kirigami
-import "./components/functions.mjs" as Functions
-import "./components/graph" as RMGraph
 
 PlasmoidItem {
     id: root
@@ -59,9 +56,6 @@ PlasmoidItem {
     Plasmoid.configurationRequired: graphsModel.length === 0 // Check if graphs is valid and have some items
     preferredRepresentation: Plasmoid.configurationRequired ? compactRepresentation : fullRepresentation // Show graphs only if at least 1 is present, otherwise ask to configure
     Plasmoid.constraintHints: Plasmoid.CanFillArea // Allow widget to take all height/width
-
-    // Initialize JS functions
-    Component.onCompleted: Functions.init(Kirigami.Theme)
 
     // Content
     fullRepresentation: MouseArea {

@@ -1,14 +1,14 @@
 import QtQuick
 import org.kde.plasma.plasmoid
 import "./base" as RMBaseGraph
-import "../functions.mjs" as Functions
+import "../../code/dialect.js" as Dialect
 
 RMBaseGraph.TwoSensorsGraph {
     id: root
     objectName: "DisksGraph"
 
     // Apply dialect to uplimits
-    readonly property var diskIoDialect: Functions.getNetworkDialectInfo("kibibyte", i18nc)
+    readonly property var diskIoDialect: Dialect.getNetworkDialectInfo("kibibyte", i18nc)
 
     // Labels
     textContainer {

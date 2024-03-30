@@ -1,10 +1,9 @@
 import QtQuick
-import QtQuick.Layouts as QtLayouts
+import QtQuick.Layouts
 import QtQuick.Controls as QQC2
 import org.kde.kirigami as Kirigami
-import "./" as RMControls
 
-QtLayouts.RowLayout {
+RowLayout {
     spacing: Kirigami.Units.smallSpacing
 
     property alias checkbox: checkbox
@@ -20,9 +19,9 @@ QtLayouts.RowLayout {
     QQC2.CheckBox {
         id: checkbox
     }
-    RMControls.SpinBox {
+    SpinBox {
         id: spinBox
-        QtLayouts.Layout.fillWidth: true
+        Layout.fillWidth: true
         enabled: customized
         suffix: " px"
 

@@ -4,7 +4,7 @@ import QtQuick.Controls as QQC2
 import org.kde.kirigami as Kirigami
 import "../controls" as RMControls
 import "../../components" as RMComponents
-import "../../components/functions.mjs" as Functions
+import "../../code/dialect.js" as Dialect
 
 Kirigami.FormLayout {
     id: root
@@ -24,7 +24,7 @@ Kirigami.FormLayout {
      */
     required property var item
 
-    readonly property var dialect: Functions.getNetworkDialectInfo(item.sensorsType[0], i18nc)
+    readonly property var dialect: Dialect.getNetworkDialectInfo(item.sensorsType[0], i18nc)
     readonly property var speedOptions: [
         {
             "label": i18n("Custom"),

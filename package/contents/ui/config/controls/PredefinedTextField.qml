@@ -1,9 +1,9 @@
 import QtQuick
-import QtQuick.Layouts as QtLayouts
+import QtQuick.Layouts
 import QtQuick.Controls as QQC2
 import org.kde.kirigami as Kirigami
 
-QtLayouts.ColumnLayout {
+ColumnLayout {
     spacing: Kirigami.Units.largeSpacing
 
     property alias predefinedChoices: predefinedChoices
@@ -14,7 +14,7 @@ QtLayouts.ColumnLayout {
 
     QQC2.ComboBox {
         id: predefinedChoices
-        QtLayouts.Layout.fillWidth: true
+        Layout.fillWidth: true
         currentIndex: -1
 
         onActivated: {
@@ -35,7 +35,7 @@ QtLayouts.ColumnLayout {
     }
     QQC2.TextField {
         id: textField
-        QtLayouts.Layout.fillWidth: true
+        Layout.fillWidth: true
         visible: predefinedChoices.currentIndex === customValueIndex
     }
 }

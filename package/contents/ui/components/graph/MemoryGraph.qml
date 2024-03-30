@@ -14,7 +14,7 @@ RMBaseGraph.TwoSensorsGraph {
     // Labels
     realThresholds: [maxQueryModel.maxMemory[0] * (thresholds[0] / 100.0), maxQueryModel.maxMemory[0] * (thresholds[1] / 100.0)]
     textContainer {
-        valueColors: [undefined, root.showSwap ? root.colors[1] : undefined]
+        valueColors: [undefined, root.showSwap ? root.colors[1] : undefined, undefined]
         labelsVisibleWhenZero: [true, false, true]
 
         hints: ["RAM", root.showSwap ? "Swap" : (sensorsType[1] === "memory-percent" ? i18nc("Graph label", "Percent.") : ""), ""]

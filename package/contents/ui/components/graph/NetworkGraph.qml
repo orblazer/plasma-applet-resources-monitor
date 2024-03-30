@@ -2,7 +2,7 @@ import QtQuick
 import org.kde.plasma.plasmoid
 import "./base" as RMBaseGraph
 import "../" as RMComponents
-import "../functions.mjs" as Functions
+import "../../code/dialect.js" as Dialect
 
 RMBaseGraph.TwoSensorsGraph {
     id: root
@@ -10,7 +10,7 @@ RMBaseGraph.TwoSensorsGraph {
 
     // Settings
     property var ignoredInterfaces: []
-    property var dialect: Functions.getNetworkDialectInfo(sensorsType[1], i18nc)
+    property var dialect: Dialect.getNetworkDialectInfo(sensorsType[1], i18nc)
 
     // Retrieve chart index and swap it if needed
     property int downloadIndex: sensorsType[0] ? 1 : 0

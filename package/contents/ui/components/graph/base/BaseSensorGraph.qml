@@ -2,8 +2,6 @@ import QtQuick
 import org.kde.plasma.plasmoid
 import org.kde.ksysguard.sensors as Sensors
 import org.kde.ksysguard.formatter as Formatter
-import "./" as RMBaseGraph
-import "../../functions.mjs" as Functions
 
 Item {
     id: root
@@ -20,11 +18,11 @@ Item {
     property int thresholdIndex: -1 // Sensor index used for threshold
     property var thresholds: [] // ONLY USED FOR CONFIG (graph settings)! | See "realThresholds"
     property var realThresholds: [] // fomart: [warning, critical]
-    readonly property color thresholdWarningColor: Functions.resolveColor(Plasmoid.configuration.warningColor)
-    readonly property color thresholdCriticalColor: Functions.resolveColor(Plasmoid.configuration.criticalColor)
+    readonly property color thresholdWarningColor: textContainer._resolveColor(Plasmoid.configuration.warningColor)
+    readonly property color thresholdCriticalColor: textContainer._resolveColor(Plasmoid.configuration.criticalColor)
 
     // Labels
-    RMBaseGraph.GraphText {
+    GraphText {
         id: textContainer
         enabled: Plasmoid.configuration.displayment != 'never'
         anchors.fill: parent

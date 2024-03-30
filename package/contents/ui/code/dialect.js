@@ -1,23 +1,4 @@
-/**
- * This contains selectable kirigami colors
- * ? This is for allowing access to `kirigami.Theme` (bypass QML limitation)
- */
-const _kirigamiTheme = {
-  textColor: "",
-  highlightedTextColor: "",
-  linkColor: "",
-  visitedLinkColor: "",
-  negativeTextColor: "",
-  neutralTextColor: "",
-  positiveTextColor: "",
-  backgroundColor: "",
-  highlightColor: "",
-};
-export function init(kirigamiTheme) {
-  Object.keys(_kirigamiTheme).forEach(
-    (key) => (_kirigamiTheme[key] = kirigamiTheme[key])
-  );
-}
+.pragma library
 
 /**
  * @typedef {object} BinaryUnit
@@ -34,10 +15,7 @@ export function init(kirigamiTheme) {
  * @param {function} i18nc The "i18nc" function //? bypass QML limitation
  * @returns {BinaryUnit} The binary unit
  */
-export function getNetworkDialectInfo(
-  dialect,
-  i18nc = (_ = "", def = "") => def
-) {
+function getNetworkDialectInfo(dialect, i18nc = (_ = "", def = "") => def) {
   switch (dialect) {
     case "kilobyte":
       return {
@@ -74,7 +52,7 @@ export function getNetworkDialectInfo(
  * @param {number} [precision=1] Number of places after the decimal point to use.
  * @returns Converted value as a translated string including the units.
  */
-export function formatByteValue(value, dialect, precision = 1) {
+function formatByteValue(value, dialect, precision = 1) {
   if (value === 0 || isNaN(parseInt(value))) {
     return "0 " + dialect.suffix.replace("i", "");
   } else if (dialect.name === "kibibyte" && value <= dialect.multiplier) {
@@ -100,18 +78,4 @@ export function formatByteValue(value, dialect, precision = 1) {
     sizes[unit] +
     dialect.suffix
   );
-}
-
-/**
- * Resolve color when is name based
- * @param {string} color The color value
- * @returns The color color
- */
-export function resolveColor(color) {
-  if (!color) {
-    return undefined;
-  } else if (color.startsWith("#")) {
-    return color;
-  }
-  return _kirigamiTheme[color] || _kirigamiTheme.textColor;
 }

@@ -1,10 +1,9 @@
 import QtQuick
 import org.kde.plasma.plasmoid
 import org.kde.kirigami as Kirigami
-import "../../functions.mjs" as Functions
 
 Item {
-    id: graphText
+    id: root
     visible: enabled
 
     signal showValues
@@ -44,11 +43,11 @@ Item {
     // Bind properties changes
     onValueColorsChanged: {
         // Resolve colors
-        _valueColors = valueColors.map(v => Functions.resolveColor(v));
+        _valueColors = valueColors.map(v => root._resolveColor(v));
     }
     onHintColorsChanged: {
         // Resolve colors
-        _hintColors = hintColors.map(v => Functions.resolveColor(v));
+        _hintColors = hintColors.map(v => root._resolveColor(v));
     }
 
     // Labels
@@ -62,11 +61,10 @@ Item {
         Text {
             id: firstLine
             readonly property int index: 0
+            text: "..."
 
             width: parent.width
-            height: contentHeight
 
-            text: "..."
             textFormat: Text.PlainText
             color: getTextColor(index)
             style: textStyle
@@ -79,7 +77,6 @@ Item {
             text: "..."
 
             width: parent.width
-            height: contentHeight
             enabled: hints[index] !== ""
             visible: enabled
 
@@ -95,7 +92,6 @@ Item {
             text: "..."
 
             width: parent.width
-            height: contentHeight
             enabled: hints[index] !== ""
             visible: enabled
 
@@ -238,7 +234,7 @@ Item {
     }
 
     function getTextColor(index) {
-        return _valueColors[index] ?? Kirigami.Theme.textColor;
+        return _valueColors[index];
     }
 
     function _showValues() {
@@ -254,12 +250,26 @@ Item {
         }
         label.visible = true;
         label.text = hints[label.index];
-        label.color = _hintColors[label.index] ?? Kirigami.Theme.textColor;
+        label.color = _hintColors[label.index];
     }
     function _hideLines() {
         valueVisible = false;
         firstLine.visible = false;
         secondLine.visible = false;
         thirdLine.visible = false;
+    }
+
+    /**
+     * Resolve color when is name based
+     * @param {string} color The color value
+     * @returns The color color
+     */
+    function _resolveColor(color) {
+        if (!color) {
+            return Kirigami.Theme.textColor;
+        } else if (color.startsWith("#")) {
+            return color;
+        }
+        return Kirigami.Theme[color] ?? Kirigami.Theme.textColor;
     }
 }

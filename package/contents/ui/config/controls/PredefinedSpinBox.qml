@@ -1,10 +1,9 @@
 import QtQuick
-import QtQuick.Layouts as QtLayouts
+import QtQuick.Layouts
 import QtQuick.Controls as QQC2
 import org.kde.kirigami as Kirigami
-import "./" as RMControls
 
-QtLayouts.RowLayout {
+RowLayout {
     spacing: Kirigami.Units.largeSpacing
 
     property alias predefinedChoices: predefinedChoices
@@ -24,7 +23,7 @@ QtLayouts.RowLayout {
 
     QQC2.ComboBox {
         id: predefinedChoices
-        QtLayouts.Layout.fillWidth: true
+        Layout.fillWidth: true
         currentIndex: -1
 
         onActivated: {
@@ -45,10 +44,10 @@ QtLayouts.RowLayout {
             currentIndex = index !== -1 ? index : customValueIndex;
         }
     }
-    RMControls.SpinBox {
+    SpinBox {
         id: spinBox
-        QtLayouts.Layout.fillWidth: true
-        QtLayouts.Layout.minimumWidth: 120
+        Layout.fillWidth: true
+        Layout.minimumWidth: 120
         visible: predefinedChoices.currentIndex === customValueIndex
     }
 

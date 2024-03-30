@@ -1,6 +1,6 @@
 import QtQuick
-import QtQuick.Controls as QtControls
-import QtQuick.Layouts as QtLayouts
+import QtQuick.Layouts
+import QtQuick.Controls as QQC2
 import org.kde.kirigami as Kirigami
 import org.kde.kcmutils as KCM
 import org.kde.plasma.plasmoid
@@ -62,17 +62,17 @@ KCM.AbstractKCM {
     Kirigami.ScrollablePage {
         anchors.fill: parent
 
-        QtLayouts.StackLayout {
+        StackLayout {
             currentIndex: bar.currentIndex
-            QtLayouts.Layout.fillWidth: true
+            Layout.fillWidth: true
 
             // Charts
             Kirigami.FormLayout {
                 RMControls.PredefinedSpinBox {
                     id: historyAmount
                     Kirigami.FormData.label: i18n("History amount:")
-                    QtLayouts.Layout.fillWidth: true
-                    QtLayouts.Layout.minimumWidth: predefinedChoices.currentIndex == 0 ? 300 : 0
+                    Layout.fillWidth: true
+                    Layout.minimumWidth: predefinedChoices.currentIndex == 0 ? 300 : 0
 
                     predefinedChoices {
                         textRole: "label"
@@ -118,7 +118,7 @@ KCM.AbstractKCM {
                 RMControls.CustomizableSize {
                     id: graphWidth
                     Kirigami.FormData.label: i18n("Width:")
-                    QtLayouts.Layout.fillWidth: true
+                    Layout.fillWidth: true
 
                     spinBox {
                         from: 20
@@ -128,7 +128,7 @@ KCM.AbstractKCM {
                 RMControls.CustomizableSize {
                     id: graphHeight
                     Kirigami.FormData.label: i18n("Height:")
-                    QtLayouts.Layout.fillWidth: true
+                    Layout.fillWidth: true
 
                     spinBox {
                         from: 20
@@ -138,7 +138,7 @@ KCM.AbstractKCM {
                 RMControls.SpinBox {
                     id: graphMargin
                     Kirigami.FormData.label: i18n("Margin:")
-                    QtLayouts.Layout.fillWidth: true
+                    Layout.fillWidth: true
                     from: 1
                     to: 1000
                     suffix: " px"
@@ -146,7 +146,7 @@ KCM.AbstractKCM {
                 RMControls.SpinBox {
                     id: graphFillOpacity
                     Kirigami.FormData.label: i18n("Fill opacity:")
-                    QtLayouts.Layout.fillWidth: true
+                    Layout.fillWidth: true
                     from: 0
                     to: 100
                     suffix: "%"
@@ -155,7 +155,7 @@ KCM.AbstractKCM {
 
             // Text
             Kirigami.FormLayout {
-                QtControls.CheckBox {
+                QQC2.CheckBox {
                     id: enableShadows
                     text: i18n("Drop shadows")
                 }
@@ -163,16 +163,16 @@ KCM.AbstractKCM {
                 RMControls.SpinBox {
                     id: fontScale
                     Kirigami.FormData.label: i18n("Font scale:")
-                    QtLayouts.Layout.fillWidth: true
+                    Layout.fillWidth: true
                     from: 1
                     to: 100
                     suffix: "%"
                 }
 
-                QtControls.ComboBox {
+                QQC2.ComboBox {
                     id: displayment
                     Kirigami.FormData.label: i18n("Text displayment:")
-                    QtLayouts.Layout.fillWidth: true
+                    Layout.fillWidth: true
 
                     currentIndex: -1
                     textRole: "label"
@@ -200,10 +200,10 @@ KCM.AbstractKCM {
                     Component.onCompleted: currentIndex = indexOfValue(cfg_displayment)
                 }
 
-                QtControls.ComboBox {
+                QQC2.ComboBox {
                     id: placement
                     Kirigami.FormData.label: i18n("Placement:")
-                    QtLayouts.Layout.fillWidth: true
+                    Layout.fillWidth: true
 
                     currentIndex: -1
                     textRole: "label"

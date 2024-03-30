@@ -21,8 +21,6 @@ RMControls.SpinBox {
  */
 import QtQuick
 import QtQuick.Controls as QQC2
-import org.kde.plasma.core as PlasmaCore
-import org.kde.kirigami as Kirigami
 
 // Original SpinBox: https://github.com/qt/qtdeclarative/blob/dev/src/quickcontrols/basic/SpinBox.qml
 // Inspired by: https://github.com/mpaperno/maxLibQt/blob/master/src/quick/maxLibQt/controls/MLDoubleSpinBox.qm
