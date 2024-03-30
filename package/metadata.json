@@ -23,7 +23,7 @@
     "Name[fr]": "Moniteur des ressources (fork)",
     "Name[nl]": "Systeembronmonitor (afsplitsing)",
     "Name[de]": "Ressourcenmonitor (fork)",
-    "Version": "2.11.2",
+    "Version": "2.11.3",
     "Website": "https://github.com/orblazer/plasma-applet-resources-monitor",
     "BugReportUrl": "https://github.com/orblazer/plasma-applet-resources-monitor/issues"
   },
