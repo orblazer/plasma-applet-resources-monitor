@@ -2,7 +2,7 @@
 PLASMOID_DIR="$HOME/.local/share/plasma/plasmoids/"
 PACKAGE_NAME=org.kde.resourcesMonitor-fork
 
-if [ -d "${PLASMOID_DIR}${PACKAGE_NAME}" ]
+if [ ! -d "${PLASMOID_DIR}${PACKAGE_NAME}" ]
 then
   echo 'Install applet...'
   kpackagetool6 -t Plasma/Applet --install package
