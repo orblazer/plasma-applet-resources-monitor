@@ -5,7 +5,7 @@
  * @property {string} name The name
  * @property {string} suffix The suffix
  * @property {string} kiloChar The char for "kilo"
- * @property {number} KiBDiff The difference with `kibibyte`
+ * @property {number} byteDiff The difference with `byte`
  * @property {number} multiplier The multiplier amount (`1000` for metric and `1024` for binary)
  */
 
@@ -22,23 +22,23 @@ function getNetworkDialectInfo(dialect, i18nc = (_ = "", def = "") => def) {
         name: "kilobyte",
         suffix: i18nc("kilobyte suffix", "Bps"),
         kiloChar: "k",
-        KiBDiff: 1.024,
-        multiplier: 1024,
+        byteDiff: 1,
+        multiplier: 1000,
       };
     case "kilobit":
       return {
         name: "kilobit",
         suffix: i18nc("kilobit suffix", "bps"),
         kiloChar: "k",
-        KiBDiff: 8,
-        multiplier: 1024,
+        byteDiff: 8,
+        multiplier: 1000,
       };
     default:
       return {
         name: "kibibyte",
         suffix: i18nc("kibibyte suffix", "iB/s"),
         kiloChar: "K",
-        KiBDiff: 1,
+        byteDiff: 1,
         multiplier: 1024,
       };
   }
@@ -58,11 +58,10 @@ function formatByteValue(value, dialect, precision = 1) {
   } else if (dialect.name === "kibibyte" && value <= dialect.multiplier) {
     return "0 " + dialect.suffix.replace("i", "");
   }
-
-  var sizes = ["", dialect.kiloChar, "M", "G", "T", "P", "Z", "Y"];
+  const sizes = ["", dialect.kiloChar, "M", "G", "T", "P", "Z", "Y"];
 
   // Search unit conversion
-  var unit = Math.floor(Math.log(value) / Math.log(dialect.multiplier));
+  const unit = Math.floor(Math.log(value) / Math.log(dialect.multiplier));
 
   // Bytes/Bits, no rounding
   precision = precision < 0 ? 0 : precision;

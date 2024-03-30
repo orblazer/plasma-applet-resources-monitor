@@ -2,9 +2,10 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls as QQC2
 import org.kde.kirigami as Kirigami
+import org.kde.plasma.plasma5support as Plasma5Support
 import "../controls" as RMControls
-import "../../components" as RMComponents
 import "../../code/dialect.js" as Dialect
+import "../../code/network.js" as NetworkUtils
 
 Kirigami.FormLayout {
     id: root
@@ -69,8 +70,25 @@ Kirigami.FormLayout {
     ]
 
     // List network interfaces
-    RMComponents.NetworkInterfaceDetector {
-        id: networkInterfaces
+    Plasma5Support.DataSource {
+        engine: 'executable'
+        connectedSources: [NetworkUtils.NET_DATA_SOURCE]
+
+        onNewData: (sourceName, data) => {
+            // run just once
+            connectedSources.length = 0;
+            if (data['exit code'] > 0) {
+                print(data.stderr);
+            } else {
+                const transferData = NetworkUtils.parseTransferData(data.stdout);
+                interfaces.model.clear();
+                for (const name in transferData) {
+                    interfaces.model.append({
+                        name
+                    });
+                }
+            }
+        }
     }
 
     QQC2.CheckBox {
@@ -120,25 +138,21 @@ Kirigami.FormLayout {
         columnSpacing: Kirigami.Units.largeSpacing
 
         Repeater {
-            model: networkInterfaces
-            QQC2.CheckBox {
-                readonly property string interfaceName: model.SensorId.replace('network/', '').replace('/network', '')
-                readonly property bool ignoredByDefault: {
-                    return /^(docker|tun|tap)(\d+)/.test(interfaceName); // Ignore docker and tun/tap networks
-                }
-
-                text: interfaceName
-                checked: item.ignoredInterfaces.indexOf(interfaceName) == -1 && !ignoredByDefault
-                enabled: !ignoredByDefault
+            id: interfaces
+            model: ListModel {
+            }
+            delegate: QQC2.CheckBox {
+                text: name
+                checked: item.ignoredInterfaces.indexOf(name) == -1
 
                 onClicked: {
                     if (checked) {
                         // Checking, and thus removing from the ignoredNetworkInterfaces
-                        var i = item.ignoredInterfaces.indexOf(interfaceName);
+                        var i = item.ignoredInterfaces.indexOf(name);
                         item.ignoredInterfaces.splice(i, 1);
                     } else {
                         // Unchecking, and thus adding to the ignoredNetworkInterfaces
-                        item.ignoredInterfaces.push(interfaceName);
+                        item.ignoredInterfaces.push(name);
                     }
                     root.changed();
                 }
