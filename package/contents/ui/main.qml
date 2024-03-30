@@ -25,6 +25,9 @@ import "./components/graph" as RMGraph
 
 PlasmoidItem {
     id: root
+    // Margin for prevent "invsible" 0 and full lines
+    anchors.topMargin: 1
+    anchors.bottomMargin: 1
 
     readonly property int graphVersion: 1 //? Bump when some settings changes in "graphs" structure
     readonly property bool isVertical: {
@@ -44,127 +47,78 @@ PlasmoidItem {
             return false;
         }
     }
+    readonly property double initGraphSize: (isVertical ? root.width : root.height)
 
     // Settings properties
     property double fontScale: (Plasmoid.configuration.fontScale / 100)
-
-    // Component properties
-    property int itemMargin: Plasmoid.configuration.graphMargin
-    property double parentWidth: parent === null ? 0 : parent.width
-    property double parentHeight: parent === null ? 0 : parent.height
-    property double initWidth: isVertical ? ((parentWidth - itemMargin) / 2) : parentHeight
-    property double itemWidth: _getCustomConfig("graphWidth", Math.round(initWidth * (isVertical ? 1 : 1.5)))
-    property double itemHeight: _getCustomConfig("graphHeight", Math.round(initWidth))
-    property double fontPixelSize: Math.round(isVertical ? (itemHeight / 1.4 * fontScale) : (itemHeight * fontScale))
     property var graphsModel: (JSON.parse(Plasmoid.configuration.graphs) || []).filter(v => v._v === graphVersion)
-
     property string clickAction: Plasmoid.configuration.clickAction
+
+    // Plasma configuration
+    Plasmoid.backgroundHints: PlasmaCore.Types.DefaultBackground | PlasmaCore.Types.ConfigurableBackground
+    Plasmoid.configurationRequired: graphsModel.length === 0 // Check if graphs is valid and have some items
+    preferredRepresentation: Plasmoid.configurationRequired ? compactRepresentation : fullRepresentation // Show graphs only if at least 1 is present, otherwise ask to configure
+    Plasmoid.constraintHints: Plasmoid.CanFillArea // Allow widget to take all height/width
 
     // Initialize JS functions
     Component.onCompleted: Functions.init(Kirigami.Theme)
 
     // Content
-    Plasmoid.backgroundHints: PlasmaCore.Types.DefaultBackground | PlasmaCore.Types.ConfigurableBackground
-    Plasmoid.configurationRequired: graphsModel.length === 0 // Check if graphs is valid and have some items
-    preferredRepresentation: Plasmoid.configurationRequired ? compactRepresentation : fullRepresentation // Show graphs only if at least 1 is present, otherwise ask to configure
+    fullRepresentation: MouseArea {
+        acceptedButtons: clickAction !== "none" ? Qt.LeftButton : Qt.NoButton
 
-    fullRepresentation: ListView {
-        id: graphView
-        Layout.preferredWidth: !isVertical ? (itemWidth * graphView.model.length + itemMargin * (graphView.model.length + 1)) : itemWidth
-        Layout.preferredHeight: isVertical ? (itemHeight * graphView.model.length + itemMargin * (graphView.model.length + 1)) : itemHeight
-        LayoutMirroring.enabled: !isVertical && Qt.application.layoutDirection === Qt.RightToLeft
-        LayoutMirroring.childrenInherit: true
-        interactive: false
+        // Calculate widget size
+        Layout.fillWidth: isVertical
+        Layout.minimumWidth: isVertical ? 0 : graphView.itemWidth
+        Layout.preferredWidth: graphView.width
 
-        spacing: Plasmoid.configuration.graphMargin
-        orientation: isVertical ? ListView.Vertical : ListView.Horizontal
-
-        // Render
-        model: graphsModel
-        reuseItems: true
-        delegate: Loader {
-            required property var modelData
-
-            width: itemWidth
-            height: itemHeight
-
-            onLoaded: {
-                item.textContainer.fontSize = Qt.binding(() => root.fontPixelSize);
-            }
-            Component.onCompleted: {
-                const typeCaptitalized = modelData.type.charAt(0).toUpperCase() + modelData.type.slice(1);
-                // Retrieve props without un wanted internals
-                let props = {};
-                for (const [key, value] of Object.entries(modelData)) {
-                    if (key === "_v" || key === "type") {
-                        continue;
-                    }
-                    props[key] = value;
-                }
-
-                // Load graph
-                setSource(`./components/graph/${typeCaptitalized}Graph.qml`, props);
-            }
-        }
-        function getGraph(index) {
-            const loaderItem = graphView.itemAtIndex(index);
-            return loaderItem !== null ? loaderItem.item : null;
-        }
+        Layout.fillHeight: !isVertical
+        Layout.minimumHeight: !isVertical ? 0 : graphView.itemHeight
+        Layout.preferredHeight: graphView.height
 
         // Click action
-        MouseArea {
-            anchors.fill: parent
-            acceptedButtons: Qt.LeftButton
-            enabled: clickAction !== "none"
+        Loader {
+            id: appLauncher
+            active: clickAction === "application"
+            source: "./components/AppLauncher.qml"
 
-            Loader {
-                id: appLauncher
-                active: clickAction === "application"
-                source: "./components/AppLauncher.qml"
-
-                function run(url) {
-                    if (status === Loader.Ready) {
-                        item.openUrl(url);
-                    }
+            function run(url) {
+                if (status === Loader.Ready) {
+                    item.openUrl(url);
                 }
             }
-            //? NOTE: This is hacky way for replace "Kio.KRun" due to limitation of access to C++ in widget without deploying package
-            //? This have a some limitation due to cannot open applications with `kioclient exec`, `kstart --application` or `xdg-open`.
-            Plasma5Support.DataSource {
-                id: runner
-                engine: "executable"
-                connectedSources: []
-                onNewData: disconnectSource(sourceName)
-            }
+        }
+        //? NOTE: This is hacky way for replace "Kio.KRun" due to limitation of access to C++ in widget without deploying package
+        //? This have a some limitation due to cannot open applications with `kioclient exec`, `kstart --application` or `xdg-open`.
+        Plasma5Support.DataSource {
+            id: runner
+            engine: "executable"
+            connectedSources: []
+            onNewData: disconnectSource(sourceName)
+        }
 
-            onClicked: {
-                if (Plasmoid.configuration.clickActionCommand !== "") {
-                    if (clickAction === "application") {
-                        appLauncher.run(Plasmoid.configuration.clickActionCommand);
-                    } else {
-                        runner.connectSource(Plasmoid.configuration.clickActionCommand);
-                    }
+        onClicked: {
+            if (Plasmoid.configuration.clickActionCommand !== "") {
+                if (clickAction === "application") {
+                    appLauncher.run(Plasmoid.configuration.clickActionCommand);
+                } else {
+                    runner.connectSource(Plasmoid.configuration.clickActionCommand);
                 }
             }
         }
 
-        // Global update timer
-        Timer {
-            id: updateTask
-            interval: Plasmoid.configuration.updateInterval * 1000
+        // Render
+        GraphLayout {
+            id: graphView
+            model: graphsModel
+            updateInterval: Plasmoid.configuration.updateInterval * 1000
 
-            running: true
-            triggeredOnStart: true
-            repeat: true
+            spacing: Plasmoid.configuration.graphMargin
+            flow: isVertical ? Flow.TopToBottom : Flow.LeftToRight
 
-            onTriggered: {
-                for (const i in graphView.model) {
-                    const graph = graphView.getGraph(i);
-                    if (graph !== null) {
-                        graph._update();
-                    }
-                }
-            }
+            itemWidth: Math.min(_getCustomConfig("graphWidth", Math.round(initGraphSize * (isVertical ? 1 : 1.4))), root.width)
+            itemHeight: Math.min(_getCustomConfig("graphHeight", initGraphSize), root.height)
+            fontPixelSize: Math.round(isVertical ? (itemHeight / 1.4 * fontScale) : (itemHeight * fontScale))
         }
     }
 
