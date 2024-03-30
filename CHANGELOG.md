@@ -1,3 +1,12 @@
+## [2.11.3](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.11.2...v2.11.3) (2024-03-30)
+
+
+### Bug Fixes
+
+* **graph:** handle dynamic net interfaces and right dialect convert ([22b75bd](https://github.com/orblazer/plasma-applet-resources-monitor/commit/22b75bdd471c573dcd508c7c1034df300d08d78a)), closes [#23](https://github.com/orblazer/plasma-applet-resources-monitor/issues/23)
+
+
+
 ## [2.11.2](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.11.1...v2.11.2) (2024-03-29)
 
 
