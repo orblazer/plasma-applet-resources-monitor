@@ -157,7 +157,7 @@ KCM.AbstractKCM {
             Kirigami.FormLayout {
                 QQC2.CheckBox {
                     id: enableShadows
-                    text: i18n("Drop shadows")
+                    text: i18n("Display outline?")
                 }
 
                 RMControls.SpinBox {
