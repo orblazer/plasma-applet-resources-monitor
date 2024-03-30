@@ -1,13 +1,16 @@
-# Resources monitor (fork) - Plasma widget
+# Resources monitor (fork) - Plasma 5 widget
 
 Plasmoid for monitoring CPU, memory and network traffic
 
+> ⚠️ This branch is in maintenance mode, Plasma 5.27 will be supported as long is supported by KDE team.
+> This mean that version will only receive bug fixes, all feature request should be go for Plasma 6 version.
+
 ## Why this project ?
 
-This project was originally developed by @kotelnik ([Resources Monitor - Pling](https://www.pling.com/p/998908)) and mostly only for porting the maintenance through KDE versions.
+This project was originally developed by [@kotelnik](https://github.com/kotelnik) ([Resources Monitor - Pling](https://www.pling.com/p/998908)) and mostly only for porting the maintenance through KDE versions.
 But now this widget have a lot more configurations and metrics can be tracked.
 
-The evolution of this project led it to a new name and the detachment of the fork.
+The evolution of this project led it to the detachment of the fork.
 
 ## Installation
 
