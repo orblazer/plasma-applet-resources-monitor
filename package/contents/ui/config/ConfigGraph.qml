@@ -83,7 +83,7 @@ KCM.ScrollViewKCM {
             "icon": "network-wired-symbolic",
             "default": {
                 "colors": ["highlightColor", "positiveTextColor"],
-                "sensorsType": ["kibibyte"],
+                "sensorsType": [false, "kibibyte"],
                 "uplimits": [100000, 100000],
                 "ignoredInterfaces": []
             }
@@ -93,6 +93,7 @@ KCM.ScrollViewKCM {
             "icon": "drive-harddisk-symbolic",
             "default": {
                 "colors": ["highlightColor", "positiveTextColor"],
+                "sensorsType": [false],
                 "uplimits": [200000, 200000]
             }
         }

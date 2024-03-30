@@ -12,10 +12,14 @@ RMBaseGraph.TwoSensorsGraph {
 
     // Labels
     textContainer {
-        hints: [i18nc("Graph label", "Read"), i18nc("Graph label", "Write"), ""]
+        hints: {
+            const read = i18nc("Graph label", "Read");
+            const write = i18nc("Graph label", "Write");
+            return sensorsType[0] ? [write, read, ""] : [read, write, ""];
+        }
     }
 
     // Graph options
     realUplimits: [uplimits[0] * diskIoDialect.multiplier, uplimits[1] * diskIoDialect.multiplier]
-    sensorsModel.sensors: ["disk/all/read", "disk/all/write"]
+    sensorsModel.sensors: sensorsType[0] ? ["disk/all/read", "disk/all/write"] : ["disk/all/write", "disk/all/read"]
 }

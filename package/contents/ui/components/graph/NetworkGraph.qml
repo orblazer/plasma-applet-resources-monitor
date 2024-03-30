@@ -10,11 +10,19 @@ RMBaseGraph.TwoSensorsGraph {
 
     // Settings
     property var ignoredInterfaces: []
-    property var dialect: Functions.getNetworkDialectInfo(sensorsType[0], i18nc)
+    property var dialect: Functions.getNetworkDialectInfo(sensorsType[1], i18nc)
+
+    // Retrieve chart index and swap it if needed
+    property int downloadIndex: sensorsType[0] ? 1 : 0
+    property int uploadIndex: sensorsType[0] ? 0 : 1
 
     // Labels
     textContainer {
-        hints: [i18nc("Graph label", "Receiving"), i18nc("Graph label", "Sending"), ""]
+        hints: {
+            const receiving = i18nc("Graph label", "Receiving");
+            const sending = i18nc("Graph label", "Sending");
+            return sensorsType[0] ? [sending, receiving, ""] : [receiving, sending, ""];
+        }
     }
 
     // Initialized sensors
@@ -60,13 +68,13 @@ RMBaseGraph.TwoSensorsGraph {
         uploadValue *= dialect.KiBDiff;
 
         // Insert datas
-        _insertChartData(0, downloadValue);
-        _insertChartData(1, uploadValue);
+        _insertChartData(downloadIndex, downloadValue);
+        _insertChartData(uploadIndex, uploadValue);
 
         // Update labels
         if (textContainer.enabled && textContainer.valueVisible) {
-            _updateData(0, downloadValue);
-            _updateData(1, uploadValue);
+            _updateData(downloadIndex, downloadValue);
+            _updateData(uploadIndex, uploadValue);
         }
     }
 

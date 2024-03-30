@@ -15,6 +15,7 @@ Kirigami.FormLayout {
      *   "_v": 1, // Version of data (for compatibility)
      *   "type": "disks",
      *   "colors": ["readColor", "writeColor"],
+     *   "sensorsType": [invert], // Values: true/false (swap r/w)
      *   "uplimits": [0, 0] // Chart1, Chart2
      * }
      */
@@ -63,6 +64,15 @@ Kirigami.FormLayout {
             "value": 10000000.0
         }
     ]
+
+    QQC2.CheckBox {
+        text: i18n("Swap first and second line")
+        checked: item.sensorsType[0]
+        onClicked: {
+            item.sensorsType[0] = checked;
+            root.changed();
+        }
+    }
 
     // Transfer speed
     Item {

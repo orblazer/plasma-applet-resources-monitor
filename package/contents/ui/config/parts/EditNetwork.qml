@@ -17,7 +17,7 @@ Kirigami.FormLayout {
      *   "_v": 1, // Version of data (for compatibility)
      *   "type": "network",
      *   "colors": ["receivingColor", "sendingColor"],
-     *   "sensorsType": ["dialect"], // Values: "kibibyte/kilobit/kilobyte"
+     *   "sensorsType": [invert, "dialect"], // Values: true/false (swap Rx/Tx) | "kibibyte/kilobit/kilobyte"
      *   "uplimits": [0, 0], // Chart1, Chart2
      *   "ignoredInterfaces": []
      * }
@@ -73,6 +73,15 @@ Kirigami.FormLayout {
         id: networkInterfaces
     }
 
+    QQC2.CheckBox {
+        text: i18n("Swap first and second line")
+        checked: item.sensorsType[0]
+        onClicked: {
+            item.sensorsType[0] = checked;
+            root.changed();
+        }
+    }
+
     QQC2.ComboBox {
         Layout.fillWidth: true
         Kirigami.FormData.label: i18n("Dialect:")
@@ -94,9 +103,9 @@ Kirigami.FormLayout {
             }
         ]
 
-        Component.onCompleted: currentIndex = indexOfValue(item.sensorsType[0])
+        Component.onCompleted: currentIndex = indexOfValue(item.sensorsType[1])
         onActivated: {
-            item.sensorsType[0] = currentValue;
+            item.sensorsType[1] = currentValue;
             root.changed();
         }
     }
