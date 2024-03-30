@@ -5,13 +5,13 @@
     <kcfgfile name="" />
 
     <group name="General">
-        <entry name="updateInterval" type="Double">
-            <default>1.0</default>
-        </entry>
-
         <entry name="graphs" type="String">
             <label>Graphs order and settings in JSON format</label>
             <default>[{"_v":1,"type":"cpu","colors":["highlightColor","textColor","textColor"],"sensorsType":["usage","classic",false],"clockAgregator":"average","eCoresCount":0,"thresholds":[85,105]},{"_v":1,"type":"memory","colors":["highlightColor","negativeTextColor"],"sensorsType":["physical","swap"],"thresholds":[70,90]}]</default>
+        </entry>
+
+        <entry name="updateInterval" type="Double">
+            <default>1.0</default>
         </entry>
 
         <entry name="clickAction" type="String">
@@ -25,12 +25,6 @@
     <group name="Appearance">
         <entry name="historyAmount" type="Int">
             <default>10</default>
-        </entry>
-        <entry name="enableShadows" type="Bool">
-            <default>true</default>
-        </entry>
-        <entry name="fontScale" type="Int">
-            <default>26</default>
         </entry>
         <entry name="customGraphWidth" type="Bool">
             <default>false</default>
@@ -47,6 +41,13 @@
         </entry>
         <entry name="graphFillOpacity" type="Int">
             <default>25</default>
+        </entry>
+
+        <entry name="enableShadows" type="Bool">
+            <default>true</default>
+        </entry>
+        <entry name="fontScale" type="Int">
+            <default>24</default>
         </entry>
         <entry name="displayment" type="String">
             <default>hover-hints</default>
