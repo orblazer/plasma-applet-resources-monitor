@@ -1,19 +1,21 @@
 import QtQuick 2.9
 import org.kde.plasma.plasmoid 2.0
 import "./base" as RMBaseGraph
-import "../" as RMComponents
+import "../sensors" as RMSensors
 import "../functions.js" as Functions
 
 RMBaseGraph.TwoSensorsGraph {
     id: root
     objectName: "NetworkGraph"
+    sensorsModel.enabled: false // Disable base sensort due to use custom one
+    _update: networkSpeed.execute
 
     property var dialect: Functions.getNetworkDialectInfo(plasmoid.configuration.networkUnit)
 
     Connections {
         target: plasmoid.configuration
         function onIgnoredNetworkInterfacesChanged() {
-            _updateSensors();
+            _clear();
         }
 
         function onNetworkReceivingTotalChanged() {
@@ -34,77 +36,60 @@ RMBaseGraph.TwoSensorsGraph {
     // Graph options
     colors: [(plasmoid.configuration.customNetDownColor ? plasmoid.configuration.netDownColor : theme.highlightColor), (plasmoid.configuration.customNetUpColor ? plasmoid.configuration.netUpColor : theme.positiveTextColor)]
 
-    // Initialized sensors
-    RMComponents.NetworkInterfaceDetector {
-        id: networkInterfaces
-        onModelChanged: _updateSensors()
-    }
+    // Custom sensor
+    RMSensors.NetworkSpeed {
+        id: networkSpeed
 
-    // Override methods, for commulate sensors and support custom dialect
-    property var _downloadValue
-    property var _uploadValue
+        function cummulateSpeeds() {
+            const data = Object.entries(value ?? {});
+            if (data.length === 0) {
+                return [undefined, undefined];
+            }
+            // Cumulate speeds
+            let download = 0, upload = 0;
+            for (const [ifname, speed] of data) {
+                if (plasmoid.configuration.ignoredNetworkInterfaces.indexOf(ifname) !== -1) {
+                    continue;
+                }
+                download += speed[0];
+                upload += speed[1];
+            }
+            return [download, upload];
+        }
 
-    _update: () => {
-        // Cummulate sensors by group
-        let data;
-        let downloadValue = 0, uploadValue = 0;
-        for (let i = 0; i < sensorsModel.sensors.length; i++) {
-            data = sensorsModel.getData(i);
-            if (typeof data === "undefined") {
-                continue;
-            } else if (data.sensorId.indexOf('/download') !== -1) {
-                downloadValue += data.value;
-            } else {
-                uploadValue += data.value;
+        onValueChanged: {
+            let [downloadValue, uploadValue] = cummulateSpeeds();
+            if (typeof downloadValue === "undefined") {
+                // Skip first run
+                return;
+            }
+
+            // Apply selected dialect
+            downloadValue *= dialect.byteDiff;
+            uploadValue *= dialect.byteDiff;
+
+            // Insert datas
+            _insertChartData(0, downloadValue);
+            _insertChartData(1, uploadValue);
+
+            // Update labels
+            if (textContainer.enabled && textContainer.valueVisible) {
+                _updateData(0, downloadValue);
+                _updateData(1, uploadValue);
             }
         }
-
-        // Fix dialect AND store it for update label
-        _downloadValue = downloadValue *= dialect.KiBDiff;
-        _uploadValue = uploadValue *= dialect.KiBDiff;
-
-        // Insert datas
-        root._insertChartData(0, downloadValue);
-        root._insertChartData(1, uploadValue);
-
-        // Update label
-        if (textContainer.enabled && textContainer.valueVisible) {
-            _updateData(0);
-            _updateData(1);
-        }
     }
 
-    function _updateData(index) {
-        // Cancel update if first data is not here
-        if (!sensorsModel.hasIndex(0, 0)) {
-            return;
-        }
-
+    function _updateData(index, value) {
         // Retrieve label need to update
         const label = _getLabel(index);
         if (typeof label === "undefined" || !label.enabled) {
             return;
         }
-        const value = index === 0 ? _downloadValue : _uploadValue;
 
         // Show value on label
         label.text = Functions.formatByteValue(value, dialect);
         label.visible = true;
-    }
-
-    function _updateSensors() {
-        if (typeof networkInterfaces.model.count === "undefined") {
-            return;
-        }
-        const sensors = [];
-        for (let i = 0; i < networkInterfaces.model.count; i++) {
-            const name = networkInterfaces.model.get(i).name;
-            if (plasmoid.configuration.ignoredNetworkInterfaces.indexOf(name) === -1) {
-                sensors.push("network/" + name + "/download", "network/" + name + "/upload");
-            }
-        }
-        sensorsModel.sensors = sensors;
-        _clear();
     }
 
     function _updateUplimits() {

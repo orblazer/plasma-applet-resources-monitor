@@ -121,8 +121,25 @@ PlasmaExtras.Representation {
     ]
 
     // Detect network interfaces
-    RMComponents.NetworkInterfaceDetector {
-        id: networkInterfaces
+    PlasmaCore.DataSource {
+        engine: 'executable'
+        connectedSources: [Functions.NET_DATA_SOURCE]
+
+        onNewData: (sourceName, data) => {
+            // run just once
+            connectedSources.length = 0;
+            if (data['exit code'] > 0) {
+                print(data.stderr);
+            } else {
+                const transferData = Functions.parseTransferData(data.stdout);
+                networkInterfaces.model.clear();
+                for (const name in transferData) {
+                    networkInterfaces.model.append({
+                        name
+                    });
+                }
+            }
+        }
     }
     // Detect GPU cards
     RMComponents.GpuDetector {
@@ -181,26 +198,28 @@ PlasmaExtras.Representation {
                     columnSpacing: Kirigami.Units.largeSpacing
 
                     Repeater {
-                        model: networkInterfaces.model
+                        id: networkInterfaces
+                        model: ListModel {
+                        }
+
                         QtControls.CheckBox {
-                            readonly property string interfaceName: modelData
                             readonly property bool ignoredByDefault: {
-                                return /^(docker|tun|tap)(\d+)/.test(interfaceName); // Ignore docker and tun/tap networks
+                                return /^(docker|tun|tap)(\d+)/.test(name); // Ignore docker and tun/tap networks
                             }
 
-                            text: interfaceName
-                            checked: cfg_ignoredNetworkInterfaces.indexOf(interfaceName) == -1 && !ignoredByDefault
+                            text: name
+                            checked: cfg_ignoredNetworkInterfaces.indexOf(name) == -1 && !ignoredByDefault
                             enabled: !ignoredByDefault
 
                             onClicked: {
                                 var ignoredNetworkInterfaces = cfg_ignoredNetworkInterfaces.slice(0); // copy()
                                 if (checked) {
                                     // Checking, and thus removing from the ignoredNetworkInterfaces
-                                    var i = ignoredNetworkInterfaces.indexOf(interfaceName);
+                                    var i = ignoredNetworkInterfaces.indexOf(name);
                                     ignoredNetworkInterfaces.splice(i, 1);
                                 } else {
                                     // Unchecking, and thus adding to the ignoredNetworkInterfaces
-                                    ignoredNetworkInterfaces.push(interfaceName);
+                                    ignoredNetworkInterfaces.push(name);
                                 }
                                 cfg_ignoredNetworkInterfaces = ignoredNetworkInterfaces;
                             }
