@@ -29,9 +29,9 @@ Or if you're able to work with "github's" mechanics and "npm":
 
 ## Status
 
-| Locale   | Lines   | % Done |
-| -------- | ------- | ------ |
-| Template | 101     |        |
-| de       | 101/101 | 100%   |
-| fr       | 101/101 | 100%   |
-| nl       | 101/101 | 100%   |
+|  Locale  |  Lines  | % Done|
+|----------|---------|-------|
+| Template |     121 |       |
+| de       |  62/121 |   51% |
+| fr       | 121/121 |  100% |
+| nl       |  62/121 |   51% |

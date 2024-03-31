@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: resourcesMonitor-fork\n"
 "Report-Msgid-Bugs-To: https://github.com/orblazer/plasma-applet-resources-monitor\n"
-"POT-Creation-Date: 2024-03-21 15:37+0100\n"
+"POT-Creation-Date: 2024-03-31 05:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,494 +18,596 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../contents/config/config.qml:6
-#: ../contents/ui/config/ConfigData.qml:148
-#: ../contents/ui/config/ConfigGeneral.qml:80
+#: ../contents/ui/config/ConfigAppearance.qml:48
 msgctxt "Config header"
-msgid "General"
+msgid "Graphs"
 msgstr ""
 
-#: ../contents/config/config.qml:11
-msgctxt "Config header"
-msgid "Data"
-msgstr ""
-
-#: ../contents/config/config.qml:16
+#: ../contents/config/config.qml:12
 msgctxt "Config header"
 msgid "Appearance"
 msgstr ""
 
-#: ../contents/ui/components/functions.js:20
+#: ../contents/config/config.qml:17
+msgctxt "Config header"
+msgid "Misc"
+msgstr ""
+
+#: ../contents/ui/code/dialect.js:23
 msgctxt "kilobyte suffix"
 msgid "Bps"
 msgstr ""
 
-#: ../contents/ui/components/functions.js:28
+#: ../contents/ui/code/dialect.js:31
 msgctxt "kilobit suffix"
 msgid "bps"
 msgstr ""
 
-#: ../contents/ui/components/functions.js:36
+#: ../contents/ui/code/dialect.js:39
+#: ../contents/ui/config/parts/EditDisk.qml:25
 msgctxt "kibibyte suffix"
 msgid "iB/s"
 msgstr ""
 
-#: ../contents/ui/components/graph/CpuGraph.qml:41
+#: ../contents/ui/components/graph/CpuGraph.qml:27
 msgctxt "Graph label"
 msgid "Clock"
 msgstr ""
 
-#: ../contents/ui/components/graph/CpuGraph.qml:41
-#: ../contents/ui/components/graph/GpuGraph.qml:32
+#: ../contents/ui/components/graph/CpuGraph.qml:27
+#: ../contents/ui/components/graph/GpuGraph.qml:23
 msgctxt "Graph label"
 msgid "Temp."
 msgstr ""
 
-#: ../contents/ui/components/graph/DisksGraph.qml:28
+#: ../contents/ui/components/graph/DiskGraph.qml:19
 msgctxt "Graph label"
 msgid "Read"
 msgstr ""
 
-#: ../contents/ui/components/graph/DisksGraph.qml:28
+#: ../contents/ui/components/graph/DiskGraph.qml:20
 msgctxt "Graph label"
 msgid "Write"
 msgstr ""
 
-#: ../contents/ui/components/graph/GpuGraph.qml:56
+#: ../contents/ui/components/graph/GpuGraph.qml:40
+#: ../contents/ui/components/graph/MemoryGraph.qml:43
 msgctxt "Percent unit"
 msgid "%1%"
 msgstr ""
 
-#: ../contents/ui/components/graph/MemoryGraph.qml:120
+#: ../contents/ui/components/graph/MemoryGraph.qml:20
 msgctxt "Graph label"
 msgid "Percent."
 msgstr ""
 
-#: ../contents/ui/components/graph/NetworkGraph.qml:31
+#: ../contents/ui/components/graph/NetworkGraph.qml:24
 msgctxt "Graph label"
 msgid "Receiving"
 msgstr ""
 
-#: ../contents/ui/components/graph/NetworkGraph.qml:31
+#: ../contents/ui/components/graph/NetworkGraph.qml:25
 msgctxt "Graph label"
 msgid "Sending"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:77
-#: ../contents/ui/config/ConfigAppearance.qml:365
-#: ../contents/ui/config/ConfigGeneral.qml:123
+#: ../contents/ui/config/AvailableGraphProxy.qml:20
 msgctxt "Chart name"
 msgid "CPU"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:82
-#: ../contents/ui/config/ConfigAppearance.qml:390
-#: ../contents/ui/config/ConfigGeneral.qml:220
+#: ../contents/ui/config/AvailableGraphProxy.qml:24
 msgctxt "Chart name"
 msgid "Memory"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:87
-#: ../contents/ui/config/ConfigAppearance.qml:440
-#: ../contents/ui/config/ConfigGeneral.qml:392
-msgctxt "Chart name"
-msgid "GPU"
-msgstr ""
-
-#: ../contents/ui/config/ConfigAppearance.qml:92
-#: ../contents/ui/config/ConfigAppearance.qml:472
-#: ../contents/ui/config/ConfigData.qml:267
-#: ../contents/ui/config/ConfigGeneral.qml:429
-msgctxt "Chart name"
-msgid "Disks I/O"
-msgstr ""
-
-#: ../contents/ui/config/ConfigAppearance.qml:97
-#: ../contents/ui/config/ConfigAppearance.qml:415
-#: ../contents/ui/config/ConfigData.qml:170
-#: ../contents/ui/config/ConfigGeneral.qml:342
+#: ../contents/ui/config/AvailableGraphProxy.qml:28
 msgctxt "Chart name"
 msgid "Network"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:116
-#: ../contents/ui/config/ConfigGeneral.qml:117
-msgctxt "Config header"
-msgid "Charts"
+#: ../contents/ui/config/AvailableGraphProxy.qml:32
+msgctxt "Chart name"
+msgid "GPU [%1]"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:121
+#: ../contents/ui/config/AvailableGraphProxy.qml:36
+msgctxt "Chart name"
+msgid "Disk I/O [%1]"
+msgstr ""
+
+#: ../contents/ui/config/AvailableGraphProxy.qml:119
+msgid "All"
+msgstr ""
+
+#: ../contents/ui/config/ConfigAppearance.qml:53
 msgctxt "Config header"
 msgid "Text"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:126
+#: ../contents/ui/config/ConfigAppearance.qml:58
 msgctxt "Config header"
 msgid "Colors"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:144
-msgid "Vertical layout"
-msgstr ""
-
-#: ../contents/ui/config/ConfigAppearance.qml:149
+#: ../contents/ui/config/ConfigAppearance.qml:73
 msgid "History amount:"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:156
+#: ../contents/ui/config/ConfigAppearance.qml:82
+#: ../contents/ui/config/controls/ColorSelector.qml:26
+#: ../contents/ui/config/parts/EditDisk.qml:28
+#: ../contents/ui/config/parts/EditNetwork.qml:31
+msgid "Custom"
+msgstr ""
+
+#: ../contents/ui/config/ConfigAppearance.qml:86
+#: ../contents/ui/config/ConfigMisc.qml:61
+#: ../contents/ui/config/parts/EditCpu.qml:63
+#: ../contents/ui/config/parts/EditGpu.qml:35
+#: ../contents/ui/config/parts/EditMemory.qml:64
+msgid "Disabled"
+msgstr ""
+
+#: ../contents/ui/config/ConfigAppearance.qml:120
 msgid "Width:"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:163
+#: ../contents/ui/config/ConfigAppearance.qml:130
 msgid "Height:"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:170
+#: ../contents/ui/config/ConfigAppearance.qml:140
 msgid "Margin:"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:181
+#: ../contents/ui/config/ConfigAppearance.qml:148
 msgid "Fill opacity:"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:193
-msgid "Charts order"
+#: ../contents/ui/config/ConfigAppearance.qml:160
+msgid "Display outline?"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:281
-msgid "Drop shadows"
-msgstr ""
-
-#: ../contents/ui/config/ConfigAppearance.qml:286
+#: ../contents/ui/config/ConfigAppearance.qml:165
 msgid "Font scale:"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:298
+#: ../contents/ui/config/ConfigAppearance.qml:174
 msgid "Text displayment:"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:304
+#: ../contents/ui/config/ConfigAppearance.qml:182
 msgctxt "Text displayment"
 msgid "Always"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:307
+#: ../contents/ui/config/ConfigAppearance.qml:186
 msgctxt "Text displayment"
 msgid "On hover"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:310
+#: ../contents/ui/config/ConfigAppearance.qml:190
 msgctxt "Text displayment"
 msgid "Hints when hover"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:313
+#: ../contents/ui/config/ConfigAppearance.qml:194
 msgctxt "Text displayment"
 msgid "Never"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:323
+#: ../contents/ui/config/ConfigAppearance.qml:205
 msgid "Placement:"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:329
+#: ../contents/ui/config/ConfigAppearance.qml:213
 msgctxt "Text placement"
 msgid "Top left"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:332
+#: ../contents/ui/config/ConfigAppearance.qml:217
 msgctxt "Text placement"
 msgid "Top right"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:335
+#: ../contents/ui/config/ConfigAppearance.qml:221
 msgctxt "Text placement"
 msgid "Bottom left"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:338
+#: ../contents/ui/config/ConfigAppearance.qml:225
 msgctxt "Text placement"
 msgid "Bottom right"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:355
-msgid "Charts colors"
+#: ../contents/ui/config/ConfigAppearance.qml:239
+msgid "Threshold text colors"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:371
-#: ../contents/ui/config/ConfigAppearance.qml:446
-msgctxt "Chart config"
-msgid "Usage:"
+#: ../contents/ui/config/ConfigAppearance.qml:245
+msgid "Warning:"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:373
-#: ../contents/ui/config/ConfigAppearance.qml:398
-#: ../contents/ui/config/ConfigAppearance.qml:423
-#: ../contents/ui/config/ConfigAppearance.qml:430
-#: ../contents/ui/config/ConfigAppearance.qml:448
-#: ../contents/ui/config/ConfigAppearance.qml:455
-#: ../contents/ui/config/ConfigAppearance.qml:480
-#: ../contents/ui/config/ConfigAppearance.qml:487
-msgctxt "Chart color"
-msgid "Choose series color"
-msgstr ""
-
-#: ../contents/ui/config/ConfigAppearance.qml:378
-#: ../contents/ui/config/ConfigAppearance.qml:460
-msgctxt "Chart config"
-msgid "Temperature:"
-msgstr ""
-
-#: ../contents/ui/config/ConfigAppearance.qml:380
-#: ../contents/ui/config/ConfigAppearance.qml:462
+#: ../contents/ui/config/ConfigAppearance.qml:246
+#: ../contents/ui/config/ConfigAppearance.qml:251
+#: ../contents/ui/config/parts/EditCpu.qml:174
+#: ../contents/ui/config/parts/EditCpu.qml:185
+#: ../contents/ui/config/parts/EditDisk.qml:153
+#: ../contents/ui/config/parts/EditGpu.qml:104
+#: ../contents/ui/config/parts/EditGpu.qml:115
+#: ../contents/ui/config/parts/EditNetwork.qml:238
 msgctxt "Chart color"
 msgid "Choose text color"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:396
-msgctxt "Chart config"
-msgid "Physical:"
+#: ../contents/ui/config/ConfigAppearance.qml:250
+msgid "Critical:"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:403
-msgctxt "Chart config"
-msgid "Swap:"
+#: ../contents/ui/config/ConfigGraph.qml:160
+msgctxt "@info:tooltip"
+msgid "Edit \"%1\" graph"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:405
-msgctxt "Chart color"
-msgid "Choose color of series and text"
+#: ../contents/ui/config/ConfigGraph.qml:168
+msgctxt "@info:tooltip"
+msgid "Delete \"%1\" graph"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:421
-#: ../contents/ui/config/ConfigData.qml:219
-msgctxt "Chart config"
-msgid "Receiving:"
+#: ../contents/ui/config/ConfigGraph.qml:194
+msgid "No graph selected"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:428
-#: ../contents/ui/config/ConfigData.qml:243
-msgctxt "Chart config"
-msgid "Sending:"
+#: ../contents/ui/config/ConfigGraph.qml:195
+msgctxt "@info"
+msgid "Click <i>%1</i> to get started"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:453
-msgctxt "Chart config"
-msgid "Memory:"
+#: ../contents/ui/config/ConfigGraph.qml:207
+msgid "Add graph…"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:478
-#: ../contents/ui/config/ConfigData.qml:278
-msgctxt "Chart config"
-msgid "Read:"
+#: ../contents/ui/config/ConfigGraph.qml:219
+msgctxt "@title:window"
+msgid "Edit graph: %1"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:485
-#: ../contents/ui/config/ConfigData.qml:302
-msgctxt "Chart config"
-msgid "Write:"
+#: ../contents/ui/config/ConfigGraph.qml:271
+msgctxt "@title:window"
+msgid "Add graph"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:493
-msgid "Threshold text colors"
+#: ../contents/ui/config/ConfigGraph.qml:315
+msgid "Add"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:499
-msgid "Warning status:"
+#: ../contents/ui/config/ConfigGraph.qml:335
+msgctxt "@title:window"
+msgid "Remove graph"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:501
-msgid "Choose text color when the value is in warning status"
+#: ../contents/ui/config/ConfigGraph.qml:336
+msgctxt "%1 is an graph name"
+msgid "Do you want remove graph \"%1\" ?"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:506
-msgid "Critical status:"
+#: ../contents/ui/config/ConfigGraph.qml:341
+msgid "Delete"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:508
-msgid "Choose text color when the value is in critical status"
-msgstr ""
-
-#: ../contents/ui/config/ConfigData.qml:40
-#: ../contents/ui/config/ConfigData.qml:82
-msgid "Custom"
-msgstr ""
-
-#: ../contents/ui/config/ConfigData.qml:44
-#: ../contents/ui/config/ConfigData.qml:86
-msgid "Automatic"
-msgstr ""
-
-#: ../contents/ui/config/ConfigData.qml:153
-msgctxt "Config header"
-msgid "Thresholds"
-msgstr ""
-
-#: ../contents/ui/config/ConfigData.qml:176
-msgid "Network interfaces:"
-msgstr ""
-
-#: ../contents/ui/config/ConfigData.qml:213
-#: ../contents/ui/config/ConfigData.qml:272
-msgid "Maximum transfer speed"
-msgstr ""
-
-#: ../contents/ui/config/ConfigData.qml:326
-msgctxt "Config header"
-msgid "Graphic card"
-msgstr ""
-
-#: ../contents/ui/config/ConfigData.qml:333
-msgid "Graphic card:"
-msgstr ""
-
-#: ../contents/ui/config/ConfigData.qml:375
-msgid "Warning"
-msgstr ""
-
-#: ../contents/ui/config/ConfigData.qml:382
-msgid "Critical"
-msgstr ""
-
-#: ../contents/ui/config/ConfigData.qml:389
-msgid "CPU Temperature:"
-msgstr ""
-
-#: ../contents/ui/config/ConfigData.qml:421
-msgid "Physical Memory Usage:"
-msgstr ""
-
-#: ../contents/ui/config/ConfigData.qml:445
-msgid "GPU Temperature:"
-msgstr ""
-
-#: ../contents/ui/config/ConfigGeneral.qml:85
-msgctxt "Config header"
-msgid "Click action"
-msgstr ""
-
-#: ../contents/ui/config/ConfigGeneral.qml:102
+#: ../contents/ui/config/ConfigMisc.qml:36
 msgid "Update interval:"
 msgstr ""
 
-#: ../contents/ui/config/ConfigGeneral.qml:111
+#: ../contents/ui/config/ConfigMisc.qml:44
 msgid "%1 seconds"
 msgstr ""
 
-#: ../contents/ui/config/ConfigGeneral.qml:129
-#: ../contents/ui/config/ConfigGeneral.qml:226
-#: ../contents/ui/config/ConfigGeneral.qml:348
-msgid "Visibility:"
+#: ../contents/ui/config/ConfigMisc.qml:49
+msgid "Click action"
 msgstr ""
 
-#: ../contents/ui/config/ConfigGeneral.qml:136
-#: ../contents/ui/config/ConfigGeneral.qml:177
-#: ../contents/ui/config/ConfigGeneral.qml:233
-#: ../contents/ui/config/ConfigGeneral.qml:290
-#: ../contents/ui/config/ConfigGeneral.qml:355
-msgid "Disabled"
+#: ../contents/ui/config/ConfigMisc.qml:55
+msgctxt "Chart config"
+msgid "Type:"
 msgstr ""
 
-#: ../contents/ui/config/ConfigGeneral.qml:140
+#: ../contents/ui/config/ConfigMisc.qml:65
+msgid "Application"
+msgstr ""
+
+#: ../contents/ui/config/ConfigMisc.qml:69
+msgid "Shell command"
+msgstr ""
+
+#: ../contents/ui/config/ConfigMisc.qml:82
+msgctxt "Chart config"
+msgid "Application:"
+msgstr ""
+
+#: ../contents/ui/config/ConfigMisc.qml:97
+msgid "The package <i>plasma-addons</i> is required to run an application."
+msgstr ""
+
+#: ../contents/ui/config/ConfigMisc.qml:106
+msgctxt "Chart config"
+msgid "Command:"
+msgstr ""
+
+#: ../contents/ui/config/ConfigMisc.qml:111
+msgid ""
+"Command will be executed, but may have some limitations like \"<code>kioclient exec</code>\" or other similar command "
+"not work."
+msgstr ""
+
+#: ../contents/ui/config/controls/AppSelector.qml:13
+msgctxt "@info:tooltip"
+msgid "Choose application..."
+msgstr ""
+
+#: ../contents/ui/config/controls/AppSelector.qml:17
+msgctxt "@info:tooltip"
+msgid "Click to select another application"
+msgstr ""
+
+#: ../contents/ui/config/controls/ColorSelector.qml:30
+msgctxt "Colors"
+msgid "Text"
+msgstr ""
+
+#: ../contents/ui/config/controls/ColorSelector.qml:34
+msgctxt "Colors"
+msgid "Highlighted text"
+msgstr ""
+
+#: ../contents/ui/config/controls/ColorSelector.qml:38
+msgctxt "Colors"
+msgid "Link"
+msgstr ""
+
+#: ../contents/ui/config/controls/ColorSelector.qml:42
+msgctxt "Colors"
+msgid "Visited link"
+msgstr ""
+
+#: ../contents/ui/config/controls/ColorSelector.qml:46
+msgctxt "Colors"
+msgid "Negative text"
+msgstr ""
+
+#: ../contents/ui/config/controls/ColorSelector.qml:50
+msgctxt "Colors"
+msgid "Neutral text"
+msgstr ""
+
+#: ../contents/ui/config/controls/ColorSelector.qml:54
+msgctxt "Colors"
+msgid "Positive text"
+msgstr ""
+
+#: ../contents/ui/config/controls/ColorSelector.qml:58
+msgctxt "Colors"
+msgid "Background"
+msgstr ""
+
+#: ../contents/ui/config/controls/ColorSelector.qml:62
+msgctxt "Colors"
+msgid "Highlight"
+msgstr ""
+
+#: ../contents/ui/config/controls/ColorSelector.qml:95
+msgctxt "@info:tooltip"
+msgid "Click to customize color"
+msgstr ""
+
+#: ../contents/ui/config/controls/CustomizableSize.qml:16
+msgid "Check the box to customize"
+msgstr ""
+
+#: ../contents/ui/config/controls/Thresholds.qml:31
+msgid "Warning threshold"
+msgstr ""
+
+#: ../contents/ui/config/controls/Thresholds.qml:51
+msgid "Critical threshold"
+msgstr ""
+
+#: ../contents/ui/config/parts/EditCpu.qml:28
+#: ../contents/ui/config/parts/EditCpu.qml:162
+#: ../contents/ui/config/parts/EditDisk.qml:141
+#: ../contents/ui/config/parts/EditGpu.qml:92
+#: ../contents/ui/config/parts/EditMemory.qml:26
+#: ../contents/ui/config/parts/EditMemory.qml:112
+#: ../contents/ui/config/parts/EditNetwork.qml:226
+msgid "First line:"
+msgstr ""
+
+#: ../contents/ui/config/parts/EditCpu.qml:34
 msgid "Total usage"
 msgstr ""
 
-#: ../contents/ui/config/ConfigGeneral.qml:144
+#: ../contents/ui/config/parts/EditCpu.qml:38
 msgid "System usage"
 msgstr ""
 
-#: ../contents/ui/config/ConfigGeneral.qml:148
+#: ../contents/ui/config/parts/EditCpu.qml:42
 msgid "User usage"
 msgstr ""
 
-#: ../contents/ui/config/ConfigGeneral.qml:169
-msgid "Clock visibility:"
+#: ../contents/ui/config/parts/EditCpu.qml:57
+#: ../contents/ui/config/parts/EditCpu.qml:173
+#: ../contents/ui/config/parts/EditDisk.qml:152
+#: ../contents/ui/config/parts/EditGpu.qml:28
+#: ../contents/ui/config/parts/EditGpu.qml:103
+#: ../contents/ui/config/parts/EditMemory.qml:123
+#: ../contents/ui/config/parts/EditNetwork.qml:237
+msgid "Second Line:"
 msgstr ""
 
-#: ../contents/ui/config/ConfigGeneral.qml:181
+#: ../contents/ui/config/parts/EditCpu.qml:67
+msgid "Classic/P-cores clock frequency"
+msgstr ""
+
+#: ../contents/ui/config/parts/EditCpu.qml:71
+msgid "E-cores clock frequency"
+msgstr ""
+
+#: ../contents/ui/config/parts/EditCpu.qml:84
+msgid "Clock aggregator:"
+msgstr ""
+
+#: ../contents/ui/config/parts/EditCpu.qml:90
 msgctxt "Agregator"
 msgid "Average"
 msgstr ""
 
-#: ../contents/ui/config/ConfigGeneral.qml:185
+#: ../contents/ui/config/parts/EditCpu.qml:94
 msgctxt "Agregator"
 msgid "Minimum"
 msgstr ""
 
-#: ../contents/ui/config/ConfigGeneral.qml:189
+#: ../contents/ui/config/parts/EditCpu.qml:98
 msgctxt "Agregator"
 msgid "Maximum"
 msgstr ""
 
-#: ../contents/ui/config/ConfigGeneral.qml:210
-#: ../contents/ui/config/ConfigGeneral.qml:418
+#: ../contents/ui/config/parts/EditCpu.qml:115
+msgid "E-cores"
+msgstr ""
+
+#: ../contents/ui/config/parts/EditCpu.qml:125
+msgctxt "@info:tooltip"
+msgid ""
+"<b>For Intel gen 12+ only</b><br>Number of E-Cores your CPU have, it's for seperate it from P-Cores in clock "
+"frequency average calculation."
+msgstr ""
+
+#: ../contents/ui/config/parts/EditCpu.qml:130
+#: ../contents/ui/config/parts/EditGpu.qml:57
 msgid "Show temperature"
 msgstr ""
 
-#: ../contents/ui/config/ConfigGeneral.qml:237
-msgid "Physical memory (in KiB)"
+#: ../contents/ui/config/parts/EditCpu.qml:140
+#: ../contents/ui/config/parts/EditGpu.qml:69
+msgid "Temperature threshold:"
 msgstr ""
 
-#: ../contents/ui/config/ConfigGeneral.qml:241
-msgid "Physical memory (in %)"
+#: ../contents/ui/config/parts/EditCpu.qml:157
+#: ../contents/ui/config/parts/EditDisk.qml:136
+#: ../contents/ui/config/parts/EditGpu.qml:87
+#: ../contents/ui/config/parts/EditMemory.qml:107
+#: ../contents/ui/config/parts/EditNetwork.qml:221
+msgid "Colors"
 msgstr ""
 
-#: ../contents/ui/config/ConfigGeneral.qml:245
-msgid "Application memory (in KiB)"
+#: ../contents/ui/config/parts/EditCpu.qml:163
+#: ../contents/ui/config/parts/EditDisk.qml:142
+#: ../contents/ui/config/parts/EditGpu.qml:93
+#: ../contents/ui/config/parts/EditMemory.qml:113
+#: ../contents/ui/config/parts/EditMemory.qml:124
+#: ../contents/ui/config/parts/EditNetwork.qml:227
+msgctxt "Chart color"
+msgid "Choose series color"
 msgstr ""
 
-#: ../contents/ui/config/ConfigGeneral.qml:249
-msgid "Application memory (in %)"
+#: ../contents/ui/config/parts/EditCpu.qml:184
+#: ../contents/ui/config/parts/EditGpu.qml:114
+msgid "Third Line:"
 msgstr ""
 
-#: ../contents/ui/config/ConfigGeneral.qml:282
-msgid "Second line:"
+#: ../contents/ui/config/parts/EditDisk.qml:32
+#: ../contents/ui/config/parts/EditNetwork.qml:35
+msgid "Automatic"
 msgstr ""
 
-#: ../contents/ui/config/ConfigGeneral.qml:294
-msgid "Swap"
+#: ../contents/ui/config/parts/EditDisk.qml:70
+#: ../contents/ui/config/parts/EditNetwork.qml:95
+msgid "Swap first and second line"
 msgstr ""
 
-#: ../contents/ui/config/ConfigGeneral.qml:298
-msgid "Swap (in %)"
+#: ../contents/ui/config/parts/EditDisk.qml:80
+#: ../contents/ui/config/parts/EditNetwork.qml:165
+msgid "Maximum transfer speed"
 msgstr ""
 
-#: ../contents/ui/config/ConfigGeneral.qml:302
+#: ../contents/ui/config/parts/EditDisk.qml:86
+msgctxt "Chart config"
+msgid "Read:"
+msgstr ""
+
+#: ../contents/ui/config/parts/EditDisk.qml:111
+msgctxt "Chart config"
+msgid "Write:"
+msgstr ""
+
+#: ../contents/ui/config/parts/EditGpu.qml:39
+msgid "Memory (in KiB)"
+msgstr ""
+
+#: ../contents/ui/config/parts/EditGpu.qml:43
+#: ../contents/ui/config/parts/EditMemory.qml:76
 msgid "Memory (in %)"
 msgstr ""
 
-#: ../contents/ui/config/ConfigGeneral.qml:359
-msgid "In kibibyte (KiB/s)"
+#: ../contents/ui/config/parts/EditMemory.qml:32
+msgid "Physical memory (in KiB)"
 msgstr ""
 
-#: ../contents/ui/config/ConfigGeneral.qml:363
-msgid "In kilobit (Kbps)"
+#: ../contents/ui/config/parts/EditMemory.qml:36
+msgid "Physical memory (in %)"
 msgstr ""
 
-#: ../contents/ui/config/ConfigGeneral.qml:367
-msgid "In kilobyte (KBps)"
+#: ../contents/ui/config/parts/EditMemory.qml:40
+msgid "Application memory (in KiB)"
 msgstr ""
 
-#: ../contents/ui/config/ConfigGeneral.qml:404
-#: ../contents/ui/config/ConfigGeneral.qml:441
-msgid "Enabled?"
+#: ../contents/ui/config/parts/EditMemory.qml:44
+msgid "Application memory (in %)"
 msgstr ""
 
-#: ../contents/ui/config/ConfigGeneral.qml:408
-msgid "Show memory"
+#: ../contents/ui/config/parts/EditMemory.qml:58
+msgid "Second line:"
 msgstr ""
 
-#: ../contents/ui/config/ConfigGeneral.qml:413
-msgid "Memory in percent"
+#: ../contents/ui/config/parts/EditMemory.qml:68
+msgid "Swap"
 msgstr ""
 
-#: ../contents/ui/config/ConfigGeneral.qml:457
-msgid "Search an application:"
+#: ../contents/ui/config/parts/EditMemory.qml:72
+msgid "Swap (in %)"
 msgstr ""
 
-#: ../contents/ui/config/ConfigGeneral.qml:459
-msgid "Application name"
+#: ../contents/ui/config/parts/EditMemory.qml:90
+msgid "Usage threshold:"
 msgstr ""
 
-#: ../contents/ui/config/ConfigGeneral.qml:466
-msgid "Applications"
+#: ../contents/ui/config/parts/EditNetwork.qml:105
+msgid "Dialect:"
+msgstr ""
+
+#: ../contents/ui/config/parts/EditNetwork.qml:111
+msgid "kibibyte (KiB/s)"
+msgstr ""
+
+#: ../contents/ui/config/parts/EditNetwork.qml:115
+msgid "kilobit (Kbps)"
+msgstr ""
+
+#: ../contents/ui/config/parts/EditNetwork.qml:119
+msgid "kilobyte (KBps)"
+msgstr ""
+
+#: ../contents/ui/config/parts/EditNetwork.qml:134
+msgid "Network interfaces:"
+msgstr ""
+
+#: ../contents/ui/config/parts/EditNetwork.qml:171
+msgctxt "Chart config"
+msgid "Receiving:"
+msgstr ""
+
+#: ../contents/ui/config/parts/EditNetwork.qml:196
+msgctxt "Chart config"
+msgid "Sending:"
 msgstr ""
