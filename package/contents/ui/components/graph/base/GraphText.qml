@@ -9,6 +9,7 @@ Item {
     signal showValues
 
     property bool valueVisible: false
+    property var textElide: valueVisible ? Text.ElideNone : (LayoutMirroring.enabled ? Text.ElideLeft : Text.ElideRight)
 
     // Aliases
     readonly property alias firstLine: firstLine
@@ -66,6 +67,7 @@ Item {
             width: parent.width
 
             textFormat: Text.PlainText
+            elide: textElide
             color: getTextColor(index)
             style: textStyle
             styleColor: Kirigami.Theme.backgroundColor
@@ -81,6 +83,7 @@ Item {
             visible: enabled
 
             textFormat: Text.PlainText
+            elide: textElide
             color: getTextColor(index)
             style: textStyle
             styleColor: Kirigami.Theme.backgroundColor
@@ -97,6 +100,7 @@ Item {
 
             color: getTextColor(index)
             textFormat: Text.PlainText
+            elide: textElide
             style: textStyle
             styleColor: Kirigami.Theme.backgroundColor
             font.pixelSize: fontSize
