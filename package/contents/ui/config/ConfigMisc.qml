@@ -13,7 +13,7 @@ KCM.SimpleKCM {
 
     //#region // HACK: Present to suppress errors (https://bugs.kde.org/show_bug.cgi?id=484541)
     property var cfg_graphs
-    property var cfg_verticalLayout
+    property var cfg_fillPanel
     property var cfg_historyAmount
     property var cfg_customGraphWidth
     property var cfg_graphWidth

@@ -6,9 +6,6 @@ import org.kde.plasma.plasma5support as Plasma5Support
 
 PlasmoidItem {
     id: root
-    // Margin for prevent "invsible" 0 and full lines
-    anchors.topMargin: 1
-    anchors.bottomMargin: 1
 
     readonly property int graphVersion: 1 //? Bump when some settings changes in "graphs" structure
     readonly property bool isVertical: {
@@ -39,7 +36,11 @@ PlasmoidItem {
     Plasmoid.backgroundHints: PlasmaCore.Types.DefaultBackground | PlasmaCore.Types.ConfigurableBackground
     Plasmoid.configurationRequired: graphsModel.length === 0 // Check if graphs is valid and have some items
     preferredRepresentation: Plasmoid.configurationRequired ? compactRepresentation : fullRepresentation // Show graphs only if at least 1 is present, otherwise ask to configure
-    Plasmoid.constraintHints: Plasmoid.CanFillArea // Allow widget to take all height/width
+    Plasmoid.constraintHints: Plasmoid.configuration.fillPanel ? Plasmoid.CanFillArea : Plasmoid.NoHint// Allow widget to take all height/width
+
+    // Margin for prevent "invsible" 0 and full lines when fill panel
+    anchors.topMargin: Plasmoid.configuration.fillPanel ? 1 : 0
+    anchors.bottomMargin: Plasmoid.configuration.fillPanel ? 1 : 0
 
     // Content
     fullRepresentation: MouseArea {

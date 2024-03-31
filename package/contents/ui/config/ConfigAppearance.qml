@@ -12,6 +12,7 @@ KCM.AbstractKCM {
     Kirigami.ColumnView.fillWidth: true
 
     // Chart
+    property alias cfg_fillPanel: fillPanel.checked
     property alias cfg_historyAmount: historyAmount.realValue
     property alias cfg_customGraphWidth: graphWidth.customized
     property alias cfg_graphWidth: graphWidth.value
@@ -68,6 +69,14 @@ KCM.AbstractKCM {
 
             // Charts
             Kirigami.FormLayout {
+                QQC2.CheckBox {
+                    id: fillPanel
+                    text: i18n("Fill panel?")
+
+                    QQC2.ToolTip.visible: hovered
+                    QQC2.ToolTip.text: i18nc("@info:tooltip", "This allow graphs to take all panel with /height")
+                }
+
                 RMControls.PredefinedSpinBox {
                     id: historyAmount
                     Kirigami.FormData.label: i18n("History amount:")
