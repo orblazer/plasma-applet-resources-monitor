@@ -11,7 +11,7 @@ Plasmoid for monitoring CPU, memory and network traffic
 This project was originally developed by [@kotelnik](https://github.com/kotelnik) ([Resources Monitor - Pling](https://www.pling.com/p/998908)) and mostly only for porting the maintenance through KDE versions.
 But now this widget have a lot more configurations and metrics can be tracked.
 
-The evolution of this project led it to a new name and the detachment of the fork.
+The evolution of this project led it to the detachment of the fork.
 
 ## Installation
 
