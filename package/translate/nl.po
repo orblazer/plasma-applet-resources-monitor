@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: resourcesMonitor-fork\n"
 "Report-Msgid-Bugs-To: https://github.com/orblazer/plasma-applet-resources-monitor\n"
-"POT-Creation-Date: 2024-03-31 19:09+0200\n"
+"POT-Creation-Date: 2024-03-31 23:26+0200\n"
 "PO-Revision-Date: 2023-05-31 18:44+0200\n"
 "Last-Translator: orblazer\n"
 "Language: nl\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.0\n"
 
-#: ../contents/config/config.qml:6 ../contents/ui/config/ConfigAppearance.qml:48
+#: ../contents/config/config.qml:6 ../contents/ui/config/ConfigAppearance.qml:49
 msgctxt "Config header"
 msgid "Graphs"
 msgstr ""
@@ -116,112 +116,121 @@ msgstr ""
 msgid "All"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:53
+#: ../contents/ui/config/ConfigAppearance.qml:54
 msgctxt "Config header"
 msgid "Text"
 msgstr "Tekst"
 
-#: ../contents/ui/config/ConfigAppearance.qml:58
+#: ../contents/ui/config/ConfigAppearance.qml:59
 msgctxt "Config header"
 msgid "Colors"
 msgstr "Kleuren"
 
-#: ../contents/ui/config/ConfigAppearance.qml:73
+#: ../contents/ui/config/ConfigAppearance.qml:74
+msgid "Fill panel?"
+msgstr ""
+
+#: ../contents/ui/config/ConfigAppearance.qml:77
+msgctxt "@info:tooltip"
+msgid "This allow graphs to take all panel width/height"
+msgstr ""
+
+#: ../contents/ui/config/ConfigAppearance.qml:82
 msgid "History amount:"
 msgstr "Historie bedrag:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:82 ../contents/ui/config/controls/ColorSelector.qml:26
+#: ../contents/ui/config/ConfigAppearance.qml:91 ../contents/ui/config/controls/ColorSelector.qml:26
 #: ../contents/ui/config/parts/EditDisk.qml:28 ../contents/ui/config/parts/EditNetwork.qml:31
 msgid "Custom"
 msgstr "Aangepast"
 
-#: ../contents/ui/config/ConfigAppearance.qml:86 ../contents/ui/config/ConfigMisc.qml:61
+#: ../contents/ui/config/ConfigAppearance.qml:95 ../contents/ui/config/ConfigMisc.qml:61
 #: ../contents/ui/config/parts/EditCpu.qml:63 ../contents/ui/config/parts/EditGpu.qml:35
 #: ../contents/ui/config/parts/EditMemory.qml:64
 msgid "Disabled"
 msgstr "Uitgeschakeld"
 
-#: ../contents/ui/config/ConfigAppearance.qml:120
+#: ../contents/ui/config/ConfigAppearance.qml:129
 msgid "Width:"
 msgstr "Breedte:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:130
+#: ../contents/ui/config/ConfigAppearance.qml:139
 msgid "Height:"
 msgstr "Hoogte:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:140
+#: ../contents/ui/config/ConfigAppearance.qml:149
 msgid "Spacing:"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:148
+#: ../contents/ui/config/ConfigAppearance.qml:157
 msgid "Fill opacity:"
 msgstr "Ondoorzichtigheid vullen:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:160
+#: ../contents/ui/config/ConfigAppearance.qml:169
 msgid "Display outline?"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:165
+#: ../contents/ui/config/ConfigAppearance.qml:174
 msgid "Font scale:"
 msgstr "Tekstgrootte:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:174
+#: ../contents/ui/config/ConfigAppearance.qml:183
 msgid "Text displayment:"
 msgstr "Tekst tonen:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:182
+#: ../contents/ui/config/ConfigAppearance.qml:191
 msgctxt "Text displayment"
 msgid "Always"
 msgstr "Altijd"
 
-#: ../contents/ui/config/ConfigAppearance.qml:186
+#: ../contents/ui/config/ConfigAppearance.qml:195
 msgctxt "Text displayment"
 msgid "On hover"
 msgstr "Na aanwijzen"
 
-#: ../contents/ui/config/ConfigAppearance.qml:190
+#: ../contents/ui/config/ConfigAppearance.qml:199
 msgctxt "Text displayment"
 msgid "Hints when hover"
 msgstr "Tip tonen na aanwijzen"
 
-#: ../contents/ui/config/ConfigAppearance.qml:194
+#: ../contents/ui/config/ConfigAppearance.qml:203
 msgctxt "Text displayment"
 msgid "Never"
 msgstr "Nooit"
 
-#: ../contents/ui/config/ConfigAppearance.qml:205
+#: ../contents/ui/config/ConfigAppearance.qml:214
 msgid "Placement:"
 msgstr "Locatie:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:213
+#: ../contents/ui/config/ConfigAppearance.qml:222
 msgctxt "Text placement"
 msgid "Top left"
 msgstr "Linksboven"
 
-#: ../contents/ui/config/ConfigAppearance.qml:217
+#: ../contents/ui/config/ConfigAppearance.qml:226
 msgctxt "Text placement"
 msgid "Top right"
 msgstr "Rechtboven"
 
-#: ../contents/ui/config/ConfigAppearance.qml:221
+#: ../contents/ui/config/ConfigAppearance.qml:230
 msgctxt "Text placement"
 msgid "Bottom left"
 msgstr "Linksonder"
 
-#: ../contents/ui/config/ConfigAppearance.qml:225
+#: ../contents/ui/config/ConfigAppearance.qml:234
 msgctxt "Text placement"
 msgid "Bottom right"
 msgstr "Rechtsonder"
 
-#: ../contents/ui/config/ConfigAppearance.qml:239
+#: ../contents/ui/config/ConfigAppearance.qml:248
 msgid "Threshold text colors"
 msgstr "Drempelwaarde tekstkleuren"
 
-#: ../contents/ui/config/ConfigAppearance.qml:245
+#: ../contents/ui/config/ConfigAppearance.qml:254
 msgid "Warning:"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:246 ../contents/ui/config/ConfigAppearance.qml:251
+#: ../contents/ui/config/ConfigAppearance.qml:255 ../contents/ui/config/ConfigAppearance.qml:260
 #: ../contents/ui/config/parts/EditCpu.qml:174 ../contents/ui/config/parts/EditCpu.qml:185
 #: ../contents/ui/config/parts/EditDisk.qml:153 ../contents/ui/config/parts/EditGpu.qml:104
 #: ../contents/ui/config/parts/EditGpu.qml:115 ../contents/ui/config/parts/EditNetwork.qml:238
@@ -229,7 +238,7 @@ msgctxt "Chart color"
 msgid "Choose text color"
 msgstr "Kies tekstkleur"
 
-#: ../contents/ui/config/ConfigAppearance.qml:250
+#: ../contents/ui/config/ConfigAppearance.qml:259
 msgid "Critical:"
 msgstr ""
 
