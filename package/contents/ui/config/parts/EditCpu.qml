@@ -122,7 +122,7 @@ Kirigami.FormLayout {
             root.changed();
         }
 
-        QQC2.ToolTip.text: i18nc("@info:tooltip", "<b>For Intel 12+ gen only</b><br>Number of E-Cores your CPU have, it's for seperate it from P-Cores in frequency average calculation.")
+        QQC2.ToolTip.text: i18nc("@info:tooltip", "<b>For Intel gen 12+ only</b><br>Number of E-Cores your CPU have, it's for seperate it from P-Cores in clock frequency average calculation.")
         QQC2.ToolTip.visible: hovered
     }
 

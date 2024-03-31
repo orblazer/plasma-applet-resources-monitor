@@ -45,7 +45,7 @@ KCM.AbstractKCM {
         PlasmaComponents.TabButton {
             icon.name: "office-chart-line-stacked"
             icon.height: Kirigami.Units.iconSizes.smallMedium
-            text: i18nc("Config header", "Charts")
+            text: i18nc("Config header", "Graphs")
         }
         PlasmaComponents.TabButton {
             icon.name: "dialog-text-and-font"

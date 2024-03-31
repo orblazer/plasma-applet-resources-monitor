@@ -33,7 +33,7 @@ ListModel {
             "icon": "freon-gpu-temperature-symbolic"
         },
         "disk": {
-            "name": name => i18nc("Chart name", "Disks I/O [%1]", name),
+            "name": name => i18nc("Chart name", "Disk I/O [%1]", name),
             "icon": "drive-harddisk-symbolic"
         }
     }

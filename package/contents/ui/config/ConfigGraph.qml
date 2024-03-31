@@ -192,7 +192,7 @@ KCM.ScrollViewKCM {
 
             icon.name: "office-chart-line-stacked"
             text: i18n("No graph selected")
-            explanation: i18nc("@info", "Click <interface>%1</interface> to get started", addButton.text)
+            explanation: i18nc("@info", "Click <i>%1</i> to get started", addButton.text)
         }
     }
 
@@ -333,12 +333,12 @@ KCM.ScrollViewKCM {
         property string graphName: ""
 
         title: i18nc("@title:window", "Remove graph")
-        subtitle: i18nc("%1 is an graph name", "Do you want remove graph '%1'?", graphName)
+        subtitle: i18nc("%1 is an graph name", "Do you want remove graph \"%1\" ?", graphName)
 
         standardButtons: Kirigami.Dialog.Cancel
         customFooterActions: [
             Kirigami.Action {
-                text: i18n("Delete graph")
+                text: i18n("Delete")
                 icon.name: "edit-delete"
                 onTriggered: {
                     graphsView.model.remove(removePrompt.graphIndex, 1);
