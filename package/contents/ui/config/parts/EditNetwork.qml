@@ -18,7 +18,7 @@ Kirigami.FormLayout {
      *   "_v": 1, // Version of data (for compatibility)
      *   "type": "network",
      *   "colors": ["receivingColor", "sendingColor"],
-     *   "sensorsType": [invert, "dialect"], // Values: true/false (swap Rx/Tx) | "kibibyte/kilobit/kilobyte"
+     *   "sensorsType": [swapped, "dialect"], // Values: true/false (swap Rx/Tx) | "kibibyte/kilobit/kilobyte"
      *   "uplimits": [0, 0], // Chart1, Chart2
      *   "ignoredInterfaces": []
      * }

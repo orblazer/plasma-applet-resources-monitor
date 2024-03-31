@@ -16,8 +16,8 @@ Kirigami.FormLayout {
      *   "type": "disk",
      *   "colors": ["readColor", "writeColor"],
      *   "sensorsType": [invert], // Values: true/false (swap r/w)
-     *   "device": "all", // Device id (eg. sda, sdc) | Could be "all" | [managed by graphs]
-     *   "uplimits": [0, 0] // Chart1, Chart2
+     *   "uplimits": [0, 0], // Chart1, Chart2
+     *   "device": "all" // Device id (eg. sda, sdc) | Could be "all" | [managed by graphs]
      * }
      */
     required property var item

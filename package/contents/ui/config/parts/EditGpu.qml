@@ -16,8 +16,8 @@ Kirigami.FormLayout {
      *   "type": "gpu",
      *   "colors": ["usageColor", "memoryColor", "tempColor"],
      *   "sensorsType": ["memory", temperature], // Values: "none/memory/memory-percent" | true/false
-     *   "device": "gpu0", // Device index (eg. gpu0, gpu1) | [managed by graphs]
      *   "thresholds": [0, 0], // Temperature
+     *   "device": "gpu0" // Device index (eg. gpu0, gpu1) | [managed by graphs]
      * }
      */
     required property var item

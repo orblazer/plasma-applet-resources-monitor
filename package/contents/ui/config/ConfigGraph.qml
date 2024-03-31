@@ -48,9 +48,9 @@ KCM.ScrollViewKCM {
         "cpu": {
             "colors": ["highlightColor", "textColor", "textColor"],
             "sensorsType": ["usage", "clock", false],
+            "thresholds": [85, 105],
             "clockAgregator": "average",
-            "eCoresCount": "",
-            "thresholds": [85, 105]
+            "eCoresCount": ""
         },
         "memory": {
             "colors": ["highlightColor", "negativeTextColor"],
@@ -60,8 +60,8 @@ KCM.ScrollViewKCM {
         "gpu": {
             "colors": ["highlightColor", "positiveTextColor", "textColor"],
             "sensorsType": ["memory", false],
-            // "device" defined in "addGraph"
             "thresholds": [70, 90]
+            // "device" defined in "addGraph"
         },
         "network": {
             "colors": ["highlightColor", "positiveTextColor"],
@@ -72,8 +72,8 @@ KCM.ScrollViewKCM {
         "disk": {
             "colors": ["highlightColor", "positiveTextColor"],
             "sensorsType": [false],
-            // "device" defined in "addGraph"
             "uplimits": [200000, 200000]
+            // "device" defined in "addGraph"
         }
     }
 
