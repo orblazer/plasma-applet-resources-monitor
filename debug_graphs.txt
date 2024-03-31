@@ -1,17 +1,17 @@
 # CPU
-[{"_v":1,"type":"cpu","colors":["highlightColor","textColor","textColor"],"sensorsType":["usage","classic",true],"clockAgregator":"average","eCoresCount":0,"thresholds":[85,105]}]
+[{"_v":1,"type":"cpu","colors":["highlightColor","textColor","textColor"],"sensorsType":["usage","classic",true],"thresholds":[85,105],"clockAgregator":"average","eCoresCount":0}]
 
 # Memory
 [{"_v":1,"type":"memory","colors":["highlightColor","negativeTextColor"],"sensorsType":["physical","swap"],"thresholds":[70,90]}]
 
 # GPU
-[{"_v":1,"type":"gpu","colors":["highlightColor","positiveTextColor","textColor"],"sensorsType":["memory",true],"thresholds":[70,90],"gpuIndex":"gpu1"}]
+[{"_v":1,"type":"gpu","colors":["highlightColor","positiveTextColor","textColor"],"sensorsType":["memory",true],"thresholds":[70,90],"device":"gpu1"}]
 
 # Network
-[{"_v":1,"type":"network","colors":["highlightColor","positiveTextColor"],"sensorsType":["kibibyte"],"uplimits":[100000,100000],"ignoredInterfaces":[]}]
+[{"_v":1,"type":"network","colors":["highlightColor","positiveTextColor"],"sensorsType":[false,"kibibyte"],"uplimits":[100000,100000],"ignoredInterfaces":[]}]
 
-# Disks
-[{"_v":1,"type":"disks","colors":["highlightColor","positiveTextColor"],"uplimits":[200000,200000]}]
+# Disk
+[{"_v":1,"type":"disk","colors":["highlightColor","positiveTextColor"],"sensorsType":[false],"uplimits":[200000,200000],"device":"all"}]
 
 # Full
-[{"_v":1,"type":"cpu","colors":["highlightColor","textColor","textColor"],"sensorsType":["usage","classic",true],"clockAgregator":"average","eCoresCount":0,"thresholds":[85,105]},{"_v":1,"type":"memory","colors":["highlightColor","negativeTextColor"],"sensorsType":["physical","swap"],"thresholds":[70,90]},{"_v":1,"type":"gpu","colors":["highlightColor","positiveTextColor","textColor"],"sensorsType":["memory",true],"thresholds":[70,90],"gpuIndex":"gpu1"},{"_v":1,"type":"network","colors":["highlightColor","positiveTextColor"],"sensorsType":["kibibyte"],"uplimits":[100000,100000],"ignoredInterfaces":[]},{"_v":1,"type":"disks","colors":["highlightColor","positiveTextColor"],"uplimits":[200000,200000]}]
+[{"_v":1,"type":"cpu","colors":["highlightColor","textColor","textColor"],"sensorsType":["usage","classic",true],"thresholds":[85,105],"clockAgregator":"average","eCoresCount":0},{"_v":1,"type":"memory","colors":["highlightColor","negativeTextColor"],"sensorsType":["physical","swap"],"thresholds":[70,90]},{"_v":1,"type":"gpu","colors":["highlightColor","positiveTextColor","textColor"],"sensorsType":["memory",true],"thresholds":[70,90],"device":"gpu1"},{"_v":1,"type":"network","colors":["highlightColor","positiveTextColor"],"sensorsType":[false,"kibibyte"],"uplimits":[100000,100000],"ignoredInterfaces":[]},{"_v":1,"type":"disk","colors":["highlightColor","positiveTextColor"],"sensorsType":[false],"uplimits":[200000,200000],"device":"all"}]
