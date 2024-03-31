@@ -5,10 +5,10 @@ import org.kde.ksysguard.sensors as Sensors
 ListModel {
     id: root
 
-    function findByDevice(value) {
+    function find(type, device) {
         for (let i = 0; i < count; i++) {
             const item = get(i);
-            if (item.device === value) {
+            if (item.type === type && item.device === device) {
                 return item;
             }
         }
@@ -101,12 +101,6 @@ ListModel {
 
                 // Special case for GPU and disks
                 if (type === "gpu" || type === "disk") {
-                    let deviceName = data(index, Qt.Value);
-                    // Prevent line when name is not yet retrieved
-                    if (deviceName === "name") {
-                        return;
-                    }
-
                     // Retrieve section name
                     let categoryIndex = sourceModel.mapToSource(mapToSource(index));
                     let subcategoryIndex = null;
@@ -115,6 +109,10 @@ ListModel {
                         categoryIndex = categoryIndex.parent;
                     }
                     item.section = sourceModel.model.data(categoryIndex, Qt.DisplayRole);
+                    // Prevent line when name is not yet retrieved
+                    if (item.section === type) {
+                        return;
+                    }
 
                     // Retrieve right device name
                     if (device === "all") {

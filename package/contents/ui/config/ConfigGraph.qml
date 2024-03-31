@@ -104,7 +104,19 @@ KCM.ScrollViewKCM {
 
         delegate: Item {
             // External item required to make Kirigami.ListItemDragHandle work
-            readonly property var graphInfo: availableGraphs.findByDevice(model.device)  //? `device = type` when "type" is not "gpu" or "disk"
+            readonly property var graphInfo: {
+                const info = availableGraphs.find(model.type, model.device);
+                if (typeof info === "undefined") { // Fallback info (mainly for development)
+                    return {
+                        type: model.type,
+                        name: `[${model.type}${model.device ? `:${model.device}` : ""}]`,
+                        icon: "unknown",
+                        section: "unknown",
+                        device: model.device ?? model.type
+                    };
+                }
+                return info;
+            }
 
             width: graphsView.width
             implicitHeight: graphItem.implicitHeight
@@ -396,7 +408,7 @@ KCM.ScrollViewKCM {
         graphs.push(item);
         graphsView.model.append({
             type,
-            device
+            device: device ?? type
         });
     }
 }
