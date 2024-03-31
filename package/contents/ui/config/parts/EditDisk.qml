@@ -22,7 +22,7 @@ Kirigami.FormLayout {
      */
     required property var item
 
-    // TODO: translate units
+    readonly property string dialectSuffix: i18nc("kibibyte suffix", "iB/s")
     readonly property var speedOptions: [
         {
             "label": i18n("Custom"),
@@ -33,35 +33,35 @@ Kirigami.FormLayout {
             "value": 0.0
         },
         {
-            "label": "10 MiB/s",
+            "label": "10 M" + dialectSuffix,
             "value": 10000.0
         },
         {
-            "label": "100 MiB/s",
+            "label": "100 M" + dialectSuffix,
             "value": 100000.0
         },
         {
-            "label": "200 MiB/s",
+            "label": "200 M" + dialectSuffix,
             "value": 200000.0
         },
         {
-            "label": "500 MiB/s",
+            "label": "500 M" + dialectSuffix,
             "value": 500000.0
         },
         {
-            "label": "1 GiB/s",
+            "label": "1 G" + dialectSuffix,
             "value": 1000000.0
         },
         {
-            "label": "2 GiB/s",
+            "label": "2 G" + dialectSuffix,
             "value": 2000000.0
         },
         {
-            "label": "5 GiB/s",
+            "label": "5 G" + dialectSuffix,
             "value": 5000000.0
         },
         {
-            "label": "10 GiB/s",
+            "label": "10 G" + dialectSuffix,
             "value": 10000000.0
         }
     ]
@@ -102,7 +102,7 @@ Kirigami.FormLayout {
             decimals: 3
             stepSize: 1
             realFrom: 0.001
-            suffix: " MiB/s"
+            suffix: " M" + dialectSuffix
         }
     }
     RMControls.PredefinedSpinBox {
