@@ -11,6 +11,8 @@ KCM.ScrollViewKCM {
     // HACK: Provides footer separator
     extraFooterTopPadding: true
 
+    readonly property int graphVersion: 1 //? Bump when some settings changes in "graphs" structure
+
     // Config properties
     property var cfg_graphs: "[]"
     property var graphs: JSON.parse(cfg_graphs) || [] // Parssed representation of "cfg_graphs"
@@ -38,9 +40,11 @@ KCM.ScrollViewKCM {
 
     // Uncomment for development
     /* Component.onCompleted: {
+        addGraph("gpu", "all");
         addGraph("gpu", "gpu1");
         addGraph("network");
-        addGraph("disks");
+        addGraph("disk", "all");
+        root.saveGraphs();
     } */
 
     // Graphs infos amd default values
@@ -377,7 +381,7 @@ KCM.ScrollViewKCM {
 
         // Add constants (done manualy for have constatns at first)
         let item = {
-            _v: 1,
+            _v: graphVersion,
             type
         };
         //? Foreach due to can't use spredd in QML
