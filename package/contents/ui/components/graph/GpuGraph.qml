@@ -12,6 +12,7 @@ RMBaseGraph.TwoSensorsGraph {
 
     // Config shortcut
     property bool memoryInPercent: sensorsType[0].endsWith("-percent")
+    property bool showTemp: sensorsType[1] && device !== "all"
 
     // Labels
     thresholdIndex: 2
@@ -19,12 +20,18 @@ RMBaseGraph.TwoSensorsGraph {
     textContainer {
         valueColors: [undefined, undefined, root.colors[2]]
 
-        hints: ["GPU", (secondChartVisible ? "VRAM" : ""), (sensorsType[1] ? i18nc("Graph label", "Temp.") : "")]
+        hints: ["GPU", (secondChartVisible ? "VRAM" : ""), (showTemp ? i18nc("Graph label", "Temp.") : "")]
     }
 
     // Graph options
     realUplimits: [100, maxQueryModel.maxMemory]
-    sensorsModel.sensors: [`gpu/${device}/usage`, `gpu/${device}/usedVram`, `gpu/${device}/temperature`]
+    sensorsModel.sensors: {
+        let sensors = [`gpu/${device}/usage`, `gpu/${device}/usedVram`];
+        if (showTemp) {
+            sensors.push(`gpu/${device}/temperature`);
+        }
+        return sensors;
+    }
     secondChartVisible: sensorsType[0] !== "none"
 
     // Override methods, for handle memeory in percent

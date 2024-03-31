@@ -21,6 +21,7 @@ Kirigami.FormLayout {
      * }
      */
     required property var item
+    readonly property bool showTempSettings: item.device !== "all"
 
     QQC2.ComboBox {
         Layout.fillWidth: true
@@ -54,6 +55,8 @@ Kirigami.FormLayout {
     QQC2.CheckBox {
         id: showGpuTemperature
         text: i18n("Show temperature")
+        visible: showTempSettings
+
         checked: item.sensorsType[1]
         onClicked: {
             item.sensorsType[1] = checked;
@@ -64,6 +67,7 @@ Kirigami.FormLayout {
     RMControls.Thresholds {
         Layout.fillWidth: true
         Kirigami.FormData.label: i18n("Temperature threshold:")
+        visible: showTempSettings
 
         values: item.thresholds
         onValuesChanged: {
@@ -109,6 +113,7 @@ Kirigami.FormLayout {
         Layout.fillWidth: true
         Kirigami.FormData.label: i18n("Third Line:")
         dialogTitle: i18nc("Chart color", "Choose text color")
+        visible: showTempSettings
 
         value: item.colors[2]
         onValueChanged: {
