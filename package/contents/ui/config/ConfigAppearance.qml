@@ -74,7 +74,7 @@ KCM.AbstractKCM {
                     text: i18n("Fill panel?")
 
                     QQC2.ToolTip.visible: hovered
-                    QQC2.ToolTip.text: i18nc("@info:tooltip", "This allow graphs to take all panel with /height")
+                    QQC2.ToolTip.text: i18nc("@info:tooltip", "This allow graphs to take all panel width/height")
                 }
 
                 RMControls.PredefinedSpinBox {
