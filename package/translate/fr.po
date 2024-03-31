@@ -9,12 +9,14 @@ msgstr ""
 "Project-Id-Version: resourcesMonitor-fork\n"
 "Report-Msgid-Bugs-To: https://github.com/orblazer/plasma-applet-resources-monitor\n"
 "POT-Creation-Date: 2024-03-31 05:39+0200\n"
-"PO-Revision-Date: 2024-03-31 06:21+0200\n"
+"PO-Revision-Date: 2024-03-31 17:32+0200\n"
 "Last-Translator: orblazer\n"
+"Language-Team: \n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #: ../contents/config/config.qml:6 ../contents/ui/config/ConfigAppearance.qml:48
 msgctxt "Config header"
@@ -438,7 +440,7 @@ msgstr "Fréquence d'horloge des E-cores"
 
 #: ../contents/ui/config/parts/EditCpu.qml:84
 msgid "Clock aggregator:"
-msgstr "Agrégateur pour l'horloge"
+msgstr "Agrégateur pour l'horloge :"
 
 #: ../contents/ui/config/parts/EditCpu.qml:90
 msgctxt "Agregator"
