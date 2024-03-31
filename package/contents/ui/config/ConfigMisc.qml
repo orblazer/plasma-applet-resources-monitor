@@ -19,7 +19,7 @@ KCM.SimpleKCM {
     property var cfg_graphWidth
     property var cfg_customGraphHeight
     property var cfg_graphHeight
-    property var cfg_graphMargin
+    property var cfg_graphSpacing
     property var cfg_graphFillOpacity
     property var cfg_enableShadows
     property var cfg_fontScale

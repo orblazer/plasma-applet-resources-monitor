@@ -17,7 +17,7 @@ KCM.AbstractKCM {
     property alias cfg_graphWidth: graphWidth.value
     property alias cfg_customGraphHeight: graphHeight.customized
     property alias cfg_graphHeight: graphHeight.value
-    property alias cfg_graphMargin: graphMargin.value
+    property alias cfg_graphSpacing: graphSpacing.value
     property alias cfg_graphFillOpacity: graphFillOpacity.value
 
     // Text
@@ -136,8 +136,8 @@ KCM.AbstractKCM {
                     }
                 }
                 RMControls.SpinBox {
-                    id: graphMargin
-                    Kirigami.FormData.label: i18n("Margin:")
+                    id: graphSpacing
+                    Kirigami.FormData.label: i18n("Spacing:")
                     Layout.fillWidth: true
                     from: 1
                     to: 1000

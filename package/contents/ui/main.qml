@@ -91,7 +91,7 @@ PlasmoidItem {
             model: graphsModel
             updateInterval: Plasmoid.configuration.updateInterval * 1000
 
-            spacing: Plasmoid.configuration.graphMargin
+            spacing: Plasmoid.configuration.graphSpacing
             flow: isVertical ? Flow.TopToBottom : Flow.LeftToRight
 
             itemWidth: _getCustomConfig("graphWidth", Math.round(initGraphSize * (isVertical ? 1 : 1.4)))

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: resourcesMonitor-fork\n"
 "Report-Msgid-Bugs-To: https://github.com/orblazer/plasma-applet-resources-monitor\n"
-"POT-Creation-Date: 2024-03-31 05:39+0200\n"
+"POT-Creation-Date: 2024-03-31 19:09+0200\n"
 "PO-Revision-Date: 2024-01-19 12:35+0100\n"
 "Last-Translator: madeddy <saxony@earth.sol>\n"
 "Language-Team: \n"
@@ -151,8 +151,8 @@ msgid "Height:"
 msgstr "Höhe:"
 
 #: ../contents/ui/config/ConfigAppearance.qml:140
-msgid "Margin:"
-msgstr "Rand:"
+msgid "Spacing:"
+msgstr ""
 
 #: ../contents/ui/config/ConfigAppearance.qml:148
 msgid "Fill opacity:"
@@ -582,6 +582,9 @@ msgstr "Empfangen:"
 msgctxt "Chart config"
 msgid "Sending:"
 msgstr "Senden:"
+
+#~ msgid "Margin:"
+#~ msgstr "Rand:"
 
 #~ msgctxt "Config header"
 #~ msgid "General"
