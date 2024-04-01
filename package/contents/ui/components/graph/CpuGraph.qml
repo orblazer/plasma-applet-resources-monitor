@@ -16,7 +16,7 @@ RMBaseGraph.SensorGraph {
     property bool clockIsEcores: sensorsType[1] === "ecores"
 
     // Graph options
-    sensorsModel.sensors: ["cpu/all/" + sensorsType[0], "cpu/cpu0/frequency", "cpu/cpu0/temperature"]
+    sensorsModel.sensors: ["cpu/all/" + sensorsType[0], "cpu/cpu0/frequency", "cpu/all/maximumTemperature"]
 
     // Text options
     thresholdIndex: 2
