@@ -4,22 +4,18 @@ import QtQuick.Controls as QQC2
 import org.kde.kirigami as Kirigami
 import "../controls" as RMControls
 
-Kirigami.FormLayout {
+/**
+ * Settings format:
+ * {
+ *   "_v": 1, // Version of data (for compatibility)
+ *   "type": "memory",
+ *   "colors": ["memoryColor", "swapColor"],
+ *   "sensorsType": ["memory", "swap"], // Values: "physical/physical-percent/application/application-percent" | "none/swap/swap-percent/memory-percent"
+ *   "thresholds": [0, 0], // Usage
+ * }
+ */
+BaseForm {
     id: root
-
-    signal changed // Notify some settings as been changed
-
-    /**
-     * Settings format:
-     * {
-     *   "_v": 1, // Version of data (for compatibility)
-     *   "type": "memory",
-     *   "colors": ["memoryColor", "swapColor"],
-     *   "sensorsType": ["memory", "swap"], // Values: "physical/physical-percent/application/application-percent" | "none/swap/swap-percent/memory-percent"
-     *   "thresholds": [0, 0], // Usage
-     * }
-     */
-    required property var item
 
     QQC2.ComboBox {
         Layout.fillWidth: true

@@ -251,7 +251,7 @@ KCM.ScrollViewKCM {
         function openFor(index, name) {
             const item = graphs[index];
             const filename = "Edit" + (item.type.charAt(0).toUpperCase() + item.type.slice(1));
-            const source = `./parts/${filename}.qml`;
+            const source = `./dialog/${filename}.qml`;
 
             // Load settings page
             graphIndex = index;

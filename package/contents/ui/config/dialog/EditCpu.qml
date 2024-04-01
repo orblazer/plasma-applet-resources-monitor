@@ -4,24 +4,20 @@ import QtQuick.Controls as QQC2
 import org.kde.kirigami as Kirigami
 import "../controls" as RMControls
 
-Kirigami.FormLayout {
+/**
+ * Settings format:
+ * {
+ *   "_v": 1, // Version of data (for compatibility)
+ *   "type": "cpu",
+ *   "colors": ["usageColor", "clockColor", "tempColor"],
+ *   "sensorsType": ["usage", "clock", temperature], // Values: "usage/system/user" | "none/classic/ecores" | true/false
+ *   "thresholds": [0, 0], // Temperature
+ *   "clockAgregator": "average", // Values: average, minimum, maximum
+ *   "eCoresCount": 0
+ * }
+ */
+BaseForm {
     id: root
-
-    signal changed // Notify some settings as been changed
-
-    /**
-     * Settings format:
-     * {
-     *   "_v": 1, // Version of data (for compatibility)
-     *   "type": "cpu",
-     *   "colors": ["usageColor", "clockColor", "tempColor"],
-     *   "sensorsType": ["usage", "clock", temperature], // Values: "usage/system/user" | "none/classic/ecores" | true/false
-     *   "thresholds": [0, 0], // Temperature
-     *   "clockAgregator": "average", // Values: average, minimum, maximum
-     *   "eCoresCount": 0
-     * }
-     */
-    required property var item
 
     QQC2.ComboBox {
         Layout.fillWidth: true
@@ -106,7 +102,6 @@ Kirigami.FormLayout {
             root.changed();
         }
     }
-    // TODO: find way to show only when detect "e-cores" (maybe: compare first and last core frequency)
     // Define Number of E-Cores, it's used for separating Intel
     // E-cores and P-Cores when calculating CPU frequency,
     // because they have different frequencies.

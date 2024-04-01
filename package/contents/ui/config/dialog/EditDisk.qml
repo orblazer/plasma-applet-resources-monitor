@@ -4,23 +4,19 @@ import QtQuick.Controls as QQC2
 import org.kde.kirigami as Kirigami
 import "../controls" as RMControls
 
-Kirigami.FormLayout {
+/**
+ * Settings format:
+ * {
+ *   "_v": 1, // Version of data (for compatibility)
+ *   "type": "disk",
+ *   "colors": ["readColor", "writeColor"],
+ *   "sensorsType": [invert], // Values: true/false (swap r/w)
+ *   "uplimits": [0, 0], // Chart1, Chart2
+ *   "device": "all" // Device id (eg. sda, sdc) | Could be "all" | [managed by graphs]
+ * }
+ */
+BaseForm {
     id: root
-
-    signal changed // Notify some settings as been changed
-
-    /**
-     * Settings format:
-     * {
-     *   "_v": 1, // Version of data (for compatibility)
-     *   "type": "disk",
-     *   "colors": ["readColor", "writeColor"],
-     *   "sensorsType": [invert], // Values: true/false (swap r/w)
-     *   "uplimits": [0, 0], // Chart1, Chart2
-     *   "device": "all" // Device id (eg. sda, sdc) | Could be "all" | [managed by graphs]
-     * }
-     */
-    required property var item
 
     readonly property string dialectSuffix: i18nc("kibibyte suffix", "iB/s")
     readonly property var speedOptions: [

@@ -4,23 +4,19 @@ import QtQuick.Controls as QQC2
 import org.kde.kirigami as Kirigami
 import "../controls" as RMControls
 
-Kirigami.FormLayout {
+/**
+ * Settings format:
+ * {
+ *   "_v": 1, // Version of data (for compatibility)
+ *   "type": "gpu",
+ *   "colors": ["usageColor", "memoryColor", "tempColor"],
+ *   "sensorsType": ["memory", temperature], // Values: "none/memory/memory-percent" | true/false
+ *   "thresholds": [0, 0], // Temperature
+ *   "device": "gpu0" // Device index (eg. gpu0, gpu1) | [managed by graphs]
+ * }
+ */
+BaseForm {
     id: root
-
-    signal changed // Notify some settings as been changed
-
-    /**
-     * Settings format:
-     * {
-     *   "_v": 1, // Version of data (for compatibility)
-     *   "type": "gpu",
-     *   "colors": ["usageColor", "memoryColor", "tempColor"],
-     *   "sensorsType": ["memory", temperature], // Values: "none/memory/memory-percent" | true/false
-     *   "thresholds": [0, 0], // Temperature
-     *   "device": "gpu0" // Device index (eg. gpu0, gpu1) | [managed by graphs]
-     * }
-     */
-    required property var item
     readonly property bool showTempSettings: item.device !== "all"
 
     QQC2.ComboBox {

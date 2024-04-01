@@ -7,23 +7,19 @@ import "../controls" as RMControls
 import "../../code/dialect.js" as Dialect
 import "../../code/network.js" as NetworkUtils
 
-Kirigami.FormLayout {
+/**
+ * Settings format:
+ * {
+ *   "_v": 1, // Version of data (for compatibility)
+ *   "type": "network",
+ *   "colors": ["receivingColor", "sendingColor"],
+ *   "sensorsType": [swapped, "dialect"], // Values: true/false (swap Rx/Tx) | "kibibyte/kilobit/kilobyte"
+ *   "uplimits": [0, 0], // Chart1, Chart2
+ *   "ignoredInterfaces": []
+ * }
+ */
+BaseForm {
     id: root
-
-    signal changed // Notify some settings as been changed
-
-    /**
-     * Settings format:
-     * {
-     *   "_v": 1, // Version of data (for compatibility)
-     *   "type": "network",
-     *   "colors": ["receivingColor", "sendingColor"],
-     *   "sensorsType": [swapped, "dialect"], // Values: true/false (swap Rx/Tx) | "kibibyte/kilobit/kilobyte"
-     *   "uplimits": [0, 0], // Chart1, Chart2
-     *   "ignoredInterfaces": []
-     * }
-     */
-    required property var item
 
     readonly property var dialect: Dialect.getNetworkDialectInfo(item.sensorsType[0], i18nc)
     readonly property var speedOptions: [
