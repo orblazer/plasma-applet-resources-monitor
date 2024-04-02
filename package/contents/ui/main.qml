@@ -3,6 +3,7 @@ import QtQuick.Layouts
 import org.kde.plasma.plasmoid
 import org.kde.plasma.core as PlasmaCore
 import org.kde.plasma.plasma5support as Plasma5Support
+import org.kde.kirigami as Kirigami
 import "./code/graphs.js" as GraphFns
 
 PlasmoidItem {
@@ -33,7 +34,7 @@ PlasmoidItem {
     property string clickAction: Plasmoid.configuration.clickAction
 
     // Plasma configuration
-    Plasmoid.backgroundHints: PlasmaCore.Types.DefaultBackground | PlasmaCore.Types.ConfigurableBackground
+    Plasmoid.backgroundHints: PlasmaCore.Types.DefaultBackground
     Plasmoid.configurationRequired: !graphsModel || graphsModel.length === 0 // Check if graphs is valid and have some items
     preferredRepresentation: Plasmoid.configurationRequired ? compactRepresentation : fullRepresentation // Show graphs only if at least 1 is present, otherwise ask to configure
     Plasmoid.constraintHints: Plasmoid.configuration.fillPanel ? Plasmoid.CanFillArea : Plasmoid.NoHint// Allow widget to take all height/width
@@ -43,6 +44,14 @@ PlasmoidItem {
     anchors.bottomMargin: Plasmoid.configuration.fillPanel ? 1 : 0
 
     // Content
+    compactRepresentation: Kirigami.Icon {
+        Layout.preferredWidth: width
+        Layout.preferredHeight: height
+
+        source: Plasmoid.icon
+        width: Kirigami.Units.iconSizes.smallMedium
+        height: width
+    }
     fullRepresentation: MouseArea {
         acceptedButtons: clickAction !== "none" ? Qt.LeftButton : Qt.NoButton
 
