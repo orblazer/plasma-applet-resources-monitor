@@ -8,7 +8,7 @@ Sensors.SensorDataModel {
 
     property int _coreCount: 0
 
-    property string agregator: "average" // Possible value: average, minimum, maximum
+    property string aggregator: "average" // Possible value: average, minimum, maximum
     property int eCoresCount: 0
 
     signal ready
@@ -35,11 +35,11 @@ Sensors.SensorDataModel {
         }
 
         // Agregate values
-        if (agregator === "average") {
+        if (aggregator === "average") {
             return values.reduce((a, b) => a + b, 0) / values.length;
-        } else if (agregator === "minimum") {
+        } else if (aggregator === "minimum") {
             return Math.min(...values);
-        } else if (agregator === "maximum") {
+        } else if (aggregator === "maximum") {
             return Math.max(...values);
         }
         return undefined;

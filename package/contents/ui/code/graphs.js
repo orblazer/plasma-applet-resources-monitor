@@ -11,7 +11,7 @@ const VERSION = 1; //? Bump when some settings changes in graphs structure
  * @property {[string, string, string]} colors The graph colors (ref: usage, clock, temperature)
  * @property {[("usage"|"system"|"user"), ("none"|"classic"|"ecores"), boolean]} sensorsType The sensors type (ref: usage, clock, temperature)
  * @property {[number, number]} thresholds The temperature thresholds
- * @property {"average"|"minimum"|"maximum"} clockAgregator The clock aggregator
+ * @property {"average"|"minimum"|"maximum"} clockAggregator The clock aggregator
  * @property {number} eCoresCount The e-cores count
  */
 /**
@@ -120,7 +120,7 @@ function create(type, device) {
       item.colors = ["highlightColor", "textColor", "textColor"];
       item.sensorsType = ["usage", "clock", false];
       item.thresholds = [85, 105];
-      item.clockAgregator = "average";
+      item.clockAggregator = "average";
       item.eCoresCount = "";
       break;
     case "memory":

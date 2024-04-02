@@ -74,22 +74,22 @@ BaseForm {
         valueRole: "value"
         model: [
             {
-                "label": i18nc("Agregator", "Average"),
+                "label": i18nc("Aggregator", "Average"),
                 "value": "average"
             },
             {
-                "label": i18nc("Agregator", "Minimum"),
+                "label": i18nc("Aggregator", "Minimum"),
                 "value": "minimum"
             },
             {
-                "label": i18nc("Agregator", "Maximum"),
+                "label": i18nc("Aggregator", "Maximum"),
                 "value": "maximum"
             }
         ]
 
-        Component.onCompleted: currentIndex = indexOfValue(item.clockAgregator)
+        Component.onCompleted: currentIndex = indexOfValue(item.clockAggregator)
         onActivated: {
-            item.clockAgregator = currentValue;
+            item.clockAggregator = currentValue;
             root.changed();
         }
     }
