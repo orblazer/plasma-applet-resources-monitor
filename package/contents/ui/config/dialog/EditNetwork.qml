@@ -8,15 +8,7 @@ import "../../code/dialect.js" as Dialect
 import "../../code/network.js" as NetworkUtils
 
 /**
- * Settings format:
- * {
- *   "_v": 1, // Version of data (for compatibility)
- *   "type": "network",
- *   "colors": ["receivingColor", "sendingColor"],
- *   "sensorsType": [swapped, "dialect"], // Values: true/false (swap Rx/Tx) | "kibibyte/kilobit/kilobyte"
- *   "uplimits": [0, 0], // Chart1, Chart2
- *   "ignoredInterfaces": []
- * }
+ * Settings format: {@link ../../code/graphs.js:35}
  */
 BaseForm {
     id: root

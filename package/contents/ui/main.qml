@@ -3,11 +3,11 @@ import QtQuick.Layouts
 import org.kde.plasma.plasmoid
 import org.kde.plasma.core as PlasmaCore
 import org.kde.plasma.plasma5support as Plasma5Support
+import "./code/graphs.js" as GraphFns
 
 PlasmoidItem {
     id: root
 
-    readonly property int graphVersion: 1 //? Bump when some settings changes in "graphs" structure
     readonly property bool isVertical: {
         switch (Plasmoid.formFactor) {
         case PlasmaCore.Types.Planar:
@@ -29,12 +29,12 @@ PlasmoidItem {
 
     // Settings properties
     property double fontScale: (Plasmoid.configuration.fontScale / 100)
-    property var graphsModel: (JSON.parse(Plasmoid.configuration.graphs) || []).filter(v => v._v === graphVersion)
+    property var graphsModel: GraphFns.parse(Plasmoid.configuration.graphs)
     property string clickAction: Plasmoid.configuration.clickAction
 
     // Plasma configuration
     Plasmoid.backgroundHints: PlasmaCore.Types.DefaultBackground | PlasmaCore.Types.ConfigurableBackground
-    Plasmoid.configurationRequired: graphsModel.length === 0 // Check if graphs is valid and have some items
+    Plasmoid.configurationRequired: !graphsModel || graphsModel.length === 0 // Check if graphs is valid and have some items
     preferredRepresentation: Plasmoid.configurationRequired ? compactRepresentation : fullRepresentation // Show graphs only if at least 1 is present, otherwise ask to configure
     Plasmoid.constraintHints: Plasmoid.configuration.fillPanel ? Plasmoid.CanFillArea : Plasmoid.NoHint// Allow widget to take all height/width
 

@@ -5,14 +5,7 @@ import org.kde.kirigami as Kirigami
 import "../controls" as RMControls
 
 /**
- * Settings format:
- * {
- *   "_v": 1, // Version of data (for compatibility)
- *   "type": "memory",
- *   "colors": ["memoryColor", "swapColor"],
- *   "sensorsType": ["memory", "swap"], // Values: "physical/physical-percent/application/application-percent" | "none/swap/swap-percent/memory-percent"
- *   "thresholds": [0, 0], // Usage
- * }
+ * Settings format: {@link ../../code/graphs.js:18}
  */
 BaseForm {
     id: root

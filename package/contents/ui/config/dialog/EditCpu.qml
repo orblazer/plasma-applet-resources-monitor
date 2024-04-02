@@ -5,16 +5,7 @@ import org.kde.kirigami as Kirigami
 import "../controls" as RMControls
 
 /**
- * Settings format:
- * {
- *   "_v": 1, // Version of data (for compatibility)
- *   "type": "cpu",
- *   "colors": ["usageColor", "clockColor", "tempColor"],
- *   "sensorsType": ["usage", "clock", temperature], // Values: "usage/system/user" | "none/classic/ecores" | true/false
- *   "thresholds": [0, 0], // Temperature
- *   "clockAgregator": "average", // Values: average, minimum, maximum
- *   "eCoresCount": 0
- * }
+ * Settings format: {@link ../../code/graphs.js:8}
  */
 BaseForm {
     id: root

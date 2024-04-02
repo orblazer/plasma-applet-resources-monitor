@@ -5,15 +5,7 @@ import org.kde.kirigami as Kirigami
 import "../controls" as RMControls
 
 /**
- * Settings format:
- * {
- *   "_v": 1, // Version of data (for compatibility)
- *   "type": "disk",
- *   "colors": ["readColor", "writeColor"],
- *   "sensorsType": [invert], // Values: true/false (swap r/w)
- *   "uplimits": [0, 0], // Chart1, Chart2
- *   "device": "all" // Device id (eg. sda, sdc) | Could be "all" | [managed by graphs]
- * }
+ * Settings format: {@link ../../code/graphs.js:44}
  */
 BaseForm {
     id: root

@@ -1,6 +1,7 @@
 import QtQuick
 import org.kde.kitemmodels as KItemModels
 import org.kde.ksysguard.sensors as Sensors
+import "../code/graphs.js" as GraphFns
 
 ListModel {
     id: root
@@ -13,29 +14,6 @@ ListModel {
             }
         }
         return undefined;
-    }
-
-    readonly property var graphInfos: {
-        "cpu": {
-            "name": i18nc("Chart name", "CPU"),
-            "icon": "cpu-symbolic"
-        },
-        "memory": {
-            "name": i18nc("Chart name", "Memory"),
-            "icon": "memory-symbolic"
-        },
-        "network": {
-            "name": i18nc("Chart name", "Network"),
-            "icon": "network-wired-symbolic"
-        },
-        "gpu": {
-            "name": name => i18nc("Chart name", "GPU [%1]", name),
-            "icon": "freon-gpu-temperature-symbolic"
-        },
-        "disk": {
-            "name": name => i18nc("Chart name", "Disk I/O [%1]", name),
-            "icon": "drive-harddisk-symbolic"
-        }
     }
 
     property var _privateModel: KItemModels.KSortFilterProxyModel {
@@ -86,15 +64,19 @@ ListModel {
                 const index = _privateModel.index(i, 0);
                 const sensorId = data(index, Sensors.SensorTreeModel.SensorId);
                 let deviceName = data(index, Qt.Value);
+
                 // Prevent line when name is not yet retrieved
                 if (deviceName === "" || deviceName === "name") {
                     return;
                 }
+
+                // Retrieve informations
                 const [_, type, device, sensor] = sensorId.match(sensorsRegex);
+                const graphInfo = GraphFns.getInfo(type)
                 const item = {
                     type,
-                    name: "",
-                    icon: root.graphInfos[type].icon,
+                    name: graphInfo?.name,
+                    icon: graphInfo?.icon,
                     section: "",
                     device: type
                 };
@@ -134,9 +116,7 @@ ListModel {
 
                     // Apply variables
                     item.device = device;
-                    item.name = root.graphInfos[type].name(deviceName);
-                } else {
-                    item.name = root.graphInfos[type].name;
+                    item.name = graphInfo.name(deviceName);
                 }
                 root.set(i, item);
             }

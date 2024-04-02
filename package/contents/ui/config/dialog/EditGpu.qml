@@ -5,15 +5,7 @@ import org.kde.kirigami as Kirigami
 import "../controls" as RMControls
 
 /**
- * Settings format:
- * {
- *   "_v": 1, // Version of data (for compatibility)
- *   "type": "gpu",
- *   "colors": ["usageColor", "memoryColor", "tempColor"],
- *   "sensorsType": ["memory", temperature], // Values: "none/memory/memory-percent" | true/false
- *   "thresholds": [0, 0], // Temperature
- *   "device": "gpu0" // Device index (eg. gpu0, gpu1) | [managed by graphs]
- * }
+ * Settings format: {@link ../../code/graphs.js:26}
  */
 BaseForm {
     id: root
