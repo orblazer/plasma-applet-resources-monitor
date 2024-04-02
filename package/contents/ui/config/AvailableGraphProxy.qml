@@ -5,6 +5,13 @@ import "../code/graphs.js" as GraphFns
 
 ListModel {
     id: root
+    property int _lastCount: 0
+
+    Component.onCompleted: {
+        // Add constant graphs (GPU and disks added with "_privateModel")
+        ["cpu", "memory", "network"].forEach(type => append(GraphFns.getDisplayInfo(type)));
+        _lastCount = count;
+    }
 
     function find(type, device) {
         for (let i = 0; i < count; i++) {
@@ -17,7 +24,7 @@ ListModel {
     }
 
     property var _privateModel: KItemModels.KSortFilterProxyModel {
-        readonly property var sensorsRegex: /^(cpu|memory|gpu|network|disk)\/([a-z0-9\-]+)\/(name|used|usage|download)$/
+        readonly property var sensorsRegex: /^(gpu|disk)\/([a-z0-9\-]+)\/(name|used|usage)?$/
         readonly property var gpuNameRegex: /.*\[(.*)\]/
 
         sourceModel: KItemModels.KDescendantsProxyModel {
@@ -53,78 +60,57 @@ ListModel {
 
         onRowsInserted: (parent, first, last) => {
             for (let i = first; i <= last; ++i) {
-                // Ignore when outside range
-                // Rows are initially inserted strangely, so this suppresses errors
-                // and everything comes out working anyway
-                if (i > root.count) {
-                    return;
-                }
-
                 // Retrieve sensor info
                 const index = _privateModel.index(i, 0);
                 const sensorId = data(index, Sensors.SensorTreeModel.SensorId);
                 let deviceName = data(index, Qt.Value);
+                const [_, type, device, sensor] = sensorId.match(sensorsRegex);
 
                 // Prevent line when name is not yet retrieved
                 if (deviceName === "" || deviceName === "name") {
                     return;
                 }
 
-                // Retrieve informations
-                const [_, type, device, sensor] = sensorId.match(sensorsRegex);
-                const graphInfo = GraphFns.getInfo(type)
-                const item = {
-                    type,
-                    name: graphInfo?.name,
-                    icon: graphInfo?.icon,
-                    section: "",
-                    device: type
-                };
-
-                // Special case for GPU and disks
-                if (type === "gpu" || type === "disk") {
-                    // Retrieve section name
-                    let categoryIndex = sourceModel.mapToSource(mapToSource(index));
-                    let subcategoryIndex = null;
-                    while (categoryIndex.parent.valid) {
-                        subcategoryIndex = categoryIndex;
-                        categoryIndex = categoryIndex.parent;
-                    }
-                    item.section = sourceModel.model.data(categoryIndex, Qt.DisplayRole);
-                    // Prevent line when name is not yet retrieved
-                    if (item.section === type) {
-                        return;
-                    }
-
-                    // Retrieve right device name
-                    if (device === "all") {
-                        deviceName = i18n("All");
-                    } else if (type === "gpu") {
-                        // Special case for non NVIDIA graphic card (eg. in AMD the name look like "Navi 21 [Radeon RX 6950 XT]")
-                        const nameMatch = deviceName.match(gpuNameRegex);
-                        if (nameMatch) {
-                            if (nameMatch[1].startsWith("Radeon")) {
-                                deviceName = "AMD ";
-                            } else {
-                                deviceName = "Intel ";
-                            }
-                            deviceName += nameMatch[1];
-                        }
-                    } else {
-                        deviceName = device;
-                    }
-
-                    // Apply variables
-                    item.device = device;
-                    item.name = graphInfo.name(deviceName);
+                // Retrieve section name
+                let categoryIndex = sourceModel.mapToSource(mapToSource(index));
+                let subcategoryIndex = null;
+                while (categoryIndex.parent.valid) {
+                    subcategoryIndex = categoryIndex;
+                    categoryIndex = categoryIndex.parent;
                 }
-                root.set(i, item);
+                const section = sourceModel.model.data(categoryIndex, Qt.DisplayRole);
+
+                // Prevent line when section name is not yet retrieved
+                if (section === type) {
+                    return;
+                }
+
+                // Retrieve right device name
+                if (device === "all") {
+                    deviceName = i18n("All");
+                } else if (type === "gpu") {
+                    // Special case for non NVIDIA graphic card (eg. in AMD the name look like "Navi 21 [Radeon RX 6950 XT]")
+                    const nameMatch = deviceName.match(gpuNameRegex);
+                    if (nameMatch) {
+                        if (nameMatch[1].startsWith("Radeon")) {
+                            deviceName = "AMD ";
+                        } else {
+                            deviceName = "Intel ";
+                        }
+                        deviceName += nameMatch[1];
+                    }
+                } else {
+                    deviceName = device;
+                }
+
+                // Add graphs
+                root.set(i + _lastCount, GraphFns.getDisplayInfo(type, section, device, deviceName));
             }
         }
 
         onRowsRemoved: (parent, first, last) => {
             for (var i = last; i >= first; --i) {
-                availableSensorsModel.remove(i);
+                root.remove(i + _lastCount);
             }
         }
     }

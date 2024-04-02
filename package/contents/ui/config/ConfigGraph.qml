@@ -89,6 +89,7 @@ KCM.ScrollViewKCM {
                         type: model.type,
                         name: `[${model.type}${model.device ? `:${model.device}` : ""}]`,
                         icon: "unknown",
+                        fallbackIcon: "unknown",
                         section: "unknown",
                         device: model.device ?? model.type
                     };
@@ -122,6 +123,7 @@ KCM.ScrollViewKCM {
                     // Content
                     Kirigami.Icon {
                         source: graphInfo.icon
+                        fallback: graphInfo.fallbackIcon
                         width: Kirigami.Units.iconSizes.smallMedium
                         height: width
                     }
@@ -275,6 +277,7 @@ KCM.ScrollViewKCM {
                     // Content
                     Kirigami.Icon {
                         source: model.icon
+                        fallback: model.fallbackIcon
                         width: Kirigami.Units.iconSizes.smallMedium
                         height: width
                     }

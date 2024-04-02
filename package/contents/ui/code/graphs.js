@@ -53,8 +53,12 @@ const VERSION = 1; //? Bump when some settings changes in graphs structure
 /** @typedef {CpuGraph|MemoryGraph|GpuGraph|NetworkGraph|DiskGraph} Graph */
 /**
  * @typedef {object} GraphInfo
- * @property {string|(string)=>string} name The graph name
- * @property {string} icon the graph icon
+ * @property {Graph["type"]} type
+ * @property {string} name The graph name
+ * @property {string} icon The graph icon
+ * @property {string} fallbackIcon The fallback of graph icon
+ * @property {string} section The graph section
+ * @property {string} device The graph device (set to {@link type} if is not "gpu" or "disk" type)
  */
 
 /**
@@ -160,39 +164,53 @@ function create(type, device) {
 }
 
 /**
- * Retrieve graph informations (name and icon)
- * @param {Graph["type"]} type The graph
- * @returns {GraphInfo|null} The informations
+ * Retrieve graph display informations (name and icon)
+ * @param {Graph["type"]} type The graph type
+ * @param {string} section The section name
+ * @param {string} device The device identifier
+ * @param {string} deviceName The device name
+ * @returns {GraphInfo} The display informations
  */
-function getInfo(type) {
+function getDisplayInfo(
+  type,
+  section = "",
+  device = type,
+  deviceName = device
+) {
+  /** @type {GraphInfo} */
+  let result = {
+    type,
+    section,
+    device,
+  };
   switch (type) {
     case "cpu":
-      return {
-        name: i18nc("Chart name", "CPU"),
-        icon: "cpu-symbolic",
-      };
+      result.name = i18nc("Chart name", "CPU");
+      result.icon = "cpu-symbolic";
+      result.fallbackIcon = "cpu";
+      break;
     case "memory":
-      return {
-        name: i18nc("Chart name", "Memory"),
-        icon: "memory-symbolic",
-      };
+      result.name = i18nc("Chart name", "Memory");
+      result.icon = "memory-symbolic";
+      result.fallbackIcon = "memory";
+      break;
     case "gpu":
-      return {
-        name: (name) => i18nc("Chart name", "GPU [%1]", name),
-        icon: "freon-gpu-temperature-symbolic",
-      };
+      result.name = i18nc("Chart name", "GPU [%1]", deviceName);
+      result.icon = "freon-gpu-temperature-symbolic";
+      result.fallbackIcon = "preferences-desktop-display";
+      break;
     case "network":
-      return {
-        name: i18nc("Chart name", "Network"),
-        icon: "network-wired-symbolic",
-      };
+      result.name = i18nc("Chart name", "Network");
+      result.icon = "network-wired-symbolic";
+      result.fallbackIcon = "network-wired";
+      break;
     case "disk":
-      return {
-        name: (name) => i18nc("Chart name", "Disk I/O [%1]", name),
-        icon: "drive-harddisk-symbolic",
-      };
+      result.name = i18nc("Chart name", "Disk I/O [%1]", deviceName);
+      result.icon = "drive-harddisk-symbolic";
+      result.fallbackIcon = "drive-harddisk";
+      break;
     default:
-      console.error(`${type} is not valid graph type`);
-      return null;
+      throw new Error(`${type} is not valid graph type`);
   }
+  return result;
 }
