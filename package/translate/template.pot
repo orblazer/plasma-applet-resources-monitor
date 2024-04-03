@@ -1,12 +1,12 @@
-# Translation of resourcesMonitor-fork in LANGUAGE
+# Translation of resources-monitor in LANGUAGE
 # Copyright (C) 2024
-# This file is distributed under the same license as the resourcesMonitor-fork package.
+# This file is distributed under the same license as the resources-monitor package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: resourcesMonitor-fork\n"
+"Project-Id-Version: resources-monitor\n"
 "Report-Msgid-Bugs-To: https://github.com/orblazer/plasma-applet-resources-monitor\n"
 "POT-Creation-Date: 2024-03-31 23:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"

@@ -1,6 +1,6 @@
-# Resources monitor (fork) - Plasma 6 widget
+# Resources monitor - Plasma 6 widget
 
-Plasmoid for monitoring CPU, memory and network traffic
+Plasmoid for monitoring CPU, memory, network traffic, GPUs and disks IO.
 
 > ⚠️ This branch is for unreleased Plasma 6 version.
 >
@@ -29,7 +29,7 @@ But with the time this widget have gain a lot configurations and metrics can be 
 
      1. Add Widgets...
      2. Get new widgets
-     3. Search `Resources Monitor - fork`
+     3. Search `Resources Monitor`
      4. Install the last version
 
    - **Manually**: find this applet and install through the first item with `.plasmoid` extension

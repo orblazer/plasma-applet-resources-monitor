@@ -1,11 +1,11 @@
-# Translation of resourcesMonitor-fork in nl
+# Translation of resources-monitor in nl
 # Copyright (C) 2021
-# This file is distributed under the same license as the resourcesMonitor-fork package.
+# This file is distributed under the same license as the resources-monitor package.
 # Heimen Stoffels <vistausss@fastmail.com>, 2021.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: resourcesMonitor-fork\n"
+"Project-Id-Version: resources-monitor\n"
 "Report-Msgid-Bugs-To: https://github.com/orblazer/plasma-applet-resources-monitor\n"
 "POT-Creation-Date: 2024-03-31 23:26+0200\n"
 "PO-Revision-Date: 2023-05-31 18:44+0200\n"
