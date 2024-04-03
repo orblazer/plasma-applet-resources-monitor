@@ -38,7 +38,7 @@ const VERSION = 1; //? Bump when some settings changes in graphs structure
  * @property {number} _v The version of graph
  * @property {"network"} type The graph type
  * @property {[string, string]} colors The graph colors (ref: receiving, sending)
- * @property {[boolean, ("kibibyte"|"kilobit|"kilobyte")]} sensorsType The sensors type (ref: swap Rx/Tx, dialect)
+ * @property {[boolean, ("kibibyte"|"kilobit|"kilobyte")]} sensorsType The sensors type (ref: swap Rx/Tx, unit)
  * @property {[number, number]} uplimits The uplimit (ref: chart1, chart2)
  * @property {string[]} ignoredInterfaces The ignored network interfaces
  */

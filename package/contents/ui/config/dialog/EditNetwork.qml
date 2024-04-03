@@ -63,7 +63,7 @@ BaseForm {
 
     QQC2.ComboBox {
         Layout.fillWidth: true
-        Kirigami.FormData.label: i18n("Dialect:")
+        Kirigami.FormData.label: i18n("Unit:")
 
         textRole: "label"
         valueRole: "value"
