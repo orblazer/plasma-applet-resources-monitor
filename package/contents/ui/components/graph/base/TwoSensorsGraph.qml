@@ -36,7 +36,7 @@ RMBaseGraph.BaseSensorGraph {
     Charts.LineChart {
         id: secondChart
         anchors.fill: parent
-        visible: enableHistory
+        visible: enableHistory && secondChartVisible
 
         direction: Charts.XYChart.ZeroAtEnd
         fillOpacity: plasmoid.configuration.graphFillOpacity / 100
@@ -56,7 +56,7 @@ RMBaseGraph.BaseSensorGraph {
     Charts.LineChart {
         id: firstChart
         anchors.fill: parent
-        visible: enableHistory && secondChartVisible
+        visible: enableHistory
 
         direction: Charts.XYChart.ZeroAtEnd
         fillOpacity: plasmoid.configuration.graphFillOpacity / 100
