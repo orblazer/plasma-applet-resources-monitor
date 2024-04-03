@@ -82,7 +82,7 @@ PlasmoidItem {
             id: runner
             engine: "executable"
             connectedSources: []
-            onNewData: disconnectSource(sourceName)
+            onNewData: sourceName => disconnectSource(sourceName)
         }
 
         onClicked: {
