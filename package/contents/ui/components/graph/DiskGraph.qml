@@ -1,7 +1,7 @@
 import QtQuick
 import org.kde.plasma.plasmoid
 import "./base" as RMBaseGraph
-import "../../code/dialect.js" as Dialect
+import "../../code/formatter.js" as Formatter
 
 RMBaseGraph.TwoSensorsGraph {
     id: root
@@ -9,9 +9,7 @@ RMBaseGraph.TwoSensorsGraph {
 
     // Settings
     property string device: "all" // Device id (eg: sda, sdc) | Could be "all"
-
-    // Apply dialect to uplimits
-    readonly property var diskIoDialect: Dialect.getNetworkDialectInfo("kibibyte", i18nc)
+    readonly property var unit: Formatter.getUnitInfo("kibibyte", i18nc)
 
     // Labels
     textContainer {
@@ -23,6 +21,6 @@ RMBaseGraph.TwoSensorsGraph {
     }
 
     // Graph options
-    realUplimits: [uplimits[0] * diskIoDialect.multiplier, uplimits[1] * diskIoDialect.multiplier]
+    realUplimits: [uplimits[0] * unit.multiplier, uplimits[1] * unit.multiplier]
     sensorsModel.sensors: sensorsType[0] ? [`disk/${device}/read`, `disk/${device}/write`] : [`disk/${device}/write`, `disk/${device}/read`]
 }

@@ -1,8 +1,9 @@
 import QtQuick
 import org.kde.plasma.plasmoid
+import org.kde.ksysguard.formatter as KFormatter
 import "./base" as RMBaseGraph
 import "../sensors" as RMSensors
-import "../../code/dialect.js" as Dialect
+import "../../code/formatter.js" as Formatter
 
 RMBaseGraph.TwoSensorsGraph {
     id: root
@@ -12,7 +13,7 @@ RMBaseGraph.TwoSensorsGraph {
 
     // Settings
     property var ignoredInterfaces: []
-    property var dialect: Dialect.getNetworkDialectInfo(sensorsType[1], i18nc)
+    readonly property var unit: Formatter.getUnitInfo(sensorsType[1], i18nc)
 
     // Retrieve chart index and swap it if needed
     property int downloadIndex: sensorsType[0] ? 1 : 0
@@ -28,7 +29,7 @@ RMBaseGraph.TwoSensorsGraph {
     }
 
     // Charts config
-    realUplimits: [uplimits[0] * dialect.multiplier, uplimits[1] * dialect.multiplier]
+    realUplimits: [uplimits[0] * unit.multiplier, uplimits[1] * unit.multiplier]
 
     // Custom sensor
     RMSensors.NetworkSpeed {
@@ -59,9 +60,9 @@ RMBaseGraph.TwoSensorsGraph {
                 return;
             }
 
-            // Apply selected dialect
-            downloadValue *= dialect.byteDiff;
-            uploadValue *= dialect.byteDiff;
+            // Apply selected unit
+            downloadValue *= unit.byteDiff;
+            uploadValue *= unit.byteDiff;
 
             // Insert datas
             _insertChartData(downloadIndex, downloadValue);
@@ -83,7 +84,7 @@ RMBaseGraph.TwoSensorsGraph {
         }
 
         // Show value on label
-        label.text = Dialect.formatByteValue(value, dialect);
+        label.text = Formatter.formatValue(value, unit, Qt.locale());
         label.visible = true;
     }
 }

@@ -4,7 +4,7 @@ import QtQuick.Controls as QQC2
 import org.kde.kirigami as Kirigami
 import org.kde.plasma.plasma5support as Plasma5Support
 import "../controls" as RMControls
-import "../../code/dialect.js" as Dialect
+import "../../code/formatter.js" as Formatter
 import "../../code/network.js" as NetworkUtils
 
 /**
@@ -13,7 +13,7 @@ import "../../code/network.js" as NetworkUtils
 BaseForm {
     id: root
 
-    readonly property var dialect: Dialect.getNetworkDialectInfo(item.sensorsType[0], i18nc)
+    readonly property var unit: Formatter.getUnitInfo(item.sensorsType[0], i18nc)
     readonly property var speedOptions: [
         {
             "label": i18n("Custom"),
@@ -23,39 +23,12 @@ BaseForm {
             "label": i18n("Automatic"),
             "value": 0.0
         },
-        {
-            "label": "100 " + dialect.kiloChar + dialect.suffix,
-            "value": 100.0
-        },
-        {
-            "label": "1 M" + dialect.suffix,
-            "value": 1000.0
-        },
-        {
-            "label": "10 M" + dialect.suffix,
-            "value": 10000.0
-        },
-        {
-            "label": "100 M" + dialect.suffix,
-            "value": 100000.0
-        },
-        {
-            "label": "1 G" + dialect.suffix,
-            "value": 1000000.0
-        },
-        {
-            "label": "2.5 G" + dialect.suffix,
-            "value": 2500000.0
-        },
-        {
-            "label": "5 G" + dialect.suffix,
-            "value": 5000000.0
-        },
-        {
-            "label": "10 G" + dialect.suffix,
-            "value": 10000000.0
-        }
-    ]
+        // Kilo options (pow 1)
+        _getOption(100, 1),
+        // Mega options (pow 2)
+        _getOption(1, 2), _getOption(10, 2), _getOption(100, 2),
+        // Giga options (pow 3)
+        _getOption(1, 3), _getOption(2.5, 3), _getOption(5, 3), _getOption(10, 3)]
 
     // List network interfaces
     Plasma5Support.DataSource {
@@ -175,7 +148,7 @@ BaseForm {
             decimals: 3
             stepSize: 1
             realFrom: 0.001
-            suffix: " M" + dialect.suffix
+            suffix: " M" + unit.symbol
         }
     }
     RMControls.PredefinedSpinBox {
@@ -200,7 +173,7 @@ BaseForm {
             decimals: 3
             stepSize: 1
             realFrom: 0.001
-            suffix: " M" + dialect.suffix
+            suffix: " M" + unit.symbol
         }
     }
 
@@ -230,5 +203,13 @@ BaseForm {
             item.colors[1] = value;
             root.changed();
         }
+    }
+
+    // Utils function
+    function _getOption(value, pow = 0) {
+        return {
+            label: Formatter.formatValue(value * Math.pow(unit.multiplier, Math.max(0, pow)), unit, Qt.locale()),
+            value: value * Math.pow(1000, Math.max(0, pow - 1))
+        };
     }
 }
