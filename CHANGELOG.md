@@ -1,3 +1,12 @@
+## [2.11.4](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.11.3...v2.11.4) (2024-04-03)
+
+
+### Bug Fixes
+
+* **graph:** disable right chart when second is hidden ([e222475](https://github.com/orblazer/plasma-applet-resources-monitor/commit/e2224750af14798ac73f20634324675028db5af9))
+
+
+
 ## [2.11.3](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.11.2...v2.11.3) (2024-03-30)
 
 
