@@ -168,6 +168,7 @@ function create(type, device) {
 /**
  * Retrieve graph display informations (name and icon)
  * @param {Graph["type"]} type The graph type
+ * @param {function} i18nc The "i18nc" function //? bypass QML limitation
  * @param {string} section The section name
  * @param {string} device The device identifier
  * @param {string} deviceName The device name
@@ -175,6 +176,7 @@ function create(type, device) {
  */
 function getDisplayInfo(
   type,
+  i18nc = (_ = "", def = "") => def,
   section = "",
   device = type,
   deviceName = device

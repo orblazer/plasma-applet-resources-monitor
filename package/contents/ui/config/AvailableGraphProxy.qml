@@ -9,7 +9,7 @@ ListModel {
 
     Component.onCompleted: {
         // Add constant graphs (GPU and disks added with "_privateModel")
-        ["cpu", "memory", "network"].forEach(type => append(GraphFns.getDisplayInfo(type)));
+        ["cpu", "memory", "network"].forEach(type => append(GraphFns.getDisplayInfo(type, i18nc)));
         _lastCount = count;
     }
 
@@ -104,7 +104,7 @@ ListModel {
                 }
 
                 // Add graphs
-                root.set(i + _lastCount, GraphFns.getDisplayInfo(type, section, device, deviceName));
+                root.set(i + _lastCount, GraphFns.getDisplayInfo(type, i18nc, section, device, deviceName));
             }
         }
 
