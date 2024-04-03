@@ -1,4 +1,4 @@
-// .pragma library
+.pragma library
 
 /**
  * Command retrieve all interface speed with following format (one line per interface and rx/tx in bytes) :

@@ -1,3 +1,5 @@
+.pragma library
+
 /**
  * Version of graphs
  * @constant
