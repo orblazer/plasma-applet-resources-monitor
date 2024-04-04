@@ -7,7 +7,7 @@ const { version } = JSON.parse(await readFile(resolve("package.json")));
 
 const source = resolve("package");
 const output = createWriteStream(
-  resolve(`resourcesMonitor-fork-${version}.plasmoid`)
+  resolve(`resources-monitor-${version}.plasmoid`)
 );
 
 // Create archive

@@ -2,27 +2,16 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls as QQC2
 import org.kde.kirigami as Kirigami
+import "../../code/formatter.js" as Formatter
 import "../controls" as RMControls
 
-Kirigami.FormLayout {
+/**
+ * Settings format: {@link ../../code/graphs.js:44}
+ */
+BaseForm {
     id: root
 
-    signal changed // Notify some settings as been changed
-
-    /**
-     * Settings format:
-     * {
-     *   "_v": 1, // Version of data (for compatibility)
-     *   "type": "disk",
-     *   "colors": ["readColor", "writeColor"],
-     *   "sensorsType": [invert], // Values: true/false (swap r/w)
-     *   "uplimits": [0, 0], // Chart1, Chart2
-     *   "device": "all" // Device id (eg. sda, sdc) | Could be "all" | [managed by graphs]
-     * }
-     */
-    required property var item
-
-    readonly property string dialectSuffix: i18nc("kibibyte suffix", "iB/s")
+    readonly property var unit: Formatter.getUnitInfo("kibibyte", i18nc)
     readonly property var speedOptions: [
         {
             "label": i18n("Custom"),
@@ -32,39 +21,10 @@ Kirigami.FormLayout {
             "label": i18n("Automatic"),
             "value": 0.0
         },
-        {
-            "label": "10 M" + dialectSuffix,
-            "value": 10000.0
-        },
-        {
-            "label": "100 M" + dialectSuffix,
-            "value": 100000.0
-        },
-        {
-            "label": "200 M" + dialectSuffix,
-            "value": 200000.0
-        },
-        {
-            "label": "500 M" + dialectSuffix,
-            "value": 500000.0
-        },
-        {
-            "label": "1 G" + dialectSuffix,
-            "value": 1000000.0
-        },
-        {
-            "label": "2 G" + dialectSuffix,
-            "value": 2000000.0
-        },
-        {
-            "label": "5 G" + dialectSuffix,
-            "value": 5000000.0
-        },
-        {
-            "label": "10 G" + dialectSuffix,
-            "value": 10000000.0
-        }
-    ]
+        // Mega options (pow 2)
+        _getOption(10, 2), _getOption(100, 2), _getOption(200, 2), _getOption(500, 2),
+        // Giga options (pow 3)
+        _getOption(1, 3), _getOption(2, 3), _getOption(5, 3), _getOption(10, 3)]
 
     QQC2.CheckBox {
         text: i18n("Swap first and second line")
@@ -102,7 +62,7 @@ Kirigami.FormLayout {
             decimals: 3
             stepSize: 1
             realFrom: 0.001
-            suffix: " M" + dialectSuffix
+            suffix: " M" + unit.symbol
         }
     }
     RMControls.PredefinedSpinBox {
@@ -127,7 +87,7 @@ Kirigami.FormLayout {
             decimals: 3
             stepSize: 1
             realFrom: 0.001
-            suffix: " MiB/s"
+            suffix: " M" + unit.symbol
         }
     }
 
@@ -157,5 +117,13 @@ Kirigami.FormLayout {
             item.colors[1] = value;
             root.changed();
         }
+    }
+
+    // Utils function
+    function _getOption(value, pow = 0) {
+        return {
+            label: Formatter.formatValue(value * Math.pow(unit.multiplier, Math.max(0, pow)), unit, Qt.locale()),
+            value: value * Math.pow(1000, Math.max(0, pow - 1))
+        };
     }
 }

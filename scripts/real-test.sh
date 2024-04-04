@@ -1,6 +1,6 @@
 #!/bin/bash
 PLASMOID_DIR="$HOME/.local/share/plasma/plasmoids/"
-PACKAGE_NAME=org.kde.resourcesMonitor-fork
+PACKAGE_NAME=org.kde.plasma.resources-monitor
 
 if [ ! -d "${PLASMOID_DIR}${PACKAGE_NAME}" ]
 then

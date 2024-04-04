@@ -43,7 +43,7 @@ BaseSensorGraph {
     Charts.LineChart {
         id: firstChart
         anchors.fill: parent
-        visible: enableHistory && secondChartVisible
+        visible: enableHistory
 
         direction: Charts.XYChart.ZeroAtEnd
         fillOpacity: Plasmoid.configuration.graphFillOpacity / 100

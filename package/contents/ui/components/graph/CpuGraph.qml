@@ -8,7 +8,7 @@ RMBaseGraph.SensorGraph {
     objectName: "CpuGraph"
 
     // Settings
-    property string clockAgregator: "average" // Values: average, minimum, maximum
+    property string clockAggregator: "average" // Values: average, minimum, maximum
     property int eCoresCount: 0
 
     // Config shortcut
@@ -16,7 +16,7 @@ RMBaseGraph.SensorGraph {
     property bool clockIsEcores: sensorsType[1] === "ecores"
 
     // Graph options
-    sensorsModel.sensors: ["cpu/all/" + sensorsType[0], "cpu/cpu0/frequency", "cpu/cpu0/temperature"]
+    sensorsModel.sensors: ["cpu/all/" + sensorsType[0], "cpu/cpu0/frequency", "cpu/all/maximumTemperature"]
 
     // Text options
     thresholdIndex: 2
@@ -38,7 +38,7 @@ RMBaseGraph.SensorGraph {
     RMSensors.CpuFrequency {
         id: cpuFrequenry
         enabled: root.showClock
-        agregator: root.clockAgregator
+        aggregator: root.clockAggregator
         eCoresCount: root.eCoresCount
     }
 }

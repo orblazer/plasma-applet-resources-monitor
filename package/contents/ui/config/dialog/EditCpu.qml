@@ -4,24 +4,11 @@ import QtQuick.Controls as QQC2
 import org.kde.kirigami as Kirigami
 import "../controls" as RMControls
 
-Kirigami.FormLayout {
+/**
+ * Settings format: {@link ../../code/graphs.js:8}
+ */
+BaseForm {
     id: root
-
-    signal changed // Notify some settings as been changed
-
-    /**
-     * Settings format:
-     * {
-     *   "_v": 1, // Version of data (for compatibility)
-     *   "type": "cpu",
-     *   "colors": ["usageColor", "clockColor", "tempColor"],
-     *   "sensorsType": ["usage", "clock", temperature], // Values: "usage/system/user" | "none/classic/ecores" | true/false
-     *   "thresholds": [0, 0], // Temperature
-     *   "clockAgregator": "average", // Values: average, minimum, maximum
-     *   "eCoresCount": 0
-     * }
-     */
-    required property var item
 
     QQC2.ComboBox {
         Layout.fillWidth: true
@@ -87,26 +74,25 @@ Kirigami.FormLayout {
         valueRole: "value"
         model: [
             {
-                "label": i18nc("Agregator", "Average"),
+                "label": i18nc("Aggregator", "Average"),
                 "value": "average"
             },
             {
-                "label": i18nc("Agregator", "Minimum"),
+                "label": i18nc("Aggregator", "Minimum"),
                 "value": "minimum"
             },
             {
-                "label": i18nc("Agregator", "Maximum"),
+                "label": i18nc("Aggregator", "Maximum"),
                 "value": "maximum"
             }
         ]
 
-        Component.onCompleted: currentIndex = indexOfValue(item.clockAgregator)
+        Component.onCompleted: currentIndex = indexOfValue(item.clockAggregator)
         onActivated: {
-            item.clockAgregator = currentValue;
+            item.clockAggregator = currentValue;
             root.changed();
         }
     }
-    // TODO: find way to show only when detect "e-cores" (maybe: compare first and last core frequency)
     // Define Number of E-Cores, it's used for separating Intel
     // E-cores and P-Cores when calculating CPU frequency,
     // because they have different frequencies.

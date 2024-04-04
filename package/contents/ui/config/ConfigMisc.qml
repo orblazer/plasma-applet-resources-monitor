@@ -109,6 +109,7 @@ KCM.SimpleKCM {
             visible: clickActionCommand.currentIndex == 2
             Layout.fillWidth: true
             text: i18n("Command will be executed, but may have some limitations like \"<code>kioclient exec</code>\" or other similar command not work.")
+            type: Kirigami.MessageType.Warning
         }
     }
 }

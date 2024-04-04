@@ -5,18 +5,18 @@ import org.kde.kirigami as Kirigami
 import org.kde.kcmutils as KCM
 import org.kde.plasma.plasmoid
 import "../components" as RMComponents
+import "../code/graphs.js" as GraphFns
 
 KCM.ScrollViewKCM {
     id: root
     // HACK: Provides footer separator
     extraFooterTopPadding: true
 
-    readonly property int graphVersion: 1 //? Bump when some settings changes in "graphs" structure
+    property bool graphsUpgraded: false
 
     // Config properties
     property var cfg_graphs: "[]"
-    property var graphs: JSON.parse(cfg_graphs) || [] // Parssed representation of "cfg_graphs"
-    // TODO: handle "_v" changes
+    property var graphs: []
 
     //#region // HACK: Present to suppress errors (https://bugs.kde.org/show_bug.cgi?id=484541)
     property var cfg_fillPanel
@@ -36,49 +36,26 @@ KCM.ScrollViewKCM {
     property var cfg_updateInterval
     property var cfg_clickAction
     property var cfg_clickActionCommand
+
     //#endregion
 
-    // Uncomment for development
-    /* Component.onCompleted: {
-        addGraph("gpu", "all");
+    Component.onCompleted: {
+        graphs = GraphFns.parse(root.cfg_graphs, true) || [];
+        Object.values(graphs).forEach(v => graphsView.model.append({
+                type: v.type,
+                device: v.device ?? v.type
+            }));
+
+        // Uncomment for development
+        /* addGraph("gpu", "all");
         addGraph("gpu", "gpu1");
         addGraph("network");
-        addGraph("disk", "all");
-        root.saveGraphs();
-    } */
+        addGraph("disk", "all"); */
+    }
 
-    // Graphs infos amd default values
-    readonly property var graphDefaultValues: {
-        "cpu": {
-            "colors": ["highlightColor", "textColor", "textColor"],
-            "sensorsType": ["usage", "clock", false],
-            "thresholds": [85, 105],
-            "clockAgregator": "average",
-            "eCoresCount": ""
-        },
-        "memory": {
-            "colors": ["highlightColor", "negativeTextColor"],
-            "sensorsType": ["physical", "swap"],
-            "thresholds": [70, 90]
-        },
-        "gpu": {
-            "colors": ["highlightColor", "positiveTextColor", "textColor"],
-            "sensorsType": ["memory", false],
-            "thresholds": [70, 90]
-            // "device" defined in "addGraph"
-        },
-        "network": {
-            "colors": ["highlightColor", "positiveTextColor"],
-            "sensorsType": [false, "kibibyte"],
-            "uplimits": [100000, 100000],
-            "ignoredInterfaces": []
-        },
-        "disk": {
-            "colors": ["highlightColor", "positiveTextColor"],
-            "sensorsType": [false],
-            "uplimits": [200000, 200000]
-            // "device" defined in "addGraph"
-        }
+    // Remove upgrade message after saved
+    function saveConfig() {
+        graphsUpgraded = false;
     }
 
     // Retrieve available graphs
@@ -87,6 +64,12 @@ KCM.ScrollViewKCM {
     }
 
     // Content
+    header: Kirigami.InlineMessage {
+        visible: graphsUpgraded
+        Layout.fillWidth: true
+        text: i18n("The graphs as been upgraded to new version, please save it.")
+    }
+
     view: ListView {
         id: graphsView
         clip: true
@@ -94,23 +77,19 @@ KCM.ScrollViewKCM {
 
         //? Use differrent array due to QML issue with deep object conversion
         model: ListModel {
-            Component.onCompleted: {
-                Object.values(graphs).forEach(v => append({
-                        type: v.type,
-                        device: v.device ?? v.type
-                    }));
-            }
         }
 
         delegate: Item {
             // External item required to make Kirigami.ListItemDragHandle work
             readonly property var graphInfo: {
                 const info = availableGraphs.find(model.type, model.device);
-                if (typeof info === "undefined") { // Fallback info (mainly for development)
+                if (typeof info === "undefined") {
+                    // Fallback info (mainly for development)
                     return {
                         type: model.type,
                         name: `[${model.type}${model.device ? `:${model.device}` : ""}]`,
                         icon: "unknown",
+                        fallbackIcon: "unknown",
                         section: "unknown",
                         device: model.device ?? model.type
                     };
@@ -144,6 +123,7 @@ KCM.ScrollViewKCM {
                     // Content
                     Kirigami.Icon {
                         source: graphInfo.icon
+                        fallback: graphInfo.fallbackIcon
                         width: Kirigami.Units.iconSizes.smallMedium
                         height: width
                     }
@@ -251,7 +231,7 @@ KCM.ScrollViewKCM {
         function openFor(index, name) {
             const item = graphs[index];
             const filename = "Edit" + (item.type.charAt(0).toUpperCase() + item.type.slice(1));
-            const source = `./parts/${filename}.qml`;
+            const source = `./dialog/${filename}.qml`;
 
             // Load settings page
             graphIndex = index;
@@ -297,6 +277,7 @@ KCM.ScrollViewKCM {
                     // Content
                     Kirigami.Icon {
                         source: model.icon
+                        fallback: model.fallbackIcon
                         width: Kirigami.Units.iconSizes.smallMedium
                         height: width
                     }
@@ -357,12 +338,25 @@ KCM.ScrollViewKCM {
         QQC2.ToolTip.visible: hovered
     }
 
+    // Apply changes when upgraded
+    Timer {
+        running: true
+        interval: 1
+
+        onTriggered: {
+            graphsUpgraded = graphs[0]?._changed ?? false;
+            if (graphsUpgraded) {
+                saveGraphs();
+            }
+        }
+    }
+
     // utils functions
     /**
      * Save graph changes
      */
     function saveGraphs() {
-        cfg_graphs = JSON.stringify(graphs);
+        cfg_graphs = GraphFns.stringify(graphs);
     }
 
     /**
@@ -385,23 +379,10 @@ KCM.ScrollViewKCM {
      * @param {string} [device] The device want to be added (eg. gpu0)
      */
     function addGraph(type, device) {
-        // Retrieve default values and check if type is valid
-        let defaultVals = graphDefaultValues[type];
-        if (typeof defaultVals === "undefined") {
+        // Create graph item
+        const item = GraphFns.create(type, device);
+        if (!item) {
             return;
-        }
-
-        // Add constants (done manualy for have constatns at first)
-        let item = {
-            _v: graphVersion,
-            type
-        };
-        //? Foreach due to can't use spredd in QML
-        Object.entries(defaultVals).forEach(([k, v]) => item[k] = v);
-
-        // Define "device" on "gpu" type
-        if (type === "gpu" || type === "disk") {
-            item.device = device;
         }
 
         // Add graph to lists
