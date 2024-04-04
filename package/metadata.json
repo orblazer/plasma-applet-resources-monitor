@@ -23,7 +23,7 @@
     "Version": "2.11.4",
     "Category": "System Information",
     "Icon": "utilities-system-monitor",
-    "License": "GPL-3.0-only",
+    "License": "GPL-3.0+",
     "Name": "Resources Monitor",
     "Name[fr]": "Moniteur des ressources",
     "Name[nl]": "Systeembronmonitor",
