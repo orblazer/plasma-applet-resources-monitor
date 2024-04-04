@@ -67,7 +67,7 @@ KCM.ScrollViewKCM {
     header: Kirigami.InlineMessage {
         visible: graphsUpgraded
         Layout.fillWidth: true
-        text: i18n("The graph as been upgraded to new version, please save it.")
+        text: i18n("The graphs as been upgraded to new version, please save it.")
     }
 
     view: ListView {
