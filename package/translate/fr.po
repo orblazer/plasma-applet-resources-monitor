@@ -1,7 +1,7 @@
 # Translation of resources-monitor in french
-# Copyright (C) 2021
+# Copyright (C) 2024
 # This file is distributed under the same license as the resources-monitor package.
-# orblazer, 2021.
+# orblazer, 2021-2024.
 #
 #, fuzzy
 msgid ""
@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: resources-monitor\n"
 "Report-Msgid-Bugs-To: https://github.com/orblazer/plasma-applet-resources-monitor\n"
 "POT-Creation-Date: 2024-04-05 00:25+0200\n"
-"PO-Revision-Date: 2024-03-31 23:27+0200\n"
+"PO-Revision-Date: 2024-04-05 00:28+0200\n"
 "Last-Translator: orblazer\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -36,17 +36,17 @@ msgstr "Divers"
 #: ../contents/ui/code/formatter.js:23
 msgctxt "Bytes per second unit symbol"
 msgid "Bps"
-msgstr ""
+msgstr "ops"
 
 #: ../contents/ui/code/formatter.js:31
 msgctxt "Bits per second unit symbol"
 msgid "bps"
-msgstr ""
+msgstr "bps"
 
 #: ../contents/ui/code/formatter.js:39
 msgctxt "Bytes per second unit symbol"
 msgid "iB/s"
-msgstr ""
+msgstr "io/s"
 
 #: ../contents/ui/code/graphs.js:192
 msgctxt "Chart name"
@@ -245,7 +245,7 @@ msgstr "Critique :"
 
 #: ../contents/ui/config/ConfigGraph.qml:70
 msgid "The graph as been upgraded to new version, please save it."
-msgstr ""
+msgstr "Les graphiques ont été mis à jour, veuillez les sauvegarder."
 
 #: ../contents/ui/config/ConfigGraph.qml:140
 msgctxt "@info:tooltip"
@@ -458,17 +458,17 @@ msgstr "Agrégateur pour l'horloge :"
 #: ../contents/ui/config/dialog/EditCpu.qml:77
 msgctxt "Aggregator"
 msgid "Average"
-msgstr ""
+msgstr "Moyenne"
 
 #: ../contents/ui/config/dialog/EditCpu.qml:81
 msgctxt "Aggregator"
 msgid "Minimum"
-msgstr ""
+msgstr "Minimum"
 
 #: ../contents/ui/config/dialog/EditCpu.qml:85
 msgctxt "Aggregator"
 msgid "Maximum"
-msgstr ""
+msgstr "Maximum"
 
 #: ../contents/ui/config/dialog/EditCpu.qml:101
 msgid "E-cores"
@@ -572,7 +572,7 @@ msgstr "Seuil d'utilisation :"
 
 #: ../contents/ui/config/dialog/EditNetwork.qml:66
 msgid "Unit:"
-msgstr ""
+msgstr "Unité :"
 
 #: ../contents/ui/config/dialog/EditNetwork.qml:72
 msgid "kibibyte (KiB/s)"
@@ -599,30 +599,3 @@ msgstr "Réception :"
 msgctxt "Chart config"
 msgid "Sending:"
 msgstr "Envoi :"
-
-#~ msgctxt "kilobyte suffix"
-#~ msgid "Bps"
-#~ msgstr "ops"
-
-#~ msgctxt "kilobit suffix"
-#~ msgid "bps"
-#~ msgstr "bps"
-
-#~ msgctxt "kibibyte suffix"
-#~ msgid "iB/s"
-#~ msgstr "io/s"
-
-#~ msgctxt "Agregator"
-#~ msgid "Average"
-#~ msgstr "Moyenne"
-
-#~ msgctxt "Agregator"
-#~ msgid "Minimum"
-#~ msgstr "Minimum"
-
-#~ msgctxt "Agregator"
-#~ msgid "Maximum"
-#~ msgstr "Maximum"
-
-#~ msgid "Dialect:"
-#~ msgstr "Dialecte :"

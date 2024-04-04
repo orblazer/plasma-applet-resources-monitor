@@ -33,5 +33,5 @@ Or if you're able to work with "github's" mechanics and "npm":
 |----------|---------|-------|
 | Template |     124 |       |
 | de       |  55/124 |   44% |
-| fr       | 116/124 |   93% |
+| fr       | 124/124 |  100% |
 | nl       |  55/124 |   44% |
