@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: resources-monitor\n"
 "Report-Msgid-Bugs-To: https://github.com/orblazer/plasma-applet-resources-monitor\n"
 "POT-Creation-Date: 2024-04-12 13:01+0200\n"
-"PO-Revision-Date: 2024-01-19 12:35+0100\n"
+"PO-Revision-Date: 2024-04-05 21:22+0200\n"
 "Last-Translator: madeddy <saxony@earth.sol>\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -21,7 +21,7 @@ msgstr ""
 #: ../contents/config/config.qml:6 ../contents/ui/config/ConfigAppearance.qml:49
 msgctxt "Config header"
 msgid "Graphs"
-msgstr ""
+msgstr "Diagramme"
 
 #: ../contents/config/config.qml:12
 msgctxt "Config header"
@@ -31,22 +31,22 @@ msgstr "Erscheinungsbild"
 #: ../contents/config/config.qml:17
 msgctxt "Config header"
 msgid "Misc"
-msgstr ""
+msgstr "Sonstiges"
 
 #: ../contents/ui/code/formatter.js:23
 msgctxt "Bytes per second unit symbol"
 msgid "Bps"
-msgstr ""
+msgstr "Bps"
 
 #: ../contents/ui/code/formatter.js:31
 msgctxt "Bits per second unit symbol"
 msgid "bps"
-msgstr ""
+msgstr "bps"
 
 #: ../contents/ui/code/formatter.js:39
 msgctxt "Bytes per second unit symbol"
 msgid "iB/s"
-msgstr ""
+msgstr "iB/s"
 
 #: ../contents/ui/code/graphs.js:192
 msgctxt "Chart name"
@@ -61,7 +61,7 @@ msgstr "Speicher"
 #: ../contents/ui/code/graphs.js:202
 msgctxt "Chart name"
 msgid "GPU [%1]"
-msgstr ""
+msgstr "GPU [%1]"
 
 #: ../contents/ui/code/graphs.js:207
 msgctxt "Chart name"
@@ -71,7 +71,7 @@ msgstr "Netzwerk"
 #: ../contents/ui/code/graphs.js:212
 msgctxt "Chart name"
 msgid "Disk I/O [%1]"
-msgstr ""
+msgstr "Disk I/O [%1]"
 
 #: ../contents/ui/components/graph/CpuGraph.qml:27
 msgctxt "Graph label"
@@ -115,7 +115,7 @@ msgstr "Senden"
 
 #: ../contents/ui/config/AvailableGraphProxy.qml:90
 msgid "All"
-msgstr ""
+msgstr "Alle"
 
 #: ../contents/ui/config/ConfigAppearance.qml:54
 msgctxt "Config header"
@@ -129,12 +129,12 @@ msgstr "Farben"
 
 #: ../contents/ui/config/ConfigAppearance.qml:74
 msgid "Fill panel?"
-msgstr ""
+msgstr "Panel füllen?"
 
 #: ../contents/ui/config/ConfigAppearance.qml:77
 msgctxt "@info:tooltip"
 msgid "This allow graphs to take all panel width/height"
-msgstr ""
+msgstr "Erlaubt Diagrammen die volle Panelbreite/-höhe zu nutzen"
 
 #: ../contents/ui/config/ConfigAppearance.qml:82
 msgid "History amount:"
@@ -161,7 +161,7 @@ msgstr "Höhe:"
 
 #: ../contents/ui/config/ConfigAppearance.qml:149
 msgid "Spacing:"
-msgstr ""
+msgstr "Abstand:"
 
 #: ../contents/ui/config/ConfigAppearance.qml:157
 msgid "Fill opacity:"
@@ -169,7 +169,7 @@ msgstr "Deckkraft der Füllung:"
 
 #: ../contents/ui/config/ConfigAppearance.qml:169
 msgid "Display outline?"
-msgstr ""
+msgstr "Kontur anzeigen?"
 
 #: ../contents/ui/config/ConfigAppearance.qml:174
 msgid "Font scale:"
@@ -229,7 +229,7 @@ msgstr "Textfarbe des Schwellenwertes"
 
 #: ../contents/ui/config/ConfigAppearance.qml:254
 msgid "Warning:"
-msgstr ""
+msgstr "Warnung:"
 
 #: ../contents/ui/config/ConfigAppearance.qml:255 ../contents/ui/config/ConfigAppearance.qml:260
 #: ../contents/ui/config/dialog/EditCpu.qml:160 ../contents/ui/config/dialog/EditCpu.qml:171
@@ -241,63 +241,63 @@ msgstr "Wähle Textfarbe"
 
 #: ../contents/ui/config/ConfigAppearance.qml:259
 msgid "Critical:"
-msgstr ""
+msgstr "Kritisch:"
 
 #: ../contents/ui/config/ConfigGraph.qml:70
 msgid "The graphs as been upgraded to new version, please save it."
-msgstr ""
+msgstr "Die Diagramme wurden auf die neue Version aktualisiert. Bitte speichere sie."
 
 #: ../contents/ui/config/ConfigGraph.qml:140
 msgctxt "@info:tooltip"
 msgid "Edit \"%1\" graph"
-msgstr ""
+msgstr "Bearbeite \"%1\" Diagramm"
 
 #: ../contents/ui/config/ConfigGraph.qml:148
 msgctxt "@info:tooltip"
 msgid "Delete \"%1\" graph"
-msgstr ""
+msgstr "Lösche \"%1\" Diagramm"
 
 #: ../contents/ui/config/ConfigGraph.qml:174
 msgid "No graph selected"
-msgstr ""
+msgstr "Kein Diagramm ausgewählt"
 
 #: ../contents/ui/config/ConfigGraph.qml:175
 msgctxt "@info"
 msgid "Click <i>%1</i> to get started"
-msgstr ""
+msgstr "Wähle <i>%1</i> um zu beginnen"
 
 #: ../contents/ui/config/ConfigGraph.qml:187
 msgid "Add graph…"
-msgstr ""
+msgstr "Diagramm hinzufügen…"
 
 #: ../contents/ui/config/ConfigGraph.qml:199
 msgctxt "@title:window"
 msgid "Edit graph: %1"
-msgstr ""
+msgstr "Bearbeite Diagramm: %1"
 
 #: ../contents/ui/config/ConfigGraph.qml:251
 msgctxt "@title:window"
 msgid "Add graph"
-msgstr ""
+msgstr "Diagramm hinzufügen"
 
 #: ../contents/ui/config/ConfigGraph.qml:296
 msgctxt "@info:tooltip"
 msgid "Add"
-msgstr ""
+msgstr "Hinzufügen"
 
 #: ../contents/ui/config/ConfigGraph.qml:316
 msgctxt "@title:window"
 msgid "Remove graph"
-msgstr ""
+msgstr "Entferne Diagramm"
 
 #: ../contents/ui/config/ConfigGraph.qml:317
 msgctxt "%1 is an graph name"
 msgid "Do you want remove graph \"%1\" ?"
-msgstr ""
+msgstr "Möchten Sie das Diagramm \"%1\" entfernen?"
 
 #: ../contents/ui/config/ConfigGraph.qml:322
 msgid "Delete"
-msgstr ""
+msgstr "Löschen"
 
 #: ../contents/ui/config/ConfigMisc.qml:36
 msgid "Update interval:"
@@ -309,121 +309,123 @@ msgstr "%1 Sekunden"
 
 #: ../contents/ui/config/ConfigMisc.qml:49
 msgid "Click action"
-msgstr ""
+msgstr "Klick-aktion"
 
 #: ../contents/ui/config/ConfigMisc.qml:55
 msgctxt "Chart config"
 msgid "Type:"
-msgstr ""
+msgstr "Typ:"
 
 #: ../contents/ui/config/ConfigMisc.qml:65
 msgid "Application"
-msgstr ""
+msgstr "Anwendung"
 
 #: ../contents/ui/config/ConfigMisc.qml:69
 msgid "Shell command"
-msgstr ""
+msgstr "Shell-befehl"
 
 #: ../contents/ui/config/ConfigMisc.qml:82
 msgctxt "Chart config"
 msgid "Application:"
-msgstr ""
+msgstr "Anwendung:"
 
 #: ../contents/ui/config/ConfigMisc.qml:97
 msgid "The package <i>plasma-addons</i> is required to run an application."
-msgstr ""
+msgstr "Zum Ausführen einer Anwendung ist das Paket <i>plasma-addons</i> erforderlich."
 
 #: ../contents/ui/config/ConfigMisc.qml:106
 msgctxt "Chart config"
 msgid "Command:"
-msgstr ""
+msgstr "Befehl:"
 
 #: ../contents/ui/config/ConfigMisc.qml:111
 msgid ""
 "Command will be executed, but may have some limitations like \"<code>kioclient exec</code>\" or other similar command "
 "not work."
 msgstr ""
+"Der Befehl wird ausgeführt, es kann jedoch zu Einschränkungen kommen, z.B. dass \"<code>kioclient exec</code>\" oder "
+"ein ähnlicher Befehl nicht funktioniert."
 
 #: ../contents/ui/config/controls/AppSelector.qml:13
 msgid "Choose application..."
-msgstr ""
+msgstr "Wähle Anwendung..."
 
 #: ../contents/ui/config/controls/AppSelector.qml:17
 msgctxt "@info:tooltip"
 msgid "Click to select another application"
-msgstr ""
+msgstr "Klicke um eine andere Anwendung auszuwählen"
 
 #: ../contents/ui/config/controls/ColorSelector.qml:30
 msgctxt "Colors"
 msgid "Text"
-msgstr ""
+msgstr "Text"
 
 #: ../contents/ui/config/controls/ColorSelector.qml:34
 msgctxt "Colors"
 msgid "Highlighted text"
-msgstr ""
+msgstr "Hervorgehobener Text"
 
 #: ../contents/ui/config/controls/ColorSelector.qml:38
 msgctxt "Colors"
 msgid "Link"
-msgstr ""
+msgstr "Link"
 
 #: ../contents/ui/config/controls/ColorSelector.qml:42
 msgctxt "Colors"
 msgid "Visited link"
-msgstr ""
+msgstr "Besuchter Link"
 
 #: ../contents/ui/config/controls/ColorSelector.qml:46
 msgctxt "Colors"
 msgid "Negative text"
-msgstr ""
+msgstr "Negativer Text"
 
 #: ../contents/ui/config/controls/ColorSelector.qml:50
 msgctxt "Colors"
 msgid "Neutral text"
-msgstr ""
+msgstr "Neutraler Text"
 
 #: ../contents/ui/config/controls/ColorSelector.qml:54
 msgctxt "Colors"
 msgid "Positive text"
-msgstr ""
+msgstr "Positiver Text"
 
 #: ../contents/ui/config/controls/ColorSelector.qml:58
 msgctxt "Colors"
 msgid "Background"
-msgstr ""
+msgstr "Hintergrund"
 
 #: ../contents/ui/config/controls/ColorSelector.qml:62
 msgctxt "Colors"
 msgid "Highlight"
-msgstr ""
+msgstr "Hervorheben"
 
 #: ../contents/ui/config/controls/ColorSelector.qml:95
 msgctxt "@info:tooltip"
 msgid "Click to customize color"
-msgstr ""
+msgstr "Klicke um die Farbe anzupassen"
 
 #: ../contents/ui/config/controls/CustomizableSize.qml:16
 msgctxt "@info:tooltip"
 msgid "Check the box to customize"
-msgstr ""
+msgstr "Markiere das Kontrollkästchen um anzupassen"
 
 #: ../contents/ui/config/controls/Thresholds.qml:32
 msgctxt "@info:tooltip"
 msgid "Warning threshold"
-msgstr ""
+msgstr "Warnschwellenwert"
 
 #: ../contents/ui/config/controls/Thresholds.qml:52
 msgctxt "@info:tooltip"
 msgid "Critical threshold"
-msgstr ""
+msgstr "Kritischer Schwellenwert"
 
 #: ../contents/ui/config/dialog/EditCpu.qml:15 ../contents/ui/config/dialog/EditCpu.qml:148
 #: ../contents/ui/config/dialog/EditDisk.qml:101 ../contents/ui/config/dialog/EditGpu.qml:80
 #: ../contents/ui/config/dialog/EditMemory.qml:15 ../contents/ui/config/dialog/EditMemory.qml:101
 #: ../contents/ui/config/dialog/EditNetwork.qml:187
 msgid "First line:"
-msgstr ""
+msgstr "Erste Zeile:"
 
 #: ../contents/ui/config/dialog/EditCpu.qml:21
 msgid "Total usage"
@@ -442,38 +444,38 @@ msgstr "Benutzerauslastung"
 #: ../contents/ui/config/dialog/EditGpu.qml:91 ../contents/ui/config/dialog/EditMemory.qml:112
 #: ../contents/ui/config/dialog/EditNetwork.qml:198
 msgid "Second Line:"
-msgstr ""
+msgstr "Zweite Zeile:"
 
 #: ../contents/ui/config/dialog/EditCpu.qml:54
 msgid "Classic/P-cores clock frequency"
-msgstr ""
+msgstr "Klassische/P-Kern Taktfrequenz"
 
 #: ../contents/ui/config/dialog/EditCpu.qml:58
 msgid "E-cores clock frequency"
-msgstr ""
+msgstr "E-Kern Taktfrequenz"
 
 #: ../contents/ui/config/dialog/EditCpu.qml:71
 msgid "Clock aggregator:"
-msgstr ""
+msgstr "Taktfrequenz-Aggregator:"
 
 #: ../contents/ui/config/dialog/EditCpu.qml:77
 msgctxt "Aggregator"
 msgid "Average"
-msgstr ""
+msgstr "Durchschnitt"
 
 #: ../contents/ui/config/dialog/EditCpu.qml:81
 msgctxt "Aggregator"
 msgid "Minimum"
-msgstr ""
+msgstr "Minimum"
 
 #: ../contents/ui/config/dialog/EditCpu.qml:85
 msgctxt "Aggregator"
 msgid "Maximum"
-msgstr ""
+msgstr "Maximum"
 
 #: ../contents/ui/config/dialog/EditCpu.qml:101
 msgid "E-cores"
-msgstr ""
+msgstr "E-Kerne"
 
 #: ../contents/ui/config/dialog/EditCpu.qml:111
 msgctxt "@info:tooltip"
@@ -481,6 +483,8 @@ msgid ""
 "<b>For Intel gen 12+ only</b><br>Number of E-Cores your CPU have, it's for seperate it from P-Cores in clock "
 "frequency average calculation."
 msgstr ""
+"</b>Nur für Intel Gen 12+:</b><br>Anzahl der E-Kerne der CPU. Dies dient der Separation von den P-Kernen bei der "
+"Berechnung der durchschnittlichen Taktfrequenz."
 
 #: ../contents/ui/config/dialog/EditCpu.qml:116 ../contents/ui/config/dialog/EditGpu.qml:45
 msgid "Show temperature"
@@ -488,13 +492,13 @@ msgstr "Zeige Temperatur"
 
 #: ../contents/ui/config/dialog/EditCpu.qml:126 ../contents/ui/config/dialog/EditGpu.qml:57
 msgid "Temperature threshold:"
-msgstr ""
+msgstr "Temperaturschwelle:"
 
 #: ../contents/ui/config/dialog/EditCpu.qml:143 ../contents/ui/config/dialog/EditDisk.qml:96
 #: ../contents/ui/config/dialog/EditGpu.qml:75 ../contents/ui/config/dialog/EditMemory.qml:96
 #: ../contents/ui/config/dialog/EditNetwork.qml:182
 msgid "Colors"
-msgstr ""
+msgstr "Farben"
 
 #: ../contents/ui/config/dialog/EditCpu.qml:149 ../contents/ui/config/dialog/EditDisk.qml:102
 #: ../contents/ui/config/dialog/EditGpu.qml:81 ../contents/ui/config/dialog/EditMemory.qml:102
@@ -505,7 +509,7 @@ msgstr "Wähle Graphenfarbe"
 
 #: ../contents/ui/config/dialog/EditCpu.qml:170 ../contents/ui/config/dialog/EditGpu.qml:102
 msgid "Third Line:"
-msgstr ""
+msgstr "Dritte Zeile:"
 
 #: ../contents/ui/config/dialog/EditDisk.qml:21 ../contents/ui/config/dialog/EditNetwork.qml:23
 msgid "Automatic"
@@ -513,7 +517,7 @@ msgstr "Automatisch"
 
 #: ../contents/ui/config/dialog/EditDisk.qml:30 ../contents/ui/config/dialog/EditNetwork.qml:56
 msgid "Swap first and second line"
-msgstr ""
+msgstr "Vertausche die erste und zweite Zeile"
 
 #: ../contents/ui/config/dialog/EditDisk.qml:40 ../contents/ui/config/dialog/EditNetwork.qml:126
 msgid "Maximum transfer speed"
@@ -531,7 +535,7 @@ msgstr "Schreiben:"
 
 #: ../contents/ui/config/dialog/EditGpu.qml:27
 msgid "Memory (in KiB)"
-msgstr ""
+msgstr "Speicher (in KiB)"
 
 #: ../contents/ui/config/dialog/EditGpu.qml:31 ../contents/ui/config/dialog/EditMemory.qml:65
 msgid "Memory (in %)"
@@ -567,23 +571,23 @@ msgstr "Auslagerungsspeicher (in %)"
 
 #: ../contents/ui/config/dialog/EditMemory.qml:79
 msgid "Usage threshold:"
-msgstr ""
+msgstr "Nutzungsschwellenwert:"
 
 #: ../contents/ui/config/dialog/EditNetwork.qml:66
 msgid "Unit:"
-msgstr ""
+msgstr "Einheit:"
 
 #: ../contents/ui/config/dialog/EditNetwork.qml:72
 msgid "kibibyte (KiB/s)"
-msgstr ""
+msgstr "kibibyte (KiB/s)"
 
 #: ../contents/ui/config/dialog/EditNetwork.qml:76
 msgid "kilobit (Kbps)"
-msgstr ""
+msgstr "kilobit (Kbps)"
 
 #: ../contents/ui/config/dialog/EditNetwork.qml:80
 msgid "kilobyte (KBps)"
-msgstr ""
+msgstr "kilobyte (KBps)"
 
 #: ../contents/ui/config/dialog/EditNetwork.qml:95
 msgid "Network interfaces:"
@@ -598,161 +602,3 @@ msgstr "Empfangen:"
 msgctxt "Chart config"
 msgid "Sending:"
 msgstr "Senden:"
-
-#~ msgctxt "kilobyte suffix"
-#~ msgid "Bps"
-#~ msgstr "Bps"
-
-#~ msgctxt "kilobit suffix"
-#~ msgid "bps"
-#~ msgstr "bps"
-
-#~ msgctxt "kibibyte suffix"
-#~ msgid "iB/s"
-#~ msgstr "iB/s"
-
-#~ msgctxt "Agregator"
-#~ msgid "Average"
-#~ msgstr "Durchschnitt"
-
-#~ msgctxt "Agregator"
-#~ msgid "Minimum"
-#~ msgstr "Minimum"
-
-#~ msgctxt "Agregator"
-#~ msgid "Maximum"
-#~ msgstr "Maximum"
-
-#~ msgid "Margin:"
-#~ msgstr "Rand:"
-
-#~ msgctxt "Config header"
-#~ msgid "General"
-#~ msgstr "Allgemein"
-
-#~ msgctxt "Config header"
-#~ msgid "Data"
-#~ msgstr "Daten"
-
-#~ msgctxt "Chart name"
-#~ msgid "GPU"
-#~ msgstr "GPU"
-
-#~ msgctxt "Chart name"
-#~ msgid "Disks I/O"
-#~ msgstr "Disks I/O"
-
-#~ msgctxt "Config header"
-#~ msgid "Charts"
-#~ msgstr "Diagramme"
-
-#~ msgid "Vertical layout"
-#~ msgstr "Vertikale Anordnung"
-
-#~ msgid "Charts order"
-#~ msgstr "Reihenfolge der Diagramme"
-
-#~ msgid "Drop shadows"
-#~ msgstr "Schlagschatten"
-
-#~ msgid "Charts colors"
-#~ msgstr "Diagrammfarben"
-
-#~ msgctxt "Chart config"
-#~ msgid "Usage:"
-#~ msgstr "Nutzung:"
-
-#~ msgctxt "Chart config"
-#~ msgid "Temperature:"
-#~ msgstr "Temperatur:"
-
-#~ msgctxt "Chart config"
-#~ msgid "Physical:"
-#~ msgstr "Physisch:"
-
-#~ msgctxt "Chart config"
-#~ msgid "Swap:"
-#~ msgstr "Swap:"
-
-#~ msgctxt "Chart color"
-#~ msgid "Choose color of series and text"
-#~ msgstr "Wähle Graphen- und Textfarbe"
-
-#~ msgctxt "Chart config"
-#~ msgid "Memory:"
-#~ msgstr "Speicher:"
-
-#~ msgid "Warning status:"
-#~ msgstr "Warnstatus:"
-
-#~ msgid "Choose text color when the value is in warning status"
-#~ msgstr "Wähle die Textfarbe wenn der Wert Warnstatus hat"
-
-#~ msgid "Critical status:"
-#~ msgstr "Kritischer Status:"
-
-#~ msgid "Choose text color when the value is in critical status"
-#~ msgstr "Wähle die Textfarbe wenn der Wert Kritischen Status hat"
-
-#~ msgctxt "Config header"
-#~ msgid "Thresholds"
-#~ msgstr "Schwellenwerte"
-
-#~ msgctxt "Config header"
-#~ msgid "Graphic card"
-#~ msgstr "Grafikkarte"
-
-#~ msgid "Graphic card:"
-#~ msgstr "Grafikkarte:"
-
-#~ msgid "Warning"
-#~ msgstr "Warnung"
-
-#~ msgid "Critical"
-#~ msgstr "Kritisch"
-
-#~ msgid "CPU Temperature:"
-#~ msgstr "CPU Temperatur:"
-
-#~ msgid "Physical Memory Usage:"
-#~ msgstr "Auslastung des physischen Speichers:"
-
-#~ msgid "GPU Temperature:"
-#~ msgstr "GPU Temperatur:"
-
-#~ msgctxt "Config header"
-#~ msgid "Click action"
-#~ msgstr "Aktion beim darauf Klicken"
-
-#~ msgid "Visibility:"
-#~ msgstr "Sichtbarkeit:"
-
-#~ msgid "Clock visibility:"
-#~ msgstr "Sichtbarkeit des Taktes:"
-
-#~ msgid "In kibibyte (KiB/s)"
-#~ msgstr "In Kibibyte (KiB/s)"
-
-#~ msgid "In kilobit (Kbps)"
-#~ msgstr "In Kilobit (Kbps)"
-
-#~ msgid "In kilobyte (KBps)"
-#~ msgstr "In Kilobyte (KBps)"
-
-#~ msgid "Enabled?"
-#~ msgstr "Aktiviert?"
-
-#~ msgid "Show memory"
-#~ msgstr "Zeige Speicher"
-
-#~ msgid "Memory in percent"
-#~ msgstr "Speicher in Prozent"
-
-#~ msgid "Search an application:"
-#~ msgstr "Suche eine Anwendung:"
-
-#~ msgid "Application name"
-#~ msgstr "Anwendungsname"
-
-#~ msgid "Applications"
-#~ msgstr "Anwendungen"
