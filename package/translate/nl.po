@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: resources-monitor\n"
 "Report-Msgid-Bugs-To: https://github.com/orblazer/plasma-applet-resources-monitor\n"
-"POT-Creation-Date: 2024-04-05 00:29+0200\n"
+"POT-Creation-Date: 2024-04-12 13:01+0200\n"
 "PO-Revision-Date: 2023-05-31 18:44+0200\n"
 "Last-Translator: orblazer\n"
 "Language: nl\n"
@@ -280,6 +280,7 @@ msgid "Add graph"
 msgstr ""
 
 #: ../contents/ui/config/ConfigGraph.qml:296
+msgctxt "@info:tooltip"
 msgid "Add"
 msgstr ""
 
@@ -343,7 +344,6 @@ msgid ""
 msgstr ""
 
 #: ../contents/ui/config/controls/AppSelector.qml:13
-msgctxt "@info:tooltip"
 msgid "Choose application..."
 msgstr ""
 
@@ -403,14 +403,17 @@ msgid "Click to customize color"
 msgstr ""
 
 #: ../contents/ui/config/controls/CustomizableSize.qml:16
+msgctxt "@info:tooltip"
 msgid "Check the box to customize"
 msgstr ""
 
-#: ../contents/ui/config/controls/Thresholds.qml:31
+#: ../contents/ui/config/controls/Thresholds.qml:32
+msgctxt "@info:tooltip"
 msgid "Warning threshold"
 msgstr ""
 
-#: ../contents/ui/config/controls/Thresholds.qml:51
+#: ../contents/ui/config/controls/Thresholds.qml:52
+msgctxt "@info:tooltip"
 msgid "Critical threshold"
 msgstr ""
 

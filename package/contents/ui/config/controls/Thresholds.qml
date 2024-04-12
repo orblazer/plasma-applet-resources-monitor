@@ -28,8 +28,8 @@ RowLayout {
         id: warningSpinBox
         Layout.fillWidth: true
         Layout.fillHeight: true
-        QQC2.ToolTip.text: i18n("Warning threshold")
         QQC2.ToolTip.visible: hovered
+        QQC2.ToolTip.text: i18nc("@info:tooltip", "Warning threshold")
 
         // realValue: root.values[0]
         onRealValueChanged: {
@@ -48,8 +48,8 @@ RowLayout {
         id: criticalSpinBox
         Layout.fillWidth: true
         Layout.fillHeight: true
-        QQC2.ToolTip.text: i18n("Critical threshold")
         QQC2.ToolTip.visible: hovered
+        QQC2.ToolTip.text: i18nc("@info:tooltip", "Critical threshold")
 
         // realValue: values[1]
         onRealValueChanged: {

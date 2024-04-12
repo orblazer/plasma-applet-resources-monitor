@@ -13,7 +13,7 @@ RowLayout {
     property alias value: spinBox.realValue
 
     QQC2.ToolTip.visible: ma.containsMouse
-    QQC2.ToolTip.text: i18n("Check the box to customize")
+    QQC2.ToolTip.text: i18nc("@info:tooltip", "Check the box to customize")
 
     // Component
     QQC2.CheckBox {

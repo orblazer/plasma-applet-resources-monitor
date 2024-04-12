@@ -10,7 +10,7 @@ QQC2.Button {
 
     onValueChanged: _data = quickLaunch.launcherData(value)
 
-    text: _data ? _data.applicationName : i18nc("@info:tooltip", "Choose application...")
+    text: _data ? _data.applicationName : i18n("Choose application...")
     icon.name: _data?.iconName
 
     QQC2.ToolTip.visible: hovered

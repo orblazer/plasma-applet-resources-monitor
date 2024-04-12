@@ -293,7 +293,7 @@ KCM.ScrollViewKCM {
                     // Actions
                     DelegateButton {
                         icon.name: "list-add-symbolic"
-                        text: i18n("Add")
+                        text: i18nc("@info:tooltip", "Add")
                         hoverEnabled: enabled
 
                         onClicked: {
