@@ -175,7 +175,7 @@ msgstr "Afstand:"
 
 #: ../contents/ui/config/ConfigAppearance.qml:157
 msgid "Fill opacity:"
-msgstr "Opvulling van ondoorzichtigheid:"
+msgstr "Ondoorzichtigheid opvullen:"
 
 #: ../contents/ui/config/ConfigAppearance.qml:169
 msgid "Display outline?"
