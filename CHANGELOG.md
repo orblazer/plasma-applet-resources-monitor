@@ -1,3 +1,48 @@
+# [3.0.0-rc.1](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.11.4...v3.0.0-rc.1) (2024-04-14)
+
+
+### Bug Fixes
+
+* **config:** translate disk transfer speed ([8da5513](https://github.com/orblazer/plasma-applet-resources-monitor/commit/8da5513041cc0a723b534e4a31dd6b10e7eb2ef6))
+* **graph:** handle dynamic interfaces and right convert ([ea00f7a](https://github.com/orblazer/plasma-applet-resources-monitor/commit/ea00f7a58557e0366b9f8a45a836885fc23d0978)), closes [#23](https://github.com/orblazer/plasma-applet-resources-monitor/issues/23)
+* **graph:** use more relevant temperature for cpu ([5c6de76](https://github.com/orblazer/plasma-applet-resources-monitor/commit/5c6de766fd59d41a92f8aedbf07abb1a9e94e034))
+* **text:** elide hints when is too long ([3758ade](https://github.com/orblazer/plasma-applet-resources-monitor/commit/3758adee6d2a1666e19cf44daaa5a268c7fbab1b))
+
+
+* chore!: rename the project and update description ([ccb5eb1](https://github.com/orblazer/plasma-applet-resources-monitor/commit/ccb5eb1146acdd78b7d5e582f4a9119b80b8f0aa))
+* refactor(config)!: rename graph margin to spacing ([a53206b](https://github.com/orblazer/plasma-applet-resources-monitor/commit/a53206b9b2e8b0bc4fdc5d1a9eb2e3a0af5a32b4))
+* refactor!: improve rendering graph ([82591bd](https://github.com/orblazer/plasma-applet-resources-monitor/commit/82591bdf2e70f795da80cefa82ad1692d5581dd0))
+* refactor!: change way to config graph ([6543475](https://github.com/orblazer/plasma-applet-resources-monitor/commit/6543475426f73335bd37124133078bb6000b2c88))
+* refactor!: remove kio.krun ([5a6d912](https://github.com/orblazer/plasma-applet-resources-monitor/commit/5a6d9120aa19cfd358d9724f788edb7ebc6de6dd))
+* refactor(config)!: standardize config ui ([2c41f67](https://github.com/orblazer/plasma-applet-resources-monitor/commit/2c41f674ad63b0d9283bebbf94c4a8ccc139d345))
+* refactor(config)!: merge history amount settings and add predefined choices ([2f53818](https://github.com/orblazer/plasma-applet-resources-monitor/commit/2f5381839d72b67fc5a003442a92baddf04e13be))
+
+
+### Features
+
+* **graph:** allow it to take all panel ([f4b9caa](https://github.com/orblazer/plasma-applet-resources-monitor/commit/f4b9caa48e1e36f3f85da622750066c812df4b0e)), closes [/github.com/orblazer/plasma-applet-resources-monitor/issues/74#issuecomment-2028611024](https://github.com//github.com/orblazer/plasma-applet-resources-monitor/issues/74/issues/issuecomment-2028611024)
+* **graph:** allow swap speed for net and disks ([355430c](https://github.com/orblazer/plasma-applet-resources-monitor/commit/355430ce0cbc9102f97e27d3cf76a4af45dc17b4)), closes [#69](https://github.com/orblazer/plasma-applet-resources-monitor/issues/69)
+* **graph:** split e-cores frequency ([1951f2d](https://github.com/orblazer/plasma-applet-resources-monitor/commit/1951f2deefd5775c20b6e81d48797575f5ab135f))
+
+
+### Performance Improvements
+
+* **graph:** optimize gpu memory process ([353c938](https://github.com/orblazer/plasma-applet-resources-monitor/commit/353c93812477173ad9c152078375f07b3ca0e17b))
+* **graph:** use outline instead of drop shadow ([b0e8f46](https://github.com/orblazer/plasma-applet-resources-monitor/commit/b0e8f46a353b7f845e54e29cc20042ff21165330))
+
+
+### BREAKING CHANGES
+
+* id of widget have changed
+* "graph margin" become "graph spacing"
+* settings for vertical layout no longer exist
+* all config related to graph as been merged in "graphs" json
+* settings for action have changed name and format
+* merge gpu memory settings
+* merge history settings
+
+
+
 ## [2.11.4](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.11.3...v2.11.4) (2024-04-03)
 
 

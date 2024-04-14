@@ -20,7 +20,7 @@
       }
     ],
     "Id": "org.kde.plasma.resources-monitor",
-    "Version": "2.11.4",
+    "Version": "3.0.0-rc.1",
     "Category": "System Information",
     "Icon": "utilities-system-monitor",
     "License": "GPL-3.0+",

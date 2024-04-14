@@ -1,6 +1,6 @@
 {
   "name": "plasma-applet-resources-monitor",
-  "version": "2.11.4",
+  "version": "3.0.0-rc.1",
   "description": "Plasmoid for monitoring CPU, memory, network traffic, GPUs and disks IO.",
   "homepage": "https://github.com/orblazer/plasma-applet-resources-monitor",
   "funding": "https://www.paypal.me/orblazer",
