@@ -1,15 +1,14 @@
-import QtQuick 2.0
-import org.kde.ksysguard.sensors 1.0 as Sensors
-import org.kde.plasma.core 2.1 as PlasmaCore
-import "../functions.js" as Functions
+import QtQuick
+import org.kde.plasma.plasma5support as Plasma5Support
+import "../../code/network.js" as NetworkUtils
 
 /**
  * SRCs:
- * - https://invent.kde.org/plasma/libplasma/-/blob/kf5/src/declarativeimports/core/datasource.h
- * - https://invent.kde.org/plasma/plasma-workspace/-/blob/Plasma/5.27/dataengines/executable/executable.h
+ * - https://invent.kde.org/plasma/plasma5support/-/blob/master/src/declarativeimports/datasource.h
+ * - https://invent.kde.org/plasma/plasma-workspace/-/blob/master/dataengines/executable/executable.h
  * - https://github.com/dfaust/plasma-applet-netspeed-widget
  */
-PlasmaCore.DataSource {
+Plasma5Support.DataSource {
     id: root
     engine: 'executable'
 
@@ -30,11 +29,12 @@ PlasmaCore.DataSource {
             print(data.stderr);
         } else {
             const now = Date.now();
-            const nextTransferData = Functions.parseTransferData(data.stdout);
+            const nextTransferData = NetworkUtils.parseTransferData(data.stdout);
             // Skip calculate if is first run
             if (root._previousTs !== 0) {
                 const duration = now - root._previousTs;
-                value = Functions.calcSpeedData(root._transferData, nextTransferData, duration);
+                value = NetworkUtils.calcSpeedData(root._transferData, nextTransferData, duration);
+                // root.valueChanged();
             }
             root._transferData = nextTransferData;
             root._previousTs = now;
@@ -42,6 +42,6 @@ PlasmaCore.DataSource {
     }
 
     function execute() {
-        root.connectSource(Functions.NET_DATA_SOURCE);
+        root.connectSource(NetworkUtils.NET_DATA_SOURCE);
     }
 }

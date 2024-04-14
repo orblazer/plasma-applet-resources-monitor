@@ -1,9 +1,10 @@
-# Resources monitor (fork) - Plasma 5 widget
+# Resources monitor - Plasma 6 widget
 
-Plasmoid for monitoring CPU, memory and network traffic
+Plasmoid for monitoring CPU, memory, network traffic, GPUs and disks IO.
 
-> ⚠️ This branch is in maintenance mode, Plasma 5.27 will be supported as long is supported by KDE team.
-> This mean that version will only receive bug fixes, all feature request should be go for Plasma 6 version.
+> ⚠️ This branch is for unreleased Plasma 6 version.
+>
+> For the Plasma 5 version please check at [Plasma/5.27](https://github.com/orblazer/plasma-applet-resources-monitor/tree/Plasma/5.27) branch
 
 ## Why this project ?
 
@@ -12,12 +13,15 @@ But with the time this widget have gain a lot configurations and metrics can be 
 
 ## Installation
 
-1. Install the **required dependencies** :
+1. Install the **dependencies** :
+
+   **required dependencies**:
 
    - `libksysguard` (normally include by default)
-   - `qt5-graphicaleffects`
 
-     e.g. package for kubuntu users: `libqt5qml-graphicaleffects`
+   **optional dependencies**:
+
+   - `plasma-addons` (or similar name) : This is only required if you want select an application to run
 
 2. Install the widget :
 
@@ -25,7 +29,7 @@ But with the time this widget have gain a lot configurations and metrics can be 
 
      1. Add Widgets...
      2. Get new widgets
-     3. Search `Resources Monitor - fork`
+     3. Search `Resources Monitor`
      4. Install the last version
 
    - **Manually**: find this applet and install through the first item with `.plasmoid` extension

@@ -1,10 +1,9 @@
-import QtQuick 2.0
-import QtQuick.Layouts 1.15 as QtLayouts
-import QtQuick.Controls 2.0 as QQC2
-import org.kde.kirigami 2.6 as Kirigami
-import "./" as RMControls
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls as QQC2
+import org.kde.kirigami as Kirigami
 
-QtLayouts.RowLayout {
+RowLayout {
     spacing: Kirigami.Units.largeSpacing
 
     property alias predefinedChoices: predefinedChoices
@@ -12,13 +11,11 @@ QtLayouts.RowLayout {
 
     property int customValueIndex: 0
     property real factor: 1 // This is for auto convert from Kilo, Mega, etc
-
-    property real value: Math.round(realValue / factor)
     property real realValue
 
     Component.onCompleted: {
         // Initialize spin real value
-        spinBox.realValue = value;
+        spinBox.realValue = realValue / factor;
 
         // Bind "realValue" to "spinBox.realValue" and "factor"
         realValue = Qt.binding(() => spinBox.realValue * factor);
@@ -26,7 +23,7 @@ QtLayouts.RowLayout {
 
     QQC2.ComboBox {
         id: predefinedChoices
-        QtLayouts.Layout.fillWidth: true
+        Layout.fillWidth: true
         currentIndex: -1
 
         onActivated: {
@@ -47,9 +44,10 @@ QtLayouts.RowLayout {
             currentIndex = index !== -1 ? index : customValueIndex;
         }
     }
-    RMControls.SpinBox {
+    SpinBox {
         id: spinBox
-        QtLayouts.Layout.fillWidth: true
+        Layout.fillWidth: true
+        Layout.minimumWidth: 120
         visible: predefinedChoices.currentIndex === customValueIndex
     }
 

@@ -7,7 +7,7 @@
 
 packageRoot=$(realpath "$(dirname "${BASH_SOURCE[0]}")/../package") # Root of translatable sources
 DIR="$packageRoot/translate"
-plasmoidName="org.kde.resourcesMonitor-fork"
+plasmoidName="org.kde.plasma.resources-monitor"
 projectName="plasma_applet_${plasmoidName}" # project name
 
 cd "$DIR" || return

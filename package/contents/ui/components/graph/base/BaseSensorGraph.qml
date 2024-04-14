@@ -1,150 +1,107 @@
-import QtQuick 2.9
-import org.kde.plasma.plasmoid 2.0
-import org.kde.plasma.components 2.0 as PlasmaComponents
-import org.kde.ksysguard.sensors 1.0 as Sensors
-import org.kde.ksysguard.formatter 1.0 as Formatter
-import "./" as RMBaseGraph
+import QtQuick
+import org.kde.plasma.plasmoid
+import org.kde.ksysguard.sensors as Sensors
+import org.kde.ksysguard.formatter as Formatter
 
 Item {
     id: root
-
-    signal chartDataChanged(int index)
-    signal showValueInLabel
-    signal labelChanged(PlasmaComponents.Label label, var value)
 
     // Aliases
     readonly property alias textContainer: textContainer
     readonly property alias sensorsModel: sensorsModel
 
+    // Graph properties
+    property var colors: [undefined, undefined, undefined] // Common graph settins
+    property var sensorsType: [] // Present because is graph settings
+
     // Thresholds properties
-    property var thresholds: [undefined, undefined, undefined]
-    property color thresholdWarningColor: plasmoid.configuration.customWarningColor ? plasmoid.configuration.warningColor : theme.neutralTextColor
-    property color thresholdCriticalColor: plasmoid.configuration.customCriticalColor ? plasmoid.configuration.criticalColor : theme.negativeTextColor
+    property int thresholdIndex: -1 // Sensor index used for threshold
+    property var thresholds: [] // ONLY USED FOR CONFIG (graph settings)! | See "realThresholds"
+    property var realThresholds: [] // fomart: [warning, critical]
+    readonly property color thresholdWarningColor: textContainer._resolveColor(Plasmoid.configuration.warningColor)
+    readonly property color thresholdCriticalColor: textContainer._resolveColor(Plasmoid.configuration.criticalColor)
 
     // Labels
-    RMBaseGraph.GraphText {
+    GraphText {
         id: textContainer
-        enabled: plasmoid.configuration.displayment != 'never'
+        enabled: Plasmoid.configuration.displayment != 'never'
         anchors.fill: parent
         z: 1
+        hintColors: root.colors
 
-        onShowValueInLabel: {
-            // Update labels
-            for (let i = 0; i < sensorsModel.sensors.length; i++) {
-                _updateData(i);
-            }
-
-            // Emit signal
-            root.showValueInLabel();
-        }
+        onShowValues: _update()
     }
 
     // Retrieve data from sensors, and update labels
     Sensors.SensorDataModel {
         id: sensorsModel
         updateRateLimit: -1
-        enabled: root.visible
 
         /**
-         * Get the data from sensor
+         * Get the value and sensor ID from sensor
          * @param {number} column The sensors index
          * @returns The data value, formatted value and sensor id
          */
-        function getData(column) {
+        function getValue(column) {
             if (!hasIndex(0, column)) {
                 return undefined;
             }
             const indexVar = index(0, column);
-            const value = data(indexVar, Sensors.SensorDataModel.Value);
-            const res = {
+            return {
                 "sensorId": data(indexVar, Sensors.SensorDataModel.SensorId),
-                "value": value
+                "value": data(indexVar, Sensors.SensorDataModel.Value)
             };
-            return res;
         }
 
         /**
-         * Get info from sensor
+         * Get data from sensor
          * @param {number} column The sensor index
          * @param {number} role The role id
-         * @returns The sensor info
+         * @returns The sensor data
          */
-        function getInfo(column, role = Sensors.SensorDataModel.Value) {
+        function getData(column, role = Sensors.SensorDataModel.Value) {
             if (!hasIndex(0, column)) {
-                return 0;
+                return undefined;
             }
             return data(index(0, column), role);
         }
     }
 
-    Connections {
-        target: root
-
-        /**
-         * Re assign sensorsModel.sensors when enable visibility for right initialize it.
-         * This is due to an issue when set sensors and model is disabled, the sensors is never initialized
-         * Bug reported at : https://bugs.kde.org/show_bug.cgi?id=469234
-         */
-        function onVisibleChanged() {
-            if (!root.visible) {
-                return;
-            }
-            const sensors = sensorsModel.sensors;
-            sensorsModel.sensors = [];
-            sensorsModel.sensors = sensors;
-        }
-    }
-
     // Process functions
     property var _insertChartData: (column, value) => {} // NOTE: this is implemented by children
-    property var _clear: () => {
-        for (let i = 0; i < sensorsModel.sensors.length; i++) {
-            _updateData(i);
-        }
-    }
     property var _update: () => {
         for (let i = 0; i < sensorsModel.sensors.length; i++) {
-            root._insertChartData(i, sensorsModel.getInfo(i));
+            const value = sensorsModel.getData(i);
+            // Skip not founded sensor
+            if (typeof value === 'undefined') {
+                continue;
+            }
+            root._insertChartData(i, value);
 
             // Update label
             if (textContainer.enabled && textContainer.valueVisible) {
-                _updateData(i);
+                _updateLabel(i, value);
             }
         }
     }
 
-    function _getLabel(index) {
-        if (index === 0) {
-            return textContainer.firstLineLabel;
-        } else if (index === 1) {
-            return textContainer.secondLineLabel;
-        } else if (index === 2) {
-            return textContainer.thirdLineLabel;
-        }
-        return undefined;
-    }
-
-    function _updateData(index) {
-        // Retrieve label need to update
-        const label = _getLabel(index);
+    function _updateLabel(index, value) {
+        // Retrieve label need to update and data
+        const label = textContainer.getLabel(index);
         if (typeof label === "undefined" || !label.enabled) {
-            return;
-        }
-        const data = sensorsModel.getData(index);
-        if (typeof data === 'undefined') {
             return;
         }
 
         // Hide can't be zero label
-        if (!textContainer.labelsVisibleWhenZero[index] && data.value === 0) {
+        if (!textContainer.labelsVisibleWhenZero[index] && value === 0) {
             label.text = '';
             label.visible = false;
         } else {
             // Handle threshold value
-            if (typeof thresholds[index] !== 'undefined') {
-                if (data.value >= thresholds[index][1]) {
+            if (index === thresholdIndex && realThresholds.length > 0) {
+                if (value >= realThresholds[1]) {
                     label.color = thresholdCriticalColor;
-                } else if (data.value >= thresholds[index][0]) {
+                } else if (value >= realThresholds[0]) {
                     label.color = thresholdWarningColor;
                 } else {
                     label.color = textContainer.getTextColor(index);
@@ -152,14 +109,12 @@ Item {
             }
 
             // Show value on label
-            label.text = _formatValue(index, data);
-            label.visible = label.enabled;
+            label.text = _formatValue(index, value);
         }
-        labelChanged(label, data);
     }
 
     property var _formatValue: _defaultFormatValue
-    function _defaultFormatValue(index, data) {
-        return Formatter.Formatter.formatValueShowNull(data.value, sensorsModel.getInfo(index, Sensors.SensorDataModel.Unit));
+    function _defaultFormatValue(index, value) {
+        return Formatter.Formatter.formatValueShowNull(value, sensorsModel.getData(index, Sensors.SensorDataModel.Unit));
     }
 }

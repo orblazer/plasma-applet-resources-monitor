@@ -1,33 +1,39 @@
 {
+  "KPackageStructure": "Plasma/Applet",
   "KPlugin": {
     "Authors": [
       {
-        "Name": "Kotelnik"
-      },
-      {
-        "Name": "orblazer"
-      },
-      {
-        "Name": "Starrah"
+        "Name": "orblazer",
+        "Website": "https://github.com/orblazer"
       }
     ],
-    "Category": "System Information",
-    "Description": "Plasmoid for monitoring CPU, memory, network traffic GPU and disk IO. This is an fork from \"Resources Monitor\" by Kotelnik",
-    "Description[fr]": "Plasmoid pour surveiller l'utilisation du CPU, de la mémoire, du traffic réseau, de la carte graphique et des disque dur. Ceci est un fork de \"Resources Monitor\" de Kotelnik",
-    "Description[nl]": "Een Plasmoid voor het monitoren van CPU, geheugen, netwerkverkeer GPU en disk IO. Dit is een vork uit \"Resources Monitor\" van Kotelnik.",
-    "Description[de]": "Ein Plasmoid zur Überwachung von CPU, Speicher, Netzwerkverkehr, GPU und Disk IO. Dies ist ein Fork von \"Resources Monitor\" von Kotelnik.",
-    "Icon": "utilities-system-monitor",
-    "Id": "org.kde.resourcesMonitor-fork",
-    "License": "GPL-3.0-only",
-    "Name": "Resources Monitor (fork)",
-    "Name[fr]": "Moniteur des ressources (fork)",
-    "Name[nl]": "Systeembronmonitor (afsplitsing)",
-    "Name[de]": "Ressourcenmonitor (fork)",
+    "Translators": [
+      {
+        "Name": "Vistaus",
+        "Website": "https://github.com/Vistaus",
+        "Task": "Dutch"
+      },
+      {
+        "Name": "madeddy",
+        "Website": "https://github.com/madeddy",
+        "Task": "German"
+      }
+    ],
+    "Id": "org.kde.plasma.resources-monitor",
     "Version": "2.11.4",
+    "Category": "System Information",
+    "Icon": "utilities-system-monitor",
+    "License": "GPL-3.0+",
+    "Name": "Resources Monitor",
+    "Name[fr]": "Moniteur des ressources",
+    "Name[nl]": "Systeembronmonitor",
+    "Name[de]": "Ressourcenmonitor",
+    "Description": "Plasmoid for monitoring CPU, memory, network traffic, GPUs and disks IO.",
+    "Description[fr]": "Plasmoid pour surveiller l'utilisation du CPU, de la mémoire, du traffic réseau, des carte graphiques et des disque dur.",
+    "Description[nl]": "[TODO]",
+    "Description[de]": "[TODO]",
     "Website": "https://github.com/orblazer/plasma-applet-resources-monitor",
     "BugReportUrl": "https://github.com/orblazer/plasma-applet-resources-monitor/issues"
   },
-  "X-Plasma-API": "declarativeappletscript",
-  "X-Plasma-MainScript": "ui/main.qml",
-  "KPackageStructure": "Plasma/Applet"
+  "X-Plasma-API-Minimum-Version": "6.0"
 }

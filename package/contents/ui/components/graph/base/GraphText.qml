@@ -1,90 +1,109 @@
-import QtQuick 2.9
-import QtGraphicalEffects 1.0
-import org.kde.plasma.plasmoid 2.0
-import org.kde.plasma.components 2.0 as PlasmaComponents
+import QtQuick
+import org.kde.plasma.plasmoid
+import org.kde.kirigami as Kirigami
 
 Item {
-    id: graphText
+    id: root
+    visible: enabled
 
-    signal showValueInLabel
+    signal showValues
 
     property bool valueVisible: false
+    property var textElide: valueVisible ? Text.ElideNone : (LayoutMirroring.enabled ? Text.ElideLeft : Text.ElideRight)
 
     // Aliases
-    readonly property alias firstLineLabel: firstLineLabel
-    readonly property alias secondLineLabel: secondLineLabel
-    readonly property alias thirdLineLabel: thirdLineLabel
+    readonly property alias firstLine: firstLine
+    readonly property alias secondLine: secondLine
+    readonly property alias thirdLine: thirdLine
 
     // Text properties
-    property var labels: ["", "", ""]
-    property var valueColors: [theme.textColor, theme.textColor, theme.textColor]
-    property var labelColors: [theme.highlightColor, theme.textColor, theme.textColor]
-
+    property var hints: ["", "", ""]
+    property var valueColors: [undefined, undefined, undefined]
+    property var hintColors: [undefined, undefined, undefined]
+    property int fontSize: -1
     property var labelsVisibleWhenZero: [true, true, true]
 
     // Config aliases
-    property string displayment: plasmoid.configuration.displayment // Values: always, hover, hover-hints, never
+    property string displayment: Plasmoid.configuration.displayment // Values: always, hover, hover-hints, never
+    property var textStyle: Plasmoid.configuration.enableShadows ? Text.Outline : Text.Normal
+    property var _hintColors: [Kirigami.Theme.highlightColor, undefined, undefined] // Internal
+    property var _valueColors: [undefined, undefined, undefined] // Internal
 
     // Bind config changes
     onDisplaymentChanged: {
         if (displayment === 'hover') {
             valueVisible = mouseArea.containsMouse;
-            _setLabelsState(valueVisible);
-            if (mouseArea.containsMouse) {
-                showValueInLabel();
+            if (!mouseArea.containsMouse) {
+                _hideLines();
+                return;
             }
-        } else {
-            _setLabelsState(true);
-            showValueInLabel();
-            valueVisible = true;
         }
+        _showValues();
     }
 
     // Bind properties changes
-    onLabelsChanged: {
-        firstLineLabel.enabled = firstLineLabel.visible = labels[0] != "";
-        secondLineLabel.enabled = secondLineLabel.visible = labels[1] != "";
-        thirdLineLabel.enabled = thirdLineLabel.visible = labels[2] != "";
+    onValueColorsChanged: {
+        // Resolve colors
+        _valueColors = valueColors.map(v => root._resolveColor(v));
+    }
+    onHintColorsChanged: {
+        // Resolve colors
+        _hintColors = hintColors.map(v => root._resolveColor(v));
     }
 
     // Labels
-    Flow {
+    Column {
         id: textContainer
         width: parent.width
-        state: plasmoid.configuration.placement // Values: top-right, top-left, bottom-right, bottom-left
+        state: Plasmoid.configuration.placement // Values: top-right, top-left, bottom-right, bottom-left
         spacing: -2
-        flow: Flow.TopToBottom
 
         // First line
-        PlasmaComponents.Label {
-            id: firstLineLabel
-            width: parent.width
-            height: contentHeight
+        Text {
+            id: firstLine
             readonly property int index: 0
-
             text: "..."
-            color: getTextColor(index)
-            font.pointSize: -1
-        }
-        PlasmaComponents.Label {
-            id: secondLineLabel
+
             width: parent.width
-            height: contentHeight
+
+            textFormat: Text.PlainText
+            elide: textElide
+            color: getTextColor(index)
+            style: textStyle
+            styleColor: Kirigami.Theme.backgroundColor
+            font.pixelSize: fontSize
+        }
+        Text {
+            id: secondLine
             readonly property int index: 1
-
             text: "..."
-            color: getTextColor(index)
-            font.pointSize: -1
-        }
-        PlasmaComponents.Label {
-            id: thirdLineLabel
+
             width: parent.width
-            height: contentHeight
-            readonly property int index: 2
+            enabled: hints[index] !== ""
+            visible: enabled
 
-            text: "..."
+            textFormat: Text.PlainText
+            elide: textElide
             color: getTextColor(index)
-            font.pointSize: -1
+            style: textStyle
+            styleColor: Kirigami.Theme.backgroundColor
+            font.pixelSize: fontSize
+        }
+        Text {
+            id: thirdLine
+            readonly property int index: 2
+            text: "..."
+
+            width: parent.width
+            enabled: hints[index] !== ""
+            visible: enabled
+
+            color: getTextColor(index)
+            textFormat: Text.PlainText
+            elide: textElide
+            style: textStyle
+            styleColor: Kirigami.Theme.backgroundColor
+            font.pixelSize: fontSize
         }
 
         // States
@@ -97,15 +116,15 @@ Item {
                 }
 
                 PropertyChanges {
-                    target: firstLineLabel
+                    target: firstLine
                     horizontalAlignment: Text.AlignLeft
                 }
                 PropertyChanges {
-                    target: secondLineLabel
+                    target: secondLine
                     horizontalAlignment: Text.AlignLeft
                 }
                 PropertyChanges {
-                    target: thirdLineLabel
+                    target: thirdLine
                     horizontalAlignment: Text.AlignLeft
                 }
             },
@@ -117,15 +136,15 @@ Item {
                 }
 
                 PropertyChanges {
-                    target: firstLineLabel
+                    target: firstLine
                     horizontalAlignment: Text.AlignRight
                 }
                 PropertyChanges {
-                    target: secondLineLabel
+                    target: secondLine
                     horizontalAlignment: Text.AlignRight
                 }
                 PropertyChanges {
-                    target: thirdLineLabel
+                    target: thirdLine
                     horizontalAlignment: Text.AlignRight
                 }
             },
@@ -137,15 +156,15 @@ Item {
                 }
 
                 PropertyChanges {
-                    target: firstLineLabel
+                    target: firstLine
                     horizontalAlignment: Text.AlignLeft
                 }
                 PropertyChanges {
-                    target: secondLineLabel
+                    target: secondLine
                     horizontalAlignment: Text.AlignLeft
                 }
                 PropertyChanges {
-                    target: thirdLineLabel
+                    target: thirdLine
                     horizontalAlignment: Text.AlignLeft
                 }
             },
@@ -157,29 +176,19 @@ Item {
                 }
 
                 PropertyChanges {
-                    target: firstLineLabel
+                    target: firstLine
                     horizontalAlignment: Text.AlignRight
                 }
                 PropertyChanges {
-                    target: secondLineLabel
+                    target: secondLine
                     horizontalAlignment: Text.AlignRight
                 }
                 PropertyChanges {
-                    target: thirdLineLabel
+                    target: thirdLine
                     horizontalAlignment: Text.AlignRight
                 }
             }
         ]
-    }
-
-    DropShadow {
-        visible: plasmoid.configuration.enableShadows
-        anchors.fill: textContainer
-        radius: 1
-        spread: 1
-        fast: true
-        color: theme.backgroundColor
-        source: textContainer
     }
 
     // Action
@@ -189,69 +198,82 @@ Item {
         acceptedButtons: Qt.NoButton
         hoverEnabled: displayment !== 'always'
 
-        property bool _firstHover: true
-        property var _oldLabelsState: []
-        function _saveOldLabelsState() {
-            _oldLabelsState = [[firstLineLabel.text + "", !!firstLineLabel.visible], [secondLineLabel.text + "", !!secondLineLabel.visible], [thirdLineLabel.text + "", !!thirdLineLabel.visible]];
-        }
-
         onEntered: {
             if (displayment === 'hover-hints') {
                 valueVisible = false;
-                _saveOldLabelsState();
-                _setLabelsState(true);
 
                 // Show label hints
-                _setTextAndColor(firstLineLabel, labels[firstLineLabel.index], true);
-                _setTextAndColor(secondLineLabel, labels[secondLineLabel.index], true);
-                _setTextAndColor(thirdLineLabel, labels[thirdLineLabel.index], true);
+                _showHint(firstLine);
+                _showHint(secondLine);
+                _showHint(thirdLine);
             } else if (displayment === 'hover') {
-                _setLabelsState(true);
-                showValueInLabel();
-                valueVisible = true;
+                _showValues();
             }
         }
 
         onExited: {
             if (displayment === 'hover-hints') {
-                // Recover old state
-                _setTextAndColor(firstLineLabel, _oldLabelsState[firstLineLabel.index][0]);
-                firstLineLabel.visible = _oldLabelsState[firstLineLabel.index][1];
-                _setTextAndColor(secondLineLabel, _oldLabelsState[secondLineLabel.index][0]);
-                secondLineLabel.visible = _oldLabelsState[secondLineLabel.index][1];
-                _setTextAndColor(thirdLineLabel, _oldLabelsState[thirdLineLabel.index][0]);
-                thirdLineLabel.visible = _oldLabelsState[thirdLineLabel.index][1];
+                // Reset colors
+                firstLine.color = getTextColor(firstLine.index);
+                secondLine.color = getTextColor(secondLine.index);
+                thirdLine.color = getTextColor(thirdLine.index);
 
-                // Update value
-                showValueInLabel();
-                valueVisible = true;
+                // Update values
+                _showValues();
             } else if (displayment === 'hover') {
-                valueVisible = false;
-                _setLabelsState(false);
+                _hideLines();
             }
         }
     }
 
-    function getTextColor(index, isLabel = false) {
-        if (isLabel) {
-            return labelColors[index] || theme.textColor;
+    function getLabel(index) {
+        if (index === 0) {
+            return firstLine;
+        } else if (index === 1) {
+            return secondLine;
+        } else if (index === 2) {
+            return thirdLine;
         }
-        return valueColors[index] || theme.textColor;
+        return undefined;
     }
-    function _setLabelsState(state) {
-        if (state) {
-            firstLineLabel.visible = firstLineLabel.enabled;
-            secondLineLabel.visible = secondLineLabel.enabled;
-            thirdLineLabel.visible = thirdLineLabel.enabled;
-        } else {
-            firstLineLabel.visible = secondLineLabel.visible = thirdLineLabel.visible = false;
-        }
+
+    function getTextColor(index) {
+        return _valueColors[index];
     }
-    function _setTextAndColor(label, value, isLabel = false) {
+
+    function _showValues() {
+        valueVisible = true;
+        firstLine.visible = firstLine.enabled;
+        secondLine.visible = secondLine.enabled;
+        thirdLine.visible = thirdLine.enabled;
+        showValues();
+    }
+    function _showHint(label) {
         if (!label.enabled) {
             return;
         }
-        label.text = value;
-        label.color = getTextColor(label.index, isLabel);
+        label.visible = true;
+        label.text = hints[label.index];
+        label.color = _hintColors[label.index];
+    }
+    function _hideLines() {
+        valueVisible = false;
+        firstLine.visible = false;
+        secondLine.visible = false;
+        thirdLine.visible = false;
+    }
+
+    /**
+     * Resolve color when is name based
+     * @param {string} color The color value
+     * @returns The color color
+     */
+    function _resolveColor(color) {
+        if (!color) {
+            return Kirigami.Theme.textColor;
+        } else if (color.startsWith("#")) {
+            return color;
+        }
+        return Kirigami.Theme[color] ?? Kirigami.Theme.textColor;
     }
 }

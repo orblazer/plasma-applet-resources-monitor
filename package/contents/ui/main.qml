@@ -1,123 +1,119 @@
-/*
- * Copyright 2015  Martin Kotelnik <clearmartin@seznam.cz>
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation; either version 2 of
- * the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http: //www.gnu.org/licenses/>.
- */
-import QtQuick 2.9
-import QtQuick.Layouts 1.1
-import org.kde.plasma.plasmoid 2.0
-import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.kio 1.0 as Kio
-import "./components/graph" as RMGraph
+import QtQuick
+import QtQuick.Layouts
+import org.kde.plasma.plasmoid
+import org.kde.plasma.core as PlasmaCore
+import org.kde.plasma.plasma5support as Plasma5Support
+import org.kde.kirigami as Kirigami
+import "./code/graphs.js" as GraphFns
 
-MouseArea {
+PlasmoidItem {
     id: root
 
-    readonly property bool vertical: plasmoid.formFactor === PlasmaCore.Types.Vertical
+    readonly property bool isVertical: {
+        switch (Plasmoid.formFactor) {
+        case PlasmaCore.Types.Planar:
+        case PlasmaCore.Types.MediaCenter:
+        case PlasmaCore.Types.Application:
+        default:
+            if (root.height > root.width) {
+                return true;
+            } else {
+                return false;
+            }
+        case PlasmaCore.Types.Vertical:
+            return true;
+        case PlasmaCore.Types.Horizontal:
+            return false;
+        }
+    }
+    readonly property double initGraphSize: (isVertical ? root.width : root.height)
 
     // Settings properties
-    property bool verticalLayout: plasmoid.configuration.verticalLayout
-    property double fontScale: (plasmoid.configuration.fontScale / 100)
+    property double fontScale: (Plasmoid.configuration.fontScale / 100)
+    property var graphsModel: GraphFns.parse(Plasmoid.configuration.graphs)
+    property string clickAction: Plasmoid.configuration.clickAction
 
-    // Component properties
-    property int itemMargin: plasmoid.configuration.graphMargin
-    property double parentWidth: parent === null ? 0 : parent.width
-    property double parentHeight: parent === null ? 0 : parent.height
-    property double initWidth: vertical ? (verticalLayout ? parentWidth : (parentWidth - itemMargin) / 2) : (verticalLayout ? (parentHeight - itemMargin) / 2 : parentHeight)
-    property double itemWidth: plasmoid.configuration.customGraphWidth ? plasmoid.configuration.graphWidth : Math.round(initWidth * (verticalLayout ? 1 : 1.5))
-    property double itemHeight: plasmoid.configuration.customGraphHeight ? plasmoid.configuration.graphHeight : Math.round(initWidth)
-    property double fontPixelSize: Math.round(verticalLayout ? (itemHeight / 1.4 * fontScale) : (itemHeight * fontScale))
+    // Plasma configuration
+    Plasmoid.backgroundHints: PlasmaCore.Types.DefaultBackground
+    Plasmoid.configurationRequired: !graphsModel || graphsModel.length === 0 // Check if graphs is valid and have some items
+    preferredRepresentation: Plasmoid.configurationRequired ? compactRepresentation : fullRepresentation // Show graphs only if at least 1 is present, otherwise ask to configure
+    Plasmoid.constraintHints: Plasmoid.configuration.fillPanel ? Plasmoid.CanFillArea : Plasmoid.NoHint// Allow widget to take all height/width
 
-    Layout.preferredWidth: !verticalLayout ? (itemWidth * graphView.model.length + itemMargin * (graphView.model.length + 1)) : itemWidth
-    Layout.preferredHeight: verticalLayout ? (itemHeight * graphView.model.length + itemMargin * (graphView.model.length + 1)) : itemHeight
-    LayoutMirroring.enabled: !vertical && Qt.application.layoutDirection === Qt.RightToLeft
-    LayoutMirroring.childrenInherit: true
+    // Margin for prevent "invsible" 0 and full lines when fill panel
+    anchors.topMargin: Plasmoid.configuration.fillPanel ? 1 : 0
+    anchors.bottomMargin: Plasmoid.configuration.fillPanel ? 1 : 0
 
-    Plasmoid.preferredRepresentation: Plasmoid.fullRepresentation
+    // Content
+    compactRepresentation: Kirigami.Icon {
+        Layout.preferredWidth: width
+        Layout.preferredHeight: height
 
-    // Click action
-    Kio.KRun {
-        id: kRun
+        source: Plasmoid.icon
+        width: Kirigami.Units.iconSizes.smallMedium
+        height: width
     }
+    fullRepresentation: MouseArea {
+        acceptedButtons: clickAction !== "none" ? Qt.LeftButton : Qt.NoButton
 
-    onClicked: {
-        kRun.openService(plasmoid.configuration.actionService);
-    }
+        // Calculate widget size
+        Layout.fillWidth: isVertical
+        Layout.minimumWidth: isVertical ? 0 : graphView.itemWidth
+        Layout.preferredWidth: graphView.width
 
-    // Global update timer
-    Timer {
-        id: updateTask
-        interval: plasmoid.configuration.updateInterval * 1000
+        Layout.fillHeight: !isVertical
+        Layout.minimumHeight: !isVertical ? 0 : graphView.itemHeight
+        Layout.preferredHeight: graphView.height
 
-        running: true
-        triggeredOnStart: true
-        repeat: true
+        // Click action
+        Loader {
+            id: appLauncher
+            active: clickAction === "application"
+            source: "./components/AppLauncher.qml"
 
-        onTriggered: {
-            for (const i in graphView.model) {
-                const graph = graphView.getGraph(i);
-                if (graph !== null) {
-                    graph._update();
+            function run(url) {
+                if (status === Loader.Ready) {
+                    item.openUrl(url);
                 }
             }
         }
-    }
+        //? NOTE: This is hacky way for replace "Kio.KRun" due to limitation of access to C++ in widget without deploying package
+        //? This have a some limitation due to cannot open applications with `kioclient exec`, `kstart --application` or `xdg-open`.
+        Plasma5Support.DataSource {
+            id: runner
+            engine: "executable"
+            connectedSources: []
+            onNewData: sourceName => disconnectSource(sourceName)
+        }
 
-    // Main Layout
-    ListView {
-        id: graphView
-        anchors.fill: parent
-        spacing: itemMargin
-        orientation: verticalLayout ? ListView.Vertical : ListView.Horizontal
-        interactive: false
-
-        model: plasmoid.configuration.graphOrders.filter(item => {
-                if (item === "cpu") {
-                    return plasmoid.configuration.showCpuMonitor;
-                } else if (item === "disks") {
-                    return plasmoid.configuration.showDiskMonitor;
-                } else if (item === "gpu") {
-                    return plasmoid.configuration.showGpuMonitor;
-                } else if (item === "memory") {
-                    return plasmoid.configuration.showRamMonitor;
-                } else if (item === "network") {
-                    return plasmoid.configuration.showNetMonitor;
+        onClicked: {
+            if (Plasmoid.configuration.clickActionCommand !== "") {
+                if (clickAction === "application") {
+                    appLauncher.run(Plasmoid.configuration.clickActionCommand);
+                } else {
+                    runner.connectSource(Plasmoid.configuration.clickActionCommand);
                 }
-                return false;
-            })
-
-        delegate: Loader {
-            source: _graphIdToFilename(modelData)
-
-            width: itemWidth
-            height: itemHeight
-
-            onLoaded: {
-                item.textContainer.firstLineLabel.font.pixelSize = Qt.binding(() => root.fontPixelSize);
-                item.textContainer.secondLineLabel.font.pixelSize = Qt.binding(() => root.fontPixelSize);
-                item.textContainer.thirdLineLabel.font.pixelSize = Qt.binding(() => root.fontPixelSize);
             }
         }
 
-        function getGraph(index) {
-            const loaderItem = graphView.itemAtIndex(index);
-            return loaderItem !== null ? loaderItem.item : null;
+        // Render
+        GraphLayout {
+            id: graphView
+            model: graphsModel
+            updateInterval: Plasmoid.configuration.updateInterval * 1000
+
+            spacing: Plasmoid.configuration.graphSpacing
+            flow: isVertical ? Flow.TopToBottom : Flow.LeftToRight
+
+            itemWidth: _getCustomConfig("graphWidth", Math.round(initGraphSize * (isVertical ? 1 : 1.4)))
+            itemHeight: _getCustomConfig("graphHeight", initGraphSize)
+            fontPixelSize: Math.round(isVertical ? (itemHeight / 1.4 * fontScale) : (itemHeight * fontScale))
         }
     }
 
-    function _graphIdToFilename(graphId) {
-        const filename = (graphId.charAt(0).toUpperCase() + graphId.slice(1)) + "Graph";
-        return "./components/graph/" + filename + ".qml";
+    function _getCustomConfig(property, fallback) {
+        if (Plasmoid.configuration[`custom${property.charAt(0).toUpperCase() + property.slice(1)}`]) {
+            return Plasmoid.configuration[property];
+        }
+        return fallback;
     }
 }

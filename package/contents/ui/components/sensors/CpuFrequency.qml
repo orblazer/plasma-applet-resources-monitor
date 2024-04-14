@@ -1,71 +1,74 @@
-import QtQuick 2.0
-import org.kde.ksysguard.sensors 1.0 as Sensors
-import org.kde.ksysguard.formatter 1.0 as Formatter
+import QtQuick
+import org.kde.ksysguard.sensors as Sensors
+import org.kde.ksysguard.formatter as Formatter
 
-// TODO (3.0): remove this
 Sensors.SensorDataModel {
     id: root
-    property int _coreCount
+    updateRateLimit: -1
 
-    property string agregator: "average" // Possible value: average, minimum, maximum
-    property bool needManual
+    property int _coreCount: 0
+
+    property string aggregator: "average" // Possible value: average, minimum, maximum
+    property int eCoresCount: 0
 
     signal ready
 
-    function getFormattedValue() {
-        return Formatter.Formatter.formatValueShowNull(getValue(), 302 /* Formatter.Unit.UnitMegaHertz */);
+    function getFormattedValue(eCores = false) {
+        return Formatter.Formatter.formatValueShowNull(getValue(eCores), 302 /* Formatter.Unit.UnitMegaHertz */);
     }
 
-    function getValue() {
+    function getValue(eCores = false) {
+        if (_coreCount === 0) {
+            return undefined;
+        }
+        const pCoresCount = _coreCount - eCoresCount;
+
+        // Retrieve cores frequencies
         let values = [];
-        for (let i = 0; i < _coreCount; i++) {
+        const start = eCores ? pCoresCount : 0;
+        const end = eCores ? _coreCount : pCoresCount;
+        for (let i = start; i < end; i++) {
             values[i] = data(index(0, i), Sensors.SensorDataModel.Value);
+        }
+        if (values.length == 0) {
+            return undefined;
         }
 
         // Agregate values
-        if (agregator === "average") {
-            return values.reduce((a, b) => a + b, 0) / _coreCount;
-        } else if (agregator === "minimum") {
+        if (aggregator === "average") {
+            return values.reduce((a, b) => a + b, 0) / values.length;
+        } else if (aggregator === "minimum") {
             return Math.min(...values);
-        } else if (agregator === "maximum") {
+        } else if (aggregator === "maximum") {
             return Math.max(...values);
-        } else {
-            return undefined;
         }
+        return undefined;
     }
 
-    updateRateLimit: -1
-    Component.onCompleted: {
-        sensors = ["cpu/all/coreCount", "cpu/all/" + agregator + "Frequency"];
-    }
-
-    property bool _initialized
-    property Timer _timer: Timer {
+    // Initialize sensors by retrieving core count, then set to N frequency sensor
+    sensors: ["cpu/all/coreCount"]
+    readonly property Timer _initialize: Timer {
         running: enabled
-        interval: 100 // Wait to be sure all sensors metadata has retrieved
+        triggeredOnStart: true
+
+        // Wait to be sure all sensors metadata has retrieved
+        repeat: true
+        interval: 100
 
         onTriggered: {
-            /// Prevent running multiple times
-            if (_initialized) {
+            // Prevent error if metadata is not yet retrieved
+            if (!root.hasIndex(0, 0)) {
                 return;
             }
-            _initialized = true;
-
-            // Do nothing if all frequency is already exist
-            if (hasIndex(0, 1)) {
-                root.enabled = false;
-                root.ready();
-                return;
-            }
+            _initialize.running = false; // Stop running if data is available
 
             // Fill sensors with all cores
-            _coreCount = data(index(0, 0));
+            _coreCount = root.data(root.index(0, 0));
             const sensors = [];
             for (let i = 0; i < _coreCount; i++) {
                 sensors[i] = "cpu/cpu" + i + "/frequency";
             }
             root.sensors = sensors;
-            root.needManual = true;
             root.ready();
         }
     }

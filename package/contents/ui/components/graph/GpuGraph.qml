@@ -1,67 +1,51 @@
-import QtQuick 2.9
-import org.kde.plasma.plasmoid 2.0
-import org.kde.ksysguard.sensors 1.0 as Sensors
+import QtQuick
+import org.kde.plasma.plasmoid
+import org.kde.ksysguard.sensors as Sensors
 import "./base" as RMBaseGraph
 
 RMBaseGraph.TwoSensorsGraph {
     id: root
     objectName: "GpuGraph"
 
-    // Config options
-    property color temperatureColor: plasmoid.configuration.customGpuTemperatureColor ? plasmoid.configuration.gpuTemperatureColor : theme.textColor
+    // Settings
+    property string device: "gpu0" // Device index (eg: gpu0, gpu1)
 
-    // Bind config changes
-    Connections {
-        target: plasmoid.configuration
-        function onGpuMemoryInPercentChanged() {
-            uplimits = [100, plasmoid.configuration.gpuMemoryInPercent ? 100 : maxQueryModel.maxMemory];
-            _clear();
-        }
-        function onGpuIndexChanged() {
-            maxQueryModel.enabled = true
-        }
-    }
+    // Config shortcut
+    property bool memoryInPercent: sensorsType[0].endsWith("-percent")
+    property bool showTemp: sensorsType[1] && device !== "all"
 
     // Labels
-    thresholds: [undefined, undefined, [plasmoid.configuration.thresholdWarningGpuTemp, plasmoid.configuration.thresholdCriticalGpuTemp]]
-
+    thresholdIndex: 2
+    realThresholds: thresholds // No change needed, simply map it
     textContainer {
-        labelColors: [root.colors[0], root.colors[1], temperatureColor]
-        valueColors: [undefined, undefined, temperatureColor]
+        valueColors: [undefined, undefined, root.colors[2]]
 
-        labels: ["GPU", (plasmoid.configuration.gpuMemoryGraph ? "VRAM" : ""), (plasmoid.configuration.showGpuTemperature ? i18nc("Graph label", "Temp.") : "")]
+        hints: ["GPU", (secondChartVisible ? "VRAM" : ""), (showTemp ? i18nc("Graph label", "Temp.") : "")]
     }
 
     // Graph options
-    // NOTE: "sensorsModel.sensors" set from "maxQueryModel"
-    colors: [(plasmoid.configuration.customGpuColor ? plasmoid.configuration.gpuColor : theme.highlightColor), (plasmoid.configuration.customGpuMemoryColor ? plasmoid.configuration.gpuMemoryColor : theme.positiveTextColor)]
+    realUplimits: [100, maxQueryModel.maxMemory]
+    sensorsModel.sensors: {
+        let sensors = [`gpu/${device}/usage`, `gpu/${device}/usedVram`];
+        if (showTemp) {
+            sensors.push(`gpu/${device}/temperature`);
+        }
+        return sensors;
+    }
+    secondChartVisible: sensorsType[0] !== "none"
 
     // Override methods, for handle memeory in percent
-    _update: () => {
-        for (let i = 0; i < sensorsModel.sensors.length; i++) {
-            let value = sensorsModel.getInfo(i);
-            if (i === 1 && plasmoid.configuration.gpuMemoryInPercent) {
-                value = (value / maxQueryModel.maxMemory) * 100;
-            }
-            root._insertChartData(i, value);
-
-            // Update label
-            if (textContainer.enabled && textContainer.valueVisible) {
-                _updateData(i);
-            }
+    _formatValue: (index, value) => {
+        if (index === 1 && memoryInPercent) {
+            return i18nc("Percent unit", "%1%", Math.round((value / maxQueryModel.maxMemory) * 1000) / 10); // This is for round to 1 decimal
         }
-    }
-    _formatValue: (index, data) => {
-        if (index === 1 && plasmoid.configuration.gpuMemoryInPercent) {
-            return i18nc("Percent unit", "%1%", Math.round((data.value / maxQueryModel.maxMemory) * 1000) / 10); // This is for round to 1 decimal
-        }
-        return _defaultFormatValue(index, data);
+        return _defaultFormatValue(index, value);
     }
 
     // Initialize limits and threshold
     Sensors.SensorDataModel {
         id: maxQueryModel
-        sensors: ["gpu/" + plasmoid.configuration.gpuIndex + "/totalVram"]
+        sensors: [`gpu/${device}/totalVram`]
         enabled: true
         property int maxMemory: -1
 
@@ -73,13 +57,6 @@ RMBaseGraph.TwoSensorsGraph {
             }
             enabled = false;
             maxMemory = valueVar;
-
-            // Update graph Y range
-            root.uplimits = [100, plasmoid.configuration.gpuMemoryInPercent ? 100 : maxMemory];
-
-            // Update sensors
-            const gpu = plasmoid.configuration.gpuIndex
-            root.sensorsModel.sensors = ["gpu/" + gpu + "/usage", "gpu/" + gpu + "/usedVram", "gpu/" + gpu + "/temperature"];
         }
     }
 }

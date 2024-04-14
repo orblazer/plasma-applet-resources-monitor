@@ -1,8 +1,9 @@
-import QtQuick 2.9
-import org.kde.plasma.plasmoid 2.0
+import QtQuick
+import org.kde.plasma.plasmoid
+import org.kde.ksysguard.formatter as KFormatter
 import "./base" as RMBaseGraph
 import "../sensors" as RMSensors
-import "../functions.js" as Functions
+import "../../code/formatter.js" as Formatter
 
 RMBaseGraph.TwoSensorsGraph {
     id: root
@@ -10,31 +11,25 @@ RMBaseGraph.TwoSensorsGraph {
     sensorsModel.enabled: false // Disable base sensort due to use custom one
     _update: networkSpeed.execute
 
-    property var dialect: Functions.getNetworkDialectInfo(plasmoid.configuration.networkUnit)
+    // Settings
+    property var ignoredInterfaces: []
+    readonly property var unit: Formatter.getUnitInfo(sensorsType[1], i18nc)
 
-    Connections {
-        target: plasmoid.configuration
-        function onIgnoredNetworkInterfacesChanged() {
-            _clear();
-        }
+    // Retrieve chart index and swap it if needed
+    property int downloadIndex: sensorsType[0] ? 1 : 0
+    property int uploadIndex: sensorsType[0] ? 0 : 1
 
-        function onNetworkReceivingTotalChanged() {
-            _updateUplimits();
-        }
-        function onNetworkSendingTotalChanged() {
-            _updateUplimits();
-        }
-    }
-    Component.onCompleted: _updateUplimits()
-
-    // Labels
+    // Labels config
     textContainer {
-        labelColors: root.colors
-        labels: [i18nc("Graph label", "Receiving"), i18nc("Graph label", "Sending"), ""]
+        hints: {
+            const receiving = i18nc("Graph label", "Receiving");
+            const sending = i18nc("Graph label", "Sending");
+            return sensorsType[0] ? [sending, receiving, ""] : [receiving, sending, ""];
+        }
     }
 
-    // Graph options
-    colors: [(plasmoid.configuration.customNetDownColor ? plasmoid.configuration.netDownColor : theme.highlightColor), (plasmoid.configuration.customNetUpColor ? plasmoid.configuration.netUpColor : theme.positiveTextColor)]
+    // Charts config
+    realUplimits: [uplimits[0] * unit.multiplier, uplimits[1] * unit.multiplier]
 
     // Custom sensor
     RMSensors.NetworkSpeed {
@@ -45,10 +40,11 @@ RMBaseGraph.TwoSensorsGraph {
             if (data.length === 0) {
                 return [undefined, undefined];
             }
+
             // Cumulate speeds
             let download = 0, upload = 0;
             for (const [ifname, speed] of data) {
-                if (plasmoid.configuration.ignoredNetworkInterfaces.indexOf(ifname) !== -1) {
+                if (root.ignoredInterfaces.indexOf(ifname) !== -1) {
                     continue;
                 }
                 download += speed[0];
@@ -64,35 +60,31 @@ RMBaseGraph.TwoSensorsGraph {
                 return;
             }
 
-            // Apply selected dialect
-            downloadValue *= dialect.byteDiff;
-            uploadValue *= dialect.byteDiff;
+            // Apply selected unit
+            downloadValue *= unit.byteDiff;
+            uploadValue *= unit.byteDiff;
 
             // Insert datas
-            _insertChartData(0, downloadValue);
-            _insertChartData(1, uploadValue);
+            _insertChartData(downloadIndex, downloadValue);
+            _insertChartData(uploadIndex, uploadValue);
 
             // Update labels
             if (textContainer.enabled && textContainer.valueVisible) {
-                _updateData(0, downloadValue);
-                _updateData(1, uploadValue);
+                _updateData(downloadIndex, downloadValue);
+                _updateData(uploadIndex, uploadValue);
             }
         }
     }
 
     function _updateData(index, value) {
         // Retrieve label need to update
-        const label = _getLabel(index);
+        const label = textContainer.getLabel(index);
         if (typeof label === "undefined" || !label.enabled) {
             return;
         }
 
         // Show value on label
-        label.text = Functions.formatByteValue(value, dialect);
+        label.text = Formatter.formatValue(value, unit, Qt.locale());
         label.visible = true;
-    }
-
-    function _updateUplimits() {
-        uplimits = [plasmoid.configuration.networkReceivingTotal * dialect.multiplier, plasmoid.configuration.networkSendingTotal * dialect.multiplier];
     }
 }
