@@ -1,8 +1,16 @@
-cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.16)
 
-find_package(ECM 0.0.11 REQUIRED NO_MODULE)
-set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
+project(resourcesMonitor)
 
-find_package(KF5Plasma REQUIRED COMPONENTS Kirigami2 I18n)
+set(KF6_MIN_VERSION "6.0.0")
 
-plasma_install_package(package org.kde.resourcesMonitor-fork)
+find_package(ECM ${KF6_MIN_VERSION} REQUIRED NO_MODULE)
+set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
+
+include(KDEInstallDirs)
+include(KDECMakeSettings)
+include(KDECompilerSettings NO_POLICY_SCOPE)
+
+find_package(Plasma REQUIRED)
+
+plasma_install_package(package org.kde.plasma.resources-monitor)
