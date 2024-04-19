@@ -180,7 +180,7 @@ KCM.AbstractKCM {
 
                 QQC2.ComboBox {
                     id: displayment
-                    Kirigami.FormData.label: i18n("Text displayment:")
+                    Kirigami.FormData.label: i18n("Text display:")
                     Layout.fillWidth: true
 
                     currentIndex: -1
@@ -188,19 +188,19 @@ KCM.AbstractKCM {
                     valueRole: "name"
                     model: [
                         {
-                            "label": i18nc("Text displayment", "Always"),
+                            "label": i18nc("Text display", "Always"),
                             "name": "always"
                         },
                         {
-                            "label": i18nc("Text displayment", "On hover"),
+                            "label": i18nc("Text display", "On hover"),
                             "name": "hover"
                         },
                         {
-                            "label": i18nc("Text displayment", "Hints when hover"),
+                            "label": i18nc("Text display", "Hints when hover"),
                             "name": "hover-hints"
                         },
                         {
-                            "label": i18nc("Text displayment", "Never"),
+                            "label": i18nc("Text display", "Never"),
                             "name": "never"
                         }
                     ]

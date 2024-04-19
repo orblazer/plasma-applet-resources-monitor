@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: resources-monitor\n"
 "Report-Msgid-Bugs-To: https://github.com/orblazer/plasma-applet-resources-monitor\n"
-"POT-Creation-Date: 2024-04-12 13:01+0200\n"
+"POT-Creation-Date: 2024-04-19 15:37+0200\n"
 "PO-Revision-Date: 2024-04-12 13:07+0200\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language: nl\n"
@@ -175,26 +175,26 @@ msgid "Font scale:"
 msgstr "Tekstgrootte:"
 
 #: ../contents/ui/config/ConfigAppearance.qml:183
-msgid "Text displayment:"
+msgid "Text display:"
 msgstr "Tekst tonen:"
 
 #: ../contents/ui/config/ConfigAppearance.qml:191
-msgctxt "Text displayment"
+msgctxt "Text display"
 msgid "Always"
 msgstr "Altijd"
 
 #: ../contents/ui/config/ConfigAppearance.qml:195
-msgctxt "Text displayment"
+msgctxt "Text display"
 msgid "On hover"
 msgstr "Na aanwijzen"
 
 #: ../contents/ui/config/ConfigAppearance.qml:199
-msgctxt "Text displayment"
+msgctxt "Text display"
 msgid "Hints when hover"
 msgstr "Tip tonen na aanwijzen met cursor"
 
 #: ../contents/ui/config/ConfigAppearance.qml:203
-msgctxt "Text displayment"
+msgctxt "Text display"
 msgid "Never"
 msgstr "Nooit"
 
