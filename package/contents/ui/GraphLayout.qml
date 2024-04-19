@@ -9,6 +9,12 @@ Flow {
     required property double itemWidth
     required property double itemHeight
     required property double fontPixelSize
+    property bool isVertical: false
+
+    // Manage flow and centering
+    flow: isVertical ? Flow.TopToBottom : Flow.LeftToRight
+    anchors.horizontalCenter: isVertical ? parent.horizontalCenter : undefined
+    anchors.verticalCenter: !isVertical ? parent.verticalCenter : undefined
 
     Repeater {
         id: repeater

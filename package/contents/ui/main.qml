@@ -41,7 +41,7 @@ PlasmoidItem {
 
     // Margin for prevent "invsible" 0 and full lines when fill panel
     anchors.topMargin: Plasmoid.configuration.fillPanel ? 1 : 0
-    anchors.bottomMargin: Plasmoid.configuration.fillPanel ? 1 : 0
+    anchors.bottomMargin: anchors.topMargin
 
     // Content
     compactRepresentation: Kirigami.Icon {
@@ -102,7 +102,7 @@ PlasmoidItem {
             updateInterval: Plasmoid.configuration.updateInterval * 1000
 
             spacing: Plasmoid.configuration.graphSpacing
-            flow: isVertical ? Flow.TopToBottom : Flow.LeftToRight
+            isVertical: root.isVertical
 
             itemWidth: _getCustomConfig("graphWidth", Math.round(initGraphSize * (isVertical ? 1 : 1.4)))
             itemHeight: _getCustomConfig("graphHeight", initGraphSize)
