@@ -24,7 +24,7 @@ RMBaseGraph.TwoSensorsGraph {
     }
 
     // Graph options
-    realUplimits: [100, maxQueryModel.maxMemory]
+    realUplimits: maxQueryModel.maxMemory
     sensorsModel.sensors: {
         let sensors = [`gpu/${device}/usage`, `gpu/${device}/usedVram`];
         if (showTemp) {
@@ -37,7 +37,7 @@ RMBaseGraph.TwoSensorsGraph {
     // Override methods, for handle memeory in percent
     _formatValue: (index, value) => {
         if (index === 1 && memoryInPercent) {
-            return i18nc("Percent unit", "%1%", Math.round((value / maxQueryModel.maxMemory) * 1000) / 10); // This is for round to 1 decimal
+            return i18nc("Percent unit", "%1%", Math.round((value / maxQueryModel.maxMemory[1]) * 1000) / 10); // This is for round to 1 decimal
         }
         return _defaultFormatValue(index, value);
     }
@@ -47,7 +47,7 @@ RMBaseGraph.TwoSensorsGraph {
         id: maxQueryModel
         sensors: [`gpu/${device}/totalVram`]
         enabled: true
-        property int maxMemory: -1
+        property var maxMemory: [100, -1]
 
         onDataChanged: topLeft => {
             // Update values
@@ -56,7 +56,7 @@ RMBaseGraph.TwoSensorsGraph {
                 return;
             }
             enabled = false;
-            maxMemory = valueVar;
+            maxMemory = [100, valueVar]
         }
     }
 }
