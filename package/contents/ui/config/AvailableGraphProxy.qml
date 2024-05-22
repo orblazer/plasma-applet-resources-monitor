@@ -23,13 +23,55 @@ ListModel {
         return undefined;
     }
 
+    // Sensor for retrieve GPU name
+    property var _gpuNameFetcher: Sensors.SensorDataModel {
+        readonly property var gpuNameRegex: /.*\[(.*)\]/
+        property var _cache: (new Map())
+
+        onDataChanged: topLeft => {
+            const sensorId = data(topLeft, Sensors.SensorDataModel.SensorId);
+            const cache = _cache.get(sensorId);
+            if (typeof cache === "undefined") {
+                return;
+            }
+            let deviceName = data(topLeft, Qt.Value);
+
+            // Special case for non NVIDIA graphic card (eg. in AMD the name look like "Navi 21 [Radeon RX 6950 XT]")
+            const nameMatch = deviceName.match(gpuNameRegex);
+            if (nameMatch) {
+                if (nameMatch[1].startsWith("Radeon")) {
+                    deviceName = "AMD ";
+                } else {
+                    deviceName = "Intel ";
+                }
+                deviceName += nameMatch[1];
+            }
+
+            root.set(cache.index, GraphFns.getDisplayInfo("gpu", i18nc, cache.section, cache.device, deviceName));
+
+            // Clean things
+            _cache.delete(sensorId);
+            if (_cache.size === 0) {
+                enabled = false
+            }
+        }
+
+        function fetch(sensorId, index, section, device) {
+            _cache.set(sensorId, {
+                index,
+                section,
+                device
+            });
+            sensors.push(sensorId);
+            sensors = sensors; // hack to update sensors
+        }
+    }
+
     property var _privateModel: KItemModels.KSortFilterProxyModel {
         readonly property var sensorsRegex: /^(gpu|disk)\/([a-z0-9\-]+)\/(name|used|usage)?$/
-        readonly property var gpuNameRegex: /.*\[(.*)\]/
 
         sourceModel: KItemModels.KDescendantsProxyModel {
-            model: Sensors.SensorTreeModel {
-            }
+            model: Sensors.SensorTreeModel {}
         }
 
         filterRowCallback: (row, parent) => {
@@ -61,10 +103,10 @@ ListModel {
         onRowsInserted: (parent, first, last) => {
             for (let i = first; i <= last; ++i) {
                 // Retrieve sensor info
-                const index = _privateModel.index(i, 0);
+                const index = root._privateModel.index(i, 0);
                 const sensorId = data(index, Sensors.SensorTreeModel.SensorId);
                 let deviceName = data(index, Qt.Value);
-                const [_, type, device, sensor] = sensorId.match(sensorsRegex);
+                const [_, type, device] = sensorId.match(sensorsRegex);
 
                 // Prevent line when name is not yet retrieved
                 if (deviceName === "" || deviceName === "name") {
@@ -89,16 +131,9 @@ ListModel {
                 if (device === "all") {
                     deviceName = i18n("All");
                 } else if (type === "gpu") {
-                    // Special case for non NVIDIA graphic card (eg. in AMD the name look like "Navi 21 [Radeon RX 6950 XT]")
-                    const nameMatch = deviceName.match(gpuNameRegex);
-                    if (nameMatch) {
-                        if (nameMatch[1].startsWith("Radeon")) {
-                            deviceName = "AMD ";
-                        } else {
-                            deviceName = "Intel ";
-                        }
-                        deviceName += nameMatch[1];
-                    }
+                    // GPU name need to be fetched by sensor
+                    root._gpuNameFetcher.fetch(sensorId, i + _lastCount, section, device);
+                    return;
                 } else {
                     deviceName = device;
                 }
