@@ -112,6 +112,7 @@ Item {
 
             // Show value on label
             label.text = _formatValue(index, value);
+            label.visible = true;
         }
     }
 
