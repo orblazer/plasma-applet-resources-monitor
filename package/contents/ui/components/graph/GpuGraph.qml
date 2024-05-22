@@ -49,7 +49,7 @@ RMBaseGraph.TwoSensorsGraph {
         enabled: true
         property int maxMemory: -1
 
-        onDataChanged: {
+        onDataChanged: topLeft => {
             // Update values
             const valueVar = parseInt(data(topLeft, Sensors.SensorDataModel.Value));
             if (isNaN(valueVar) || valueVar <= 0) {

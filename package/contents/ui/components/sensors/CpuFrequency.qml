@@ -63,7 +63,7 @@ Sensors.SensorDataModel {
             _initialize.running = false; // Stop running if data is available
 
             // Fill sensors with all cores
-            _coreCount = root.data(root.index(0, 0));
+            _coreCount = root.data(root.index(0, 0), Sensors.SensorDataModel.Value);
             const sensors = [];
             for (let i = 0; i < _coreCount; i++) {
                 sensors[i] = "cpu/cpu" + i + "/frequency";
