@@ -69,7 +69,9 @@ Item {
 
     // Process functions
     property var _insertChartData: (column, value) => {} // NOTE: this is implemented by children
-    property var _update: () => {
+
+    property var _update: _defaultUpdate
+    function _defaultUpdate() {
         for (let i = 0; i < sensorsModel.sensors.length; i++) {
             const value = sensorsModel.getData(i);
             // Skip not founded sensor

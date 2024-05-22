@@ -6,6 +6,10 @@ import "../sensors" as RMSensors
 RMBaseGraph.SensorGraph {
     id: root
     objectName: "CpuGraph"
+    _update: () => {
+        root._defaultUpdate()
+        cpuTemperature.update()
+    }
 
     // Settings
     property string clockAggregator: "average" // Values: average, minimum, maximum
@@ -32,6 +36,9 @@ RMBaseGraph.SensorGraph {
         if (index === 1) {
             return cpuFrequenry.getFormattedValue(root.clockIsEcores);
         }
+        else if (index === 2) {
+            return cpuTemperature.getFormattedValue();
+        }
         return _defaultFormatValue(index, value);
     }
 
@@ -40,5 +47,9 @@ RMBaseGraph.SensorGraph {
         enabled: root.showClock
         aggregator: root.clockAggregator
         eCoresCount: root.eCoresCount
+    }
+    RMSensors.CpuTemperature {
+        id: cpuTemperature
+        enabled: root.sensorsType[2]
     }
 }
