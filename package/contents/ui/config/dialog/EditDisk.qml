@@ -35,6 +35,15 @@ BaseForm {
         }
     }
 
+    QQC2.CheckBox {
+        text: i18n("Show icons (%1 / %2)", i18nc("Disk graph icon : Read", " R"), i18nc("Disk graph icon : Write", "W"))
+        checked: item.icons
+        onClicked: {
+            item.icons = checked;
+            root.changed();
+        }
+    }
+
     // Transfer speed
     Item {
         Kirigami.FormData.label: i18n("Maximum transfer speed")

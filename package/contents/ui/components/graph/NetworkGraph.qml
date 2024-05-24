@@ -13,11 +13,12 @@ RMBaseGraph.TwoSensorsGraph {
 
     // Settings
     property var ignoredInterfaces: []
+    property bool icons: false
     readonly property var unit: Formatter.getUnitInfo(sensorsType[1], i18nc)
 
     // Retrieve chart index and swap it if needed
-    property int downloadIndex: sensorsType[0] ? 1 : 0
-    property int uploadIndex: sensorsType[0] ? 0 : 1
+    readonly property int downloadIndex: sensorsType[0] ? 1 : 0
+    readonly property int uploadIndex: sensorsType[0] ? 0 : 1
 
     // Labels config
     textContainer {
@@ -83,8 +84,18 @@ RMBaseGraph.TwoSensorsGraph {
             return;
         }
 
+        // Show icons
+        let icon = ""
+        if (root.icons) {
+            if (index == downloadIndex) {
+                icon = " ↓"
+            } else if (index == uploadIndex) {
+                icon = " ↑"
+            }
+        }
+
         // Show value on label
-        label.text = Formatter.formatValue(value, unit, Qt.locale());
+        label.text = Formatter.formatValue(value, unit, Qt.locale()) + icon;
         label.visible = true;
     }
 }

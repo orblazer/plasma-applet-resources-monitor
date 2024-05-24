@@ -4,7 +4,7 @@
  * Version of graphs
  * @constant
  */
-const VERSION = 1; //? Bump when some settings changes in graphs structure
+const VERSION = 2; //? Bump when some settings changes in graphs structure
 
 /**
  * @typedef {object} CpuGraph
@@ -41,6 +41,7 @@ const VERSION = 1; //? Bump when some settings changes in graphs structure
  * @property {[boolean, ("kibibyte"|"kilobit|"kilobyte")]} sensorsType The sensors type (ref: swap Rx/Tx, unit)
  * @property {[number, number]} uplimits The uplimit (ref: chart1, chart2)
  * @property {string[]} ignoredInterfaces The ignored network interfaces
+ * @property {boolean} icons Show labels icons (↓ / ↑)
  */
 /**
  * @typedef {object} DiskGraph
@@ -50,6 +51,7 @@ const VERSION = 1; //? Bump when some settings changes in graphs structure
  * @property {[boolean]} sensorsType The sensors type (ref: swap r/w)
  * @property {[number, number]} uplimits The uplimit (ref: chart1, chart2)
  * @property {string} device The disk id (eg. sda, sdc), it also could be `all`
+ * @property {boolean} icons Show labels icons (R / W)
  */
 
 /** @typedef {CpuGraph|MemoryGraph|GpuGraph|NetworkGraph|DiskGraph} Graph */
@@ -144,11 +146,13 @@ function create(type, device) {
       item.sensorsType = [false, "kibibyte"];
       item.uplimits = [100000, 100000];
       item.ignoredInterfaces = [];
+      item.icons = false;
       break;
     case "disk":
       item.colors = ["highlightColor", "positiveTextColor"];
       item.sensorsType = [false];
       item.uplimits = [200000, 200000];
+      item.icons = false;
       break;
     default:
       throw new Error(`${type} is not valid graph type`);

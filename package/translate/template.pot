@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: resources-monitor\n"
 "Report-Msgid-Bugs-To: https://github.com/orblazer/plasma-applet-resources-monitor\n"
-"POT-Creation-Date: 2024-04-19 15:37+0200\n"
+"POT-Creation-Date: 2024-05-24 14:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,50 +48,62 @@ msgctxt "Bytes per second unit symbol"
 msgid "iB/s"
 msgstr ""
 
-#: ../contents/ui/code/graphs.js:192
+#: ../contents/ui/code/graphs.js:196
 msgctxt "Chart name"
 msgid "CPU"
 msgstr ""
 
-#: ../contents/ui/code/graphs.js:197
+#: ../contents/ui/code/graphs.js:201
 msgctxt "Chart name"
 msgid "Memory"
 msgstr ""
 
-#: ../contents/ui/code/graphs.js:202
+#: ../contents/ui/code/graphs.js:206
 msgctxt "Chart name"
 msgid "GPU [%1]"
 msgstr ""
 
-#: ../contents/ui/code/graphs.js:207
+#: ../contents/ui/code/graphs.js:211
 msgctxt "Chart name"
 msgid "Network"
 msgstr ""
 
-#: ../contents/ui/code/graphs.js:212
+#: ../contents/ui/code/graphs.js:216
 msgctxt "Chart name"
 msgid "Disk I/O [%1]"
 msgstr ""
 
-#: ../contents/ui/components/graph/CpuGraph.qml:27
+#: ../contents/ui/components/graph/CpuGraph.qml:31
 msgctxt "Graph label"
 msgid "Clock"
 msgstr ""
 
-#: ../contents/ui/components/graph/CpuGraph.qml:27
+#: ../contents/ui/components/graph/CpuGraph.qml:31
 #: ../contents/ui/components/graph/GpuGraph.qml:23
 msgctxt "Graph label"
 msgid "Temp."
 msgstr ""
 
-#: ../contents/ui/components/graph/DiskGraph.qml:17
+#: ../contents/ui/components/graph/DiskGraph.qml:22
 msgctxt "Graph label"
 msgid "Read"
 msgstr ""
 
-#: ../contents/ui/components/graph/DiskGraph.qml:18
+#: ../contents/ui/components/graph/DiskGraph.qml:23
 msgctxt "Graph label"
 msgid "Write"
+msgstr ""
+
+#: ../contents/ui/components/graph/DiskGraph.qml:38
+#: ../contents/ui/config/dialog/EditDisk.qml:39
+msgctxt "Disk graph icon : Read"
+msgid " R"
+msgstr ""
+
+#: ../contents/ui/components/graph/DiskGraph.qml:40
+#: ../contents/ui/config/dialog/EditDisk.qml:39
+msgctxt "Disk graph icon : Write"
+msgid "W"
 msgstr ""
 
 #: ../contents/ui/components/graph/GpuGraph.qml:40
@@ -105,17 +117,17 @@ msgctxt "Graph label"
 msgid "Percent."
 msgstr ""
 
-#: ../contents/ui/components/graph/NetworkGraph.qml:25
+#: ../contents/ui/components/graph/NetworkGraph.qml:26
 msgctxt "Graph label"
 msgid "Receiving"
 msgstr ""
 
-#: ../contents/ui/components/graph/NetworkGraph.qml:26
+#: ../contents/ui/components/graph/NetworkGraph.qml:27
 msgctxt "Graph label"
 msgid "Sending"
 msgstr ""
 
-#: ../contents/ui/config/AvailableGraphProxy.qml:90
+#: ../contents/ui/config/AvailableGraphProxy.qml:132
 msgid "All"
 msgstr ""
 
@@ -241,10 +253,10 @@ msgstr ""
 #: ../contents/ui/config/ConfigAppearance.qml:260
 #: ../contents/ui/config/dialog/EditCpu.qml:160
 #: ../contents/ui/config/dialog/EditCpu.qml:171
-#: ../contents/ui/config/dialog/EditDisk.qml:113
+#: ../contents/ui/config/dialog/EditDisk.qml:122
 #: ../contents/ui/config/dialog/EditGpu.qml:92
 #: ../contents/ui/config/dialog/EditGpu.qml:103
-#: ../contents/ui/config/dialog/EditNetwork.qml:199
+#: ../contents/ui/config/dialog/EditNetwork.qml:208
 msgctxt "Chart color"
 msgid "Choose text color"
 msgstr ""
@@ -430,11 +442,11 @@ msgstr ""
 
 #: ../contents/ui/config/dialog/EditCpu.qml:15
 #: ../contents/ui/config/dialog/EditCpu.qml:148
-#: ../contents/ui/config/dialog/EditDisk.qml:101
+#: ../contents/ui/config/dialog/EditDisk.qml:110
 #: ../contents/ui/config/dialog/EditGpu.qml:80
 #: ../contents/ui/config/dialog/EditMemory.qml:15
 #: ../contents/ui/config/dialog/EditMemory.qml:101
-#: ../contents/ui/config/dialog/EditNetwork.qml:187
+#: ../contents/ui/config/dialog/EditNetwork.qml:196
 msgid "First line:"
 msgstr ""
 
@@ -452,11 +464,11 @@ msgstr ""
 
 #: ../contents/ui/config/dialog/EditCpu.qml:44
 #: ../contents/ui/config/dialog/EditCpu.qml:159
-#: ../contents/ui/config/dialog/EditDisk.qml:112
+#: ../contents/ui/config/dialog/EditDisk.qml:121
 #: ../contents/ui/config/dialog/EditGpu.qml:16
 #: ../contents/ui/config/dialog/EditGpu.qml:91
 #: ../contents/ui/config/dialog/EditMemory.qml:112
-#: ../contents/ui/config/dialog/EditNetwork.qml:198
+#: ../contents/ui/config/dialog/EditNetwork.qml:207
 msgid "Second Line:"
 msgstr ""
 
@@ -509,19 +521,19 @@ msgid "Temperature threshold:"
 msgstr ""
 
 #: ../contents/ui/config/dialog/EditCpu.qml:143
-#: ../contents/ui/config/dialog/EditDisk.qml:96
+#: ../contents/ui/config/dialog/EditDisk.qml:105
 #: ../contents/ui/config/dialog/EditGpu.qml:75
 #: ../contents/ui/config/dialog/EditMemory.qml:96
-#: ../contents/ui/config/dialog/EditNetwork.qml:182
+#: ../contents/ui/config/dialog/EditNetwork.qml:191
 msgid "Colors"
 msgstr ""
 
 #: ../contents/ui/config/dialog/EditCpu.qml:149
-#: ../contents/ui/config/dialog/EditDisk.qml:102
+#: ../contents/ui/config/dialog/EditDisk.qml:111
 #: ../contents/ui/config/dialog/EditGpu.qml:81
 #: ../contents/ui/config/dialog/EditMemory.qml:102
 #: ../contents/ui/config/dialog/EditMemory.qml:113
-#: ../contents/ui/config/dialog/EditNetwork.qml:188
+#: ../contents/ui/config/dialog/EditNetwork.qml:197
 msgctxt "Chart color"
 msgid "Choose series color"
 msgstr ""
@@ -541,17 +553,22 @@ msgstr ""
 msgid "Swap first and second line"
 msgstr ""
 
-#: ../contents/ui/config/dialog/EditDisk.qml:40
-#: ../contents/ui/config/dialog/EditNetwork.qml:126
+#: ../contents/ui/config/dialog/EditDisk.qml:39
+#: ../contents/ui/config/dialog/EditNetwork.qml:65
+msgid "Show icons (%1 / %2)"
+msgstr ""
+
+#: ../contents/ui/config/dialog/EditDisk.qml:49
+#: ../contents/ui/config/dialog/EditNetwork.qml:135
 msgid "Maximum transfer speed"
 msgstr ""
 
-#: ../contents/ui/config/dialog/EditDisk.qml:46
+#: ../contents/ui/config/dialog/EditDisk.qml:55
 msgctxt "Chart config"
 msgid "Read:"
 msgstr ""
 
-#: ../contents/ui/config/dialog/EditDisk.qml:71
+#: ../contents/ui/config/dialog/EditDisk.qml:80
 msgctxt "Chart config"
 msgid "Write:"
 msgstr ""
@@ -597,32 +614,32 @@ msgstr ""
 msgid "Usage threshold:"
 msgstr ""
 
-#: ../contents/ui/config/dialog/EditNetwork.qml:66
+#: ../contents/ui/config/dialog/EditNetwork.qml:75
 msgid "Unit:"
 msgstr ""
 
-#: ../contents/ui/config/dialog/EditNetwork.qml:72
+#: ../contents/ui/config/dialog/EditNetwork.qml:81
 msgid "kibibyte (KiB/s)"
 msgstr ""
 
-#: ../contents/ui/config/dialog/EditNetwork.qml:76
+#: ../contents/ui/config/dialog/EditNetwork.qml:85
 msgid "kilobit (Kbps)"
 msgstr ""
 
-#: ../contents/ui/config/dialog/EditNetwork.qml:80
+#: ../contents/ui/config/dialog/EditNetwork.qml:89
 msgid "kilobyte (KBps)"
 msgstr ""
 
-#: ../contents/ui/config/dialog/EditNetwork.qml:95
+#: ../contents/ui/config/dialog/EditNetwork.qml:104
 msgid "Network interfaces:"
 msgstr ""
 
-#: ../contents/ui/config/dialog/EditNetwork.qml:132
+#: ../contents/ui/config/dialog/EditNetwork.qml:141
 msgctxt "Chart config"
 msgid "Receiving:"
 msgstr ""
 
-#: ../contents/ui/config/dialog/EditNetwork.qml:157
+#: ../contents/ui/config/dialog/EditNetwork.qml:166
 msgctxt "Chart config"
 msgid "Sending:"
 msgstr ""
