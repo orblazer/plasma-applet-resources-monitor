@@ -1,3 +1,22 @@
+# [3.0.0-rc.2](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v3.0.0-rc.1...v3.0.0-rc.2) (2024-05-24)
+
+
+### Bug Fixes
+
+* **config:** retrieve gpu name ([dbe189d](https://github.com/orblazer/plasma-applet-resources-monitor/commit/dbe189da195ac68d26bdbeb10f8f8458e45a9dbd))
+* **graph:** center graphs ([371f312](https://github.com/orblazer/plasma-applet-resources-monitor/commit/371f31267efa87f8a698b3a1862136c1dacfc470)), closes [#81](https://github.com/orblazer/plasma-applet-resources-monitor/issues/81)
+* **graph:** fallback temp for zenpower ([fdd59a2](https://github.com/orblazer/plasma-applet-resources-monitor/commit/fdd59a2c5da56c580d4a57cb4d9a48d7aec13df3)), closes [#80](https://github.com/orblazer/plasma-applet-resources-monitor/issues/80)
+* **graph:** prevent qml errors ([cfc5093](https://github.com/orblazer/plasma-applet-resources-monitor/commit/cfc5093e848c4be72292568df91dd027e5f99da7))
+* **graph:** right init gpu memory ([2e76dc7](https://github.com/orblazer/plasma-applet-resources-monitor/commit/2e76dc743402bd8e6d1ef1d48c20bb09375d4510)), closes [#84](https://github.com/orblazer/plasma-applet-resources-monitor/issues/84)
+* **graph:** right toggle visibility for swap ([7c67fdd](https://github.com/orblazer/plasma-applet-resources-monitor/commit/7c67fdd450d475b1f4402c700c08200ddd24f5d8))
+
+
+### Features
+
+* **graph:** add icons for network and disk ([2c81b5d](https://github.com/orblazer/plasma-applet-resources-monitor/commit/2c81b5d343078bf026ac0481bf72dadb62458772)), closes [#82](https://github.com/orblazer/plasma-applet-resources-monitor/issues/82)
+
+
+
 # [3.0.0-rc.1](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v2.11.4...v3.0.0-rc.1) (2024-04-14)
 
 
