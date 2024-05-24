@@ -91,6 +91,11 @@ function parse(raw, convertOld = false) {
 
   // Handle conversion
   return graphs.map((v) => {
+    // V2
+    if ((v.type === "network" || v.type === "disk") && typeof v.icons === "undefined") {
+      v.icons = false
+    }
+
     v._v = VERSION;
     return v;
   });
