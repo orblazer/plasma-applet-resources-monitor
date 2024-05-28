@@ -60,10 +60,16 @@ Sensors.SensorDataModel {
             if (!root.hasIndex(0, 0)) {
                 return;
             }
-            _initialize.running = false; // Stop running if data is available
+            const valueVar = parseInt(root.data(root.index(0, 0), Sensors.SensorDataModel.Value));
+            if (isNaN(valueVar) || valueVar <= 0) {
+                return;
+            }
+
+            // Stop running if data is available
+            _initialize.running = false;
 
             // Fill sensors with all cores
-            _coreCount = root.data(root.index(0, 0), Sensors.SensorDataModel.Value);
+            _coreCount = valueVar
             const sensors = [];
             for (let i = 0; i < _coreCount; i++) {
                 sensors[i] = "cpu/cpu" + i + "/frequency";
