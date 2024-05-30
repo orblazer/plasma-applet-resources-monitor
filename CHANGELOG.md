@@ -1,3 +1,15 @@
+# [3.0.0-rc.3](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v3.0.0-rc.2...v3.0.0-rc.3) (2024-05-30)
+
+
+### Bug Fixes
+
+* **config:** handle none direct gpu name ([b5e8896](https://github.com/orblazer/plasma-applet-resources-monitor/commit/b5e8896581ce5fb2ff79a3688c519a16a1e013d0)), closes [#85](https://github.com/orblazer/plasma-applet-resources-monitor/issues/85)
+* **config:** prevent out of range error ([3450f72](https://github.com/orblazer/plasma-applet-resources-monitor/commit/3450f721122b7d96ce089048a3d775fea35e90ca)), closes [#85](https://github.com/orblazer/plasma-applet-resources-monitor/issues/85)
+* **graph:** add new option in upgrade ([b1e3e67](https://github.com/orblazer/plasma-applet-resources-monitor/commit/b1e3e67885f5131e81ee4d3e330c893a1d3d9342))
+* **graph:** prevent fail on cpu freq init ([8163691](https://github.com/orblazer/plasma-applet-resources-monitor/commit/81636917bb680d802c3c4685c9d29971bfca5824))
+
+
+
 # [3.0.0-rc.2](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v3.0.0-rc.1...v3.0.0-rc.2) (2024-05-24)
 
 
