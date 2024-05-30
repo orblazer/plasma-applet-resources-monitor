@@ -36,23 +36,34 @@ ListModel {
             }
             let deviceName = data(topLeft, Qt.Value);
 
-            // Special case for non NVIDIA graphic card (eg. in AMD the name look like "Navi 21 [Radeon RX 6950 XT]")
-            const nameMatch = deviceName.match(gpuNameRegex);
-            if (nameMatch) {
-                if (nameMatch[1].startsWith("Radeon")) {
-                    deviceName = "AMD ";
-                } else {
-                    deviceName = "Intel ";
+            // Prevent case when name is not retrieved
+            if (deviceName === "") {
+                cache.nameRetry += 1;
+                _cache.set(sensorId, cache);
+                if (cache.nameRetry < 3) {
+                    return;
                 }
-                deviceName += nameMatch[1];
-            }
 
+                // Fallback to unknown name
+                deviceName = cache.device + ": UNKNOWN";
+            } else {
+                // Special case for non NVIDIA graphic card (eg. in AMD the name look like "Navi 21 [Radeon RX 6950 XT]")
+                const nameMatch = deviceName.match(gpuNameRegex);
+                if (nameMatch) {
+                    if (nameMatch[1].startsWith("Radeon")) {
+                        deviceName = "AMD ";
+                    } else {
+                        deviceName = "Intel ";
+                    }
+                    deviceName += nameMatch[1];
+                }
+            }
             root.set(cache.index, GraphFns.getDisplayInfo("gpu", i18nc, cache.section, cache.device, deviceName));
 
             // Clean things
             _cache.delete(sensorId);
             if (_cache.size === 0) {
-                enabled = false
+                enabled = false;
             }
         }
 
@@ -60,7 +71,8 @@ ListModel {
             _cache.set(sensorId, {
                 index,
                 section,
-                device
+                device,
+                nameRetry: 0
             });
             sensors.push(sensorId);
             sensors = sensors; // hack to update sensors
@@ -133,7 +145,6 @@ ListModel {
                 } else if (type === "gpu") {
                     // GPU name need to be fetched by sensor
                     root._gpuNameFetcher.fetch(sensorId, i + _lastCount, section, device);
-                    return;
                 } else {
                     deviceName = device;
                 }
