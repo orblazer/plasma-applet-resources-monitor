@@ -114,6 +114,12 @@ ListModel {
 
         onRowsInserted: (parent, first, last) => {
             for (let i = first; i <= last; ++i) {
+                const rowIndex = i + _lastCount;
+                // Prevent index out of range
+                if (rowIndex > root.count) {
+                    return;
+                }
+
                 // Retrieve sensor info
                 const index = root._privateModel.index(i, 0);
                 const sensorId = data(index, Sensors.SensorTreeModel.SensorId);
