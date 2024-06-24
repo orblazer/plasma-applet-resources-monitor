@@ -15,7 +15,7 @@ Item {
         let value;
         if (_sensor.enabled) {
             value = _sensor.getValue();
-            if (value !== null) {
+            if (value != null) {
                 root.value = value;
                 return;
             } else if (_failedAttempt++ > 5) {
@@ -59,6 +59,8 @@ Item {
             connectedSources.length = 0;
             if (data['exit code'] > 0) {
                 if (data.stderr === "Specified sensor(s) not found!\n") {
+                    return;
+                } else if (data.stderr === "/bin/sh: line 1: sensors: command not found\n") {
                     return;
                 }
                 print(data.stderr);
