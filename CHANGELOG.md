@@ -1,3 +1,13 @@
+# [3.0.0](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v3.0.0-rc.3...v3.0.0) (2024-07-22)
+
+
+### Bug Fixes
+
+* **config:** allow easier fix gpu index ([675e308](https://github.com/orblazer/plasma-applet-resources-monitor/commit/675e3082deb912a1aa80fa3313657e572902f267))
+* **graph:** prevent cpu temp error ([616c86e](https://github.com/orblazer/plasma-applet-resources-monitor/commit/616c86edbfcf86089585f2123cc924ede0c950ed)), closes [#88](https://github.com/orblazer/plasma-applet-resources-monitor/issues/88)
+
+
+
 # [3.0.0-rc.3](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v3.0.0-rc.2...v3.0.0-rc.3) (2024-05-30)
 
 
