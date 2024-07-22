@@ -76,8 +76,7 @@ KCM.ScrollViewKCM {
         reuseItems: true
 
         //? Use differrent array due to QML issue with deep object conversion
-        model: ListModel {
-        }
+        model: ListModel {}
 
         delegate: Item {
             // External item required to make Kirigami.ListItemDragHandle work
@@ -91,7 +90,8 @@ KCM.ScrollViewKCM {
                         icon: "unknown",
                         fallbackIcon: "unknown",
                         section: "unknown",
-                        device: model.device ?? model.type
+                        device: model.device ?? model.type,
+                        fixable: model.type === "gpu" && model.device !== "all"
                     };
                 }
                 return info;
@@ -135,6 +135,17 @@ KCM.ScrollViewKCM {
                     }
 
                     // Actions
+                    QQC2.Button {
+                        id: fixButton
+                        visible: graphInfo.fixable ?? false
+                        text: i18n("Fix...")
+                        QQC2.ToolTip.text: i18nc("@info:tooltip", "Edit \"%1\" graph", name.text)
+                        QQC2.ToolTip.visible: hovered
+
+                        onClicked: {
+                            fixDialog.openFor(index, name.text);
+                        }
+                    }
                     DelegateButton {
                         icon.name: "edit-entry-symbolic"
                         text: i18nc("@info:tooltip", "Edit \"%1\" graph", name.text)
@@ -303,6 +314,57 @@ KCM.ScrollViewKCM {
                     }
                 }
             }
+        }
+    }
+
+    // Fix dialog
+    Kirigami.Dialog {
+        id: fixDialog
+        width: graphsView.width - Kirigami.Units.gridUnit * 4
+        height: graphsView.height
+
+        title: i18nc("@title:window", "Edit graph: %1", graphName)
+        standardButtons: Kirigami.Dialog.Ok | Kirigami.Dialog.Cancel
+
+        property int graphIndex
+        property string graphName
+
+        onAccepted: {
+            const newGraph = graphs[graphIndex];
+            newGraph.device = newGpuIndexes.currentValue;
+            graphs[graphIndex] = newGraph;
+            graphsView.model.set(graphIndex, {
+                type: "gpu",
+                device: newGraph.device
+            });
+            saveGraphs();
+        }
+
+        Kirigami.FormLayout {
+            QQC2.ComboBox {
+                id: newGpuIndexes
+                Layout.fillWidth: true
+                Kirigami.FormData.label: i18n("New GPU:")
+
+                textRole: "name"
+                valueRole: "device"
+            }
+        }
+
+        /**
+         * Open edit modal for specific graph
+         * @param {number} index The graph index
+         * @param {string} name The graph name
+         */
+        function openFor(index, name) {
+            if (typeof newGpuIndexes.model === "undefined") {
+                newGpuIndexes.model = availableGraphs.findAllType("gpu", true);
+            }
+
+            // Load settings page
+            graphIndex = index;
+            graphName = name;
+            fixDialog.open();
         }
     }
 

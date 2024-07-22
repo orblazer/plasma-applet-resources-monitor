@@ -23,6 +23,20 @@ ListModel {
         return undefined;
     }
 
+    function findAllType(type, excludeAllDevice) {
+        const results = [];
+        for (let i = 0; i < count; i++) {
+            const item = get(i);
+            if (item.type !== type) {
+                continue;
+            } else if (excludeAllDevice && item.device === "all") {
+                continue;
+            }
+            results.push(item);
+        }
+        return results;
+    }
+
     // Sensor for retrieve GPU name
     property var _gpuNameFetcher: Sensors.SensorDataModel {
         readonly property var gpuNameRegex: /.*\[(.*)\]/

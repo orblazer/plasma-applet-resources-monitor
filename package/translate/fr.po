@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: resources-monitor\n"
 "Report-Msgid-Bugs-To: https://github.com/orblazer/plasma-applet-resources-monitor\n"
-"POT-Creation-Date: 2024-05-24 14:54+0200\n"
-"PO-Revision-Date: 2024-04-24 14:55+0200\n"
+"POT-Creation-Date: 2024-07-22 14:04+0200\n"
+"PO-Revision-Date: 2024-07-22 14:04+0200\n"
 "Last-Translator: orblazer\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -48,27 +48,27 @@ msgctxt "Bytes per second unit symbol"
 msgid "iB/s"
 msgstr "io/s"
 
-#: ../contents/ui/code/graphs.js:196
+#: ../contents/ui/code/graphs.js:201
 msgctxt "Chart name"
 msgid "CPU"
 msgstr "CPU"
 
-#: ../contents/ui/code/graphs.js:201
+#: ../contents/ui/code/graphs.js:206
 msgctxt "Chart name"
 msgid "Memory"
 msgstr "Mémoire"
 
-#: ../contents/ui/code/graphs.js:206
+#: ../contents/ui/code/graphs.js:211
 msgctxt "Chart name"
 msgid "GPU [%1]"
 msgstr "GPU [%1]"
 
-#: ../contents/ui/code/graphs.js:211
+#: ../contents/ui/code/graphs.js:216
 msgctxt "Chart name"
 msgid "Network"
 msgstr "Réseau"
 
-#: ../contents/ui/code/graphs.js:216
+#: ../contents/ui/code/graphs.js:221
 msgctxt "Chart name"
 msgid "Disk I/O [%1]"
 msgstr "Disque E/S [%1]"
@@ -123,7 +123,7 @@ msgctxt "Graph label"
 msgid "Sending"
 msgstr "Envoi"
 
-#: ../contents/ui/config/AvailableGraphProxy.qml:132
+#: ../contents/ui/config/AvailableGraphProxy.qml:164
 msgid "All"
 msgstr "Tous"
 
@@ -257,55 +257,63 @@ msgstr "Critique :"
 msgid "The graphs as been upgraded to new version, please save it."
 msgstr "Les graphiques ont été mis à jour, veuillez les sauvegarder."
 
-#: ../contents/ui/config/ConfigGraph.qml:140
+#: ../contents/ui/config/ConfigGraph.qml:141
+msgid "Fix..."
+msgstr "Fixer..."
+
+#: ../contents/ui/config/ConfigGraph.qml:142 ../contents/ui/config/ConfigGraph.qml:151
 msgctxt "@info:tooltip"
 msgid "Edit \"%1\" graph"
 msgstr "Modifier le graphique \"%1\""
 
-#: ../contents/ui/config/ConfigGraph.qml:148
+#: ../contents/ui/config/ConfigGraph.qml:159
 msgctxt "@info:tooltip"
 msgid "Delete \"%1\" graph"
 msgstr "Supprimer le graphique \"%1\""
 
-#: ../contents/ui/config/ConfigGraph.qml:174
+#: ../contents/ui/config/ConfigGraph.qml:185
 msgid "No graph selected"
 msgstr "Aucun graphique sélectionné"
 
-#: ../contents/ui/config/ConfigGraph.qml:175
+#: ../contents/ui/config/ConfigGraph.qml:186
 msgctxt "@info"
 msgid "Click <i>%1</i> to get started"
 msgstr "Cliquez sur <i>%1</i> pour commencer"
 
-#: ../contents/ui/config/ConfigGraph.qml:187
+#: ../contents/ui/config/ConfigGraph.qml:198
 msgid "Add graph…"
 msgstr "Ajouter un graphique..."
 
-#: ../contents/ui/config/ConfigGraph.qml:199
+#: ../contents/ui/config/ConfigGraph.qml:210 ../contents/ui/config/ConfigGraph.qml:326
 msgctxt "@title:window"
 msgid "Edit graph: %1"
 msgstr "Édition du graphique : %1"
 
-#: ../contents/ui/config/ConfigGraph.qml:251
+#: ../contents/ui/config/ConfigGraph.qml:262
 msgctxt "@title:window"
 msgid "Add graph"
 msgstr "Ajout d'un graphique"
 
-#: ../contents/ui/config/ConfigGraph.qml:296
+#: ../contents/ui/config/ConfigGraph.qml:307
 msgctxt "@info:tooltip"
 msgid "Add"
 msgstr "Ajouter"
 
-#: ../contents/ui/config/ConfigGraph.qml:316
+#: ../contents/ui/config/ConfigGraph.qml:347
+msgid "New GPU:"
+msgstr "Nouveau GPU :"
+
+#: ../contents/ui/config/ConfigGraph.qml:378
 msgctxt "@title:window"
 msgid "Remove graph"
 msgstr "Supression du graphique"
 
-#: ../contents/ui/config/ConfigGraph.qml:317
+#: ../contents/ui/config/ConfigGraph.qml:379
 msgctxt "%1 is an graph name"
 msgid "Do you want remove graph \"%1\" ?"
 msgstr "Voulez-vous supprimer le graphique \"%1\" ?"
 
-#: ../contents/ui/config/ConfigGraph.qml:322
+#: ../contents/ui/config/ConfigGraph.qml:384
 msgid "Delete"
 msgstr "Supprimer"
 
