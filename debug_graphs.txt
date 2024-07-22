@@ -5,7 +5,7 @@
 [{"_v":2,"type":"memory","colors":["highlightColor","negativeTextColor"],"sensorsType":["physical","swap"],"thresholds":[70,90]}]
 
 # GPU
-[{"_v":2,"type":"gpu","colors":["highlightColor","positiveTextColor","textColor"],"sensorsType":["memory",true],"thresholds":[70,90],"device":"gpu1"}]
+[{"_v":2,"type":"gpu","colors":["highlightColor","positiveTextColor","textColor"],"sensorsType":["memory",true],"thresholds":[80,90],"device":"gpu1"}]
 
 # Network
 [{"_v":2,"type":"network","colors":["highlightColor","positiveTextColor"],"sensorsType":[false,"kibibyte"],"uplimits":[100000,100000],"ignoredInterfaces":[],"icons":true}]
@@ -14,4 +14,4 @@
 [{"_v":2,"type":"disk","colors":["highlightColor","positiveTextColor"],"sensorsType":[false],"uplimits":[200000,200000],"device":"all","icons":true}]
 
 # Full
-[{"_v":2,"type":"cpu","colors":["highlightColor","textColor","textColor"],"sensorsType":["usage","classic",true],"thresholds":[85,105],"clockAggregator":"average","eCoresCount":0},{"_v":2,"type":"memory","colors":["highlightColor","negativeTextColor"],"sensorsType":["physical","swap"],"thresholds":[70,90]},{"_v":2,"type":"gpu","colors":["highlightColor","positiveTextColor","textColor"],"sensorsType":["memory",true],"thresholds":[70,90],"device":"gpu1"},{"_v":2,"type":"network","colors":["highlightColor","positiveTextColor"],"sensorsType":[false,"kibibyte"],"uplimits":[100000,100000],"ignoredInterfaces":[],"icons":true},{"_v":2,"type":"disk","colors":["highlightColor","positiveTextColor"],"sensorsType":[false],"uplimits":[200000,200000],"device":"all","icons":true}]
+[{"_v":2,"type":"cpu","colors":["highlightColor","textColor","textColor"],"sensorsType":["usage","classic",true],"thresholds":[85,105],"clockAggregator":"average","eCoresCount":0},{"_v":2,"type":"memory","colors":["highlightColor","negativeTextColor"],"sensorsType":["physical","swap"],"thresholds":[70,90]},{"_v":2,"type":"gpu","colors":["highlightColor","positiveTextColor","textColor"],"sensorsType":["memory",true],"thresholds":[80,90],"device":"gpu1"},{"_v":2,"type":"network","colors":["highlightColor","positiveTextColor"],"sensorsType":[false,"kibibyte"],"uplimits":[100000,100000],"ignoredInterfaces":[],"icons":true},{"_v":2,"type":"disk","colors":["highlightColor","positiveTextColor"],"sensorsType":[false],"uplimits":[200000,200000],"device":"all","icons":true}]

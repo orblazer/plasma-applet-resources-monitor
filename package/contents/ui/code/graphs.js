@@ -144,7 +144,7 @@ function create(type, device) {
     case "gpu":
       item.colors = ["highlightColor", "positiveTextColor", "textColor"];
       item.sensorsType = ["memory", false];
-      item.thresholds = [70, 90];
+      item.thresholds = [80, 90];
       break;
     case "network":
       item.colors = ["highlightColor", "positiveTextColor"];
