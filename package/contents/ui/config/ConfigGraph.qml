@@ -61,6 +61,16 @@ KCM.ScrollViewKCM {
     // Retrieve available graphs
     AvailableGraphProxy {
         id: availableGraphs
+
+        onDataChanged: index => {
+            const graph = get(index.row)
+            for (let i = 0; i < graphsView.count; i++) {
+                if (graphsView.model.get(i).device === graph.device) {
+                    graphsView.itemAtIndex(i).update(graph)
+                    return;
+                }
+            }
+        }
     }
 
     // Content
@@ -96,6 +106,11 @@ KCM.ScrollViewKCM {
                 }
                 return info;
             }
+            function update(newInfo) {
+                icon.source = newInfo.icon
+                icon.fallback = newInfo.fallbackIcon
+                name.text = newInfo.name
+            }
 
             width: graphsView.width
             implicitHeight: graphItem.implicitHeight
@@ -122,6 +137,7 @@ KCM.ScrollViewKCM {
 
                     // Content
                     Kirigami.Icon {
+                        id: icon
                         source: graphInfo.icon
                         fallback: graphInfo.fallbackIcon
                         width: Kirigami.Units.iconSizes.smallMedium
