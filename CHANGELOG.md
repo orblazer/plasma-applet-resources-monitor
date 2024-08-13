@@ -1,3 +1,12 @@
+## [3.0.1](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v3.0.0...v3.0.1) (2024-08-13)
+
+
+### Bug Fixes
+
+* **config:** change way to retrieve graphs ([f06bb1e](https://github.com/orblazer/plasma-applet-resources-monitor/commit/f06bb1e5e9e96516aeb48868546651505094e3b9)), closes [#90](https://github.com/orblazer/plasma-applet-resources-monitor/issues/90)
+
+
+
 # [3.0.0](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v3.0.0-rc.3...v3.0.0) (2024-07-22)
 
 
