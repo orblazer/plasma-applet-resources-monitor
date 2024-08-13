@@ -1,16 +1,13 @@
 import QtQuick
-import org.kde.kitemmodels as KItemModels
 import org.kde.ksysguard.sensors as Sensors
 import "../code/graphs.js" as GraphFns
 
 ListModel {
     id: root
-    property int _lastCount: 0
 
     Component.onCompleted: {
         // Add constant graphs (GPU and disks added with "_privateModel")
         ["cpu", "memory", "network"].forEach(type => append(GraphFns.getDisplayInfo(type, i18nc)));
-        _lastCount = count;
     }
 
     function find(type, device) {
@@ -93,91 +90,140 @@ ListModel {
         }
     }
 
-    property var _privateModel: KItemModels.KSortFilterProxyModel {
-        readonly property var sensorsRegex: /^(gpu|disk)\/([a-z0-9\-]+)\/(name|used|usage)?$/
-
-        sourceModel: KItemModels.KDescendantsProxyModel {
-            model: Sensors.SensorTreeModel {}
-        }
-
-        filterRowCallback: (row, parent) => {
-            const sensorId = sourceModel.data(sourceModel.index(row, 0), Sensors.SensorTreeModel.SensorId);
-            const matchs = sensorId.match(sensorsRegex);
-            if (matchs) {
-                switch (matchs[1]) {
-                case "cpu":
-                    return matchs[2] === "all" && matchs[3] === "name";
-                case "memory":
-                    return matchs[2] === "physical";
-                case "network":
-                    return matchs[2] === "all";
-                case "gpu":
-                    if (matchs[2] === "all") {
-                        return matchs[3] === "usage";
-                    }
-                    return matchs[3] === "name";
-                case "disk":
-                    if (matchs[2] === "all") {
-                        return matchs[3] === "used";
-                    }
-                    return matchs[3] === "name";
-                }
-            }
-            return false;
-        }
+    property var _privateModel: Sensors.SensorTreeModel {
+        property var foundedSensors: ({})
 
         onRowsInserted: (parent, first, last) => {
             for (let i = first; i <= last; ++i) {
-                const rowIndex = i + _lastCount;
-                // Prevent index out of range
-                if (rowIndex > root.count) {
-                    return;
+                const modelIndex = index(i, 0, parent);
+                const sensorId = data(modelIndex, Sensors.SensorTreeModel.SensorId);
+                const segments = sensorId.split("/");
+
+                // Skip if is not sensor
+                if (segments.length != 3) {
+                    break;
                 }
 
-                // Retrieve sensor info
-                const index = root._privateModel.index(i, 0);
-                const sensorId = data(index, Sensors.SensorTreeModel.SensorId);
-                let deviceName = data(index, Qt.Value);
-                const [_, type, device] = sensorId.match(sensorsRegex);
+                // Check if sensor is wanted
+                if (test(segments)) {
+                    foundedSensors[sensorId] = {
+                        index: modelIndex,
+                        type: segments[0],
+                        device: segments[1]
+                    };
+                }
+            }
+        }
 
-                // Prevent line when name is not yet retrieved
-                if (deviceName === "" || deviceName === "name") {
-                    return;
+        onModelReset: () => {
+            // Check if disks have duplicated name and put the display name in sensors list
+            const disksNameCount = {};
+            for (const [sensorId, sensorData] of Object.entries(foundedSensors)) {
+                if (sensorData.type === "disk" && sensorData.device !== "all") {
+                    const deviceName = data(sensorData.index.parent, Qt.DisplayRole);
+                    disksNameCount[deviceName] = (disksNameCount[deviceName] ?? 0) + 1;
+                    foundedSensors[sensorId].deviceName = deviceName;
+                }
+            }
+
+            // Sort sensors to group by type and sort devices
+            const sensors = Object.entries(foundedSensors).sort((a, b) => {
+                if (a[1].type === b[1].type) {
+                    // Put "all" device in first position
+                    if (a[1].device === "all" && b[1].device !== "all") {
+                        return -1;
+                    } else if (a[1].device !== "all" && b[1].device === "all") {
+                        return 1;
+                    }
+
+                    // Special case for disks, this put NVMEs first, then disk, then partions, and sort on device name
+                    if (a[1].type === "disk") {
+                        if (a[1].device.startsWith("nvme") && !b[1].device.startsWith("nvme")) {
+                            return -1;
+                        } else if (!a[1].device.startsWith("nvme") && b[1].device.startsWith("nvme")) {
+                            return 1;
+                        }
+                        if (a[1].device.startsWith("sd") && !b[1].device.startsWith("sd")) {
+                            return -1;
+                        } else if (!a[1].device.startsWith("sd") && b[1].device.startsWith("sd")) {
+                            return 1;
+                        }
+
+                        // Sort devices name
+                        if (a[1].deviceName < b[1].deviceName) {
+                            return -1;
+                        } else if (a[1].deviceName > b[1].deviceName) {
+                            return 1;
+                        }
+                    }
+
+                    // Sort devices
+                    if (a[1].device < b[1].device) {
+                        return -1;
+                    } else if (a[1].device > b[1].device) {
+                        return 1;
+                    }
+                } else if (a[1].type === "gpu" && b[1].type !== "gpu") {
+                    return -1;
+                } else if (a[1].type !== "gpu" && b[1].type === "gpu") {
+                    return 1;
                 }
 
+                return 0;
+            });
+
+            // Process sensors list
+            for (const [sensorId, sensorData] of sensors) {
                 // Retrieve section name
-                let categoryIndex = sourceModel.mapToSource(mapToSource(index));
+                let categoryIndex = sensorData.index;
                 let subcategoryIndex = null;
                 while (categoryIndex.parent.valid) {
                     subcategoryIndex = categoryIndex;
                     categoryIndex = categoryIndex.parent;
                 }
-                const section = sourceModel.model.data(categoryIndex, Qt.DisplayRole);
+                const section = data(categoryIndex, Qt.DisplayRole);
 
-                // Prevent line when section name is not yet retrieved
-                if (section === type) {
-                    return;
-                }
-
-                // Retrieve right device name
-                if (device === "all") {
+                // Retrieve device name
+                let deviceName = sensorData.device;
+                if (sensorData.device === "all") {
                     deviceName = i18n("All");
-                } else if (type === "gpu") {
-                    // GPU name need to be fetched by sensor
-                    root._gpuNameFetcher.fetch(sensorId, i + _lastCount, section, device);
-                } else {
-                    deviceName = device;
+                } else if (sensorData.type === "disk") {
+                    deviceName = sensorData.deviceName;
+
+                    // Add partion ID if name is duplicated
+                    if (disksNameCount[deviceName] > 1) {
+                        deviceName += ` (${sensorData.device})`;
+                    }
                 }
 
                 // Add graphs
-                root.set(i + _lastCount, GraphFns.getDisplayInfo(type, i18nc, section, device, deviceName));
+                root.append(GraphFns.getDisplayInfo(sensorData.type, i18nc, section, sensorData.device, deviceName));
+
+                // Query GPU name from sensor
+                if (sensorData.type === "gpu" && sensorData.device !== "all") {
+                    root._gpuNameFetcher.fetch(sensorId, root.count - 1, section, sensorData.device);
+                }
             }
         }
 
-        onRowsRemoved: (parent, first, last) => {
-            for (var i = last; i >= first; --i) {
-                root.remove(i + _lastCount);
+        function test([type, device, sensor]) {
+            // Skip "all" patern sensors
+            if (device === "(?!all).*") {
+                return false;
             }
+            switch (type) {
+            case "gpu":
+                if (device === "all") {
+                    return sensor === "usage";
+                }
+                return sensor === "name";
+            case "disk":
+                if (device === "all") {
+                    return sensor === "used";
+                }
+                return sensor === "name";
+            }
+            return false;
         }
     }
 }
