@@ -8,7 +8,7 @@ RMBaseGraph.TwoSensorsGraph {
     objectName: "DiskGraph"
 
     // Settings
-    property string device: "all" // Device id (eg: sda, sdc) | Could be "all"
+    property string device: "all" // Device ID (e.g.: "sda" or "sdc"); could be "all"
     property bool icons: false
     readonly property var unit: Formatter.getUnitInfo("kibibyte", i18nc)
 
@@ -27,9 +27,9 @@ RMBaseGraph.TwoSensorsGraph {
 
     // Graph options
     realUplimits: [uplimits[0] * unit.multiplier, uplimits[1] * unit.multiplier]
-    sensorsModel.sensors: sensorsType[0] ? [`disk/${device}/read`, `disk/${device}/write`] : [`disk/${device}/write`, `disk/${device}/read`]
+    sensorsModel.sensors: sensorsType[0] ? [`disk/${device}/write`, `disk/${device}/read`] : [`disk/${device}/read`, `disk/${device}/write`]
 
-    // Override methods, for handle icons
+    // Override methods to handle icons
     _formatValue: (index, value) => {
         // Show icons
         let icon = ""
@@ -37,7 +37,7 @@ RMBaseGraph.TwoSensorsGraph {
             if (index === readIndex) {
                 icon = " " + i18nc("Disk graph icon : Read", " R")
             } else if (index == writeIndex) {
-                icon = " " + i18nc("Disk graph icon : Write", "W")
+                icon = " " + i18nc("Disk graph icon : Write", " W")
             }
         }
 
