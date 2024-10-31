@@ -46,6 +46,9 @@
         <entry name="graphFillOpacity" type="Int">
             <default>25</default>
         </entry>
+        <entry name="thirdLineToLeftTopCorner" type="Bool">
+            <default>false</default>
+        </entry>
 
         <entry name="enableShadows" type="Bool">
             <default>true</default>

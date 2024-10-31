@@ -1,4 +1,5 @@
 import QtQuick
+import org.kde.plasma.plasmoid
 import org.kde.ksysguard.sensors as Sensors
 import org.kde.ksysguard.formatter as Formatter
 import org.kde.plasma.plasma5support as Plasma5Support
@@ -27,7 +28,18 @@ Item {
     }
 
     function getFormattedValue() {
-        return Formatter.Formatter.formatValueShowNull(value, 1000 /* Formatter.Unit.UnitCelsius */);
+        // return Formatter.Formatter.formatValueWithPrecision(value, 1000 /* Formatter.Unit.UnitCelsius */,
+        //         Plasmoid.configuration.thirdLineToLeftTopCorner ? 0 : 1);
+        // // There should be `QString KSysGuard::FormatterWrapper::formatValueWithPrecision`, according to https://api.kde.org/plasma/libksysguard/html/classKSysGuard_1_1FormatterWrapper.html,
+        // // However in my environment this function does not exists. So, as workaround, I manually implements the precision control as below.
+
+        let result = Formatter.Formatter.formatValueShowNull(value, 1000 /* Formatter.Unit.UnitCelsius */);
+        if (Plasmoid.configuration.thirdLineToLeftTopCorner) {
+            let [_, resultNumber, resultUnit] = result.match(/(-?[\d.]+)(.*)/)
+            resultNumber = Number(resultNumber).toFixed(0)
+            result = resultNumber + resultUnit
+        }
+        return result
     }
 
     readonly property var _sensor: Sensors.Sensor {

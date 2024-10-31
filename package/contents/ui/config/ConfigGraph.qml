@@ -27,6 +27,7 @@ KCM.ScrollViewKCM {
     property var cfg_graphHeight
     property var cfg_graphSpacing
     property var cfg_graphFillOpacity
+    property var cfg_thirdLineToLeftTopCorner
     property var cfg_enableShadows
     property var cfg_fontScale
     property var cfg_placement

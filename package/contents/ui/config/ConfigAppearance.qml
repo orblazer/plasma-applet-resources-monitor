@@ -20,6 +20,7 @@ KCM.AbstractKCM {
     property alias cfg_graphHeight: graphHeight.value
     property alias cfg_graphSpacing: graphSpacing.value
     property alias cfg_graphFillOpacity: graphFillOpacity.value
+    property alias cfg_thirdLineToLeftTopCorner: thirdLineToLeftTopCorner.checked
 
     // Text
     property alias cfg_enableShadows: enableShadows.checked
@@ -159,6 +160,10 @@ KCM.AbstractKCM {
                     from: 0
                     to: 100
                     suffix: "%"
+                }
+                QQC2.CheckBox {
+                    id: thirdLineToLeftTopCorner
+                    text: i18n("Show temperature at the top-left corner?")
                 }
             }
 
