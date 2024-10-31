@@ -28,10 +28,12 @@
     "Name[fr]": "Moniteur des ressources",
     "Name[nl]": "Systeembronmonitor",
     "Name[de]": "Ressourcenmonitor",
+    "Name[zh]": "系统资源监视器",
     "Description": "Plasmoid for monitoring CPU, memory, network traffic, GPUs and disks IO.",
     "Description[fr]": "Plasmoid pour surveiller l'utilisation du CPU, de la mémoire, du traffic réseau, des carte graphiques et des disque dur.",
     "Description[nl]": "[TODO]",
     "Description[de]": "[TODO]",
+    "Description[zh]": "用于监控CPU、内存、网络、GPU、磁盘读写的小部件",
     "Website": "https://github.com/orblazer/plasma-applet-resources-monitor",
     "BugReportUrl": "https://github.com/orblazer/plasma-applet-resources-monitor/issues"
   },
