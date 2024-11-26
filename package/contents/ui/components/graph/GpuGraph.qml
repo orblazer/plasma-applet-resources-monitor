@@ -20,7 +20,7 @@ RMBaseGraph.TwoSensorsGraph {
         thresholdIndex: 2
         thresholds: root.thresholds // No change needed, simply map it
 
-        hints: ["GPU", (secondChartVisible ? "VRAM" : ""), (showTemp ? i18nc("Graph label", "Temp.") : "")]
+        hints: ["GPU", (secondChartVisible ? i18n("VRAM") : ""), (showTemp ? i18nc("Graph label", "Temp.") : "")]
     }
 
     // Graph options
