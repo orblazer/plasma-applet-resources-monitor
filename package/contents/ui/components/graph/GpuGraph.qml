@@ -20,7 +20,7 @@ RMBaseGraph.TwoSensorsGraph {
     textContainer {
         valueColors: [undefined, undefined, root.colors[2]]
 
-        hints: ["GPU", (secondChartVisible ? "VRAM" : ""), (showTemp ? i18nc("Graph label", "Temp.") : "")]
+        hints: ["GPU", (secondChartVisible ? i18n("VRAM") : ""), (showTemp ? i18nc("Graph label", "Temp.") : "")]
     }
 
     // Graph options
