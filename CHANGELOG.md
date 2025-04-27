@@ -1,3 +1,14 @@
+## [3.0.2](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v3.0.1...v3.0.2) (2025-04-27)
+
+
+### Bug Fixes
+
+* **config:** add scrollbar in dialog ([6b0d135](https://github.com/orblazer/plasma-applet-resources-monitor/commit/6b0d135bd83da407f9c9f84d98ecc8dc4c4d5ff9)), closes [#98](https://github.com/orblazer/plasma-applet-resources-monitor/issues/98)
+* **config:** update gpu name when name is retrieved ([47cd7e2](https://github.com/orblazer/plasma-applet-resources-monitor/commit/47cd7e21b9727f756aa25df9cc416ed0571e3c4b))
+* **graph:** right order for disk sensor ([#92](https://github.com/orblazer/plasma-applet-resources-monitor/issues/92)) ([95a9472](https://github.com/orblazer/plasma-applet-resources-monitor/commit/95a9472aeae1305e01cecf9db1647baa39636e31))
+
+
+
 ## [3.0.1](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v3.0.0...v3.0.1) (2024-08-13)
 
 
