@@ -17,7 +17,7 @@ RMBaseGraph.TwoSensorsGraph {
         valueColors: [undefined, root.showSwap ? root.colors[1] : undefined, undefined]
         labelsVisibleWhenZero: [true, false, true]
 
-        hints: ["RAM", root.showSwap ? "Swap" : (sensorsType[1] === "memory-percent" ? i18nc("Graph label", "Percent.") : ""), ""]
+        hints: [i18n("RAM"), root.showSwap ? i18n("Swap") : (sensorsType[1] === "memory-percent" ? i18nc("Graph label", "Percent.") : ""), ""]
     }
 
     // Graph options

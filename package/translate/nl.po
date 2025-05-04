@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: resources-monitor\n"
 "Report-Msgid-Bugs-To: https://github.com/orblazer/plasma-applet-resources-monitor\n"
-"POT-Creation-Date: 2024-07-22 14:04+0200\n"
+"POT-Creation-Date: 2024-11-26 20:57+0800\n"
 "PO-Revision-Date: 2024-07-22 14:08+0200\n"
 "Last-Translator: orblazer\n"
 "Language: nl\n"
@@ -103,10 +103,22 @@ msgctxt "Disk graph icon : Write"
 msgid "W"
 msgstr "W"
 
+#: ../contents/ui/components/graph/GpuGraph.qml:23
+msgid "VRAM"
+msgstr ""
+
 #: ../contents/ui/components/graph/GpuGraph.qml:40 ../contents/ui/components/graph/MemoryGraph.qml:43
 msgctxt "Percent unit"
 msgid "%1%"
 msgstr "%1%"
+
+#: ../contents/ui/components/graph/MemoryGraph.qml:20
+msgid "RAM"
+msgstr ""
+
+#: ../contents/ui/components/graph/MemoryGraph.qml:20 ../contents/ui/config/dialog/EditMemory.qml:57
+msgid "Swap"
+msgstr "Wisselgeheugen"
 
 #: ../contents/ui/components/graph/MemoryGraph.qml:20
 msgctxt "Graph label"
@@ -123,7 +135,7 @@ msgctxt "Graph label"
 msgid "Sending"
 msgstr "Verstuurd"
 
-#: ../contents/ui/config/AvailableGraphProxy.qml:164
+#: ../contents/ui/config/AvailableGraphProxy.qml:189
 msgid "All"
 msgstr "Alles"
 
@@ -253,67 +265,67 @@ msgstr "Kies de tekstkleur"
 msgid "Critical:"
 msgstr "Kritisch:"
 
-#: ../contents/ui/config/ConfigGraph.qml:70
+#: ../contents/ui/config/ConfigGraph.qml:80
 msgid "The graphs as been upgraded to new version, please save it."
 msgstr "De grafiek is bijgewerkt naar een nieuwe versie. Bewaar de versie."
 
-#: ../contents/ui/config/ConfigGraph.qml:141
+#: ../contents/ui/config/ConfigGraph.qml:157
 msgid "Fix..."
 msgstr "Fix..."
 
-#: ../contents/ui/config/ConfigGraph.qml:142 ../contents/ui/config/ConfigGraph.qml:151
+#: ../contents/ui/config/ConfigGraph.qml:158 ../contents/ui/config/ConfigGraph.qml:167
 msgctxt "@info:tooltip"
 msgid "Edit \"%1\" graph"
 msgstr "‘%1’ bewerken"
 
-#: ../contents/ui/config/ConfigGraph.qml:159
+#: ../contents/ui/config/ConfigGraph.qml:175
 msgctxt "@info:tooltip"
 msgid "Delete \"%1\" graph"
 msgstr "‘%1’ verwijderen"
 
-#: ../contents/ui/config/ConfigGraph.qml:185
+#: ../contents/ui/config/ConfigGraph.qml:201
 msgid "No graph selected"
 msgstr "Er is geen grafiek gekozen"
 
-#: ../contents/ui/config/ConfigGraph.qml:186
+#: ../contents/ui/config/ConfigGraph.qml:202
 msgctxt "@info"
 msgid "Click <i>%1</i> to get started"
 msgstr "Klik op <i>%1</i> om aan de slag te gaan"
 
-#: ../contents/ui/config/ConfigGraph.qml:198
+#: ../contents/ui/config/ConfigGraph.qml:214
 msgid "Add graph…"
 msgstr "Grafiek toevoegen…"
 
-#: ../contents/ui/config/ConfigGraph.qml:210 ../contents/ui/config/ConfigGraph.qml:326
+#: ../contents/ui/config/ConfigGraph.qml:226 ../contents/ui/config/ConfigGraph.qml:342
 msgctxt "@title:window"
 msgid "Edit graph: %1"
 msgstr "Grafiek bewerken: ‘%1’"
 
-#: ../contents/ui/config/ConfigGraph.qml:262
+#: ../contents/ui/config/ConfigGraph.qml:278
 msgctxt "@title:window"
 msgid "Add graph"
 msgstr "Grafiek toevoegen"
 
-#: ../contents/ui/config/ConfigGraph.qml:307
+#: ../contents/ui/config/ConfigGraph.qml:323
 msgctxt "@info:tooltip"
 msgid "Add"
 msgstr "Toevoegen"
 
-#: ../contents/ui/config/ConfigGraph.qml:347
+#: ../contents/ui/config/ConfigGraph.qml:363
 msgid "New GPU:"
 msgstr "Nieuwe GPU:"
 
-#: ../contents/ui/config/ConfigGraph.qml:378
+#: ../contents/ui/config/ConfigGraph.qml:394
 msgctxt "@title:window"
 msgid "Remove graph"
 msgstr "Grafiek verwijderen"
 
-#: ../contents/ui/config/ConfigGraph.qml:379
+#: ../contents/ui/config/ConfigGraph.qml:395
 msgctxt "%1 is an graph name"
 msgid "Do you want remove graph \"%1\" ?"
 msgstr "Weet je zeker dat je ‘%1’ wilt verwijderen?"
 
-#: ../contents/ui/config/ConfigGraph.qml:384
+#: ../contents/ui/config/ConfigGraph.qml:400
 msgid "Delete"
 msgstr "Verwĳderen"
 
@@ -582,10 +594,6 @@ msgstr "Programmageheugen (in %)"
 #: ../contents/ui/config/dialog/EditMemory.qml:47
 msgid "Second line:"
 msgstr "Tweede regel:"
-
-#: ../contents/ui/config/dialog/EditMemory.qml:57
-msgid "Swap"
-msgstr "Wisselgeheugen"
 
 #: ../contents/ui/config/dialog/EditMemory.qml:61
 msgid "Swap (in %)"
