@@ -2,8 +2,6 @@
 
 Plasmoid for monitoring CPU, memory, network traffic, GPUs and disks IO.
 
-> ⚠️ This branch is for unreleased Plasma 6 version.
->
 > For the Plasma 5 version please check at [Plasma/5.27](https://github.com/orblazer/plasma-applet-resources-monitor/tree/Plasma/5.27) branch
 
 ## Why this project ?
