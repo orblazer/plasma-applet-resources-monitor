@@ -300,7 +300,7 @@ KCM.ScrollViewKCM {
             delegate: Kirigami.SwipeListItem {
                 width: addGraphView.width
                 // Disable when graph is already present
-                enabled: !root.graphExist(model.device)
+                enabled: !root.graphExist(model.type, model.device)
 
                 contentItem: RowLayout {
                     // Content
@@ -441,12 +441,13 @@ KCM.ScrollViewKCM {
 
     /**
      * Check if graph of an specified device exist
-     * @param {string} value The graph device (device = type when not GPU or disk) want to be checked
+     * @param {string} type The graph type want to be added
+     * @param {string} device The graph device (device = type when not GPU or disk) want to be checked
      * @returns {boolean} The graph already exist or not
      */
-    function graphExist(value) {
+    function graphExist(type, device) {
         for (let i = 0; i < graphsView.count; i++) {
-            if (graphsView.model.get(i).device === value) {
+            if (graphsView.model.get(i).type === type && graphsView.model.get(i).device === device) {
                 return true;
             }
         }
