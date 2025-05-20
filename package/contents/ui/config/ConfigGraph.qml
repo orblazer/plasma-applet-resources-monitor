@@ -104,6 +104,11 @@ KCM.ScrollViewKCM {
                         fixable: (model.type === "gpu" || model.type === "gpuText") && model.device !== "all"
                     };
                 }
+                if (model.type == "text") {
+                    return Object.assign({}, info, {
+                        name: i18nc("Chart name", "Text [%1]", model.device)
+                    })
+                }
                 return info;
             }
             function update(newInfo) {
@@ -233,6 +238,12 @@ KCM.ScrollViewKCM {
         onAccepted: {
             if (needSave) {
                 graphs[graphIndex] = contentItem.item.item;
+                if (contentItem.item.item.type == "text") {
+                    graphsView.model.set(graphIndex, {
+                        type: contentItem.item.item.type,
+                        device: contentItem.item.item.device
+                    })
+                }
                 saveGraphs();
             }
         }
@@ -449,6 +460,11 @@ KCM.ScrollViewKCM {
      * @returns {boolean} The graph already exist or not
      */
     function graphExist(type, device) {
+        // Text can be added multiple time
+        if (type == "text") {
+            return false;
+        }
+
         for (let i = 0; i < graphsView.count; i++) {
             if (graphsView.model.get(i).type === type && graphsView.model.get(i).device === device) {
                 return true;
@@ -467,6 +483,11 @@ KCM.ScrollViewKCM {
         const item = GraphFns.create(type, device);
         if (!item) {
             return;
+        }
+
+        // Custom behavior for text
+        if (type == "text") {
+            device = item.device
         }
 
         // Add graph to lists

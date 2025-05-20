@@ -7,13 +7,13 @@ ListModel {
 
     Component.onCompleted: {
         // Add constant graphs (GPU and disks added with "_privateModel")
-        ["cpu", "cpuText", "memory", "memoryText", "network", "networkText"].forEach(type => append(GraphFns.getDisplayInfo(type, i18nc)));
+        ["text", "cpu", "cpuText", "memory", "memoryText", "network", "networkText"].forEach(type => append(GraphFns.getDisplayInfo(type, i18nc)));
     }
 
     function find(type, device) {
         for (let i = 0; i < count; i++) {
             const item = get(i);
-            if (item.type === type && item.device === device) {
+            if ((type == "text" && item.type == "text") || (item.type === type && item.device === device)) {
                 return item;
             }
         }

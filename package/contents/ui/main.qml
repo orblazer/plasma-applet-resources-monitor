@@ -107,6 +107,7 @@ PlasmoidItem {
             itemWidth: _getCustomConfig("graphWidth", Math.round(initGraphSize * (isVertical ? 1 : 1.4)))
             itemHeight: _getCustomConfig("graphHeight", initGraphSize)
             fontPixelSize: Math.round(isVertical ? (itemHeight / 1.4 * fontScale) : (itemHeight * fontScale))
+            fontScaleModifier: isVertical ? (itemHeight / 1.4) : itemHeight
         }
     }
 

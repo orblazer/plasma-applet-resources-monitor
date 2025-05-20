@@ -85,8 +85,17 @@ const VERSION = 2; //? Bump when some settings changes in graphs structure
  * @property {string[]} ignoredInterfaces The ignored network interfaces
  * @property {boolean} icons Show labels icons (↓ / ↑)
  */
+/**
+ * @typedef {object} Text
+ * @property {number} _v The version of graph
+ * @property {"text"} type The graph type
+ * @property {string} color The text color
+ * @property {string} device The text value
+ * @property {string} placement The text placement
+ * @property {number} size The font size
+ */
 
-/** @typedef {CpuGraph|CpuText|MemoryGraph|MemoryText|GpuGraph|NetworkGraph|NetworkText|DiskGraph} Graph */
+/** @typedef {CpuGraph|CpuText|MemoryGraph|MemoryText|GpuGraph|NetworkGraph|NetworkText|DiskGraph|Text} Graph */
 /**
  * @typedef {object} GraphInfo
  * @property {Graph["type"]} type
@@ -208,6 +217,12 @@ function create(type, device) {
       item.uplimits = [200000, 200000];
       item.icons = false;
       break;
+    case "text":
+      item.color = "textColor";
+      item.device = "Text";
+      item.placement = "middle-right";
+      item.size = 24
+      break;
     default:
       throw new Error(`${type} is not valid graph type`);
   }
@@ -291,6 +306,11 @@ function getDisplayInfo(
       result.name = i18nc("Chart name", "Disk I/O [%1]", deviceName);
       result.icon = "drive-harddisk-symbolic";
       result.fallbackIcon = "drive-harddisk";
+      break;
+    case "text":
+      result.name = i18nc("Chart name", "Text");
+      result.icon = "dialog-text-and-font";
+      result.fallbackIcon = "draw-text";
       break;
     default:
       throw new Error(`${type} is not valid graph type`);
