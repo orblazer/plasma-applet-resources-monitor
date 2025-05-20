@@ -65,7 +65,7 @@ KCM.ScrollViewKCM {
         onDataChanged: index => {
             const graph = get(index.row)
             for (let i = 0; i < graphsView.count; i++) {
-                if (graphsView.model.get(i).device === graph.device) {
+                if (graphsView.model.get(i).type === graph.type && graphsView.model.get(i).device === graph.device) {
                     graphsView.itemAtIndex(i).update(graph)
                     return;
                 }
@@ -101,7 +101,7 @@ KCM.ScrollViewKCM {
                         fallbackIcon: "unknown",
                         section: "unknown",
                         device: model.device ?? model.type,
-                        fixable: model.type === "gpu" && model.device !== "all"
+                        fixable: (model.type === "gpu" || model.type === "gpuText") && model.device !== "all"
                     };
                 }
                 return info;
@@ -352,7 +352,7 @@ KCM.ScrollViewKCM {
             newGraph.device = newGpuIndexes.currentValue;
             graphs[graphIndex] = newGraph;
             graphsView.model.set(graphIndex, {
-                type: "gpu",
+                type: newGraph.type,
                 device: newGraph.device
             });
             saveGraphs();

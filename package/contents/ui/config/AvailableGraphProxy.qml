@@ -7,7 +7,7 @@ ListModel {
 
     Component.onCompleted: {
         // Add constant graphs (GPU and disks added with "_privateModel")
-        ["cpu", "memory", "network"].forEach(type => append(GraphFns.getDisplayInfo(type, i18nc)));
+        ["cpu", "cpuText", "memory", "memoryText", "network", "networkText"].forEach(type => append(GraphFns.getDisplayInfo(type, i18nc)));
     }
 
     function find(type, device) {
@@ -70,6 +70,7 @@ ListModel {
                 }
             }
             root.set(cache.index, GraphFns.getDisplayInfo("gpu", i18nc, cache.section, cache.device, deviceName));
+            root.set(cache.index + 1, GraphFns.getDisplayInfo("gpuText", i18nc, cache.section, cache.device, deviceName)); // Text variant
 
             // Clean things
             _cache.delete(sensorId);
@@ -198,10 +199,14 @@ ListModel {
 
                 // Add graphs
                 root.append(GraphFns.getDisplayInfo(sensorData.type, i18nc, section, sensorData.device, deviceName));
+                // Add text variant
+                if (sensorData.type === "gpu") {
+                    root.append(GraphFns.getDisplayInfo(sensorData.type + "Text", i18nc, section, sensorData.device, deviceName));
+                }
 
                 // Query GPU name from sensor
                 if (sensorData.type === "gpu" && sensorData.device !== "all") {
-                    root._gpuNameFetcher.fetch(sensorId, root.count - 1, section, sensorData.device);
+                    root._gpuNameFetcher.fetch(sensorId, root.count - 2, section, sensorData.device);
                 }
             }
         }

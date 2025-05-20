@@ -54,7 +54,39 @@ const VERSION = 2; //? Bump when some settings changes in graphs structure
  * @property {boolean} icons Show labels icons (R / W)
  */
 
-/** @typedef {CpuGraph|MemoryGraph|GpuGraph|NetworkGraph|DiskGraph} Graph */
+/**
+ * @typedef {object} CpuText
+ * @property {number} _v The version of graph
+ * @property {"cpuText"} type The graph type
+ * @property {[string, string]} colors The graph colors (ref: label, usage)
+ * @property {("usage"|"system"|"user")} sensorsType The sensors type (ref: usage)
+ */
+/**
+ * @typedef {object} MemoryText
+ * @property {number} _v The version of graph
+ * @property {"memoryText"} type The graph type
+ * @property {[string, string]} colors The graph colors (ref: label, usage)
+ * @property {("physical"|"physical-percent"|"application"|"application-percent")} sensorsType The sensors type (ref: usage)
+ */
+/**
+ * @typedef {object} GpuText
+ * @property {number} _v The version of graph
+ * @property {"gpuText"} type The graph type
+ * @property {[string, string]} colors The graph colors (ref: label, usage)
+ * @property {[("none"|"memory"|"memory-percent")]} sensorsType The sensors type (ref: memory)
+ * @property {string} device The device index (eg. gpu0, gpu1)
+ */
+/**
+ * @typedef {object} NetworkText
+ * @property {number} _v The version of graph
+ * @property {"network"} type The graph type
+ * @property {[string, string]} colors The graph colors (ref: receiving, sending)
+ * @property {[boolean, ("kibibyte"|"kilobit|"kilobyte")]} sensorsType The sensors type (ref: swap Rx/Tx, unit)
+ * @property {string[]} ignoredInterfaces The ignored network interfaces
+ * @property {boolean} icons Show labels icons (↓ / ↑)
+ */
+
+/** @typedef {CpuGraph|CpuText|MemoryGraph|MemoryText|GpuGraph|NetworkGraph|NetworkText|DiskGraph} Graph */
 /**
  * @typedef {object} GraphInfo
  * @property {Graph["type"]} type
@@ -136,15 +168,26 @@ function create(type, device) {
       item.clockAggregator = "average";
       item.eCoresCount = "";
       break;
+    case "cpuText":
+      item.colors = ["textColor", "highlightColor"];
+      item.sensorsType = ["usage"];
+      break;
     case "memory":
       item.colors = ["highlightColor", "negativeTextColor"];
       item.sensorsType = ["physical", "swap"];
       item.thresholds = [70, 90];
       break;
+    case "memoryText":
+      item.colors = ["textColor", "highlightColor"];
+      item.sensorsType = ["physical-percent"];
+      break;
     case "gpu":
       item.colors = ["highlightColor", "positiveTextColor", "textColor"];
       item.sensorsType = ["memory", false];
       item.thresholds = [80, 90];
+      break;
+    case "gpuText":
+      item.colors = ["textColor", "highlightColor"];
       break;
     case "network":
       item.colors = ["highlightColor", "positiveTextColor"];
@@ -152,6 +195,12 @@ function create(type, device) {
       item.uplimits = [100000, 100000];
       item.ignoredInterfaces = [];
       item.icons = false;
+      break;
+    case "networkText":
+      item.colors = ["highlightColor", "positiveTextColor"];
+      item.sensorsType = [false, "kibibyte"];
+      item.ignoredInterfaces = [];
+      item.icons = true;
       break;
     case "disk":
       item.colors = ["highlightColor", "positiveTextColor"];
@@ -164,7 +213,7 @@ function create(type, device) {
   }
 
   // Fill device
-  if (type === "gpu" || type === "disk") {
+  if (type === "gpu" || type === "gpuText" || type === "disk") {
     if (!device?.trim()) {
       throw new Error(`Device is required for ${type} graph`);
     }
@@ -202,8 +251,18 @@ function getDisplayInfo(
       result.icon = "cpu-symbolic";
       result.fallbackIcon = "cpu";
       break;
+    case "cpuText":
+      result.name = i18nc("Chart name", "CPU usage (text)");
+      result.icon = "cpu-symbolic";
+      result.fallbackIcon = "cpu";
+      break;
     case "memory":
       result.name = i18nc("Chart name", "Memory");
+      result.icon = "memory-symbolic";
+      result.fallbackIcon = "memory";
+      break;
+    case "memoryText":
+      result.name = i18nc("Chart name", "Memory usage (text)");
       result.icon = "memory-symbolic";
       result.fallbackIcon = "memory";
       break;
@@ -212,8 +271,18 @@ function getDisplayInfo(
       result.icon = "freon-gpu-temperature-symbolic";
       result.fallbackIcon = "preferences-desktop-display";
       break;
+    case "gpuText":
+      result.name = i18nc("Chart name", "GPU usage (text) [%1]", deviceName);
+      result.icon = "freon-gpu-temperature-symbolic";
+      result.fallbackIcon = "preferences-desktop-display";
+      break;
     case "network":
       result.name = i18nc("Chart name", "Network");
+      result.icon = "network-wired-symbolic";
+      result.fallbackIcon = "network-wired";
+      break;
+    case "networkText":
+      result.name = i18nc("Chart name", "Network (text)");
       result.icon = "network-wired-symbolic";
       result.fallbackIcon = "network-wired";
       break;

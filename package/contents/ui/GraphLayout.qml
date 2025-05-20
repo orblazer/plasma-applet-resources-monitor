@@ -40,7 +40,11 @@ Flow {
                 }
 
                 // Load graph
-                setSource(Qt.resolvedUrl(`./components/graph/${typeCaptitalized}Graph.qml`), props);
+                if (typeCaptitalized.endsWith("Text")) {
+                    setSource(Qt.resolvedUrl(`./components/text/${typeCaptitalized}.qml`), props);
+                } else {
+                    setSource(Qt.resolvedUrl(`./components/graph/${typeCaptitalized}Graph.qml`), props);
+                }
             }
         }
     }
