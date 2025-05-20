@@ -270,6 +270,7 @@ function getDisplayInfo(
       result.name = i18nc("Chart name", "GPU [%1]", deviceName);
       result.icon = "freon-gpu-temperature-symbolic";
       result.fallbackIcon = "preferences-desktop-display";
+      result.deviceName = deviceName;
       break;
     case "gpuText":
       result.name = i18nc("Chart name", "GPU usage (text) [%1]", deviceName);

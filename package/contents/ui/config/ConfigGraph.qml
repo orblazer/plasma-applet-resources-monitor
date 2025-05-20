@@ -376,7 +376,10 @@ KCM.ScrollViewKCM {
          */
         function openFor(index, name) {
             if (typeof newGpuIndexes.model === "undefined") {
-                newGpuIndexes.model = availableGraphs.findAllType("gpu", true);
+                newGpuIndexes.model = availableGraphs.findAllType("gpu", true).map(item => ({
+                    name: item.deviceName,
+                    device: item.device
+                }));
             }
 
             // Load settings page
