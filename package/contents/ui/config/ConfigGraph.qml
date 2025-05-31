@@ -63,10 +63,10 @@ KCM.ScrollViewKCM {
         id: availableGraphs
 
         onDataChanged: index => {
-            const graph = get(index.row)
+            const graph = get(index.row);
             for (let i = 0; i < graphsView.count; i++) {
                 if (graphsView.model.get(i).type === graph.type && graphsView.model.get(i).device === graph.device) {
-                    graphsView.itemAtIndex(i).update(graph)
+                    graphsView.itemAtIndex(i).update(graph);
                     return;
                 }
             }
@@ -107,14 +107,14 @@ KCM.ScrollViewKCM {
                 if (model.type == "text") {
                     return Object.assign({}, info, {
                         name: i18nc("Chart name", "Text [%1]", model.device)
-                    })
+                    });
                 }
                 return info;
             }
             function update(newInfo) {
-                icon.source = newInfo.icon
-                icon.fallback = newInfo.fallbackIcon
-                name.text = newInfo.name
+                icon.source = newInfo.icon;
+                icon.fallback = newInfo.fallbackIcon;
+                name.text = newInfo.name;
             }
 
             width: graphsView.width
@@ -242,7 +242,7 @@ KCM.ScrollViewKCM {
                     graphsView.model.set(graphIndex, {
                         type: contentItem.item.item.type,
                         device: contentItem.item.item.device
-                    })
+                    });
                 }
                 saveGraphs();
             }
@@ -298,6 +298,7 @@ KCM.ScrollViewKCM {
             clip: true
             reuseItems: true
             model: availableGraphs
+            currentIndex: -1
 
             section {
                 property: "section"
@@ -308,37 +309,39 @@ KCM.ScrollViewKCM {
                 }
             }
 
-            delegate: Kirigami.SwipeListItem {
+            delegate: Item {
                 width: addGraphView.width
-                // Disable when graph is already present
-                enabled: !root.graphExist(model.type, model.device)
+                implicitHeight: item.implicitHeight
 
-                contentItem: RowLayout {
-                    // Content
-                    Kirigami.Icon {
-                        source: model.icon
-                        fallback: model.fallbackIcon
-                        width: Kirigami.Units.iconSizes.smallMedium
-                        height: width
-                    }
-                    QQC2.Label {
-                        Layout.fillWidth: true
-                        text: model.name
-                        textFormat: Text.PlainText
-                        elide: Text.ElideRight
+                QQC2.ItemDelegate {
+                    id: item
+                    width: addGraphView.width
 
-                        opacity: enabled ? 1 : 0.6
+                    // Disable when graph is already present
+                    enabled: !root.graphExist(model.type, model.device)
+
+                    onClicked: {
+                        addGraph(model.type, model.device);
+                        addDialog.needSave = true;
                     }
 
-                    // Actions
-                    DelegateButton {
-                        icon.name: "list-add-symbolic"
-                        text: i18nc("@info:tooltip", "Add")
-                        hoverEnabled: enabled
+                    contentItem: RowLayout {
+                        spacing: Kirigami.Units.smallSpacing
 
-                        onClicked: {
-                            addGraph(model.type, model.device);
-                            addDialog.needSave = true;
+                        // Content
+                        Kirigami.Icon {
+                            source: model.icon
+                            fallback: model.fallbackIcon
+                            width: Kirigami.Units.iconSizes.medium
+                            height: width
+                        }
+                        QQC2.Label {
+                            Layout.fillWidth: true
+                            text: model.name
+                            textFormat: Text.PlainText
+                            elide: Text.ElideRight
+
+                            opacity: enabled ? 1 : 0.6
                         }
                     }
                 }
@@ -388,9 +391,9 @@ KCM.ScrollViewKCM {
         function openFor(index, name) {
             if (typeof newGpuIndexes.model === "undefined") {
                 newGpuIndexes.model = availableGraphs.findAllType("gpu", true).map(item => ({
-                    name: item.deviceName,
-                    device: item.device
-                }));
+                            name: item.deviceName,
+                            device: item.device
+                        }));
             }
 
             // Load settings page
@@ -487,7 +490,7 @@ KCM.ScrollViewKCM {
 
         // Custom behavior for text
         if (type == "text") {
-            device = item.device
+            device = item.device;
         }
 
         // Add graph to lists
