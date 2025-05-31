@@ -55,14 +55,9 @@ PlasmoidItem {
     fullRepresentation: MouseArea {
         acceptedButtons: clickAction !== "none" ? Qt.LeftButton : Qt.NoButton
 
-        // Calculate widget size
-        Layout.fillWidth: isVertical
-        Layout.minimumWidth: isVertical ? 0 : graphView.itemWidth
-        Layout.preferredWidth: graphView.width
-
-        Layout.fillHeight: !isVertical
-        Layout.minimumHeight: !isVertical ? 0 : graphView.itemHeight
-        Layout.preferredHeight: graphView.height
+        // Propagate child size to parent
+        Layout.minimumWidth: graphView.implicitWidth
+        Layout.maximumHeight: graphView.implicitHeight
 
         // Click action
         Loader {
