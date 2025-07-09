@@ -6,7 +6,6 @@ ConfigModel {
         name: i18nc("Config header", "Graphs")
         icon: 'office-chart-line-stacked'
         source: 'config/ConfigGraph.qml'
-        includeMargins: false
     }
     ConfigCategory {
         name: i18nc("Config header", "Appearance")
