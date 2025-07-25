@@ -12,16 +12,16 @@ importers:
         specifier: ^19.2.1
         version: 19.8.1(@types/node@24.1.0)(typescript@5.8.3)
       '@commitlint/config-conventional':
-        specifier: ^19.1.0
+        specifier: ^19.8.1
         version: 19.8.1
       '@types/archiver':
-        specifier: ^6.0.2
+        specifier: ^6.0.3
         version: 6.0.3
       archiver:
         specifier: ^7.0.1
         version: 7.0.1
       husky:
-        specifier: ^9.0.11
+        specifier: ^9.1.7
         version: 9.1.7
 
 packages:
