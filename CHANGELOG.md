@@ -1,3 +1,21 @@
+## 3.1.0 (2025-07-25)
+
+* chore: add  new graphs in debug file ([bc697ff](https://github.com/orblazer/plasma-applet-resources-monitor/commit/bc697ff))
+* chore(config): use only gpu name for fix dialog ([5596191](https://github.com/orblazer/plasma-applet-resources-monitor/commit/5596191))
+* chore(dev): add missing package ([14b9dfe](https://github.com/orblazer/plasma-applet-resources-monitor/commit/14b9dfe))
+* chore(dev): migrate from yarn to pnpm ([db4f139](https://github.com/orblazer/plasma-applet-resources-monitor/commit/db4f139))
+* chore(dev): update dependencies ([0a83fcb](https://github.com/orblazer/plasma-applet-resources-monitor/commit/0a83fcb))
+* chore(translate): re generate files and update french ([f7c0a20](https://github.com/orblazer/plasma-applet-resources-monitor/commit/f7c0a20))
+* fix(config): more robust graph exist check ([abcaa25](https://github.com/orblazer/plasma-applet-resources-monitor/commit/abcaa25)), closes [#100](https://github.com/orblazer/plasma-applet-resources-monitor/issues/100)
+* fix(config): prevent size error on add pick graph ([d2002ff](https://github.com/orblazer/plasma-applet-resources-monitor/commit/d2002ff))
+* fix(config): remove support for includeMargins (#102) ([801fe88](https://github.com/orblazer/plasma-applet-resources-monitor/commit/801fe88)), closes [#102](https://github.com/orblazer/plasma-applet-resources-monitor/issues/102) [#99](https://github.com/orblazer/plasma-applet-resources-monitor/issues/99)
+* fix(graph): correctly handle widget size ([edafb5c](https://github.com/orblazer/plasma-applet-resources-monitor/commit/edafb5c)), closes [#101](https://github.com/orblazer/plasma-applet-resources-monitor/issues/101)
+* feat(graph): add an dummy text item ([4eee4ba](https://github.com/orblazer/plasma-applet-resources-monitor/commit/4eee4ba)), closes [#91](https://github.com/orblazer/plasma-applet-resources-monitor/issues/91)
+* feat(graph): add some text only sensors ([db6e45a](https://github.com/orblazer/plasma-applet-resources-monitor/commit/db6e45a)), closes [#91](https://github.com/orblazer/plasma-applet-resources-monitor/issues/91)
+* docs:  remove unrelease mention ([eb79ec6](https://github.com/orblazer/plasma-applet-resources-monitor/commit/eb79ec6)), closes [#67](https://github.com/orblazer/plasma-applet-resources-monitor/issues/67)
+
+
+
 ## [3.0.2](https://github.com/orblazer/plasma-applet-resources-monitor/compare/v3.0.1...v3.0.2) (2025-04-27)
 
 
