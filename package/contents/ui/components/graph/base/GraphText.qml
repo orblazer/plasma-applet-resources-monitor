@@ -77,6 +77,7 @@ Item {
             id: secondLine
             readonly property int index: 1
             text: "..."
+            anchors.top: firstLine.bottom
 
             width: parent.width
             enabled: hints[index] !== ""
@@ -94,7 +95,8 @@ Item {
             readonly property int index: 2
             text: "..."
 
-            width: parent.width
+            anchors.top: Plasmoid.configuration.thirdLineToLeftTopCorner ? textContainer.top : secondLine.bottom
+            width: Plasmoid.configuration.thirdLineToLeftTopCorner ? 0.4 * parent.width : parent.width
             enabled: hints[index] !== ""
             visible: enabled
 
