@@ -57,7 +57,7 @@ PlasmoidItem {
 
         // Propagate child size to parent
         Layout.minimumWidth: graphView.implicitWidth
-        Layout.maximumHeight: graphView.implicitHeight
+        Layout.minimumHeight: graphView.implicitHeight
 
         // Click action
         Loader {
