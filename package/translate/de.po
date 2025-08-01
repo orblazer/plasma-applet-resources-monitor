@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: resources-monitor\n"
 "Report-Msgid-Bugs-To: https://github.com/orblazer/plasma-applet-resources-monitor\n"
-"POT-Creation-Date: 2025-05-31 21:59+0200\n"
-"PO-Revision-Date: 2024-07-22 14:06+0200\n"
+"POT-Creation-Date: 2025-08-01 14:06+0200\n"
+"PO-Revision-Date: 2025-08-01 14:06+0200\n"
 "Last-Translator: orblazer\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -24,12 +24,12 @@ msgctxt "Config header"
 msgid "Graphs"
 msgstr "Diagramme"
 
-#: ../contents/config/config.qml:12
+#: ../contents/config/config.qml:11
 msgctxt "Config header"
 msgid "Appearance"
 msgstr "Erscheinungsbild"
 
-#: ../contents/config/config.qml:17
+#: ../contents/config/config.qml:16
 msgctxt "Config header"
 msgid "Misc"
 msgstr "Sonstiges"
@@ -318,7 +318,7 @@ msgstr "Wähle <i>%1</i> um zu beginnen"
 msgid "Add graph…"
 msgstr "Diagramm hinzufügen…"
 
-#: ../contents/ui/config/ConfigGraph.qml:231 ../contents/ui/config/ConfigGraph.qml:355
+#: ../contents/ui/config/ConfigGraph.qml:231 ../contents/ui/config/ConfigGraph.qml:358
 msgctxt "@title:window"
 msgid "Edit graph: %1"
 msgstr "Bearbeite Diagramm: %1"
@@ -328,26 +328,21 @@ msgctxt "@title:window"
 msgid "Add graph"
 msgstr "Diagramm hinzufügen"
 
-#: ../contents/ui/config/ConfigGraph.qml:336
-msgctxt "@info:tooltip"
-msgid "Add"
-msgstr "Hinzufügen"
-
-#: ../contents/ui/config/ConfigGraph.qml:376
+#: ../contents/ui/config/ConfigGraph.qml:379
 msgid "New GPU:"
 msgstr "Neue GPU:"
 
-#: ../contents/ui/config/ConfigGraph.qml:410
+#: ../contents/ui/config/ConfigGraph.qml:413
 msgctxt "@title:window"
 msgid "Remove graph"
 msgstr "Entferne Diagramm"
 
-#: ../contents/ui/config/ConfigGraph.qml:411
+#: ../contents/ui/config/ConfigGraph.qml:414
 msgctxt "%1 is an graph name"
 msgid "Do you want remove graph \"%1\" ?"
 msgstr "Möchten Sie das Diagramm \"%1\" entfernen?"
 
-#: ../contents/ui/config/ConfigGraph.qml:416
+#: ../contents/ui/config/ConfigGraph.qml:419
 msgid "Delete"
 msgstr "Löschen"
 
@@ -602,28 +597,28 @@ msgid "Write:"
 msgstr "Schreiben:"
 
 #: ../contents/ui/config/dialog/EditGpu.qml:27
-msgid "Memory (in KiB)"
-msgstr "Speicher (in KiB)"
+msgid "Memory (B)"
+msgstr "Speicher (B)"
 
 #: ../contents/ui/config/dialog/EditGpu.qml:31 ../contents/ui/config/dialog/EditMemory.qml:65
-msgid "Memory (in %)"
-msgstr "Speicher (in %)"
+msgid "Memory (%)"
+msgstr "Speicher (%)"
 
 #: ../contents/ui/config/dialog/EditMemory.qml:21 ../contents/ui/config/dialog/EditMemoryText.qml:21
-msgid "Physical memory (in KiB)"
-msgstr "Physischer Speicher (in KiB)"
+msgid "Physical memory (B)"
+msgstr "Physischer Speicher (B)"
 
 #: ../contents/ui/config/dialog/EditMemory.qml:25 ../contents/ui/config/dialog/EditMemoryText.qml:25
-msgid "Physical memory (in %)"
-msgstr "Physischer Speicher (in %)"
+msgid "Physical memory (%)"
+msgstr "Physischer Speicher (%)"
 
 #: ../contents/ui/config/dialog/EditMemory.qml:29 ../contents/ui/config/dialog/EditMemoryText.qml:29
-msgid "Application memory (in KiB)"
-msgstr "Anwendungsspeicher (in KiB)"
+msgid "Application memory (B)"
+msgstr "Anwendungsspeicher (B)"
 
 #: ../contents/ui/config/dialog/EditMemory.qml:33 ../contents/ui/config/dialog/EditMemoryText.qml:33
-msgid "Application memory (in %)"
-msgstr "Anwendungsspeicher (in %)"
+msgid "Application memory (%)"
+msgstr "Anwendungsspeicher (%)"
 
 #: ../contents/ui/config/dialog/EditMemory.qml:47
 msgid "Second line:"
@@ -634,8 +629,8 @@ msgid "Swap"
 msgstr "Auslagerungsspeicher"
 
 #: ../contents/ui/config/dialog/EditMemory.qml:61
-msgid "Swap (in %)"
-msgstr "Auslagerungsspeicher (in %)"
+msgid "Swap (%)"
+msgstr "Auslagerungsspeicher (%)"
 
 #: ../contents/ui/config/dialog/EditMemory.qml:79
 msgid "Usage threshold:"

@@ -18,19 +18,19 @@ BaseForm {
         valueRole: "value"
         model: [
             {
-                "label": i18n("Physical memory (in KiB)"),
+                "label": i18n("Physical memory (B)"),
                 "value": "physical"
             },
             {
-                "label": i18n("Physical memory (in %)"),
+                "label": i18n("Physical memory (%)"),
                 "value": "physical-percent"
             },
             {
-                "label": i18n("Application memory (in KiB)"),
+                "label": i18n("Application memory (B)"),
                 "value": "application"
             },
             {
-                "label": i18n("Application memory (in %)"),
+                "label": i18n("Application memory (%)"),
                 "value": "application-percent"
             }
         ]

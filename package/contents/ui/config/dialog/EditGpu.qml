@@ -24,11 +24,11 @@ BaseForm {
                 "value": "none"
             },
             {
-                "label": i18n("Memory (in KiB)"),
+                "label": i18n("Memory (B)"),
                 "value": "memory"
             },
             {
-                "label": i18n("Memory (in %)"),
+                "label": i18n("Memory (%)"),
                 "value": "memory-percent"
             }
         ]

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: resources-monitor\n"
 "Report-Msgid-Bugs-To: https://github.com/orblazer/plasma-applet-resources-monitor\n"
-"POT-Creation-Date: 2025-05-31 21:59+0200\n"
+"POT-Creation-Date: 2025-08-01 14:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,12 +23,12 @@ msgctxt "Config header"
 msgid "Graphs"
 msgstr ""
 
-#: ../contents/config/config.qml:12
+#: ../contents/config/config.qml:11
 msgctxt "Config header"
 msgid "Appearance"
 msgstr ""
 
-#: ../contents/config/config.qml:17
+#: ../contents/config/config.qml:16
 msgctxt "Config header"
 msgid "Misc"
 msgstr ""
@@ -340,7 +340,7 @@ msgid "Add graph…"
 msgstr ""
 
 #: ../contents/ui/config/ConfigGraph.qml:231
-#: ../contents/ui/config/ConfigGraph.qml:355
+#: ../contents/ui/config/ConfigGraph.qml:358
 msgctxt "@title:window"
 msgid "Edit graph: %1"
 msgstr ""
@@ -350,26 +350,21 @@ msgctxt "@title:window"
 msgid "Add graph"
 msgstr ""
 
-#: ../contents/ui/config/ConfigGraph.qml:336
-msgctxt "@info:tooltip"
-msgid "Add"
-msgstr ""
-
-#: ../contents/ui/config/ConfigGraph.qml:376
+#: ../contents/ui/config/ConfigGraph.qml:379
 msgid "New GPU:"
 msgstr ""
 
-#: ../contents/ui/config/ConfigGraph.qml:410
+#: ../contents/ui/config/ConfigGraph.qml:413
 msgctxt "@title:window"
 msgid "Remove graph"
 msgstr ""
 
-#: ../contents/ui/config/ConfigGraph.qml:411
+#: ../contents/ui/config/ConfigGraph.qml:414
 msgctxt "%1 is an graph name"
 msgid "Do you want remove graph \"%1\" ?"
 msgstr ""
 
-#: ../contents/ui/config/ConfigGraph.qml:416
+#: ../contents/ui/config/ConfigGraph.qml:419
 msgid "Delete"
 msgstr ""
 
@@ -653,32 +648,32 @@ msgid "Write:"
 msgstr ""
 
 #: ../contents/ui/config/dialog/EditGpu.qml:27
-msgid "Memory (in KiB)"
+msgid "Memory (B)"
 msgstr ""
 
 #: ../contents/ui/config/dialog/EditGpu.qml:31
 #: ../contents/ui/config/dialog/EditMemory.qml:65
-msgid "Memory (in %)"
+msgid "Memory (%)"
 msgstr ""
 
 #: ../contents/ui/config/dialog/EditMemory.qml:21
 #: ../contents/ui/config/dialog/EditMemoryText.qml:21
-msgid "Physical memory (in KiB)"
+msgid "Physical memory (B)"
 msgstr ""
 
 #: ../contents/ui/config/dialog/EditMemory.qml:25
 #: ../contents/ui/config/dialog/EditMemoryText.qml:25
-msgid "Physical memory (in %)"
+msgid "Physical memory (%)"
 msgstr ""
 
 #: ../contents/ui/config/dialog/EditMemory.qml:29
 #: ../contents/ui/config/dialog/EditMemoryText.qml:29
-msgid "Application memory (in KiB)"
+msgid "Application memory (B)"
 msgstr ""
 
 #: ../contents/ui/config/dialog/EditMemory.qml:33
 #: ../contents/ui/config/dialog/EditMemoryText.qml:33
-msgid "Application memory (in %)"
+msgid "Application memory (%)"
 msgstr ""
 
 #: ../contents/ui/config/dialog/EditMemory.qml:47
@@ -690,7 +685,7 @@ msgid "Swap"
 msgstr ""
 
 #: ../contents/ui/config/dialog/EditMemory.qml:61
-msgid "Swap (in %)"
+msgid "Swap (%)"
 msgstr ""
 
 #: ../contents/ui/config/dialog/EditMemory.qml:79
