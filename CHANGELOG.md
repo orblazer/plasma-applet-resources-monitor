@@ -1,3 +1,10 @@
+## <small>3.1.1 (2025-08-01)</small>
+
+* chore(config): change unit in dropdowns ([6395609](https://github.com/orblazer/plasma-applet-resources-monitor/commit/6395609)), closes [#104](https://github.com/orblazer/plasma-applet-resources-monitor/issues/104)
+* fix(graph): right size on vertical layout ([86d58dd](https://github.com/orblazer/plasma-applet-resources-monitor/commit/86d58dd)), closes [#106](https://github.com/orblazer/plasma-applet-resources-monitor/issues/106)
+
+
+
 ## 3.1.0 (2025-07-25)
 
 * chore: add  new graphs in debug file ([bc697ff](https://github.com/orblazer/plasma-applet-resources-monitor/commit/bc697ff))
