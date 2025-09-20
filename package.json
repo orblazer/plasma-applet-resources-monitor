@@ -9,7 +9,7 @@
   },
   "author": "orblazer",
   "repository": "https://github.com/orblazer/plasma-applet-resources-monitor",
-  "license": "GPL-3.0-only",
+  "license": "GPL-3.0+",
   "type": "module",
   "scripts": {
     "prepare": "husky",
