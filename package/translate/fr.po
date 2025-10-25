@@ -338,7 +338,7 @@ msgstr "Nouveau GPU :"
 #: ../contents/ui/config/ConfigGraph.qml:413
 msgctxt "@title:window"
 msgid "Remove graph"
-msgstr "Supression du graphique"
+msgstr "Suppression du graphique"
 
 #: ../contents/ui/config/ConfigGraph.qml:414
 msgctxt "%1 is an graph name"
@@ -676,9 +676,9 @@ msgstr "Valeur :"
 #: ../contents/ui/config/dialog/EditText.qml:51
 msgctxt "Text placement"
 msgid "Middle left"
-msgstr "Millieu gauche"
+msgstr "Milieu gauche"
 
 #: ../contents/ui/config/dialog/EditText.qml:55
 msgctxt "Text placement"
 msgid "Middle right"
-msgstr "Millieu droite"
+msgstr "Milieu droite"
