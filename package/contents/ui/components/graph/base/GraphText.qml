@@ -28,6 +28,8 @@ Item {
     property var textStyle: Plasmoid.configuration.enableShadows ? Text.Outline : Text.Normal
     property var _hintColors: [Kirigami.Theme.highlightColor, undefined, undefined] // Internal
     property var _valueColors: [undefined, undefined, undefined] // Internal
+    property var defaultColor: Plasmoid.configuration.textColor
+    property var _defaultColor: Kirigami.Theme.textColor
 
     // Bind config changes
     onDisplaymentChanged: {
@@ -39,6 +41,14 @@ Item {
             }
         }
         _showValues();
+    }
+    onDefaultColorChanged: {
+        // Resolve colors
+        _defaultColor = root._resolveColor(defaultColor)
+
+        // Update other colors
+        _valueColors = valueColors.map(v => root._resolveColor(v));
+        _hintColors = hintColors.map(v => root._resolveColor(v));
     }
 
     // Bind properties changes
@@ -268,9 +278,9 @@ Item {
      * @param {string} color The color value
      * @returns The color color
      */
-    function _resolveColor(color) {
+    function _resolveColor(color, fallback = false) {
         if (!color) {
-            return Kirigami.Theme.textColor;
+            return _defaultColor;
         } else if (color.startsWith("#")) {
             return color;
         }

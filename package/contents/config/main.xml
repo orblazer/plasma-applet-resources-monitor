@@ -60,6 +60,9 @@
             <default>top-right</default>
         </entry>
 
+        <entry name="textColor" type="String">
+            <default>textColor</default>
+        </entry>
         <entry name="warningColor" type="String">
             <default>neutralTextColor</default>
         </entry>

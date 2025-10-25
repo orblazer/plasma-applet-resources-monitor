@@ -28,6 +28,7 @@ KCM.AbstractKCM {
     property string cfg_displayment
 
     // Colors
+    property alias cfg_textColor: textColor.value
     // > Threshold
     property alias cfg_warningColor: warningColor.value
     property alias cfg_criticalColor: criticalColor.value
@@ -243,6 +244,12 @@ KCM.AbstractKCM {
 
             // Colors
             Kirigami.FormLayout {
+                RMControls.ColorSelector {
+                    id: textColor
+                    Kirigami.FormData.label: i18n("Default color:")
+                    dialogTitle: i18nc("Chart color", "Choose text color")
+                }
+
                 // Thresholds
                 Kirigami.Separator {
                     Kirigami.FormData.label: i18n("Threshold text colors")
