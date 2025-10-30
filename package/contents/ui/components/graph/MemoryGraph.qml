@@ -15,6 +15,7 @@ RMBaseGraph.TwoSensorsGraph {
     textContainer {
         valueColors: [undefined, root.showSwap ? root.colors[1] : undefined, undefined]
         labelsVisibleWhenZero: [true, false, true]
+        thresholdIndex: 0
         thresholds: [maxQueryModel.maxMemory[0] * (thresholds[0] / 100.0), maxQueryModel.maxMemory[0] * (thresholds[1] / 100.0)]
 
         hints: ["RAM", root.showSwap ? "Swap" : (sensorsType[1] === "memory-percent" ? i18nc("Graph label", "Percent.") : ""), ""]
@@ -37,7 +38,7 @@ RMBaseGraph.TwoSensorsGraph {
     }
     secondChartVisible: showSwap && Plasmoid.configuration.historyAmount > 0
 
-    // Override methods, for handle memeory in percent
+    // Override methods, for handle memory in percent
     _formatValue: (index, value) => {
         if (fieldInPercent[index]) {
             return i18nc("Percent unit", "%1%", Math.round((value / maxQueryModel.maxMemory[index]) * 1000) / 10); // This is for round to 1 decimal
