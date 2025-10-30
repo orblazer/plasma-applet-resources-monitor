@@ -34,7 +34,7 @@ Sensors.SensorDataModel {
             return undefined;
         }
 
-        // Agregate values
+        // Aggregate values
         if (aggregator === "average") {
             return values.reduce((a, b) => a + b, 0) / values.length;
         } else if (aggregator === "minimum") {

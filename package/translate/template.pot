@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: resources-monitor\n"
 "Report-Msgid-Bugs-To: https://github.com/orblazer/plasma-applet-resources-monitor\n"
-"POT-Creation-Date: 2025-10-25 22:19+0200\n"
+"POT-Creation-Date: 2025-10-30 22:31+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -132,13 +132,13 @@ msgid "W"
 msgstr ""
 
 #: ../contents/ui/components/graph/GpuGraph.qml:40
-#: ../contents/ui/components/graph/MemoryGraph.qml:43
-#: ../contents/ui/components/text/MemoryText.qml:31
+#: ../contents/ui/components/graph/MemoryGraph.qml:44
+#: ../contents/ui/components/text/MemoryText.qml:34
 msgctxt "Percent unit"
 msgid "%1%"
 msgstr ""
 
-#: ../contents/ui/components/graph/MemoryGraph.qml:20
+#: ../contents/ui/components/graph/MemoryGraph.qml:21
 msgctxt "Graph label"
 msgid "Percent."
 msgstr ""
@@ -572,7 +572,7 @@ msgstr ""
 #: ../contents/ui/config/dialog/EditCpu.qml:111
 msgctxt "@info:tooltip"
 msgid ""
-"<b>For Intel gen 12+ only</b><br>Number of E-Cores your CPU have, it's for seperate it from P-Cores in clock "
+"<b>For Intel gen 12+ only</b><br>Number of E-Cores your CPU have, it's for separate it from P-Cores in clock "
 "frequency average calculation."
 msgstr ""
 

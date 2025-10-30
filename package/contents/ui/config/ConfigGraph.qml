@@ -85,7 +85,7 @@ KCM.ScrollViewKCM {
         clip: true
         reuseItems: true
 
-        //? Use differrent array due to QML issue with deep object conversion
+        //? Use different array due to QML issue with deep object conversion
         model: ListModel {}
 
         delegate: Item {

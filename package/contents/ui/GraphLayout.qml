@@ -34,7 +34,7 @@ Flow {
                 }
             }
             Component.onCompleted: {
-                const typeCaptitalized = modelData.type.charAt(0).toUpperCase() + modelData.type.slice(1);
+                const typeCapitalized = modelData.type.charAt(0).toUpperCase() + modelData.type.slice(1);
                 // Retrieve props without un wanted internals
                 let props = {};
                 for (const [key, value] of Object.entries(modelData)) {
@@ -45,10 +45,10 @@ Flow {
                 }
 
                 // Load graph
-                if (typeCaptitalized.endsWith("Text")) {
-                    setSource(Qt.resolvedUrl(`./components/text/${typeCaptitalized}.qml`), props);
+                if (typeCapitalized.endsWith("Text")) {
+                    setSource(Qt.resolvedUrl(`./components/text/${typeCapitalized}.qml`), props);
                 } else {
-                    setSource(Qt.resolvedUrl(`./components/graph/${typeCaptitalized}Graph.qml`), props);
+                    setSource(Qt.resolvedUrl(`./components/graph/${typeCapitalized}Graph.qml`), props);
                 }
             }
         }

@@ -100,7 +100,7 @@ QQC2.SpinBox {
         focus = false;
     }
 
-    // Select value on foucs
+    // Select value on focus
     onActiveFocusChanged: {
         if (activeFocus) {
             contentItem.selectAll();

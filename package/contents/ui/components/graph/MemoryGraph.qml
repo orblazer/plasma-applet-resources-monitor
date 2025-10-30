@@ -7,7 +7,7 @@ RMBaseGraph.TwoSensorsGraph {
     id: root
     objectName: "MemoryGraph"
 
-    // Config shrotcut
+    // Config shortcut
     property bool showSwap: sensorsType[1].startsWith("swap")
     property var fieldInPercent: [sensorsType[0].endsWith("-percent"), sensorsType[1] === "swap-percent"]
 
