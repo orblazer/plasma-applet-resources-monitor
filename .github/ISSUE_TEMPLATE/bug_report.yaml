@@ -36,7 +36,7 @@ body:
       label: Logs
       description: |
         The log thrown by widget, this could be retrieve with :
-        1. (**recommended**) running in isolated environment with that  command : `plasmawindowed -a org.kde.plasma.resources-monitor`
+        1. (**recommended**) running in isolated environment with `plasmawindowed org.kde.plasma.resources-monitor` or `plasmoidviewer -a org.kde.plasma.resources-monitor` command
         2. running that command : `journalctl /usr/bin/plasmashell -e`
       render: Text
     validations:
