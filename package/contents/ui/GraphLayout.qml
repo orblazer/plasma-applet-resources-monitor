@@ -1,7 +1,9 @@
 import QtQuick
+import QtQuick.Layouts
 
-Flow {
+GridLayout {
     id: root
+    anchors.fill: parent
 
     property alias model: repeater.model
     property alias updateInterval: updater.interval
@@ -11,11 +13,11 @@ Flow {
     required property double fontPixelSize
     required property double fontScaleModifier
     property bool isVertical: false
+    property int spacing: 4
 
-    // Manage flow and centering
-    flow: isVertical ? Flow.TopToBottom : Flow.LeftToRight
-    anchors.horizontalCenter: isVertical ? parent.horizontalCenter : undefined
-    anchors.verticalCenter: !isVertical ? parent.verticalCenter : undefined
+    rowSpacing: spacing
+    columnSpacing: spacing
+    flow: isVertical ? GridLayout.TopToBottom : GridLayout.LeftToRight
 
     Repeater {
         id: repeater
