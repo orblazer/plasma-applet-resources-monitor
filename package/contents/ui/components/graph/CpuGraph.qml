@@ -24,7 +24,7 @@ RMBaseGraph.SensorGraph {
 
     // Text options
     textContainer {
-        valueColors: [undefined, undefined, root.colors[2]]
+        valueColors: [undefined, root.colors[1], root.colors[2]]
         thresholdIndex: 2
         thresholds: root.thresholds // No change needed, simply map it
 
