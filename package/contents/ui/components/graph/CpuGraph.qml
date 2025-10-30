@@ -17,7 +17,7 @@ RMBaseGraph.SensorGraph {
 
     // Config shortcut
     property bool showClock: sensorsType[1] !== "none"
-    property bool clockIsEcores: sensorsType[1] === "ecores"
+    property bool clockIsECores: sensorsType[1] === "ecores"
 
     // Graph options
     sensorsModel.sensors: ["cpu/all/" + sensorsType[0], "cpu/cpu0/frequency", "cpu/all/maximumTemperature"]
@@ -34,7 +34,7 @@ RMBaseGraph.SensorGraph {
     // CPU frequency handle
     _formatValue: (index, value) => {
         if (index === 1) {
-            return cpuFrequenry.getFormattedValue(root.clockIsEcores);
+            return cpuFrequency.getFormattedValue(root.clockIsECores);
         }
         else if (index === 2) {
             return cpuTemperature.getFormattedValue();
@@ -43,7 +43,7 @@ RMBaseGraph.SensorGraph {
     }
 
     RMSensors.CpuFrequency {
-        id: cpuFrequenry
+        id: cpuFrequency
         enabled: root.showClock
         aggregator: root.clockAggregator
         eCoresCount: root.eCoresCount

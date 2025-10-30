@@ -33,16 +33,16 @@ RMBase.BaseSensorText {
     RMSensors.NetworkSpeed {
         id: networkSpeed
 
-        function cummulateSpeeds() {
+        function aggregateSpeeds() {
             const data = Object.entries(value ?? {});
             if (data.length === 0) {
                 return [undefined, undefined];
             }
 
-            // Cumulate speeds
+            // Aggregate speeds
             let download = 0, upload = 0;
-            for (const [ifname, speed] of data) {
-                if (root.ignoredInterfaces.indexOf(ifname) !== -1) {
+            for (const [ifName, speed] of data) {
+                if (root.ignoredInterfaces.indexOf(ifName) !== -1) {
                     continue;
                 }
                 download += speed[0];
@@ -52,7 +52,7 @@ RMBase.BaseSensorText {
         }
 
         onValueChanged: {
-            let [downloadValue, uploadValue] = cummulateSpeeds();
+            let [downloadValue, uploadValue] = aggregateSpeeds();
             if (typeof downloadValue === "undefined") {
                 // Skip first run
                 return;

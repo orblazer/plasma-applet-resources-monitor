@@ -191,7 +191,7 @@ ListModel {
                 } else if (sensorData.type === "disk") {
                     deviceName = sensorData.deviceName;
 
-                    // Add partion ID if name is duplicated
+                    // Add partition ID if name is duplicated
                     if (disksNameCount[deviceName] > 1) {
                         deviceName += ` (${sensorData.device})`;
                     }
@@ -212,7 +212,7 @@ ListModel {
         }
 
         function test([type, device, sensor]) {
-            // Skip "all" patern sensors
+            // Skip "all" pattern sensors
             if (device === "(?!all).*") {
                 return false;
             }

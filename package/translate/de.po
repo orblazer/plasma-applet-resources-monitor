@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: resources-monitor\n"
 "Report-Msgid-Bugs-To: https://github.com/orblazer/plasma-applet-resources-monitor\n"
-"POT-Creation-Date: 2025-10-25 22:19+0200\n"
+"POT-Creation-Date: 2025-10-30 22:31+0100\n"
 "PO-Revision-Date: 2025-08-01 14:06+0200\n"
 "Last-Translator: orblazer\n"
 "Language-Team: \n"
@@ -129,13 +129,13 @@ msgctxt "Disk graph icon : Write"
 msgid "W"
 msgstr "S"
 
-#: ../contents/ui/components/graph/GpuGraph.qml:40 ../contents/ui/components/graph/MemoryGraph.qml:43
-#: ../contents/ui/components/text/MemoryText.qml:31
+#: ../contents/ui/components/graph/GpuGraph.qml:40 ../contents/ui/components/graph/MemoryGraph.qml:44
+#: ../contents/ui/components/text/MemoryText.qml:34
 msgctxt "Percent unit"
 msgid "%1%"
 msgstr "%1%"
 
-#: ../contents/ui/components/graph/MemoryGraph.qml:20
+#: ../contents/ui/components/graph/MemoryGraph.qml:21
 msgctxt "Graph label"
 msgid "Percent."
 msgstr "Prozent."
@@ -536,7 +536,7 @@ msgstr "E-Kerne"
 #: ../contents/ui/config/dialog/EditCpu.qml:111
 msgctxt "@info:tooltip"
 msgid ""
-"<b>For Intel gen 12+ only</b><br>Number of E-Cores your CPU have, it's for seperate it from P-Cores in clock "
+"<b>For Intel gen 12+ only</b><br>Number of E-Cores your CPU have, it's for separate it from P-Cores in clock "
 "frequency average calculation."
 msgstr ""
 "</b>Nur für Intel Gen 12+:</b><br>Anzahl der E-Kerne der CPU. Dies dient der Separation von den P-Kernen bei der "
@@ -683,3 +683,11 @@ msgstr ""
 msgctxt "Text placement"
 msgid "Middle right"
 msgstr ""
+
+#~ msgctxt "@info:tooltip"
+#~ msgid ""
+#~ "<b>For Intel gen 12+ only</b><br>Number of E-Cores your CPU have, it's for seperate it from P-Cores in clock "
+#~ "frequency average calculation."
+#~ msgstr ""
+#~ "</b>Nur für Intel Gen 12+:</b><br>Anzahl der E-Kerne der CPU. Dies dient der Separation von den P-Kernen bei der "
+#~ "Berechnung der durchschnittlichen Taktfrequenz."
