@@ -9,7 +9,7 @@ import "./code/graphs.js" as GraphFns
 PlasmoidItem {
     id: root
 
-    readonly property bool isVertical: {
+    property bool isVertical: {
         switch (Plasmoid.formFactor) {
         case PlasmaCore.Types.Planar:
         case PlasmaCore.Types.MediaCenter:
@@ -26,7 +26,6 @@ PlasmoidItem {
             return false;
         }
     }
-    readonly property double initGraphSize: (isVertical ? root.width : root.height)
 
     // Settings properties
     property double fontScale: (Plasmoid.configuration.fontScale / 100)
@@ -56,8 +55,8 @@ PlasmoidItem {
         acceptedButtons: clickAction !== "none" ? Qt.LeftButton : Qt.NoButton
 
         // Propagate child size to parent
-        Layout.minimumWidth: graphView.implicitWidth
-        Layout.minimumHeight: graphView.implicitHeight
+        Layout.preferredWidth: isVertical ? Kirigami.Units.iconSizes.small : graphView.implicitWidth + Kirigami.Units.smallSpacing
+        Layout.preferredHeight: isVertical ? graphView.implicitHeight + Kirigami.Units.smallSpacing : Kirigami.Units.iconSizes.small
 
         // Click action
         Loader {
@@ -99,17 +98,14 @@ PlasmoidItem {
             spacing: Plasmoid.configuration.graphSpacing
             isVertical: root.isVertical
 
-            itemWidth: _getCustomConfig("graphWidth", Math.round(initGraphSize * (isVertical ? 1 : 1.4)))
-            itemHeight: _getCustomConfig("graphHeight", initGraphSize)
+            itemWidth: Plasmoid.configuration.customGraphWidth
+                ? Plasmoid.configuration.graphWidth
+                : (isVertical ? root.width : Math.round(root.height * 1.4))
+            itemHeight: Plasmoid.configuration.customGraphHeight
+                ? Plasmoid.configuration.graphHeight
+                : (isVertical ? root.width : root.height)
             fontPixelSize: Math.round(isVertical ? (itemHeight / 1.4 * fontScale) : (itemHeight * fontScale))
             fontScaleModifier: isVertical ? (itemHeight / 1.4) : itemHeight
         }
-    }
-
-    function _getCustomConfig(property, fallback) {
-        if (Plasmoid.configuration[`custom${property.charAt(0).toUpperCase() + property.slice(1)}`]) {
-            return Plasmoid.configuration[property];
-        }
-        return fallback;
     }
 }
