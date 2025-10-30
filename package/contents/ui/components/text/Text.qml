@@ -20,13 +20,8 @@ Item {
     property double fontScaleModifier: -1
 
     // Config aliases
+    property var defaultColor: Plasmoid.configuration.textColor
     property var textStyle: Plasmoid.configuration.enableShadows ? Text.Outline : Text.Normal
-
-    // Bind properties changes
-    onColorChanged: {
-        // Resolve colors
-        firstLine.color = root._resolveColor(color);
-    }
 
     // Labels
     Column {
@@ -38,6 +33,7 @@ Item {
         Text {
             id: firstLine
             text: root.device
+            color: root._resolveColor(root.color)
 
             width: parent.width
 
@@ -133,7 +129,7 @@ Item {
      */
     function _resolveColor(color) {
         if (!color) {
-            return Kirigami.Theme.textColor;
+            return _resolveColor(defaultColor);
         } else if (color.startsWith("#")) {
             return color;
         }

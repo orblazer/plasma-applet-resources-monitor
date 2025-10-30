@@ -71,13 +71,6 @@ RMBase.BaseSensorText {
     }
 
     function _updateData(index, value) {
-        // Retrieve label need to update
-        const label = textContainer.getLabel(index);
-        if (typeof label === "undefined" || !label.enabled) {
-            return;
-        }
-
-        // Show icons
         let icon = ""
         if (root.icons) {
             if (index == downloadIndex) {
@@ -87,8 +80,6 @@ RMBase.BaseSensorText {
             }
         }
 
-        // Show value on label
-        label.text = icon + Formatter.formatValue(value, unit, Qt.locale());
-        label.visible = true;
+        textContainer.setValue(index, value, icon + Formatter.formatValue(value, unit, Qt.locale()))
     }
 }

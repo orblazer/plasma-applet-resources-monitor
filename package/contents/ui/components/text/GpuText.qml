@@ -13,7 +13,10 @@ RMBase.BaseSensorText {
     // Text options
     textContainer {
         displayment: "always"
-        firstLine.text: "GPU"
         valueColors: root.colors
+
+        Component.onCompleted: {
+            textContainer.getLabel(0).valueText = "GPU"
+        }
     }
 }

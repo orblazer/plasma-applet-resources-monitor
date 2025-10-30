@@ -23,10 +23,10 @@ RMBaseGraph.SensorGraph {
     sensorsModel.sensors: ["cpu/all/" + sensorsType[0], "cpu/cpu0/frequency", "cpu/all/maximumTemperature"]
 
     // Text options
-    thresholdIndex: 2
-    realThresholds: thresholds // No change needed, simply map it
     textContainer {
         valueColors: [undefined, undefined, root.colors[2]]
+        thresholdIndex: 2
+        thresholds: root.thresholds // No change needed, simply map it
 
         hints: ["CPU", (root.showClock ? i18nc("Graph label", "Clock") : ""), (root.sensorsType[2] ? i18nc("Graph label", "Temp.") : "")]
     }

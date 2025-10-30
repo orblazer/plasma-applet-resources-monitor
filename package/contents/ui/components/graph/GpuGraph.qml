@@ -15,10 +15,10 @@ RMBaseGraph.TwoSensorsGraph {
     property bool showTemp: sensorsType[1] && device !== "all"
 
     // Labels
-    thresholdIndex: 2
-    realThresholds: thresholds // No change needed, simply map it
     textContainer {
         valueColors: [undefined, undefined, root.colors[2]]
+        thresholdIndex: 2
+        thresholds: root.thresholds // No change needed, simply map it
 
         hints: ["GPU", (secondChartVisible ? "VRAM" : ""), (showTemp ? i18nc("Graph label", "Temp.") : "")]
     }
@@ -34,7 +34,7 @@ RMBaseGraph.TwoSensorsGraph {
     }
     secondChartVisible: sensorsType[0] !== "none"
 
-    // Override methods, for handle memeory in percent
+    // Override methods, for handle memory in percent
     _formatValue: (index, value) => {
         if (index === 1 && memoryInPercent) {
             return i18nc("Percent unit", "%1%", Math.round((value / maxQueryModel.maxMemory[1]) * 1000) / 10); // This is for round to 1 decimal

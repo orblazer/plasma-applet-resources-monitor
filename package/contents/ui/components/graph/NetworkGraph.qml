@@ -70,7 +70,7 @@ RMBaseGraph.TwoSensorsGraph {
             _insertChartData(uploadIndex, uploadValue);
 
             // Update labels
-            if (textContainer.enabled && textContainer.valueVisible) {
+            if (textContainer.enabled) {
                 _updateData(downloadIndex, downloadValue);
                 _updateData(uploadIndex, uploadValue);
             }
@@ -78,13 +78,6 @@ RMBaseGraph.TwoSensorsGraph {
     }
 
     function _updateData(index, value) {
-        // Retrieve label need to update
-        const label = textContainer.getLabel(index);
-        if (typeof label === "undefined" || !label.enabled) {
-            return;
-        }
-
-        // Show icons
         let icon = ""
         if (root.icons) {
             if (index == downloadIndex) {
@@ -94,8 +87,6 @@ RMBaseGraph.TwoSensorsGraph {
             }
         }
 
-        // Show value on label
-        label.text = Formatter.formatValue(value, unit, Qt.locale()) + icon;
-        label.visible = true;
+        textContainer.setValue(index, value, Formatter.formatValue(value, unit, Qt.locale()) + icon)
     }
 }

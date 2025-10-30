@@ -2,6 +2,7 @@ import QtQuick
 import org.kde.plasma.plasmoid
 import org.kde.ksysguard.sensors as Sensors
 import org.kde.ksysguard.formatter as Formatter
+import "../../" as RMComponents
 
 Item {
     id: root
@@ -11,25 +12,18 @@ Item {
     readonly property alias sensorsModel: sensorsModel
 
     // Graph properties
-    property var colors: [undefined, undefined, undefined] // Common graph settins
+    property var colors: [undefined, undefined, undefined] // Common graph settings
     property var sensorsType: [] // Present because is graph settings
 
     // Thresholds properties
-    property int thresholdIndex: -1 // Sensor index used for threshold
-    property var thresholds: [] // ONLY USED FOR CONFIG (graph settings)! | See "realThresholds"
-    property var realThresholds: [] // fomart: [warning, critical]
-    readonly property color thresholdWarningColor: textContainer._resolveColor(Plasmoid.configuration.warningColor)
-    readonly property color thresholdCriticalColor: textContainer._resolveColor(Plasmoid.configuration.criticalColor)
+    property var thresholds: [] // ONLY USED FOR CONFIG (graph settings)! | See "textContainer.thresholds"
 
     // Labels
-    GraphText {
+    RMComponents.TextContainer {
         id: textContainer
         enabled: Plasmoid.configuration.displayment != 'never'
-        anchors.fill: parent
         z: 1
         hintColors: root.colors
-
-        onShowValues: _update()
     }
 
     // Retrieve data from sensors, and update labels
@@ -81,38 +75,9 @@ Item {
             root._insertChartData(i, value);
 
             // Update label
-            if (textContainer.enabled && textContainer.valueVisible) {
-                _updateLabel(i, value);
+            if (textContainer.enabled) {
+                textContainer.setValue(i, value, _formatValue(i, value));
             }
-        }
-    }
-
-    function _updateLabel(index, value) {
-        // Retrieve label need to update and data
-        const label = textContainer.getLabel(index);
-        if (typeof label === "undefined" || !label.enabled) {
-            return;
-        }
-
-        // Hide can't be zero label
-        if (!textContainer.labelsVisibleWhenZero[index] && value === 0) {
-            label.text = '';
-            label.visible = false;
-        } else {
-            // Handle threshold value
-            if (index === thresholdIndex && realThresholds.length > 0) {
-                if (value >= realThresholds[1]) {
-                    label.color = thresholdCriticalColor;
-                } else if (value >= realThresholds[0]) {
-                    label.color = thresholdWarningColor;
-                } else {
-                    label.color = textContainer.getTextColor(index);
-                }
-            }
-
-            // Show value on label
-            label.text = _formatValue(index, value);
-            label.visible = true;
         }
     }
 

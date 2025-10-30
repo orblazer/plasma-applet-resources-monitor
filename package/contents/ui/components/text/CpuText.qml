@@ -10,7 +10,10 @@ RMBase.BaseSensorText {
     // Text options
     textContainer {
         displayment: "always"
-        firstLine.text: "CPU"
         valueColors: root.colors
+
+        Component.onCompleted: {
+            textContainer.getLabel(0).valueText = "CPU"
+        }
     }
 }

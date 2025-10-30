@@ -11,14 +11,6 @@ BaseSensorGraph {
     property var uplimits: [] // ONLY USED FOR CONFIG!
     property var realUplimits: [100, 100]
 
-    // Bind properties changes
-    onRealUplimitsChanged: {
-        firstChart.yRange.to = realUplimits[0];
-        secondChart.yRange.to = realUplimits[1];
-        firstChart.yRange.automatic = realUplimits[0] == 0;
-        secondChart.yRange.automatic = realUplimits[1] == 0;
-    }
-
     // Graphs
     Charts.LineChart {
         id: secondChart
@@ -28,7 +20,8 @@ BaseSensorGraph {
         direction: Charts.XYChart.ZeroAtEnd
         fillOpacity: Plasmoid.configuration.graphFillOpacity / 100
         smooth: true
-        yRange.automatic: false
+        yRange.to: realUplimits[1]
+        yRange.automatic: realUplimits[1] == 0
 
         colorSource: Charts.SingleValueSource {
             value: textContainer._resolveColor(colors[1])
@@ -48,7 +41,8 @@ BaseSensorGraph {
         direction: Charts.XYChart.ZeroAtEnd
         fillOpacity: Plasmoid.configuration.graphFillOpacity / 100
         smooth: true
-        yRange.automatic: false
+        yRange.to: realUplimits[0]
+        yRange.automatic: realUplimits[0] == 0
 
         colorSource: Charts.SingleValueSource {
             value: textContainer._resolveColor(colors[0])

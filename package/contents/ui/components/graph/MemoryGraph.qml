@@ -12,10 +12,10 @@ RMBaseGraph.TwoSensorsGraph {
     property var fieldInPercent: [sensorsType[0].endsWith("-percent"), sensorsType[1] === "swap-percent"]
 
     // Labels
-    realThresholds: [maxQueryModel.maxMemory[0] * (thresholds[0] / 100.0), maxQueryModel.maxMemory[0] * (thresholds[1] / 100.0)]
     textContainer {
         valueColors: [undefined, root.showSwap ? root.colors[1] : undefined, undefined]
         labelsVisibleWhenZero: [true, false, true]
+        thresholds: [maxQueryModel.maxMemory[0] * (thresholds[0] / 100.0), maxQueryModel.maxMemory[0] * (thresholds[1] / 100.0)]
 
         hints: ["RAM", root.showSwap ? "Swap" : (sensorsType[1] === "memory-percent" ? i18nc("Graph label", "Percent.") : ""), ""]
     }
