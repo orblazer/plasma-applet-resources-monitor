@@ -21,8 +21,11 @@ RMBase.BaseSensorText {
     // Text options
     textContainer {
         displayment: "always"
-        firstLine.text: "RAM"
         valueColors: root.colors
+
+        Component.onCompleted: {
+            textContainer.getLabel(0).valueText = "RAM"
+        }
     }
 
     // Override methods, for handle memory in percent
