@@ -23,8 +23,8 @@
     "postversion": "git push && git push --tags && npm run pack"
   },
   "devDependencies": {
-    "@commitlint/cli": "^19.2.1",
-    "@commitlint/config-conventional": "^19.8.1",
+    "@commitlint/cli": "^20.1.0",
+    "@commitlint/config-conventional": "^20.0.0",
     "@types/archiver": "^6.0.3",
     "archiver": "^7.0.1",
     "conventional-changelog": "^7.1.1",
