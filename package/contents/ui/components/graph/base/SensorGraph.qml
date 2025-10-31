@@ -21,7 +21,7 @@ BaseSensorGraph {
         yRange.automatic: false
 
         colorSource: Charts.SingleValueSource {
-            value: textContainer._resolveColor(colors[0])
+            value: _resolveColor(colors[0])
         }
         valueSources: [
             ArrayDataSource {

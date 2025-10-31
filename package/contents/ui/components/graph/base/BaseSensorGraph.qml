@@ -2,6 +2,7 @@ import QtQuick
 import org.kde.plasma.plasmoid
 import org.kde.ksysguard.sensors as Sensors
 import org.kde.ksysguard.formatter as Formatter
+import org.kde.kirigami as Kirigami
 import "../../" as RMComponents
 
 Item {
@@ -84,5 +85,19 @@ Item {
     property var _formatValue: _defaultFormatValue
     function _defaultFormatValue(index, value) {
         return Formatter.Formatter.formatValueShowNull(value, sensorsModel.getData(index, Sensors.SensorDataModel.Unit));
+    }
+
+    /**
+     * Resolve color when is name based
+     * @param {string} color The color value
+     * @returns The color color
+     */
+    function _resolveColor(color) {
+        if (!color) {
+            return Kirigami.Theme.textColor;
+        } else if (color.startsWith("#")) {
+            return color;
+        }
+        return Kirigami.Theme[color] ?? Kirigami.Theme.textColor;
     }
 }

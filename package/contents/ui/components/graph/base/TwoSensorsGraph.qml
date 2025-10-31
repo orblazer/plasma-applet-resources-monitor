@@ -24,7 +24,7 @@ BaseSensorGraph {
         yRange.automatic: realUplimits[1] == 0
 
         colorSource: Charts.SingleValueSource {
-            value: textContainer._resolveColor(colors[1])
+            value: _resolveColor(colors[1])
         }
         valueSources: [
             ArrayDataSource {
@@ -45,7 +45,7 @@ BaseSensorGraph {
         yRange.automatic: realUplimits[0] == 0
 
         colorSource: Charts.SingleValueSource {
-            value: textContainer._resolveColor(colors[0])
+            value: _resolveColor(colors[0])
         }
         valueSources: [
             ArrayDataSource {
