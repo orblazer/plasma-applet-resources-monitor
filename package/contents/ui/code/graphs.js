@@ -107,39 +107,73 @@ const VERSION = 2; //? Bump when some settings changes in graphs structure
  */
 
 /**
+ * Migration registry: version number → migration function
+ * Each function receives a graph and mutates it in place
+ * @type {Record<number, (graph: Graph) => void>}
+ */
+const migrations = {
+  // V1 -> V2: Add icons to network/disk graphs
+  1: (graph) => {
+    if (
+      (graph.type === "network" || graph.type === "disk") &&
+      typeof graph.icons === "undefined"
+    ) {
+      graph.icons = false;
+    }
+  },
+};
+
+/**
  * Parse json string to graph array
  * @param {string} raw The raw graphs value (in json string)
- * @param {boolean} convertOld Convert old  graphs to new version
+ * @param {boolean} update Update the outdated entries or not
  * @returns {Graph[]} The parsed graph
  */
-function parse(raw, convertOld = false) {
+function parse(raw, update = false) {
   /** @type {Graph[]} */
-  const graphs = JSON.parse(raw);
+  const graphs = JSON.parse(raw || "[]");
+  if (graphs.length === 0) return [];
 
-  // Check if versions is identic or if is empty (skip conversion in that cases)
-  if (graphs.length === 0 || graphs[0]._v === VERSION) {
-    return graphs;
-  }
+  const result = [];
+  let anyChanged = false;
+  const warnedVersions = new Set();
 
-  if (!convertOld) {
-    return graphs.filter((v) => v._v === VERSION);
-  }
+  for (const graph of graphs) {
+    let currentVersion = graph._v ?? 1;
+    const originalVersion = currentVersion;
 
-  // Mark first item as changed
-  if (graphs[0]._v !== VERSION) {
-    graphs[0]._changed = true;
-  }
+    //  Handle migrations
+    if (update) {
+      while (currentVersion < VERSION) {
+        const migrateFn = migrations[currentVersion];
+        if (typeof migrateFn !== "function") {
+          // Warn only once per missing migration version
+          if (!warnedVersions.has(currentVersion)) {
+            console.warn(`⚠ Missing migration for version ${currentVersion}`);
+            warnedVersions.add(currentVersion);
+          }
+          break;
+        }
+        migrateFn(graph);
+        graph._v = ++currentVersion;
+      }
 
-  // Handle conversion
-  return graphs.map((v) => {
-    // V2
-    if ((v.type === "network" || v.type === "disk") && typeof v.icons === "undefined") {
-      v.icons = false
+      if (!anyChanged && currentVersion !== originalVersion) {
+        anyChanged = true;
+      }
+    } else if (currentVersion !== VERSION) {
+      continue; // Skip outdated (when won't apply update)
     }
 
-    v._v = VERSION;
-    return v;
-  });
+    result.push(graph);
+  }
+
+  // Mark only first as changed if anything was migrated
+  if (anyChanged && result.length > 0) {
+    result[0]._changed = true;
+  }
+
+  return result;
 }
 
 /**
@@ -221,7 +255,7 @@ function create(type, device) {
       item.color = "textColor";
       item.device = "Text";
       item.placement = "middle-right";
-      item.size = 24
+      item.size = 24;
       break;
     default:
       throw new Error(`${type} is not valid graph type`);
