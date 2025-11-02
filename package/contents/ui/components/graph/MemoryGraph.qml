@@ -18,13 +18,12 @@ RMBaseGraph.TwoSensorsGraph {
         valueColors: [undefined, root.showSwap ? root.colors[1] : undefined, undefined]
         labelsVisibleWhenZero: [true, false, true]
         thresholdIndex: 0
-        thresholds: [maxQueryModel.maxMemory[0] * (thresholds[0] / 100.0), maxQueryModel.maxMemory[0] * (thresholds[1] / 100.0)]
+        thresholds: [root.realUplimits[0] * (root.thresholds[0] / 100.0), root.realUplimits[0] * (root.thresholds[1] / 100.0)]
 
-        hints: ["RAM", root.showSwap ? "Swap" : (sensorsType[1] === "memory-percent" ? i18nc("Graph label", "Percent.") : ""), ""]
+        hints: ["RAM", root.showSwap ? "Swap" : (root.sensorsType[1] === "memory-percent" ? i18nc("Graph label", "Percent.") : ""), ""]
     }
 
     // Graph options
-    realUplimits: maxQueryModel.maxMemory
     sensorsModel.sensors: {
         const info = sensorsType[0].split("-");
         const type = info[0] === "physical" ? "used" : "application";
@@ -43,7 +42,7 @@ RMBaseGraph.TwoSensorsGraph {
     // Override methods, for handle memory in percent
     _formatValue: (index, value) => {
         if (fieldInPercent[index]) {
-            return i18nc("Percent unit", "%1%", Math.round((value / maxQueryModel.maxMemory[index]) * 1000) / 10); // This is for round to 1 decimal
+            return i18nc("Percent unit", "%1%", Math.round((value / root.realUplimits[index]) * 1000) / 10); // This is for round to 1 decimal
         }
         return _defaultFormatValue(index, value);
     }
@@ -66,7 +65,7 @@ RMBaseGraph.TwoSensorsGraph {
             // Update graph Y range and sensors
             if (maxMemory[0] > 0 && maxMemory[1] >= 0) {
                 enabled = false;
-                maxMemory = maxMemory;
+                root.realUplimits = maxMemory;
             }
         }
     }
