@@ -20,7 +20,7 @@ RMBaseGraph.TwoSensorsGraph {
         thresholdIndex: 0
         thresholds: [maxQueryModel.maxMemory[0] * (thresholds[0] / 100.0), maxQueryModel.maxMemory[0] * (thresholds[1] / 100.0)]
 
-        hints: ["RAM", root.showSwap ? "Swap" : (sensorsType[1] === "memory-percent" ? i18nc("Graph label", "Percent.") : ""), ""]
+        hints: [i18nc("Graph label", "RAM"), root.showSwap ? i18nc("Graph label", "Swap") : (sensorsType[1] === "memory-percent" ? i18nc("Graph label", "Percent.") : ""), ""]
     }
 
     // Graph options
