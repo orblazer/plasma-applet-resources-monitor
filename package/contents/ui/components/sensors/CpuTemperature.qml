@@ -27,7 +27,7 @@ Item {
     }
 
     function getFormattedValue() {
-        return Formatter.Formatter.formatValueShowNull(value, 1000 /* Formatter.Unit.UnitCelsius */);
+        return Formatter.Formatter.formatValueShowNull(value, Formatter.Units.UnitCelsius);
     }
 
     readonly property var _sensor: Sensors.Sensor {

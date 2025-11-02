@@ -14,7 +14,7 @@ Sensors.SensorDataModel {
     signal ready
 
     function getFormattedValue(eCores = false) {
-        return Formatter.Formatter.formatValueShowNull(getValue(eCores), 302 /* Formatter.Unit.UnitMegaHertz */);
+        return Formatter.Formatter.formatValueShowNull(getValue(eCores), Formatter.Units.UnitMegaHertz);
     }
 
     function getValue(eCores = false) {

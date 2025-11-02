@@ -7,7 +7,7 @@ RMBase.BaseSensorText {
     id: root
     objectName: "CpuText"
     sensor.sensorId: "cpu/all/" + sensorsType[0]
-    readonly property int minimumWidth: textContainer.enabled ? Formatter.Formatter.maximumLength(1002 /* Formatter.Unit.UnitPercent */, textContainer.font) : 0
+    readonly property int minimumWidth: textContainer.enabled ? Formatter.Formatter.maximumLength(Formatter.Units.UnitPercent, textContainer.font) : 0
 
     // Text options
     textContainer {

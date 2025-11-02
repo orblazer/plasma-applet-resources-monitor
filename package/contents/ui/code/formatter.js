@@ -19,7 +19,7 @@ function getUnitInfo(name, i18nc = (_ = "", def = "") => def) {
   switch (name) {
     case "kilobyte":
       return {
-        id: 500, /* Formatter.Unit.UnitBitRate - NOTE: use bit cause its nearest in QML formater for calculate max length */
+        id: 500, /* Formatter.Units.UnitBitRate - NOTE: use bit cause its nearest in QML formater for calculate max length */
         name: "kilobyte",
         symbol: i18nc("Bytes per second unit symbol", "Bps"),
         kiloChar: "k",
@@ -28,7 +28,7 @@ function getUnitInfo(name, i18nc = (_ = "", def = "") => def) {
       };
     case "kilobit":
       return {
-        id: 500, /* Formatter.Unit.UnitBitRate */
+        id: 500, /* Formatter.Units.UnitBitRate */
         name: "kilobit",
         symbol: i18nc("Bits per second unit symbol", "bps"),
         kiloChar: "k",
@@ -37,7 +37,7 @@ function getUnitInfo(name, i18nc = (_ = "", def = "") => def) {
       };
     default:
       return {
-        id: 200, /* Formatter.Unit.UnitByteRate */
+        id: 200, /* Formatter.Units.UnitByteRate */
         name: "kibibyte",
         symbol: i18nc("Bytes per second unit symbol", "iB/s"),
         kiloChar: "K",
