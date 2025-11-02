@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: resources-monitor\n"
 "Report-Msgid-Bugs-To: https://github.com/orblazer/plasma-applet-resources-monitor\n"
-"POT-Creation-Date: 2025-10-30 22:31+0100\n"
+"POT-Creation-Date: 2025-11-02 12:45+0800\n"
 "PO-Revision-Date: 2025-10-25 22:22+0200\n"
 "Last-Translator: orblazer\n"
 "Language-Team: \n"
@@ -128,11 +128,26 @@ msgctxt "Disk graph icon : Write"
 msgid "W"
 msgstr "E"
 
+#: ../contents/ui/components/graph/GpuGraph.qml:23
+msgctxt "Graph label"
+msgid "VRAM"
+msgstr ""
+
 #: ../contents/ui/components/graph/GpuGraph.qml:40 ../contents/ui/components/graph/MemoryGraph.qml:44
 #: ../contents/ui/components/text/MemoryText.qml:34
 msgctxt "Percent unit"
 msgid "%1%"
 msgstr "%1%"
+
+#: ../contents/ui/components/graph/MemoryGraph.qml:21
+msgctxt "Graph label"
+msgid "RAM"
+msgstr ""
+
+#: ../contents/ui/components/graph/MemoryGraph.qml:21
+msgctxt "Graph label"
+msgid "Swap"
+msgstr ""
 
 #: ../contents/ui/components/graph/MemoryGraph.qml:21
 msgctxt "Graph label"
