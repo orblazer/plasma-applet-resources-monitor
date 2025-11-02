@@ -248,18 +248,16 @@ KCM.ScrollViewKCM {
             }
         }
 
-        Kirigami.ScrollablePage {
-            Loader {
-                id: contentItem
-                onLoaded: {
-                    editDialog.open();
-                    item.onChanged.connect(onChanged);
-                }
+        Loader {
+            id: contentItem
+            onLoaded: {
+                editDialog.open();
+                item.onChanged.connect(onChanged);
+            }
 
-                // Handle config change
-                function onChanged() {
-                    editDialog.needSave = true;
-                }
+            // Handle config change
+            function onChanged() {
+                editDialog.needSave = true;
             }
         }
 

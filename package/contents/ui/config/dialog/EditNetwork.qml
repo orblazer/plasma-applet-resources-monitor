@@ -12,6 +12,7 @@ import "../../code/network.js" as NetworkUtils
  */
 BaseForm {
     id: root
+    colorsType: ["series", "series", false]
 
     readonly property var unit: Formatter.getUnitInfo(item.sensorsType[0], i18nc)
     readonly property var speedOptions: [
@@ -31,6 +32,7 @@ BaseForm {
         _getOption(1, 3), _getOption(2.5, 3), _getOption(5, 3), _getOption(10, 3)]
 
     // List network interfaces
+    property var interfaces: ListModel {}
     Plasma5Support.DataSource {
         engine: 'executable'
         connectedSources: [NetworkUtils.NET_DATA_SOURCE]
@@ -42,9 +44,9 @@ BaseForm {
                 print(data.stderr);
             } else {
                 const transferData = NetworkUtils.parseTransferData(data.stdout);
-                interfaces.model.clear();
+                interfaces.clear();
                 for (const name in transferData) {
-                    interfaces.model.append({
+                    interfaces.append({
                         name
                     });
                 }
@@ -52,237 +54,137 @@ BaseForm {
         }
     }
 
-    QQC2.CheckBox {
-        text: i18n("Swap first and second line")
-        checked: item.sensorsType[0]
-        onClicked: {
-            item.sensorsType[0] = checked;
-            root.changed();
-        }
-    }
-
-    QQC2.CheckBox {
-        text: i18n("Show icons (%1 / %2)", "↓", "↑")
-        checked: item.icons
-        onClicked: {
-            item.icons = checked;
-            root.changed();
-        }
-    }
-
-    QQC2.ComboBox {
-        Layout.fillWidth: true
-        Kirigami.FormData.label: i18n("Unit:")
-
-        textRole: "label"
-        valueRole: "value"
-        model: [
-            {
-                "label": i18n("kibibyte (KiB/s)"),
-                "value": "kibibyte"
-            },
-            {
-                "label": i18n("kilobit (Kbps)"),
-                "value": "kilobit"
-            },
-            {
-                "label": i18n("kilobyte (KBps)"),
-                "value": "kilobyte"
+    properties: Kirigami.FormLayout {
+        QQC2.CheckBox {
+            text: i18n("Swap first and second line")
+            checked: root.item.sensorsType[0]
+            onClicked: {
+                root.item.sensorsType[0] = checked;
+                root.changed();
             }
-        ]
-
-        Component.onCompleted: currentIndex = indexOfValue(item.sensorsType[1])
-        onActivated: {
-            item.sensorsType[1] = currentValue;
-            root.changed();
         }
-    }
 
-    // Interfaces
-    GridLayout {
-        Layout.fillWidth: true
-        Kirigami.FormData.label: i18n("Network interfaces:")
-
-        columns: 2
-        rowSpacing: Kirigami.Units.smallSpacing
-        columnSpacing: Kirigami.Units.largeSpacing
-
-        Repeater {
-            id: interfaces
-            model: ListModel {
+        QQC2.CheckBox {
+            text: i18n("Show icons (%1 / %2)", "↓", "↑")
+            checked: root.item.icons
+            onClicked: {
+                root.item.icons = checked;
+                root.changed();
             }
-            delegate: QQC2.CheckBox {
-                text: name
-                checked: item.ignoredInterfaces.indexOf(name) == -1
+        }
 
-                onClicked: {
-                    if (checked) {
-                        // Checking, and thus removing from the ignoredNetworkInterfaces
-                        var i = item.ignoredInterfaces.indexOf(name);
-                        item.ignoredInterfaces.splice(i, 1);
-                    } else {
-                        // Unchecking, and thus adding to the ignoredNetworkInterfaces
-                        item.ignoredInterfaces.push(name);
+        QQC2.ComboBox {
+            Layout.fillWidth: true
+            Kirigami.FormData.label: i18n("Unit:")
+
+            textRole: "label"
+            valueRole: "value"
+            model: [
+                {
+                    "label": i18n("kibibyte (KiB/s)"),
+                    "value": "kibibyte"
+                },
+                {
+                    "label": i18n("kilobit (Kbps)"),
+                    "value": "kilobit"
+                },
+                {
+                    "label": i18n("kilobyte (KBps)"),
+                    "value": "kilobyte"
+                }
+            ]
+
+            Component.onCompleted: currentIndex = indexOfValue(root.item.sensorsType[1])
+            onActivated: {
+                root.item.sensorsType[1] = currentValue;
+                root.changed();
+            }
+        }
+
+        // Interfaces
+        GridLayout {
+            Layout.fillWidth: true
+            Kirigami.FormData.label: i18n("Network interfaces:")
+
+            columns: 2
+            rowSpacing: Kirigami.Units.smallSpacing
+            columnSpacing: Kirigami.Units.largeSpacing
+
+            Repeater {
+                model: root.interfaces
+                delegate: QQC2.CheckBox {
+                    text: name
+                    checked: root.item.ignoredInterfaces.indexOf(name) == -1
+
+                    onClicked: {
+                        if (checked) {
+                            // Checking, and thus removing from the ignoredNetworkInterfaces
+                            var i = root.item.ignoredInterfaces.indexOf(name);
+                            root.item.ignoredInterfaces.splice(i, 1);
+                        } else {
+                            // Unchecking, and thus adding to the ignoredNetworkInterfaces
+                            root.item.ignoredInterfaces.push(name);
+                        }
+                        root.changed();
                     }
-                    root.changed();
                 }
             }
         }
-    }
 
-    // Transfer speed
-    Item {
-        Kirigami.FormData.label: i18n("Maximum transfer speed")
-        Kirigami.FormData.isSection: true
-    }
-    RMControls.PredefinedSpinBox {
-        id: receivingSpeed
-        Layout.fillWidth: true
-        Kirigami.FormData.label: i18nc("Chart config", "Receiving:")
-        factor: 1000
-
-        realValue: item.uplimits[0]
-        onRealValueChanged: {
-            item.uplimits[0] = receivingSpeed.realValue;
-            root.changed();
+        // Transfer speed
+        Item {
+            Kirigami.FormData.label: i18n("Maximum transfer speed")
+            Kirigami.FormData.isSection: true
         }
+        RMControls.PredefinedSpinBox {
+            id: receivingSpeed
+            Layout.fillWidth: true
+            Kirigami.FormData.label: i18nc("Chart config", "Receiving:")
+            factor: 1000
 
-        predefinedChoices {
-            textRole: "label"
-            valueRole: "value"
-            model: speedOptions
-        }
+            realValue: root.item.uplimits[0]
+            onRealValueChanged: {
+                root.item.uplimits[0] = receivingSpeed.realValue;
+                root.changed();
+            }
 
-        spinBox {
-            decimals: 3
-            stepSize: 1
-            realFrom: 0.001
-            suffix: " M" + unit.symbol
-        }
-    }
-    RMControls.PredefinedSpinBox {
-        id: sendingSpeed
-        Layout.fillWidth: true
-        Kirigami.FormData.label: i18nc("Chart config", "Sending:")
-        factor: 1000
+            predefinedChoices {
+                textRole: "label"
+                valueRole: "value"
+                model: root.speedOptions
+            }
 
-        realValue: item.uplimits[1]
-        onRealValueChanged: {
-            item.uplimits[1] = sendingSpeed.realValue;
-            root.changed();
-        }
-
-        predefinedChoices {
-            textRole: "label"
-            valueRole: "value"
-            model: speedOptions
-        }
-
-        spinBox {
-            decimals: 3
-            stepSize: 1
-            realFrom: 0.001
-            suffix: " M" + unit.symbol
-        }
-    }
-
-    // Colors
-    Kirigami.Separator {
-        Kirigami.FormData.label: i18n("Colors")
-        Kirigami.FormData.isSection: true
-    }
-    RMControls.ColorSelector {
-        Layout.fillWidth: true
-        Kirigami.FormData.label: i18n("First line:")
-        dialogTitle: i18nc("Chart color", "Choose series color")
-
-        value: item.colors[0]
-        onValueChanged: {
-            item.colors[0] = value;
-            root.changed();
-        }
-    }
-    RMControls.ColorSelector {
-        Layout.fillWidth: true
-        Kirigami.FormData.label: i18n("Second Line:")
-        dialogTitle: i18nc("Chart color", "Choose text color")
-
-        value: item.colors[1]
-        onValueChanged: {
-            item.colors[1] = value;
-            root.changed();
-        }
-    }
-
-    // Size
-    Kirigami.Separator {
-        Kirigami.FormData.label: i18n("Size")
-        Kirigami.FormData.isSection: true
-    }
-    RMControls.CustomizableSize {
-        id: graphWidth
-        Kirigami.FormData.label: i18n("Width:")
-        Layout.fillWidth: true
-        property bool isReady: false
-
-        Component.onCompleted: {
-            if (item.sizes[0] != -1) {
-                value = item.sizes[0]
-                customized = true
-            } else {
-                customized = false
+            spinBox {
+                decimals: 3
+                stepSize: 1
+                realFrom: 0.001
+                suffix: " M" + root.unit.symbol
             }
         }
-        onValueChanged: {
-            if (!isReady) return
-            console.log("value", value)
-            item.sizes[0] = value;
-            root.changed();
-        }
-        onCustomizedChanged: {
-            if (!isReady) return
-            item.sizes[0] = customized ? value : -1
-            root.changed();
-        }
+        RMControls.PredefinedSpinBox {
+            id: sendingSpeed
+            Layout.fillWidth: true
+            Kirigami.FormData.label: i18nc("Chart config", "Sending:")
+            factor: 1000
 
-        spinBox {
-            from: 20
-            to: 1000
-
-            onReady: isReady = true
-        }
-    }
-    RMControls.CustomizableSize {
-        id: graphHeight
-        Kirigami.FormData.label: i18n("Height:")
-        Layout.fillWidth: true
-        property bool isReady: false
-
-        Component.onCompleted: {
-            if (item.sizes[1] != -1) {
-                value = item.sizes[1]
-                customized = true
-            } else {
-                customized = false
+            realValue: root.item.uplimits[1]
+            onRealValueChanged: {
+                root.item.uplimits[1] = sendingSpeed.realValue;
+                root.changed();
             }
-        }
-        onValueChanged: {
-            if (!isReady) return
-            console.log("value", value)
-            item.sizes[1] = value;
-            root.changed();
-        }
-        onCustomizedChanged: {
-            if (!isReady) return
-            item.sizes[1] = customized ? value : -1
-            root.changed();
-        }
 
-        spinBox {
-            from: 20
-            to: 1000
+            predefinedChoices {
+                textRole: "label"
+                valueRole: "value"
+                model: root.speedOptions
+            }
 
-            onReady: isReady = true
+            spinBox {
+                decimals: 3
+                stepSize: 1
+                realFrom: 0.001
+                suffix: " M" + root.unit.symbol
+            }
         }
     }
 
