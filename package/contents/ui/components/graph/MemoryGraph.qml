@@ -38,7 +38,7 @@ RMBaseGraph.TwoSensorsGraph {
         }
         return sensors;
     }
-    secondChartVisible: showSwap && Plasmoid.configuration.historyAmount > 0
+    secondChartVisible: showSwap
 
     // Override methods, for handle memory in percent
     _formatValue: (index, value) => {
