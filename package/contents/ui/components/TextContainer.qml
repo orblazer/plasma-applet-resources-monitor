@@ -51,7 +51,10 @@ Item {
         visible: false
         text: "\n\n\n"
 
-        font.pixelSize: Math.round(root.height * (Plasmoid.configuration.fontScale / 100))
+        font.family: (Plasmoid.configuration.autoFontAndSize || Plasmoid.configuration.fontFamily.length === 0) ? Kirigami.Theme.defaultFont.family : Plasmoid.configuration.fontFamily
+        font.weight: Plasmoid.configuration.autoFontAndSize ? Kirigami.Theme.defaultFont.weight : Plasmoid.configuration.fontWeight
+        font.italic: Plasmoid.configuration.autoFontAndSize ? Kirigami.Theme.defaultFont.italic : Plasmoid.configuration.italicText
+        font.pixelSize: Plasmoid.configuration.autoFontAndSize ? 3 * Kirigami.Theme.defaultFont.pixelSize : _pointToPixel(Plasmoid.configuration.fontSize)
 
         fontSizeMode: Text.VerticalFit
         minimumPixelSize: 1
@@ -160,6 +163,11 @@ Item {
             return color;
         }
         return Kirigami.Theme[color] ?? Kirigami.Theme.textColor;
+    }
+
+    function _pointToPixel(pointSize: int): int {
+        const pixelsPerInch = Screen.pixelDensity * 25.4;
+        return Math.round(pointSize / 72 * pixelsPerInch);
     }
 
     Component {

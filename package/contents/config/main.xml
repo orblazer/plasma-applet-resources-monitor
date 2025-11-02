@@ -40,8 +40,28 @@
         <entry name="enableShadows" type="Bool">
             <default>true</default>
         </entry>
-        <entry name="fontScale" type="Int">
-            <default>24</default>
+        <entry name="autoFontAndSize" type="Bool">
+            <default>true</default>
+        </entry>
+        <entry name="fontFamily" type="String">
+            <default></default>
+        </entry>
+        <entry name="boldText" type="Bool">
+            <label>Internal for FontDialog</label>
+            <default>false</default>
+        </entry>
+        <entry name="italicText" type="Bool">
+            <default>false</default>
+        </entry>
+        <entry name="fontWeight" type="Int">
+            <default>50</default>
+        </entry>
+        <entry name="fontStyleName" type="String">
+            <label>Internal for FontDialog</label>
+            <default></default>
+        </entry>
+        <entry name="fontSize" type="Int">
+            <default>10</default>
         </entry>
         <entry name="displayment" type="String">
             <default>hover-hints</default>

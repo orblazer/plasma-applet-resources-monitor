@@ -10,7 +10,7 @@ Item {
     property string device: "Text" // Text value
     property string color: undefined // Text color
     property string placement: "middle-right" // Text placement
-    property int fontSize: 24 // Font size
+    property int fontSize: Kirigami.Theme.defaultFont.pointSize // Font size
 
     // Aliases
     readonly property alias minimumWidth: textMetics.width
@@ -24,7 +24,10 @@ Item {
 
     TextMetrics {
         id: textMetics
-        font.pixelSize: Math.round(root.height * (size / 100))
+        font.family: (Plasmoid.configuration.autoFontAndSize || Plasmoid.configuration.fontFamily.length === 0) ? Kirigami.Theme.defaultFont.family : Plasmoid.configuration.fontFamily
+        font.weight: Plasmoid.configuration.autoFontAndSize ? Kirigami.Theme.defaultFont.weight : Plasmoid.configuration.fontWeight
+        font.italic: Plasmoid.configuration.autoFontAndSize ? Kirigami.Theme.defaultFont.italic : Plasmoid.configuration.italicText
+        font.pixelSize: _pointToPixel(fontSize)
         text: root.device
     }
 
@@ -126,6 +129,10 @@ Item {
         ]
     }
 
+    function _pointToPixel(pointSize: int): int {
+        const pixelsPerInch = Screen.pixelDensity * 25.4;
+        return Math.round(pointSize / 72 * pixelsPerInch);
+    }
 
     /**
      * Resolve color when is name based

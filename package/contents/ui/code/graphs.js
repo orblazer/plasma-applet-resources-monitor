@@ -216,9 +216,10 @@ function stringify(graphs) {
  * Create new graph with given type and device
  * @param {Graph["type"]} type The graph type
  * @param {string} [device] The device
+ * @param {number} [fontSize] The default font size
  * @returns {Graph} The created graph
  */
-function create(type, device) {
+function create(type, device, fontSize) {
   /** @type {Graph} */
   let item = {
     _v: VERSION,
@@ -279,7 +280,7 @@ function create(type, device) {
       item.color = "textColor";
       item.device = "Text";
       item.placement = "middle-right";
-      item.fontSize = 24;
+      item.fontSize = fontSize ?? 10;
       break;
     default:
       throw new Error(`${type} is not valid graph type`);
