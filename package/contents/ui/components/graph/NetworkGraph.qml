@@ -1,20 +1,21 @@
 import QtQuick
 import org.kde.plasma.plasmoid
-import org.kde.ksysguard.formatter as KFormatter
+import org.kde.ksysguard.formatter as Formatter
 import "./base" as RMBaseGraph
 import "../sensors" as RMSensors
-import "../../code/formatter.js" as Formatter
+import "../../code/formatter.js" as RMFormatter
 
 RMBaseGraph.TwoSensorsGraph {
     id: root
     objectName: "NetworkGraph"
     sensorsModel.enabled: false // Disable base sensor due to use custom one
     _update: networkSpeed.execute
+    readonly property int minimumWidth: textContainer.enabled ? Formatter.Formatter.maximumLength(unit.id, textContainer.font) : 0
 
     // Settings
     property var ignoredInterfaces: []
     property bool icons: false
-    readonly property var unit: Formatter.getUnitInfo(sensorsType[1], i18nc)
+    readonly property var unit: RMFormatter.getUnitInfo(sensorsType[1], i18nc)
 
     // Retrieve chart index and swap it if needed
     readonly property int downloadIndex: sensorsType[0] ? 1 : 0
@@ -87,6 +88,6 @@ RMBaseGraph.TwoSensorsGraph {
             }
         }
 
-        textContainer.setValue(index, value, Formatter.formatValue(value, unit, Qt.locale()) + icon)
+        textContainer.setValue(index, value, RMFormatter.formatValue(value, unit, Qt.locale()) + icon)
     }
 }

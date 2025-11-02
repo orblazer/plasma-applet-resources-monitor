@@ -1,16 +1,18 @@
 import QtQuick
 import org.kde.plasma.plasmoid
+import org.kde.ksysguard.formatter as Formatter
 import "./base" as RMBaseGraph
-import "../../code/formatter.js" as Formatter
+import "../../code/formatter.js" as RMFormatter
 
 RMBaseGraph.TwoSensorsGraph {
     id: root
     objectName: "DiskGraph"
+    readonly property int minimumWidth: textContainer.enabled ? Formatter.Formatter.maximumLength(unit.id, textContainer.font) : 0
 
     // Settings
     property string device: "all" // Device ID (e.g.: "sda" or "sdc"); could be "all"
     property bool icons: false
-    readonly property var unit: Formatter.getUnitInfo("kibibyte", i18nc)
+    readonly property var unit: RMFormatter.getUnitInfo("kibibyte", i18nc)
 
     // Retrieve chart index and swap it if needed
     readonly property int readIndex: sensorsType[0] ? 1 : 0
