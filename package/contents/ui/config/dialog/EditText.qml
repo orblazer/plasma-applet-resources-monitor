@@ -61,17 +61,15 @@ BaseForm {
         Component.onCompleted: currentIndex = indexOfValue(item.placement)
     }
 
-    RMControls.SpinBox {
-        id: fontScale
-        Kirigami.FormData.label: i18n("Font scale:")
+    QQC2.ComboBox {
         Layout.fillWidth: true
-        from: 1
-        to: 100
-        suffix: "%"
+        Kirigami.FormData.label: i18n("Font size:")
 
-        value: item.size
-        onValueChanged: {
-            item.size = value;
+        model: [6, 7, 8, 9, 10, 11, 12, 14, 16, 18, 20, 22, 24, 26, 28, 36, 48, 72]
+
+        Component.onCompleted: currentIndex = indexOfValue(item.fontSize)
+        onActivated: {
+            item.fontSize = currentValue;
             root.changed();
         }
     }

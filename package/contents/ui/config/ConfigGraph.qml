@@ -483,7 +483,7 @@ KCM.ScrollViewKCM {
      */
     function addGraph(type, device) {
         // Create graph item
-        const item = GraphFns.create(type, device);
+        const item = GraphFns.create(type, device, Kirigami.Theme.defaultFont.pointSize);
         if (!item) {
             return;
         }

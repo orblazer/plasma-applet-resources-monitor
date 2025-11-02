@@ -1,6 +1,8 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls as QQC2
+import QtQuick.Dialogs as Dialogs
+import Qt.labs.platform as Platform
 import org.kde.kirigami as Kirigami
 import org.kde.kcmutils as KCM
 import org.kde.plasma.plasmoid
@@ -8,22 +10,28 @@ import org.kde.plasma.components as PlasmaComponents
 import "./controls" as RMControls
 
 KCM.AbstractKCM {
+    id: appearancePage
     // Make pages fill the whole view by default
     Kirigami.ColumnView.fillWidth: true
 
     // Chart
     property alias cfg_fillPanel: fillPanel.checked
     property alias cfg_historyAmount: historyAmount.realValue
-    property alias cfg_customGraphWidth: graphWidth.customized
-    property alias cfg_graphWidth: graphWidth.value
-    property alias cfg_customGraphHeight: graphHeight.customized
-    property alias cfg_graphHeight: graphHeight.value
     property alias cfg_graphSpacing: graphSpacing.value
     property alias cfg_graphFillOpacity: graphFillOpacity.value
 
     // Text
     property alias cfg_enableShadows: enableShadows.checked
-    property alias cfg_fontScale: fontScale.value
+    property alias cfg_autoFontAndSize: autoFontAndSizeRadioButton.checked
+    // boldText and fontStyleName are not used
+    // However, they are necessary to remember the exact font style chosen.
+    // Otherwise, when the user open the font dialog again, the style will be lost.
+    property alias cfg_fontFamily: fontDialog.fontChosen.family
+    property alias cfg_boldText: fontDialog.fontChosen.bold
+    property alias cfg_italicText: fontDialog.fontChosen.italic
+    property alias cfg_fontWeight: fontDialog.fontChosen.weight
+    property alias cfg_fontStyleName: fontDialog.fontChosen.styleName
+    property alias cfg_fontSize: fontDialog.fontChosen.pointSize
     property string cfg_placement
     property string cfg_displayment
 
@@ -125,26 +133,6 @@ KCM.AbstractKCM {
                     }
                 }
 
-                RMControls.CustomizableSize {
-                    id: graphWidth
-                    Kirigami.FormData.label: i18n("Width:")
-                    Layout.fillWidth: true
-
-                    spinBox {
-                        from: 20
-                        to: 1000
-                    }
-                }
-                RMControls.CustomizableSize {
-                    id: graphHeight
-                    Kirigami.FormData.label: i18n("Height:")
-                    Layout.fillWidth: true
-
-                    spinBox {
-                        from: 20
-                        to: 1000
-                    }
-                }
                 RMControls.SpinBox {
                     id: graphSpacing
                     Kirigami.FormData.label: i18n("Spacing:")
@@ -170,13 +158,72 @@ KCM.AbstractKCM {
                     text: i18n("Display outline?")
                 }
 
-                RMControls.SpinBox {
-                    id: fontScale
-                    Kirigami.FormData.label: i18n("Font scale:")
-                    Layout.fillWidth: true
-                    from: 1
-                    to: 100
-                    suffix: "%"
+                // Font settings
+                QQC2.ButtonGroup {
+                    buttons: [autoFontAndSizeRadioButton, manualFontAndSizeRadioButton]
+                }
+                ColumnLayout {
+                    spacing: Kirigami.Units.smallSpacing
+                    Kirigami.FormData.label: i18nc("@label:group", "Text display:")
+                    Kirigami.FormData.buddyFor: autoFontAndSizeRadioButton
+
+                    QQC2.RadioButton {
+                        id: autoFontAndSizeRadioButton
+                        text: i18nc("@option:radio", "Automatic")
+                    }
+
+                    QQC2.Label {
+                        text: i18nc("@label", "Text will follow the system font and expand to fill the available space.")
+                        Layout.leftMargin: autoFontAndSizeRadioButton.indicator.width + autoFontAndSizeRadioButton.spacing
+                        textFormat: Text.PlainText
+                        Layout.fillWidth: true
+                        wrapMode: Text.Wrap
+                        font: Kirigami.Theme.smallFont
+                    }
+                }
+                RowLayout {
+                    spacing: Kirigami.Units.smallSpacing
+
+                    QQC2.RadioButton {
+                        id: manualFontAndSizeRadioButton
+                        text: i18nc("@option:radio setting for manually configuring the font settings", "Manual")
+                        checked: !cfg_autoFontAndSize
+                        onClicked: {
+                            if (cfg_fontFamily === "") {
+                                fontDialog.fontChosen = Kirigami.Theme.defaultFont
+                            }
+                        }
+                    }
+
+                    QQC2.Button {
+                        text: i18nc("@action:button", "Choose Style…")
+                        icon.name: "settings-configure"
+                        enabled: manualFontAndSizeRadioButton.checked
+                        onClicked: {
+                            fontDialog.open()
+                            fontDialog.currentFont = fontDialog.fontChosen
+                        }
+                    }
+
+                }
+
+                ColumnLayout {
+                    spacing: Kirigami.Units.smallSpacing
+
+                    QQC2.Label {
+                        visible: manualFontAndSizeRadioButton.checked
+                        Layout.leftMargin: manualFontAndSizeRadioButton.indicator.width + manualFontAndSizeRadioButton.spacing
+                        text: i18nc("@info %1 is the font size, %2 is the font family", "%1pt %2", cfg_fontSize, fontDialog.fontChosen.family)
+                        textFormat: Text.PlainText
+                        font: fontDialog.fontChosen
+                    }
+                    QQC2.Label {
+                        visible: manualFontAndSizeRadioButton.checked
+                        Layout.leftMargin: manualFontAndSizeRadioButton.indicator.width + manualFontAndSizeRadioButton.spacing
+                        text: i18nc("@info", "Note: size may be reduced if the panel is not thick enough.")
+                        textFormat: Text.PlainText
+                        font: Kirigami.Theme.smallFont
+                    }
                 }
 
                 QQC2.ComboBox {
@@ -267,6 +314,18 @@ KCM.AbstractKCM {
                     dialogTitle: i18nc("Chart color", "Choose text color")
                 }
             }
+        }
+    }
+
+    Platform.FontDialog {
+        id: fontDialog
+        // title: i18nc("@title:window", "Choose a Font")
+        modality: Qt.WindowModal
+        parentWindow: appearancePage.Window.window
+
+        property font fontChosen: null
+        onAccepted: {
+            fontChosen = font
         }
     }
 }
