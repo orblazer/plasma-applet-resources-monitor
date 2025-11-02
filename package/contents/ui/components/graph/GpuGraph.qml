@@ -1,11 +1,13 @@
 import QtQuick
 import org.kde.plasma.plasmoid
 import org.kde.ksysguard.sensors as Sensors
+import org.kde.ksysguard.formatter as Formatter
 import "./base" as RMBaseGraph
 
 RMBaseGraph.TwoSensorsGraph {
     id: root
     objectName: "GpuGraph"
+    readonly property int minimumWidth: textContainer.enabled ? Formatter.Formatter.maximumLength(!memoryInPercent ? 302 /* Formatter.Unit.UnitMegaHertz */ : showTemp ? 1000 /* Formatter.Unit.UnitCelsius */ : 1002 /* Formatter.Unit.UnitPercent */, textContainer.font) : 0
 
     // Settings
     property string device: "gpu0" // Device index (eg: gpu0, gpu1)

@@ -33,6 +33,9 @@ QQC2.SpinBox {
 
     readonly property int decimalFactor: Math.pow(10, decimals)
 
+    signal ready()
+    property bool _ready: false
+
     // Custom properties
     property int decimals: 0
     property real realValue
@@ -52,7 +55,13 @@ QQC2.SpinBox {
         decimals: control.decimals
     }
 
-    Component.onCompleted: realValue = Qt.binding(() => value / decimalFactor)
+    Component.onCompleted: {
+        if(!_ready) {
+            realValue = Qt.binding(() => value / decimalFactor)
+            ready()
+            _ready = true
+        }
+    }
 
     // Text format
     textFromValue: (value, locale) => formatValue(value, locale) + suffix

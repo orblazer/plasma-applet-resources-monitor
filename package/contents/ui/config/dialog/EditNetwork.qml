@@ -214,6 +214,78 @@ BaseForm {
         }
     }
 
+    // Size
+    Kirigami.Separator {
+        Kirigami.FormData.label: i18n("Size")
+        Kirigami.FormData.isSection: true
+    }
+    RMControls.CustomizableSize {
+        id: graphWidth
+        Kirigami.FormData.label: i18n("Width:")
+        Layout.fillWidth: true
+        property bool isReady: false
+
+        Component.onCompleted: {
+            if (item.sizes[0] != -1) {
+                value = item.sizes[0]
+                customized = true
+            } else {
+                customized = false
+            }
+        }
+        onValueChanged: {
+            if (!isReady) return
+            console.log("value", value)
+            item.sizes[0] = value;
+            root.changed();
+        }
+        onCustomizedChanged: {
+            if (!isReady) return
+            item.sizes[0] = customized ? value : -1
+            root.changed();
+        }
+
+        spinBox {
+            from: 20
+            to: 1000
+
+            onReady: isReady = true
+        }
+    }
+    RMControls.CustomizableSize {
+        id: graphHeight
+        Kirigami.FormData.label: i18n("Height:")
+        Layout.fillWidth: true
+        property bool isReady: false
+
+        Component.onCompleted: {
+            if (item.sizes[1] != -1) {
+                value = item.sizes[1]
+                customized = true
+            } else {
+                customized = false
+            }
+        }
+        onValueChanged: {
+            if (!isReady) return
+            console.log("value", value)
+            item.sizes[1] = value;
+            root.changed();
+        }
+        onCustomizedChanged: {
+            if (!isReady) return
+            item.sizes[1] = customized ? value : -1
+            root.changed();
+        }
+
+        spinBox {
+            from: 20
+            to: 1000
+
+            onReady: isReady = true
+        }
+    }
+
     // Utils function
     function _getOption(value, pow = 0) {
         return {

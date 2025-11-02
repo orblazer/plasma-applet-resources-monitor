@@ -1,11 +1,13 @@
 import QtQuick
 import org.kde.plasma.plasmoid
+import org.kde.ksysguard.formatter as Formatter
 import "./base" as RMBase
 
 RMBase.BaseSensorText {
     id: root
     objectName: "GpuText"
     sensor.sensorId: `gpu/${device}/usage`
+    readonly property int minimumWidth: textContainer.enabled ? Formatter.Formatter.maximumLength(1002 /* Formatter.Unit.UnitPercent */, textContainer.font) : 0
 
     // Settings
     property string device: "gpu0" // Device index (eg: gpu0, gpu1)

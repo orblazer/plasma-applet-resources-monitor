@@ -7,12 +7,18 @@ Item {
     visible: enabled
     anchors.fill: parent
 
+    property font font: Qt.font({
+        family: fontHelper.fontInfo.family,
+        weight: fontHelper.fontInfo.weight,
+        italic: fontHelper.fontInfo.italic,
+        pixelSize: fontHelper.fontInfo.pixelSize
+    })
+
     // Properties
     property int lineCount: 3
     property var hints: ["", "", ""]
     property var valueColors: [undefined, undefined, undefined]
     property var hintColors: [undefined, undefined, undefined]
-    property int fontSize: -1
     property var labelsVisibleWhenZero: [true, true, true]
     property int thresholdIndex: -1 // Sensor index used for threshold
     property var thresholds: [] // format: [warning, critical]
@@ -36,6 +42,20 @@ Item {
     property var textStyle: Plasmoid.configuration.enableShadows ? Text.Outline : Text.Normal
     property var textElide: labelState === "value" ? Text.ElideNone : (LayoutMirroring.enabled ? Text.ElideLeft : Text.ElideRight)
     property int horizontalAlignment: (placement === "center") ? Text.AlignHCenter : ((placement === "top-left" || placement === "bottom-left") ? Text.AlignLeft : Text.AlignRight)
+
+    // Font size calculation
+    // TODO: Workaround vertical layout
+    Text {
+        id: fontHelper
+        anchors.fill: parent
+        visible: false
+        text: "\n\n\n"
+
+        font.pixelSize: Math.round(root.height * (Plasmoid.configuration.fontScale / 100))
+
+        fontSizeMode: Text.VerticalFit
+        minimumPixelSize: 1
+    }
 
     // Labels
     Column {
@@ -179,7 +199,7 @@ Item {
             elide: root.textElide
             style: root.textStyle
             styleColor: Kirigami.Theme.backgroundColor
-            font.pixelSize: root.fontSize
+            font: root.font
 
             function overrideColor(color) {
                 _overrideColor = color;

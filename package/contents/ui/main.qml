@@ -28,7 +28,6 @@ PlasmoidItem {
     }
 
     // Settings properties
-    property double fontScale: (Plasmoid.configuration.fontScale / 100)
     property var graphsModel: GraphFns.parse(Plasmoid.configuration.graphs)
     property string clickAction: Plasmoid.configuration.clickAction
 
@@ -98,14 +97,8 @@ PlasmoidItem {
             spacing: Plasmoid.configuration.graphSpacing
             isVertical: root.isVertical
 
-            itemWidth: Plasmoid.configuration.customGraphWidth
-                ? Plasmoid.configuration.graphWidth
-                : (isVertical ? root.width : Math.round(root.height * 1.4))
-            itemHeight: Plasmoid.configuration.customGraphHeight
-                ? Plasmoid.configuration.graphHeight
-                : (isVertical ? root.width : root.height)
-            fontPixelSize: Math.round(isVertical ? (itemHeight / 1.4 * fontScale) : (itemHeight * fontScale))
-            fontScaleModifier: isVertical ? (itemHeight / 1.4) : itemHeight
+            parentWidth: parent.width
+            parentHeight: parent.height
         }
     }
 }

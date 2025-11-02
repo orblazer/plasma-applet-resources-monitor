@@ -1,14 +1,16 @@
 import QtQuick
 import org.kde.plasma.plasmoid
+import org.kde.ksysguard.formatter as Formatter
 import "./base" as RMBaseGraph
 import "../sensors" as RMSensors
 
 RMBaseGraph.SensorGraph {
     id: root
     objectName: "CpuGraph"
+    readonly property int minimumWidth: textContainer.enabled ? Formatter.Formatter.maximumLength(showClock ? 302 /* Formatter.Unit.UnitMegaHertz */ : showTemperature ? 1000 /* Formatter.Unit.UnitCelsius */ : 1002 /* Formatter.Unit.UnitPercent */, textContainer.font) : 0
     _update: () => {
-        root._defaultUpdate()
-        cpuTemperature.update()
+        root._defaultUpdate();
+        cpuTemperature.update();
     }
 
     // Settings
@@ -18,6 +20,7 @@ RMBaseGraph.SensorGraph {
     // Config shortcut
     property bool showClock: sensorsType[1] !== "none"
     property bool clockIsECores: sensorsType[1] === "ecores"
+    property bool showTemperature: sensorsType[2]
 
     // Graph options
     sensorsModel.sensors: ["cpu/all/" + sensorsType[0], "cpu/cpu0/frequency", "cpu/all/maximumTemperature"]
@@ -28,15 +31,14 @@ RMBaseGraph.SensorGraph {
         thresholdIndex: 2
         thresholds: root.thresholds // No change needed, simply map it
 
-        hints: ["CPU", (root.showClock ? i18nc("Graph label", "Clock") : ""), (root.sensorsType[2] ? i18nc("Graph label", "Temp.") : "")]
+        hints: ["CPU", (root.showClock ? i18nc("Graph label", "Clock") : ""), (root.showTemperature ? i18nc("Graph label", "Temp.") : "")]
     }
 
     // CPU frequency handle
     _formatValue: (index, value) => {
         if (index === 1) {
             return cpuFrequency.getFormattedValue(root.clockIsECores);
-        }
-        else if (index === 2) {
+        } else if (index === 2) {
             return cpuTemperature.getFormattedValue();
         }
         return _defaultFormatValue(index, value);

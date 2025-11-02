@@ -1,11 +1,13 @@
 import QtQuick
 import org.kde.plasma.plasmoid
 import org.kde.ksysguard.sensors as Sensors
+import org.kde.ksysguard.formatter as Formatter
 import "./base" as RMBaseGraph
 
 RMBaseGraph.TwoSensorsGraph {
     id: root
     objectName: "MemoryGraph"
+    readonly property int minimumWidth: textContainer.enabled ? Formatter.Formatter.maximumLength(fieldInPercent ? 1002 /* Formatter.Unit.UnitPercent */ : 302 /* Formatter.Unit.UnitMegaHertz */, textContainer.font) : 0
 
     // Config shortcut
     property bool showSwap: sensorsType[1].startsWith("swap")

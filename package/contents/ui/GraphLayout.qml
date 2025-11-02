@@ -1,22 +1,18 @@
 import QtQuick
 import QtQuick.Layouts
 
-GridLayout {
+Flow {
     id: root
-    anchors.fill: parent
 
     property alias model: repeater.model
     property alias updateInterval: updater.interval
 
-    required property double itemWidth
-    required property double itemHeight
-    required property double fontPixelSize
-    required property double fontScaleModifier
     property bool isVertical: false
-    property int spacing: 4
+    property double widthRatio: 1.4
 
-    rowSpacing: spacing
-    columnSpacing: spacing
+    property int parentWidth: 0
+    property int parentHeight: 0
+
     flow: isVertical ? GridLayout.TopToBottom : GridLayout.LeftToRight
 
     Repeater {
@@ -25,22 +21,22 @@ GridLayout {
         delegate: Loader {
             required property var modelData
 
-            width: root.itemWidth
-            height: root.itemHeight
-
-            onLoaded: {
-                if (item.objectName === "Text") {
-                    item.fontScaleModifier = Qt.binding(() => root.fontScaleModifier);
-                } else {
-                    item.textContainer.fontSize = Qt.binding(() => root.fontPixelSize);
+            width: {
+                if (modelData.sizes[0] !== -1) return modelData.sizes[0]
+                if (root.isVertical) return root.parentWidth
+                if (modelData.type.endsWith("Text"))  {
+                    return Math.max(item?.minimumWidth ?? 0, root.parentHeight)
                 }
+                return Math.max(item?.minimumWidth ?? 0, Math.round(root.parentHeight * root.widthRatio))
             }
+            height: modelData.sizes[1] === -1 ? (root.isVertical ? root.parentWidth : root.parentHeight) : modelData.sizes[1]
+
             Component.onCompleted: {
                 const typeCapitalized = modelData.type.charAt(0).toUpperCase() + modelData.type.slice(1);
                 // Retrieve props without un wanted internals
                 let props = {};
                 for (const [key, value] of Object.entries(modelData)) {
-                    if (key === "_v" || key === "type") {
+                    if (["_v", "type", "sizes"].includes(key)) {
                         continue;
                     }
                     props[key] = value;

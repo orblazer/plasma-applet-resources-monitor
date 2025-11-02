@@ -10,18 +10,23 @@ Item {
     property string device: "Text" // Text value
     property string color: undefined // Text color
     property string placement: "middle-right" // Text placement
-    property int size: 24 // Font size
+    property int fontSize: 24 // Font size
 
     // Aliases
-    readonly property alias firstLine: firstLine
+    readonly property alias minimumWidth: textMetics.width
 
     // Text properties
     property var textElide: LayoutMirroring.enabled ? Text.ElideLeft : Text.ElideRight
-    property double fontScaleModifier: -1
 
     // Config aliases
     property var defaultColor: Plasmoid.configuration.textColor
     property var textStyle: Plasmoid.configuration.enableShadows ? Text.Outline : Text.Normal
+
+    TextMetrics {
+        id: textMetics
+        font.pixelSize: Math.round(root.height * (size / 100))
+        text: root.device
+    }
 
     // Labels
     Column {
@@ -41,7 +46,7 @@ Item {
             elide: textElide
             style: textStyle
             styleColor: Kirigami.Theme.backgroundColor
-            font.pixelSize: Math.round(fontScaleModifier * (size / 100))
+            font: textMetics.font
         }
 
         // States

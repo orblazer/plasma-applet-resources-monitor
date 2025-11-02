@@ -4,12 +4,13 @@
  * Version of graphs
  * @constant
  */
-const VERSION = 2; //? Bump when some settings changes in graphs structure
+const VERSION = 3; //? Bump when some settings changes in graphs structure
 
 /**
  * @typedef {object} CpuGraph
  * @property {number} _v The version of graph
  * @property {"cpu"} type The graph type
+ * @property {[number, number]} sizes The graph size ([width, height], -1 = automatic)
  * @property {[string, string, string]} colors The graph colors (ref: usage, clock, temperature)
  * @property {[("usage"|"system"|"user"), ("none"|"classic"|"ecores"), boolean]} sensorsType The sensors type (ref: usage, clock, temperature)
  * @property {[number, number]} thresholds The temperature thresholds
@@ -20,6 +21,7 @@ const VERSION = 2; //? Bump when some settings changes in graphs structure
  * @typedef {object} MemoryGraph
  * @property {number} _v The version of graph
  * @property {"memory"} type The graph type
+ * @property {[number, number]} sizes The graph size ([width, height], -1 = automatic)
  * @property {[string, string]} colors The graph colors (ref: color, swap)
  * @property {[("physical"|"physical-percent"|"application"|"application-percent"), ("none"|"swap"|"swap-percent"|"memory-percent")]} sensorsType The sensors type (ref: memory, swap)
  * @property {[number, number]} thresholds The usage thresholds
@@ -28,6 +30,7 @@ const VERSION = 2; //? Bump when some settings changes in graphs structure
  * @typedef {object} GpuGraph
  * @property {number} _v The version of graph
  * @property {"gpu"} type The graph type
+ * @property {[number, number]} sizes The graph size ([width, height], -1 = automatic)
  * @property {[string, string, string]} colors The graph colors (ref: usage, memory, temperature)
  * @property {[("none"|"memory"|"memory-percent"), boolean]} sensorsType The sensors type (ref: memory, temperature)
  * @property {[number, number]} thresholds The temperature thresholds
@@ -37,6 +40,7 @@ const VERSION = 2; //? Bump when some settings changes in graphs structure
  * @typedef {object} NetworkGraph
  * @property {number} _v The version of graph
  * @property {"network"} type The graph type
+ * @property {[number, number]} sizes The graph size ([width, height], -1 = automatic)
  * @property {[string, string]} colors The graph colors (ref: receiving, sending)
  * @property {[boolean, ("kibibyte"|"kilobit|"kilobyte")]} sensorsType The sensors type (ref: swap Rx/Tx, unit)
  * @property {[number, number]} uplimits The uplimit (ref: chart1, chart2)
@@ -47,6 +51,7 @@ const VERSION = 2; //? Bump when some settings changes in graphs structure
  * @typedef {object} DiskGraph
  * @property {number} _v The version of graph
  * @property {"disk"} type The graph type
+ * @property {[number, number]} sizes The graph size ([width, height], -1 = automatic)
  * @property {[string, string]} colors The graph colors (ref: read, write)
  * @property {[boolean]} sensorsType The sensors type (ref: swap r/w)
  * @property {[number, number]} uplimits The uplimit (ref: chart1, chart2)
@@ -58,6 +63,7 @@ const VERSION = 2; //? Bump when some settings changes in graphs structure
  * @typedef {object} CpuText
  * @property {number} _v The version of graph
  * @property {"cpuText"} type The graph type
+ * @property {[number, number]} sizes The graph size ([width, height], -1 = automatic)
  * @property {[string, string]} colors The graph colors (ref: label, usage)
  * @property {("usage"|"system"|"user")} sensorsType The sensors type (ref: usage)
  */
@@ -65,6 +71,7 @@ const VERSION = 2; //? Bump when some settings changes in graphs structure
  * @typedef {object} MemoryText
  * @property {number} _v The version of graph
  * @property {"memoryText"} type The graph type
+ * @property {[number, number]} sizes The graph size ([width, height], -1 = automatic)
  * @property {[string, string]} colors The graph colors (ref: label, usage)
  * @property {("physical"|"physical-percent"|"application"|"application-percent")} sensorsType The sensors type (ref: usage)
  */
@@ -72,6 +79,7 @@ const VERSION = 2; //? Bump when some settings changes in graphs structure
  * @typedef {object} GpuText
  * @property {number} _v The version of graph
  * @property {"gpuText"} type The graph type
+ * @property {[number, number]} sizes The graph size ([width, height], -1 = automatic)
  * @property {[string, string]} colors The graph colors (ref: label, usage)
  * @property {[("none"|"memory"|"memory-percent")]} sensorsType The sensors type (ref: memory)
  * @property {string} device The device index (eg. gpu0, gpu1)
@@ -80,6 +88,7 @@ const VERSION = 2; //? Bump when some settings changes in graphs structure
  * @typedef {object} NetworkText
  * @property {number} _v The version of graph
  * @property {"network"} type The graph type
+ * @property {[number, number]} sizes The graph size ([width, height], -1 = automatic)
  * @property {[string, string]} colors The graph colors (ref: receiving, sending)
  * @property {[boolean, ("kibibyte"|"kilobit|"kilobyte")]} sensorsType The sensors type (ref: swap Rx/Tx, unit)
  * @property {string[]} ignoredInterfaces The ignored network interfaces
@@ -89,10 +98,11 @@ const VERSION = 2; //? Bump when some settings changes in graphs structure
  * @typedef {object} Text
  * @property {number} _v The version of graph
  * @property {"text"} type The graph type
+ * @property {[number, number]} sizes The graph size ([width, height], -1 = automatic)
  * @property {string} color The text color
  * @property {string} device The text value
  * @property {string} placement The text placement
- * @property {number} size The font size
+ * @property {number} fontSize The font size
  */
 
 /** @typedef {CpuGraph|CpuText|MemoryGraph|MemoryText|GpuGraph|NetworkGraph|NetworkText|DiskGraph|Text} Graph */
@@ -119,6 +129,19 @@ const migrations = {
       typeof graph.icons === "undefined"
     ) {
       graph.icons = false;
+    }
+  },
+
+  // V2 -> V3: Add custom sizes on each graphs
+  // - Rename text "size" to "fontSize"
+  2: (graph) => {
+    if (typeof graph.sizes === "undefined") {
+      graph.sizes = [-1, -1];
+    }
+
+    if (graph.type === "text" && typeof graph.size !== "undefined") {
+      graph.fontSize = graph.size;
+      delete graph.size;
     }
   },
 };
@@ -200,6 +223,7 @@ function create(type, device) {
   let item = {
     _v: VERSION,
     type,
+    sizes: [-1, -1],
   };
 
   // Fill default value
@@ -255,7 +279,7 @@ function create(type, device) {
       item.color = "textColor";
       item.device = "Text";
       item.placement = "middle-right";
-      item.size = 24;
+      item.fontSize = 24;
       break;
     default:
       throw new Error(`${type} is not valid graph type`);

@@ -1,11 +1,13 @@
 import QtQuick
 import org.kde.plasma.plasmoid
 import org.kde.ksysguard.sensors as Sensors
+import org.kde.ksysguard.formatter as Formatter
 import "./base" as RMBase
 
 RMBase.BaseSensorText {
     id: root
     objectName: "MemoryText"
+    readonly property int minimumWidth: textContainer.enabled ? Formatter.Formatter.maximumLength(fieldInPercent ? 1002 /* Formatter.Unit.UnitPercent */ : 302 /* Formatter.Unit.UnitMegaHertz */, textContainer.font) : 0
 
     // Config shortcut
     property var fieldInPercent: sensorsType[0].endsWith("-percent")
