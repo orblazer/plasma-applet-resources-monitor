@@ -52,6 +52,6 @@ RMBaseGraph.SensorGraph {
     }
     RMSensors.CpuTemperature {
         id: cpuTemperature
-        enabled: root.sensorsType[2]
+        enabled: showTemperature
     }
 }

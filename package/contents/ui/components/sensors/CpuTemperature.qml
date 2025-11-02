@@ -27,7 +27,10 @@ Item {
     }
 
     function getFormattedValue() {
-        return Formatter.Formatter.formatValueShowNull(value, Formatter.Units.UnitCelsius);
+        if (Formatter.Formatter.formatValueWithPrecision) {
+            return Formatter.Formatter.formatValueWithPrecision(value, Formatter.Units.UnitCelsius, 00)
+        }
+        return value + "\u2009°C";
     }
 
     readonly property var _sensor: Sensors.Sensor {
