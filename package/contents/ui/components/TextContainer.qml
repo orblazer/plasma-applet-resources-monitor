@@ -59,12 +59,15 @@ Item {
         fontSizeMode: Text.VerticalFit
         minimumPixelSize: 1
     }
+    FontMetrics {
+        id: fontMetrics
+        font: root.font
+    }
 
     // Labels
     Column {
         id: textContainer
         width: parent.width
-        spacing: -2
 
         anchors.top: root.placement.startsWith("top") ? parent.top : undefined
         anchors.bottom: root.placement.startsWith("bottom") ? parent.bottom : undefined
@@ -73,6 +76,7 @@ Item {
         Loader {
             id: firstLine
             sourceComponent: labelComponent
+            height: fontMetrics.height
             width: parent.width
             readonly property int index: 0
         }
@@ -81,6 +85,7 @@ Item {
             enabled: lineCount >= 2
             visible: enabled
             sourceComponent: labelComponent
+            height: fontMetrics.height
             width: parent.width
             readonly property int index: 1
         }
@@ -89,6 +94,7 @@ Item {
             enabled: lineCount == 3
             visible: enabled
             sourceComponent: labelComponent
+            height: fontMetrics.height
             width: parent.width
             readonly property int index: 2
         }
@@ -202,6 +208,7 @@ Item {
                 return Kirigami.Theme.textColor;
             }
 
+            verticalAlignment: Text.AlignVCenter
             horizontalAlignment: root.horizontalAlignment
             textFormat: Text.PlainText
             elide: root.textElide
