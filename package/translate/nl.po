@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: resources-monitor\n"
 "Report-Msgid-Bugs-To: https://github.com/orblazer/plasma-applet-resources-monitor\n"
-"POT-Creation-Date: 2025-11-02 07:47+0100\n"
+"POT-Creation-Date: 2025-11-05 19:03+0100\n"
 "PO-Revision-Date: 2025-08-01 14:07+0200\n"
 "Last-Translator: orblazer\n"
 "Language: nl\n"
@@ -120,15 +120,15 @@ msgstr "Weggeschreven"
 
 #: ../contents/ui/components/graph/DiskGraph.qml:40 ../contents/ui/config/dialog/EditDisk.qml:41
 msgctxt "Disk graph icon : Read"
-msgid " R"
-msgstr " U"
+msgid "R"
+msgstr "U"
 
 #: ../contents/ui/components/graph/DiskGraph.qml:42 ../contents/ui/config/dialog/EditDisk.qml:41
 msgctxt "Disk graph icon : Write"
 msgid "W"
 msgstr "W"
 
-#: ../contents/ui/components/graph/GpuGraph.qml:42 ../contents/ui/components/graph/MemoryGraph.qml:46
+#: ../contents/ui/components/graph/GpuGraph.qml:41 ../contents/ui/components/graph/MemoryGraph.qml:45
 #: ../contents/ui/components/text/MemoryText.qml:36
 msgctxt "Percent unit"
 msgid "%1%"

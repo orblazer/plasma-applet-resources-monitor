@@ -38,7 +38,7 @@ BaseForm {
         }
 
         QQC2.CheckBox {
-            text: i18n("Show icons (%1 / %2)", i18nc("Disk graph icon : Read", " R"), i18nc("Disk graph icon : Write", "W"))
+            text: i18n("Show icons (%1 / %2)", i18nc("Disk graph icon : Read", "R"), i18nc("Disk graph icon : Write", "W"))
             checked: root.item.icons
             onClicked: {
                 root.item.icons = checked;

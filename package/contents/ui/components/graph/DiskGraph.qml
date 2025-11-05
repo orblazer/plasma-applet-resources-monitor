@@ -37,7 +37,7 @@ RMBaseGraph.TwoSensorsGraph {
         let icon = ""
         if (root.icons) {
             if (index === readIndex) {
-                icon = "\u2009" + i18nc("Disk graph icon : Read", " R")
+                icon = "\u2009" + i18nc("Disk graph icon : Read", "R")
             } else if (index == writeIndex) {
                 icon = "\u2009" + i18nc("Disk graph icon : Write", "W")
             }
