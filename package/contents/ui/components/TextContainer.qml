@@ -82,19 +82,19 @@ Item {
         }
         Loader {
             id: secondLine
-            enabled: lineCount >= 2
-            visible: enabled
+            enabled: lineCount >= 2 && root.hints[index] !== ""
+            visible: enabled && (root.labelState !== "none")
             sourceComponent: labelComponent
-            height: fontMetrics.height
+            height: enabled ? fontMetrics.height : 0
             width: parent.width
             readonly property int index: 1
         }
         Loader {
             id: thirdLine
-            enabled: lineCount == 3
-            visible: enabled
+            enabled: lineCount === 3 && root.hints[index] !== ""
+            visible: enabled && (root.labelState !== "none")
             sourceComponent: labelComponent
-            height: fontMetrics.height
+            height: enabled ? fontMetrics.height : 0
             width: parent.width
             readonly property int index: 2
         }
@@ -184,9 +184,6 @@ Item {
 
             property color _overrideColor: "transparent"
             property bool useOverrideColor: false
-
-            enabled: root.hints[index] !== ""
-            visible: enabled && (root.labelState !== "none")
 
             text: {
                 if (root.labelState === "value") {
