@@ -82,9 +82,9 @@ RMBaseGraph.TwoSensorsGraph {
         let icon = ""
         if (root.icons) {
             if (index == downloadIndex) {
-                icon = " ↓"
+                icon = "\u2009↓"
             } else if (index == uploadIndex) {
-                icon = " ↑"
+                icon = "\u2009↑"
             }
         }
 
