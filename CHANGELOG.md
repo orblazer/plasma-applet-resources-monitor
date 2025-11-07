@@ -1,3 +1,37 @@
+## 3.2.0 (2025-11-07)
+
+* chore: use right license ([e60aa01](https://github.com/orblazer/plasma-applet-resources-monitor/commit/e60aa01)), closes [#108](https://github.com/orblazer/plasma-applet-resources-monitor/issues/108)
+* chore(dev): add list for all graph and text ([fe9192e](https://github.com/orblazer/plasma-applet-resources-monitor/commit/fe9192e))
+* chore(dev): add missing graph ([4187c3b](https://github.com/orblazer/plasma-applet-resources-monitor/commit/4187c3b))
+* chore(dev): ensure enable debug ([cff8e77](https://github.com/orblazer/plasma-applet-resources-monitor/commit/cff8e77))
+* chore(dev): remove useless code on husky ([55cca50](https://github.com/orblazer/plasma-applet-resources-monitor/commit/55cca50))
+* chore(dev): update dependencies ([8572806](https://github.com/orblazer/plasma-applet-resources-monitor/commit/8572806))
+* chore(dev): update dependencies ([4832225](https://github.com/orblazer/plasma-applet-resources-monitor/commit/4832225))
+* chore(github): improve bug report logs ([2c07cf7](https://github.com/orblazer/plasma-applet-resources-monitor/commit/2c07cf7))
+* chore(graph): reduce space size on icons ([7e20896](https://github.com/orblazer/plasma-applet-resources-monitor/commit/7e20896))
+* chore(i18n): fix some french spellcheck ([70881bf](https://github.com/orblazer/plasma-applet-resources-monitor/commit/70881bf))
+* chore(i18n): remove space on icon text ([0067fd5](https://github.com/orblazer/plasma-applet-resources-monitor/commit/0067fd5)), closes [#95](https://github.com/orblazer/plasma-applet-resources-monitor/issues/95)
+* chore(i18n): update translations ([5cf6792](https://github.com/orblazer/plasma-applet-resources-monitor/commit/5cf6792))
+* chore(memory): remove useless condition for swap ([20a201d](https://github.com/orblazer/plasma-applet-resources-monitor/commit/20a201d))
+* fix(cpu): correctly apply clock color ([b15e63a](https://github.com/orblazer/plasma-applet-resources-monitor/commit/b15e63a))
+* fix(graph): correctly handle plasma 6.6 ([4db309d](https://github.com/orblazer/plasma-applet-resources-monitor/commit/4db309d)), closes [#110](https://github.com/orblazer/plasma-applet-resources-monitor/issues/110)
+* fix(graph): correctly ind uplimits  and threshold ([f1b56e4](https://github.com/orblazer/plasma-applet-resources-monitor/commit/f1b56e4)), closes [#111](https://github.com/orblazer/plasma-applet-resources-monitor/issues/111)
+* fix(graph): keep color when hide texts ([1af8b78](https://github.com/orblazer/plasma-applet-resources-monitor/commit/1af8b78))
+* fix(layout): better handle placement and sizing ([ec827ae](https://github.com/orblazer/plasma-applet-resources-monitor/commit/ec827ae)), closes [#109](https://github.com/orblazer/plasma-applet-resources-monitor/issues/109)
+* fix(memory): correctly check threshold ([b5a3448](https://github.com/orblazer/plasma-applet-resources-monitor/commit/b5a3448))
+* fix(text): keep placement correctly work ([09317dd](https://github.com/orblazer/plasma-applet-resources-monitor/commit/09317dd))
+* fix(text): prevent text move or overlap on some fonts ([72bad70](https://github.com/orblazer/plasma-applet-resources-monitor/commit/72bad70))
+* refactor(config): reduce duplicate codes ([288c008](https://github.com/orblazer/plasma-applet-resources-monitor/commit/288c008))
+* refactor(cpu): remove useless precision on temperature ([1098073](https://github.com/orblazer/plasma-applet-resources-monitor/commit/1098073))
+* refactor(graph): use formatter value instead static one for unit ([815c72f](https://github.com/orblazer/plasma-applet-resources-monitor/commit/815c72f))
+* refactor(js): improve graph versioning migration handle ([6d1a245](https://github.com/orblazer/plasma-applet-resources-monitor/commit/6d1a245))
+* feat(config): allow customize default color ([304d267](https://github.com/orblazer/plasma-applet-resources-monitor/commit/304d267)), closes [#110](https://github.com/orblazer/plasma-applet-resources-monitor/issues/110)
+* feat(config): use better font config ([5d77291](https://github.com/orblazer/plasma-applet-resources-monitor/commit/5d77291))
+* feat(graph): allow independent sizes ([436e685](https://github.com/orblazer/plasma-applet-resources-monitor/commit/436e685)), closes [#112](https://github.com/orblazer/plasma-applet-resources-monitor/issues/112)
+* style: fix some typos ([5311d8d](https://github.com/orblazer/plasma-applet-resources-monitor/commit/5311d8d))
+
+
+
 ## <small>3.1.1 (2025-08-01)</small>
 
 * chore(config): change unit in dropdowns ([6395609](https://github.com/orblazer/plasma-applet-resources-monitor/commit/6395609)), closes [#104](https://github.com/orblazer/plasma-applet-resources-monitor/issues/104)
