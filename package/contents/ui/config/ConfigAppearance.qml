@@ -32,6 +32,7 @@ KCM.AbstractKCM {
     property alias cfg_fontWeight: fontDialog.fontChosen.weight
     property alias cfg_fontStyleName: fontDialog.fontChosen.styleName
     property alias cfg_fontSize: fontDialog.fontChosen.pointSize
+    property alias cfg_keepFontSize: keepFontSize.checked
     property string cfg_placement
     property string cfg_displayment
 
@@ -170,6 +171,10 @@ KCM.AbstractKCM {
                     QQC2.RadioButton {
                         id: autoFontAndSizeRadioButton
                         text: i18nc("@option:radio", "Automatic")
+
+                        onCheckedChanged: {
+                            keepFontSize.checked = false
+                        }
                     }
 
                     QQC2.Label {
@@ -204,9 +209,7 @@ KCM.AbstractKCM {
                             fontDialog.currentFont = fontDialog.fontChosen
                         }
                     }
-
                 }
-
                 ColumnLayout {
                     spacing: Kirigami.Units.smallSpacing
 
@@ -217,8 +220,14 @@ KCM.AbstractKCM {
                         textFormat: Text.PlainText
                         font: fontDialog.fontChosen
                     }
-                    QQC2.Label {
+                    QQC2.CheckBox {
+                        id: keepFontSize
                         visible: manualFontAndSizeRadioButton.checked
+                        text: i18n("Keep specified font size")
+                        font: Kirigami.Theme.smallFont
+                    }
+                    QQC2.Label {
+                        visible: manualFontAndSizeRadioButton.checked && !keepFontSize.checked
                         Layout.leftMargin: manualFontAndSizeRadioButton.indicator.width + manualFontAndSizeRadioButton.spacing
                         text: i18nc("@info", "Note: size may be reduced if the panel is not thick enough.")
                         textFormat: Text.PlainText

@@ -56,7 +56,7 @@ Item {
         font.italic: Plasmoid.configuration.autoFontAndSize ? Kirigami.Theme.defaultFont.italic : Plasmoid.configuration.italicText
         font.pixelSize: Plasmoid.configuration.autoFontAndSize ? 3 * Kirigami.Theme.defaultFont.pixelSize : _pointToPixel(Plasmoid.configuration.fontSize)
 
-        fontSizeMode: Text.VerticalFit
+        fontSizeMode: Plasmoid.configuration.keepFontSize ? Text.FixedSize : Text.VerticalFit
         minimumPixelSize: 1
     }
     FontMetrics {

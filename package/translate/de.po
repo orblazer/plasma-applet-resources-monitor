@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: resources-monitor\n"
 "Report-Msgid-Bugs-To: https://github.com/orblazer/plasma-applet-resources-monitor\n"
-"POT-Creation-Date: 2025-11-05 19:03+0100\n"
+"POT-Creation-Date: 2025-11-30 16:42+0100\n"
 "PO-Revision-Date: 2025-08-01 14:06+0200\n"
 "Last-Translator: orblazer\n"
 "Language-Team: \n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.0.1\n"
 
-#: ../contents/config/config.qml:6 ../contents/ui/config/ConfigAppearance.qml:58
+#: ../contents/config/config.qml:6 ../contents/ui/config/ConfigAppearance.qml:59
 msgctxt "Config header"
 msgid "Graphs"
 msgstr "Diagramme"
@@ -154,154 +154,158 @@ msgstr "Senden"
 msgid "All"
 msgstr "Alle"
 
-#: ../contents/ui/config/ConfigAppearance.qml:63
+#: ../contents/ui/config/ConfigAppearance.qml:64
 msgctxt "Config header"
 msgid "Text"
 msgstr "Text"
 
-#: ../contents/ui/config/ConfigAppearance.qml:68
+#: ../contents/ui/config/ConfigAppearance.qml:69
 msgctxt "Config header"
 msgid "Colors"
 msgstr "Farben"
 
-#: ../contents/ui/config/ConfigAppearance.qml:83
+#: ../contents/ui/config/ConfigAppearance.qml:84
 msgid "Fill panel?"
 msgstr "Panel füllen?"
 
-#: ../contents/ui/config/ConfigAppearance.qml:86
+#: ../contents/ui/config/ConfigAppearance.qml:87
 msgctxt "@info:tooltip"
 msgid "This allow graphs to take all panel width/height"
 msgstr "Erlaubt Diagrammen die volle Panelbreite/-höhe zu nutzen"
 
-#: ../contents/ui/config/ConfigAppearance.qml:91
+#: ../contents/ui/config/ConfigAppearance.qml:92
 msgid "History amount:"
 msgstr "Verlaufslänge:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:100 ../contents/ui/config/controls/ColorSelector.qml:26
+#: ../contents/ui/config/ConfigAppearance.qml:101 ../contents/ui/config/controls/ColorSelector.qml:26
 #: ../contents/ui/config/dialog/EditDisk.qml:18 ../contents/ui/config/dialog/EditNetwork.qml:20
 msgid "Custom"
 msgstr "Angepasst"
 
-#: ../contents/ui/config/ConfigAppearance.qml:104 ../contents/ui/config/ConfigMisc.qml:61
+#: ../contents/ui/config/ConfigAppearance.qml:105 ../contents/ui/config/ConfigMisc.qml:61
 #: ../contents/ui/config/dialog/EditCpu.qml:52 ../contents/ui/config/dialog/EditGpu.qml:26
 #: ../contents/ui/config/dialog/EditMemory.qml:55
 msgid "Disabled"
 msgstr "Deaktiviert"
 
-#: ../contents/ui/config/ConfigAppearance.qml:138
+#: ../contents/ui/config/ConfigAppearance.qml:139
 msgid "Spacing:"
 msgstr "Abstand:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:146
+#: ../contents/ui/config/ConfigAppearance.qml:147
 msgid "Fill opacity:"
 msgstr "Deckkraft der Füllung:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:158
+#: ../contents/ui/config/ConfigAppearance.qml:159
 msgid "Display outline?"
 msgstr "Kontur anzeigen?"
 
-#: ../contents/ui/config/ConfigAppearance.qml:167
+#: ../contents/ui/config/ConfigAppearance.qml:168
 msgctxt "@label:group"
 msgid "Text display:"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:172
+#: ../contents/ui/config/ConfigAppearance.qml:173
 msgctxt "@option:radio"
 msgid "Automatic"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:176
+#: ../contents/ui/config/ConfigAppearance.qml:181
 msgctxt "@label"
 msgid "Text will follow the system font and expand to fill the available space."
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:189
+#: ../contents/ui/config/ConfigAppearance.qml:194
 msgctxt "@option:radio setting for manually configuring the font settings"
 msgid "Manual"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:199
+#: ../contents/ui/config/ConfigAppearance.qml:204
 msgctxt "@action:button"
 msgid "Choose Style…"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:216
+#: ../contents/ui/config/ConfigAppearance.qml:219
 msgctxt "@info %1 is the font size, %2 is the font family"
 msgid "%1pt %2"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:223
+#: ../contents/ui/config/ConfigAppearance.qml:226
+msgid "Keep specified font size"
+msgstr ""
+
+#: ../contents/ui/config/ConfigAppearance.qml:232
 msgctxt "@info"
 msgid "Note: size may be reduced if the panel is not thick enough."
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:231
+#: ../contents/ui/config/ConfigAppearance.qml:240
 msgid "Text display:"
 msgstr "Textanzeige:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:239
+#: ../contents/ui/config/ConfigAppearance.qml:248
 msgctxt "Text display"
 msgid "Always"
 msgstr "Immer"
 
-#: ../contents/ui/config/ConfigAppearance.qml:243
+#: ../contents/ui/config/ConfigAppearance.qml:252
 msgctxt "Text display"
 msgid "On hover"
 msgstr "Beim darauf zeigen"
 
-#: ../contents/ui/config/ConfigAppearance.qml:247
+#: ../contents/ui/config/ConfigAppearance.qml:256
 msgctxt "Text display"
 msgid "Hints when hover"
 msgstr "Hinweise beim darauf zeigen"
 
-#: ../contents/ui/config/ConfigAppearance.qml:251
+#: ../contents/ui/config/ConfigAppearance.qml:260
 msgctxt "Text display"
 msgid "Never"
 msgstr "Niemals"
 
-#: ../contents/ui/config/ConfigAppearance.qml:262 ../contents/ui/config/dialog/EditText.qml:29
+#: ../contents/ui/config/ConfigAppearance.qml:271 ../contents/ui/config/dialog/EditText.qml:29
 msgid "Placement:"
 msgstr "Platzierung:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:270 ../contents/ui/config/dialog/EditText.qml:37
+#: ../contents/ui/config/ConfigAppearance.qml:279 ../contents/ui/config/dialog/EditText.qml:37
 msgctxt "Text placement"
 msgid "Top left"
 msgstr "Oben links"
 
-#: ../contents/ui/config/ConfigAppearance.qml:274 ../contents/ui/config/dialog/EditText.qml:41
+#: ../contents/ui/config/ConfigAppearance.qml:283 ../contents/ui/config/dialog/EditText.qml:41
 msgctxt "Text placement"
 msgid "Top right"
 msgstr "Oben rechts"
 
-#: ../contents/ui/config/ConfigAppearance.qml:278 ../contents/ui/config/dialog/EditText.qml:45
+#: ../contents/ui/config/ConfigAppearance.qml:287 ../contents/ui/config/dialog/EditText.qml:45
 msgctxt "Text placement"
 msgid "Bottom left"
 msgstr "Unten links"
 
-#: ../contents/ui/config/ConfigAppearance.qml:282 ../contents/ui/config/dialog/EditText.qml:49
+#: ../contents/ui/config/ConfigAppearance.qml:291 ../contents/ui/config/dialog/EditText.qml:49
 msgctxt "Text placement"
 msgid "Bottom right"
 msgstr "Unten rechts"
 
-#: ../contents/ui/config/ConfigAppearance.qml:296
+#: ../contents/ui/config/ConfigAppearance.qml:305
 msgid "Default color:"
 msgstr ""
 
-#: ../contents/ui/config/ConfigAppearance.qml:297 ../contents/ui/config/ConfigAppearance.qml:309
-#: ../contents/ui/config/ConfigAppearance.qml:314 ../contents/ui/config/dialog/BaseForm.qml:15
+#: ../contents/ui/config/ConfigAppearance.qml:306 ../contents/ui/config/ConfigAppearance.qml:318
+#: ../contents/ui/config/ConfigAppearance.qml:323 ../contents/ui/config/dialog/BaseForm.qml:15
 msgctxt "Chart color"
 msgid "Choose text color"
 msgstr "Wähle Textfarbe"
 
-#: ../contents/ui/config/ConfigAppearance.qml:302
+#: ../contents/ui/config/ConfigAppearance.qml:311
 msgid "Threshold text colors"
 msgstr "Textfarbe des Schwellenwertes"
 
-#: ../contents/ui/config/ConfigAppearance.qml:308
+#: ../contents/ui/config/ConfigAppearance.qml:317
 msgid "Warning:"
 msgstr "Warnung:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:313
+#: ../contents/ui/config/ConfigAppearance.qml:322
 msgid "Critical:"
 msgstr "Kritisch:"
 
