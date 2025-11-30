@@ -21,7 +21,7 @@ jobs:
         id: git-cliff
         with:
           config: cliff.toml
-          args: -vv --latest --strip header
+          args: --verbose --latest
         env:
           OUTPUT: CHANGELOG.md
 
@@ -31,7 +31,6 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
           files: resources-monitor-*.plasmoid
           name: Release ${{ github.ref_name }}
           body: ${{ steps.git-cliff.outputs.content }}
