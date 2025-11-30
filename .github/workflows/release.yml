@@ -1,0 +1,39 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y zip jq
+          cargo install git-cliff --locked || true
+
+      - name: Generate changelog
+        run: |
+          git cliff -o CHANGELOG.md
+          # Extract changelog for this release
+          CHANGELOG=$(git cliff --stdout --tag ${{ github.ref }})
+          echo "$CHANGELOG" > release_notes.txt
+
+      - name: Build .plasmoid
+        run: make pack
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: "resources-monitor-*.plasmoid"
+          body_path: release_notes.txt
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

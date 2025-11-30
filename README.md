@@ -39,7 +39,4 @@ Think to [sponsor me on Paypal](https://www.paypal.me/orblazer) for help me to m
 ## Contribute/Debug
 
 1. Clone this repo
-2. Run the app
-   - _With NPM_: `npm run dev`
-   - _With PNPM_: `pnpm run dev`
-   - _Shell_: `./scripts/test.sh`
+2. Run the app: `make dev` (or `./scripts/test.sh`)
