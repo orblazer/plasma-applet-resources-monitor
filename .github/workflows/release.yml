@@ -1,6 +1,7 @@
 name: Release
 
 on:
+  workflow_dispatch:
   push:
     tags:
       - "v*"
@@ -13,19 +14,16 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - uses: dcarbone/install-jq-action@v3
 
-      - name: Install dependencies
-        run: |
-          sudo apt update
-          sudo apt install -y zip jq
-          cargo install git-cliff --locked || true
-
-      - name: Generate changelog
-        run: |
-          git cliff -o CHANGELOG.md
-          # Extract changelog for this release
-          CHANGELOG=$(git cliff --stdout --tag ${{ github.ref }})
-          echo "$CHANGELOG" > release_notes.txt
+      - name: Generate a changelog
+        uses: orhun/git-cliff-action@v4
+        id: git-cliff
+        with:
+          config: cliff.toml
+          args: -vv --latest --strip header
+        env:
+          OUTPUT: CHANGELOG.md
 
       - name: Build .plasmoid
         run: make pack
@@ -33,7 +31,7 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: "resources-monitor-*.plasmoid"
-          body_path: release_notes.txt
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          files: resources-monitor-*.plasmoid
+          name: Release ${{ github.ref_name }}
+          body: ${{ steps.git-cliff.outputs.content }}
