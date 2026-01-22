@@ -63,7 +63,7 @@ RMBase.BaseSensorText {
             downloadValue *= unit.byteDiff;
             uploadValue *= unit.byteDiff;
 
-            // Update labels
+            // Update labels 
             if (textContainer.enabled) {
                 _updateData(downloadIndex, downloadValue);
                 _updateData(uploadIndex, uploadValue);
