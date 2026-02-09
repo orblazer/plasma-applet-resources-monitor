@@ -200,7 +200,7 @@ ListModel {
                 // Add graphs
                 root.append(GraphFns.getDisplayInfo(sensorData.type, i18nc, section, sensorData.device, deviceName));
                 // Add text variant
-                if (sensorData.type === "gpu") {
+                if (sensorData.type === "gpu" || sensorData.type === "disk") {
                     root.append(GraphFns.getDisplayInfo(sensorData.type + "Text", i18nc, section, sensorData.device, deviceName));
                 }
 
