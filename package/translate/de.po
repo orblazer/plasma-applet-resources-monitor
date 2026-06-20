@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: resources-monitor\n"
 "Report-Msgid-Bugs-To: https://github.com/orblazer/plasma-applet-resources-monitor\n"
-"POT-Creation-Date: 2025-11-30 16:42+0100\n"
+"POT-Creation-Date: 2026-06-20 13:59+0200\n"
 "PO-Revision-Date: 2025-08-01 14:06+0200\n"
 "Last-Translator: orblazer\n"
 "Language-Team: \n"
@@ -49,52 +49,57 @@ msgctxt "Bytes per second unit symbol"
 msgid "iB/s"
 msgstr "iB/s"
 
-#: ../contents/ui/code/graphs.js:324
+#: ../contents/ui/code/graphs.js:338
 msgctxt "Chart name"
 msgid "CPU"
 msgstr "CPU"
 
-#: ../contents/ui/code/graphs.js:329
+#: ../contents/ui/code/graphs.js:343
 msgctxt "Chart name"
 msgid "CPU usage (text)"
 msgstr ""
 
-#: ../contents/ui/code/graphs.js:334
+#: ../contents/ui/code/graphs.js:348
 msgctxt "Chart name"
 msgid "Memory"
 msgstr "Speicher"
 
-#: ../contents/ui/code/graphs.js:339
+#: ../contents/ui/code/graphs.js:353
 msgctxt "Chart name"
 msgid "Memory usage (text)"
 msgstr ""
 
-#: ../contents/ui/code/graphs.js:344
+#: ../contents/ui/code/graphs.js:358
 msgctxt "Chart name"
 msgid "GPU [%1]"
 msgstr "GPU [%1]"
 
-#: ../contents/ui/code/graphs.js:350
+#: ../contents/ui/code/graphs.js:364
 msgctxt "Chart name"
 msgid "GPU usage (text) [%1]"
 msgstr ""
 
-#: ../contents/ui/code/graphs.js:355
+#: ../contents/ui/code/graphs.js:369
 msgctxt "Chart name"
 msgid "Network"
 msgstr "Netzwerk"
 
-#: ../contents/ui/code/graphs.js:360
+#: ../contents/ui/code/graphs.js:374
 msgctxt "Chart name"
 msgid "Network (text)"
 msgstr ""
 
-#: ../contents/ui/code/graphs.js:365
+#: ../contents/ui/code/graphs.js:379
 msgctxt "Chart name"
 msgid "Disk I/O [%1]"
 msgstr "Disk I/O [%1]"
 
-#: ../contents/ui/code/graphs.js:370
+#: ../contents/ui/code/graphs.js:384
+msgctxt "Chart name"
+msgid "Disk usage (text) [%1]"
+msgstr ""
+
+#: ../contents/ui/code/graphs.js:389
 msgctxt "Chart name"
 msgid "Text"
 msgstr ""
@@ -130,7 +135,7 @@ msgid "W"
 msgstr "S"
 
 #: ../contents/ui/components/graph/GpuGraph.qml:41 ../contents/ui/components/graph/MemoryGraph.qml:45
-#: ../contents/ui/components/text/MemoryText.qml:36
+#: ../contents/ui/components/text/DiskText.qml:52 ../contents/ui/components/text/MemoryText.qml:36
 msgctxt "Percent unit"
 msgid "%1%"
 msgstr "%1%"
@@ -516,8 +521,8 @@ msgid "Colors"
 msgstr "Farben"
 
 #: ../contents/ui/config/dialog/BaseForm.qml:110 ../contents/ui/config/dialog/EditCpu.qml:17
-#: ../contents/ui/config/dialog/EditCpuText.qml:16 ../contents/ui/config/dialog/EditMemory.qml:17
-#: ../contents/ui/config/dialog/EditMemoryText.qml:17
+#: ../contents/ui/config/dialog/EditCpuText.qml:16 ../contents/ui/config/dialog/EditDiskText.qml:17
+#: ../contents/ui/config/dialog/EditMemory.qml:17 ../contents/ui/config/dialog/EditMemoryText.qml:17
 msgid "First line:"
 msgstr "Erste Zeile:"
 
@@ -617,6 +622,14 @@ msgstr "Lesen:"
 msgctxt "Chart config"
 msgid "Write:"
 msgstr "Schreiben:"
+
+#: ../contents/ui/config/dialog/EditDiskText.qml:23
+msgid "Disk usage (B)"
+msgstr ""
+
+#: ../contents/ui/config/dialog/EditDiskText.qml:27
+msgid "Disk usage (%)"
+msgstr ""
 
 #: ../contents/ui/config/dialog/EditGpu.qml:30
 msgid "Memory (B)"
