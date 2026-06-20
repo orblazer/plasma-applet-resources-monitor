@@ -95,6 +95,15 @@ const VERSION = 3; //? Bump when some settings changes in graphs structure
  * @property {boolean} icons Show labels icons (↓ / ↑)
  */
 /**
+ * @typedef {object} DiskText
+ * @property {number} _v The version of graph
+ * @property {"diskText"} type The graph type
+ * @property {[number, number]} sizes The graph size ([width, height], -1 = automatic)
+ * @property {[string, string]} colors The graph colors (ref: label, usage)
+ * @property {("used"|"used-percent")} sensorsType The sensors type (ref: usage format)
+ * @property {string} device The disk id (eg. sda, sdc), it also could be `all`
+ */
+/**
  * @typedef {object} Text
  * @property {number} _v The version of graph
  * @property {"text"} type The graph type
@@ -105,7 +114,7 @@ const VERSION = 3; //? Bump when some settings changes in graphs structure
  * @property {number} fontSize The font size
  */
 
-/** @typedef {CpuGraph|CpuText|MemoryGraph|MemoryText|GpuGraph|NetworkGraph|NetworkText|DiskGraph|Text} Graph */
+/** @typedef {CpuGraph|CpuText|MemoryGraph|MemoryText|GpuGraph|NetworkGraph|NetworkText|DiskGraph|DiskText|Text} Graph */
 /**
  * @typedef {object} GraphInfo
  * @property {Graph["type"]} type
@@ -276,6 +285,10 @@ function create(type, device, fontSize) {
       item.uplimits = [200000, 200000];
       item.icons = false;
       break;
+    case "diskText":
+      item.colors = ["textColor", "highlightColor"];
+      item.sensorsType = ["used-percent"];
+      break;
     case "text":
       item.color = "textColor";
       item.device = "Text";
@@ -287,7 +300,7 @@ function create(type, device, fontSize) {
   }
 
   // Fill device
-  if (type === "gpu" || type === "gpuText" || type === "disk") {
+  if (type === "gpu" || type === "gpuText" || type === "disk" || type === "diskText") {
     if (!device?.trim()) {
       throw new Error(`Device is required for ${type} graph`);
     }
@@ -363,6 +376,11 @@ function getDisplayInfo(
       break;
     case "disk":
       result.name = i18nc("Chart name", "Disk I/O [%1]", deviceName);
+      result.icon = "drive-harddisk-symbolic";
+      result.fallbackIcon = "drive-harddisk";
+      break;
+    case "diskText":
+      result.name = i18nc("Chart name", "Disk usage (text) [%1]", deviceName);
       result.icon = "drive-harddisk-symbolic";
       result.fallbackIcon = "drive-harddisk";
       break;
