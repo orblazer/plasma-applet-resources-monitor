@@ -14,17 +14,10 @@ But with the time this widget have gain a lot configurations and metrics can be 
 1. Install the **dependencies** :
 
    **required dependencies**:
-
    - `libksysguard` (normally include by default)
 
-   **optional dependencies**:
-
-   - `plasma-addons` (or similar name) : This is only required if you want select an application to run
-
 2. Install the widget :
-
    - **From GUI**:
-
      1. Add Widgets...
      2. Get new widgets
      3. Search `Resources Monitor`

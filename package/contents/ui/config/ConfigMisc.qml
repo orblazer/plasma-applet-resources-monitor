@@ -6,10 +6,11 @@ import org.kde.kcmutils as KCM
 import "./controls" as RMControls
 
 KCM.SimpleKCM {
+    id: root
+
     // Config properties
     property alias cfg_updateInterval: updateInterval.realValue
-    property var cfg_clickAction
-    property alias cfg_clickActionCommand: clickActionCommand.text
+    property alias cfg_clickApplication: applicationDialog.currentUrl
 
     //#region // HACK: Present to suppress errors (https://bugs.kde.org/show_bug.cgi?id=484541)
     property var cfg_graphs
@@ -27,8 +28,19 @@ KCM.SimpleKCM {
     property var cfg_displayment
     property var cfg_warningColor
     property var cfg_criticalColor
-
     //#endregion
+
+    // Retrieve available applications
+    AvailableApplicationsProxy {
+        id: availableApplications
+
+        onLoaded: {
+            const index = findByUrl(cfg_clickApplication);
+            if (index !== -1) {
+                appSelector.application = get(index);
+            }
+        }
+    }
 
     Kirigami.FormLayout {
         RMControls.SpinBox {
@@ -54,62 +66,53 @@ KCM.SimpleKCM {
             Layout.fillWidth: true
             Kirigami.FormData.label: i18nc("Chart config", "Type:")
 
-            textRole: "label"
-            valueRole: "value"
-            model: [
-                {
-                    "label": i18n("Disabled"),
-                    "value": "none"
-                },
-                {
-                    "label": i18n("Application"),
-                    "value": "application"
-                },
-                {
-                    "label": i18n("Shell command"),
-                    "value": "command"
-                }
-            ]
+            model: [i18n("Disabled"), i18n("Application")]
 
-            Component.onCompleted: currentIndex = indexOfValue(cfg_clickAction)
-            onActivated: cfg_clickAction = currentValue
+            Component.onCompleted: {
+                if (cfg_clickApplication == "") {
+                    currentIndex = 0
+                } else {
+                    currentIndex = 1
+                }
+            }
+            onActivated: {
+                if (currentIndex == 1) {
+                    cfg_clickApplication = "file:///usr/share/applications/org.kde.plasma-systemmonitor.desktop"
+                } else {
+                    cfg_clickApplication = ""
+                }
+            }
         }
 
         // > Button
-        Loader {
+        QQC2.Button {
             id: appSelector
+            visible: clickAction.currentIndex == 1
             Layout.fillWidth: true
             Kirigami.FormData.label: i18nc("Chart config", "Application:")
+            onClicked: applicationDialog.open()
 
-            visible: status === Loader.Ready && clickAction.currentIndex === 1
-            source: "./controls/AppSelector.qml"
+            property var application
 
-            onLoaded: {
-                if (cfg_clickActionCommand.startsWith("file://") && cfg_clickActionCommand.endsWidth(".desktop")) {
-                    item.value = cfg_clickActionCommand;
-                }
-                item.valueChanged.connect(() => cfg_clickActionCommand = item.value);
-            }
-        }
-        Kirigami.InlineMessage {
-            visible: appSelector.status === Loader.Error && clickAction.currentIndex === 1
-            Layout.fillWidth: true
-            text: i18n("The package <i>plasma-addons</i> is required to run an application.")
-            type: Kirigami.MessageType.Error
-        }
+            text: application ? application.name : i18nc("@title:window", "Choose application...")
+            icon.name: application?.icon
 
-        // > Command
-        QQC2.TextField {
-            id: clickActionCommand
-            Layout.fillWidth: true
-            visible: clickAction.currentIndex === 2
-            Kirigami.FormData.label: i18nc("Chart config", "Command:")
+            QQC2.ToolTip.visible: hovered
+            QQC2.ToolTip.text: i18nc("@info:tooltip", "Click to select another application")
         }
-        Kirigami.InlineMessage {
-            visible: clickActionCommand.currentIndex == 2
-            Layout.fillWidth: true
-            text: i18n("Command will be executed, but may have some limitations like \"<code>kioclient exec</code>\" or other similar command not work.")
-            type: Kirigami.MessageType.Warning
+    }
+
+    // Application dialog
+    RMControls.AppSelectorDialog {
+        id: applicationDialog
+        model: availableApplications
+
+        width: root.width - Kirigami.Units.gridUnit * 4
+        height: root.height - Kirigami.Units.gridUnit * 4
+
+        onSelected: item => {
+            appSelector.application = item;
+            cfg_clickApplication = item.url;
         }
     }
 }

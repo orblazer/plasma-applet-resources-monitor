@@ -14,11 +14,8 @@
             <default>1.0</default>
         </entry>
 
-        <entry name="clickAction" type="String">
-            <default>command</default>
-        </entry>
-        <entry name="clickActionCommand" type="String">
-            <default>plasma-systemmonitor</default>
+        <entry name="clickApplication" type="String">
+            <default>file:///usr/share/applications/org.kde.plasma-systemmonitor.desktop</default>
         </entry>
     </group>
 

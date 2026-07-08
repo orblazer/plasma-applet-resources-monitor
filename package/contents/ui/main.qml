@@ -2,9 +2,9 @@ import QtQuick
 import QtQuick.Layouts
 import org.kde.plasma.plasmoid
 import org.kde.plasma.core as PlasmaCore
-import org.kde.plasma.plasma5support as Plasma5Support
 import org.kde.kirigami as Kirigami
 import "./code/graphs.js" as GraphFns
+import "./components" as RMComponents
 
 PlasmoidItem {
     id: root
@@ -29,7 +29,7 @@ PlasmoidItem {
 
     // Settings properties
     property var graphsModel: GraphFns.parse(Plasmoid.configuration.graphs)
-    property string clickAction: Plasmoid.configuration.clickAction
+    property string clickApplication: Plasmoid.configuration.clickApplication
 
     // Plasma configuration
     Plasmoid.backgroundHints: PlasmaCore.Types.DefaultBackground
@@ -51,7 +51,7 @@ PlasmoidItem {
         height: width
     }
     fullRepresentation: MouseArea {
-        acceptedButtons: clickAction !== "none" ? Qt.LeftButton : Qt.NoButton
+        acceptedButtons: clickApplication !== "" ? Qt.LeftButton : Qt.NoButton
 
         // Propagate child size to parent
         Layout.preferredWidth: isVertical ? Kirigami.Units.iconSizes.small : graphView.implicitWidth + Kirigami.Units.smallSpacing
@@ -60,32 +60,17 @@ PlasmoidItem {
         // Click action
         Loader {
             id: appLauncher
-            active: clickAction === "application"
+            active: clickApplication !== ""
             source: "./components/AppLauncher.qml"
 
             function run(url) {
-                if (status === Loader.Ready) {
+                if (status == Loader.Ready && url != "") {
                     item.openUrl(url);
                 }
             }
         }
-        //? NOTE: This is hacky way for replace "Kio.KRun" due to limitation of access to C++ in widget without deploying package
-        //? This have a some limitation due to cannot open applications with `kioclient exec`, `kstart --application` or `xdg-open`.
-        Plasma5Support.DataSource {
-            id: runner
-            engine: "executable"
-            connectedSources: []
-            onNewData: sourceName => disconnectSource(sourceName)
-        }
-
         onClicked: {
-            if (Plasmoid.configuration.clickActionCommand !== "") {
-                if (clickAction === "application") {
-                    appLauncher.run(Plasmoid.configuration.clickActionCommand);
-                } else {
-                    runner.connectSource(Plasmoid.configuration.clickActionCommand);
-                }
-            }
+            appLauncher.run(clickApplication);
         }
 
         // Render
