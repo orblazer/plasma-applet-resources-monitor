@@ -12,6 +12,7 @@ BaseForm {
     colorsType: ["text", "text", false]
 
     properties: Kirigami.FormLayout {
+        // First line
         QQC2.ComboBox {
             Layout.fillWidth: true
             Kirigami.FormData.label: i18n("First line:")

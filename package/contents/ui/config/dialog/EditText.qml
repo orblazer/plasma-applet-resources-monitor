@@ -23,7 +23,9 @@ BaseForm {
                 root.changed();
             }
         }
+    }
 
+    appearanceProperties: Kirigami.FormLayout {
         QQC2.ComboBox {
             id: placement
             Kirigami.FormData.label: i18n("Placement:")

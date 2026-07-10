@@ -39,11 +39,9 @@ BaseForm {
                 root.changed();
             }
         }
-
-        // Clock
         QQC2.ComboBox {
             Layout.fillWidth: true
-            Kirigami.FormData.label: i18n("Second Line:")
+            Kirigami.FormData.label: i18n("Second line:")
 
             textRole: "label"
             valueRole: "value"
@@ -67,6 +65,35 @@ BaseForm {
                 root.item.sensorsType[1] = currentValue;
                 root.changed();
             }
+        }
+        QQC2.ComboBox {
+            Layout.fillWidth: true
+            Kirigami.FormData.label: i18n("Third line:")
+
+            textRole: "label"
+            valueRole: "value"
+            model: [
+                {
+                    "label": i18n("Disabled"),
+                    "value": false
+                },
+                {
+                    "label": i18n("Temperature"),
+                    "value": true
+                }
+            ]
+
+            Component.onCompleted: currentIndex = indexOfValue(root.item.sensorsType[2])
+            onActivated: {
+                root.item.sensorsType[2] = currentValue;
+                root.changed();
+            }
+        }
+
+        // Clock
+        Kirigami.Separator {
+            Kirigami.FormData.label: i18n("Clock")
+            Kirigami.FormData.isSection: true
         }
         QQC2.ComboBox {
             Layout.fillWidth: true
@@ -113,19 +140,16 @@ BaseForm {
             QQC2.ToolTip.text: i18nc("@info:tooltip", "<b>For Intel gen 12+ only</b><br>Number of E-Cores your CPU have, it's for separate it from P-Cores in clock frequency average calculation.")
             QQC2.ToolTip.visible: hovered
         }
+    }
 
-        QQC2.CheckBox {
-            text: i18n("Show temperature")
-            checked: root.item.sensorsType[2]
-            onClicked: {
-                root.item.sensorsType[2] = checked;
-                root.changed();
-            }
+    appearanceProperties: Kirigami.FormLayout {
+        Kirigami.Separator {
+            Kirigami.FormData.label: i18n("Threshold")
+            Kirigami.FormData.isSection: true
         }
-
         RMControls.Thresholds {
             Layout.fillWidth: true
-            Kirigami.FormData.label: i18n("Temperature threshold:")
+            Kirigami.FormData.label: i18n("Temperature:")
 
             values: root.item.thresholds
             onValuesChanged: {

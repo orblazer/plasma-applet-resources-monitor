@@ -47,15 +47,6 @@ BaseForm {
             }
         }
 
-        QQC2.CheckBox {
-            text: i18n("Show icons (%1 / %2)", "↓", "↑")
-            checked: root.item.icons
-            onClicked: {
-                root.item.icons = checked;
-                root.changed();
-            }
-        }
-
         QQC2.ComboBox {
             Layout.fillWidth: true
             Kirigami.FormData.label: i18n("Unit:")
@@ -111,6 +102,17 @@ BaseForm {
                         root.changed();
                     }
                 }
+            }
+        }
+    }
+
+    appearanceProperties: Kirigami.FormLayout {
+        QQC2.CheckBox {
+            text: i18n("Show icons (%1 / %2)", "↓", "↑")
+            checked: root.item.icons
+            onClicked: {
+                root.item.icons = checked;
+                root.changed();
             }
         }
     }

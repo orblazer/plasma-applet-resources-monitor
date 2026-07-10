@@ -42,23 +42,39 @@ BaseForm {
                 root.changed();
             }
         }
+        QQC2.ComboBox {
+            Layout.fillWidth: true
+            Kirigami.FormData.label: i18n("Third line:")
 
-        QQC2.CheckBox {
-            id: showGpuTemperature
-            text: i18n("Show temperature")
-            visible: showTempSettings
+            textRole: "label"
+            valueRole: "value"
+            model: [
+                {
+                    "label": i18n("Disabled"),
+                    "value": false
+                },
+                {
+                    "label": i18n("Temperature"),
+                    "value": true
+                }
+            ]
 
-            checked: root.item.sensorsType[1]
-            onClicked: {
-                root.item.sensorsType[1] = checked;
+            Component.onCompleted: currentIndex = indexOfValue(root.item.sensorsType[1])
+            onActivated: {
+                root.item.sensorsType[1] = currentValue;
                 root.changed();
             }
         }
+    }
 
+    appearanceProperties: Kirigami.FormLayout {
+        Kirigami.Separator {
+            Kirigami.FormData.label: i18n("Threshold")
+            Kirigami.FormData.isSection: true
+        }
         RMControls.Thresholds {
             Layout.fillWidth: true
-            Kirigami.FormData.label: i18n("Temperature threshold:")
-            visible: showTempSettings
+            Kirigami.FormData.label: i18n("Temperature:")
 
             values: root.item.thresholds
             onValuesChanged: {

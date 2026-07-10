@@ -2,156 +2,92 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls as QQC2
 import org.kde.kirigami as Kirigami
-import org.kde.kirigami.dialogs as KDialogs
-import org.kde.plasma.extras as PlasmaExtras
+import org.kde.kitemmodels as KItemModels
+import org.kde.plasma.plasmoid
 
-Kirigami.Dialog {
+SearchDialog {
     id: root
+    resetIndex: false
     standardButtons: Kirigami.Dialog.NoButton
     title: i18nc("@title:window", "Choose application...")
 
-    required property ListModel model
+    property alias sourceModel: sortModel.sourceModel
     property string currentUrl
 
     signal selected(var item)
 
-    ListModel {
-        id: filteredModel
-
-        function matches(item, text) {
-            const filter = text.trim().toLowerCase();
-            if (filter === "") {
-                return true;
-            }
-
-            return item.name.toLowerCase().includes(filter);
+    onCurrentUrlChanged: Qt.callLater(_updateCurrentIndex)
+    onCountChanged: Qt.callLater(_updateCurrentIndex)
+    function _updateCurrentIndex() {
+        if (sortModel.count == 0 || count == 0) {
+            return;
         }
 
-        function rebuildFilter() {
-            const text = searchField.text;
-            filteredModel.clear();
-
-            let currentIndex = 0;
-            for (let i = 0; i < root.model.count; ++i) {
-                const item = root.model.get(i);
-                if (matches(item, text)) {
-                    if (item.url == root.currentUrl) {
-                        currentIndex = filteredModel.count;
-                    }
-
-                    filteredModel.append({
-                        name: item.name,
-                        icon: item.icon,
-                        group: item.group,
-                        url: item.url
-                    });
-                }
-            }
-
-            if (filteredModel.count > 0) {
-                listView.currentIndex = currentIndex;
-                listView.positionViewAtIndex(currentIndex, ListView.Beginning);
-            } else {
-                listView.currentIndex = -1;
-            }
-        }
-    }
-    Connections {
-        target: root.model
-        function onLoaded() {
-            filteredModel.rebuildFilter();
-        }
-    }
-    onCurrentUrlChanged: {
-        for (let i = 0; i < filteredModel.count; i++) {
-            const item = filteredModel.get(i);
-            if (item.url == currentUrl) {
-                listView.currentIndex = i;
+        for (let i = 0; i < sortModel.count; i++) {
+            const url = sortModel.data(sortModel.index(i, 0), 3 /* url */);
+            if (url == currentUrl) {
+                root.setCurrentIndex(i);
+                break;
             }
         }
     }
 
-    header: KDialogs.DialogHeader {
-        dialog: root
-        contentItem: ColumnLayout {
-            KDialogs.DialogHeaderTopContent {
-                dialog: root
-            }
+    onTextChanged: {
+        sortModel.filterString = text;
+    }
+    model: KItemModels.KSortFilterProxyModel {
+        id: sortModel
+        /**
+         * Roles:
+         * - 0: name
+         * - 1: icon
+         * - 2: group
+         * - 3: url
+         */
 
-            Kirigami.SearchField {
-                id: searchField
-                Layout.fillWidth: true
-                Layout.leftMargin: Kirigami.Units.largeSpacing
-                Layout.rightMargin: Kirigami.Units.largeSpacing
-                Layout.bottomMargin: Kirigami.Units.largeSpacing
-                placeholderText: i18n("Search...")
-
-                onTextChanged: filteredModel.rebuildFilter()
-            }
-        }
+        filterRoleName: "name"
+        filterCaseSensitivity: Qt.CaseInsensitive
     }
 
-    ListView {
-        id: listView
-        clip: true
-        reuseItems: true
-        model: filteredModel
-        height: Kirigami.Units.gridUnit * 30
-
-        section {
-            property: "group"
-            delegate: Kirigami.ListSectionHeader {
-                required property string section
-                width: listView.width
-                text: section
-                visible: parent.visible
-            }
-        }
-
-        delegate: QQC2.ItemDelegate {
-            id: item
+    section {
+        property: "group"
+        criteria: ViewSection.FirstCharacter
+        delegate: Kirigami.ListSectionHeader {
+            required property string section
             width: ListView.view.width
-            hoverEnabled: true
-            property bool isCurrent: ListView.isCurrentItem
+            text: section.toUpperCase()
+        }
+    }
 
-            onClicked: {
-                root.currentUrl = model.url;
-                root.selected(model);
-                // root.close();
-            }
+    delegate: QQC2.ItemDelegate {
+        id: item
+        width: ListView.view.width
 
-            contentItem: RowLayout {
-                spacing: Kirigami.Units.smallSpacing
+        required property var model
+        property bool isCurrent: ListView.isCurrentItem
 
-                // Content
-                Kirigami.Icon {
-                    source: model.icon
-                    width: Kirigami.Units.iconSizes.medium
-                    height: width
-                }
-                QQC2.Label {
-                    Layout.fillWidth: true
-                    text: model.name
-                    textFormat: Text.PlainText
-                    elide: Text.ElideRight
-                    font.bold: item.isCurrent
-                }
-            }
+        onClicked: {
+            root.currentUrl = model.url;
+            root.selected(model);
+            root.close();
         }
 
-        // Animation
-        highlightMoveDuration: Kirigami.Units.longDuration
-        displaced: Transition {
-            YAnimator {
-                duration: Kirigami.Units.longDuration
-            }
-        }
+        contentItem: RowLayout {
+            spacing: Kirigami.Units.smallSpacing
 
-        Kirigami.PlaceholderMessage {
-            anchors.centerIn: parent
-            width: parent.width - Kirigami.Units.gridUnit * 4
-            visible: listView.count === 0
-            text: i18n("No result.")
+            // Content
+            Kirigami.Icon {
+                source: model.icon
+                width: Kirigami.Units.iconSizes.medium
+                height: width
+            }
+            QQC2.Label {
+                Layout.fillWidth: true
+                text: model.name
+                textFormat: Text.PlainText
+                elide: Text.ElideRight
+                font.bold: item.isCurrent
+            }
         }
     }
 }

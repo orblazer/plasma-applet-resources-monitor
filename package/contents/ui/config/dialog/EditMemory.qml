@@ -43,7 +43,6 @@ BaseForm {
                 root.changed();
             }
         }
-
         QQC2.ComboBox {
             Layout.fillWidth: true
             Kirigami.FormData.label: i18n("Second line:")
@@ -56,7 +55,7 @@ BaseForm {
                     "value": "none"
                 },
                 {
-                    "label": i18n("Swap"),
+                    "label": i18n("Swap (B)"),
                     "value": "swap"
                 },
                 {
@@ -75,10 +74,16 @@ BaseForm {
                 root.changed();
             }
         }
+    }
 
+    appearanceProperties: Kirigami.FormLayout {
+        Kirigami.Separator {
+            Kirigami.FormData.label: i18n("Threshold")
+            Kirigami.FormData.isSection: true
+        }
         RMControls.Thresholds {
             Layout.fillWidth: true
-            Kirigami.FormData.label: i18n("Usage threshold:")
+            Kirigami.FormData.label: i18n("Memory usage:")
 
             values: root.item.thresholds
             onValuesChanged: {
@@ -89,8 +94,8 @@ BaseForm {
             decimals: 1
             stepSize: 1
             realFrom: 0.1
-            realTo: 100
-            suffix: "%"
+            realTo: 120
+            suffix: " °C"
         }
     }
 }

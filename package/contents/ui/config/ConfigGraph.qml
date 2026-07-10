@@ -2,15 +2,12 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls as QQC2
 import org.kde.kirigami as Kirigami
-import org.kde.kcmutils as KCM
-import org.kde.plasma.plasmoid
 import "../components" as RMComponents
+import "./dialog" as RMDialogs
 import "../code/graphs.js" as GraphFns
 
-KCM.ScrollViewKCM {
+GraphListPage {
     id: root
-    // HACK: Provides footer separator
-    extraFooterTopPadding: true
 
     property bool graphsUpgraded: false
 
@@ -35,22 +32,7 @@ KCM.ScrollViewKCM {
     property var cfg_criticalColor
     property var cfg_updateInterval
     property var cfg_clickApplication
-
     //#endregion
-
-    Component.onCompleted: {
-        graphs = GraphFns.parse(root.cfg_graphs, true) || [];
-        Object.values(graphs).forEach(v => graphsView.model.append({
-                type: v.type,
-                device: v.device ?? v.type
-            }));
-
-        // Uncomment for development
-        /* addGraph("gpu", "all");
-        addGraph("gpu", "gpu1");
-        addGraph("network");
-        addGraph("disk", "all"); */
-    }
 
     // Remove upgrade message after saved
     function saveConfig() {
@@ -61,171 +43,81 @@ KCM.ScrollViewKCM {
     AvailableGraphProxy {
         id: availableGraphs
 
+        onInitialized: {
+            root.graphs = GraphFns.parse(root.cfg_graphs, true) || [];
+            Object.values(root.graphs).forEach(v => root.addItem(v, find(v.type, v.device ?? v.type)));
+            root.graphsUpgraded = root.graphs[0]?._changed ?? false;
+            if (root.graphsUpgraded) {
+                root.updateGraphsSetting();
+            }
+
+            // Uncomment for development
+            /* addGraph("gpu", "all");
+            addGraph("gpu", "gpu1");
+            addGraph("network");
+            addGraph("disk", "all"); */
+        }
+        onRowsInserted: (parent, first, last) => {
+            for (let i = first; i <= last; ++i) {
+                const graph = get(i);
+                if (typeof graph != "undefined") {
+                    root.updateItem(graph);
+                }
+            }
+        }
         onDataChanged: index => {
             const graph = get(index.row);
-            for (let i = 0; i < graphsView.count; i++) {
-                if (graphsView.model.get(i).type === graph.type && graphsView.model.get(i).device === graph.device) {
-                    graphsView.itemAtIndex(i).update(graph);
-                    return;
-                }
+            if (typeof graph != "undefined") {
+                root.updateItem(graph);
             }
         }
     }
 
-    // Content
-    header: Kirigami.InlineMessage {
-        visible: graphsUpgraded
-        Layout.fillWidth: true
-        text: i18n("The graphs as been upgraded to new version, please save it.")
-    }
-
-    view: ListView {
-        id: graphsView
-        clip: true
-        reuseItems: true
-
-        //? Use different array due to QML issue with deep object conversion
-        model: ListModel {}
-
-        delegate: Item {
-            // External item required to make Kirigami.ListItemDragHandle work
-            readonly property var graphInfo: {
-                const info = availableGraphs.find(model.type, model.device);
-                if (typeof info === "undefined") {
-                    // Fallback info (mainly for development)
-                    return {
-                        type: model.type,
-                        name: `[${model.type}${model.device ? `:${model.device}` : ""}]`,
-                        icon: "unknown",
-                        fallbackIcon: "unknown",
-                        section: "unknown",
-                        device: model.device ?? model.type,
-                        fixable: (model.type === "gpu" || model.type === "gpuText") && model.device !== "all"
-                    };
-                }
-                if (model.type == "text") {
-                    return Object.assign({}, info, {
-                        name: i18nc("Chart name", "Text [%1]", model.device)
-                    });
-                }
-                return info;
-            }
-            function update(newInfo) {
-                icon.source = newInfo.icon;
-                icon.fallback = newInfo.fallbackIcon;
-                name.text = newInfo.name;
-            }
-
-            width: graphsView.width
-            implicitHeight: graphItem.implicitHeight
-
-            QQC2.ItemDelegate {
-                id: graphItem
-                width: graphsView.width
-                hoverEnabled: true
-                Kirigami.Theme.useAlternateBackgroundColor: Kirigami.Theme.alternateBackgroundColor
-
-                down: false  // Disable press effect
-
-                contentItem: RowLayout {
-                    Kirigami.ListItemDragHandle {
-                        listItem: graphItem
-                        listView: graphsView
-
-                        onMoveRequested: (oldIndex, newIndex) => {
-                            graphsView.model.move(oldIndex, newIndex, 1);
-                            root.graphs.splice(newIndex, 0, root.graphs.splice(oldIndex, 1)[0]);
-                        }
-                        onDropped: root.saveGraphs()
-                    }
-
-                    // Content
-                    Kirigami.Icon {
-                        id: icon
-                        source: graphInfo.icon
-                        fallback: graphInfo.fallbackIcon
-                        width: Kirigami.Units.iconSizes.smallMedium
-                        height: width
-                    }
-                    QQC2.Label {
-                        id: name
-                        Layout.fillWidth: true
-                        text: graphInfo.name
-                        textFormat: Text.PlainText
-                    }
-
-                    // Actions
-                    QQC2.Button {
-                        id: fixButton
-                        visible: graphInfo.fixable ?? false
-                        text: i18n("Fix...")
-                        QQC2.ToolTip.text: i18nc("@info:tooltip", "Edit \"%1\" graph", name.text)
-                        QQC2.ToolTip.visible: hovered
-
-                        onClicked: {
-                            fixDialog.openFor(index, name.text);
-                        }
-                    }
-                    DelegateButton {
-                        icon.name: "edit-entry-symbolic"
-                        text: i18nc("@info:tooltip", "Edit \"%1\" graph", name.text)
-
-                        onClicked: {
-                            editDialog.openFor(index, name.text);
-                        }
-                    }
-                    DelegateButton {
-                        icon.name: "edit-delete"
-                        text: i18nc("@info:tooltip", "Delete \"%1\" graph", name.text)
-
-                        onClicked: {
-                            removePrompt.graphIndex = index;
-                            removePrompt.graphName = name.text;
-                            removePrompt.open();
-                        }
-                    }
-                }
-            }
-        }
-
-        // Animation
-        highlightMoveDuration: Kirigami.Units.longDuration
-        displaced: Transition {
-            YAnimator {
-                duration: Kirigami.Units.longDuration
-            }
-        }
-
-        Kirigami.PlaceholderMessage {
-            anchors.centerIn: parent
-            width: parent.width - (Kirigami.Units.largeSpacing * 4)
-            visible: graphsView.count === 0
-
-            icon.name: "office-chart-line-stacked"
-            text: i18n("No graph selected")
-            explanation: i18nc("@info", "Click <i>%1</i> to get started", addButton.text)
+    // Actions
+    onAction: (type, payload) => {
+        switch (type) {
+        case "add":
+            addDialog.open();
+            break;
+        case "move":
+            root.graphs.splice(payload.newIndex, 0, root.graphs.splice(payload.oldIndex, 1)[0]);
+            break;
+        case "save":
+            root.updateGraphsSetting();
+            break;
+        case "fix":
+            fixDialog.openFor(payload.index, payload.name);
+            break;
+        case "edit":
+            editDialog.openFor(payload.index, payload.name);
+            break;
+        case "remove":
+            removePrompt.openFor(payload.index, payload.name);
+            break;
         }
     }
 
-    footer: RowLayout {
-        spacing: Kirigami.Units.smallSpacing
+    // Add dialog
+    RMDialogs.AddDialog {
+        id: addDialog
+        sourceModel: availableGraphs
+        graphs: root.graphs
 
-        QQC2.Button {
-            id: addButton
-            // HACK: Footer comes with margin
-            Layout.leftMargin: Kirigami.Units.largeSpacing - 6
+        width: root.width - Kirigami.Units.gridUnit * 4
+        height: root.height - Kirigami.Units.gridUnit * 4
 
-            text: i18n("Add graph…")
-            icon.name: "list-add-symbolic"
-            onClicked: addDialog.open()
+        onSelected: items => {
+            for (const item of items) {
+                addGraph(item.type, item.device);
+            }
         }
     }
 
     // Edit dialog
     Kirigami.Dialog {
         id: editDialog
-        width: graphsView.width - Kirigami.Units.gridUnit * 4
-        height: graphsView.height
+        width: root.width - Kirigami.Units.gridUnit * 4
+        height: root.height - Kirigami.Units.gridUnit * 4
 
         title: i18nc("@title:window", "Edit graph: %1", graphName)
         standardButtons: Kirigami.Dialog.Ok | Kirigami.Dialog.Cancel
@@ -236,19 +128,17 @@ KCM.ScrollViewKCM {
         property bool needSave: false
         onAccepted: {
             if (needSave) {
-                graphs[graphIndex] = contentItem.item.item;
-                if (contentItem.item.item.type == "text") {
-                    graphsView.model.set(graphIndex, {
-                        type: contentItem.item.item.type,
-                        device: contentItem.item.item.device
-                    });
+                graphs[graphIndex] = contentLoader.item.item;
+                if (contentLoader.item.item.type == "text") {
+                    root.setItem(graphIndex, graphs[graphIndex]);
                 }
-                saveGraphs();
+                updateGraphsSetting();
             }
         }
 
-        Loader {
-            id: contentItem
+        contentItem: Loader {
+            id: contentLoader
+
             onLoaded: {
                 editDialog.open();
                 item.onChanged.connect(onChanged);
@@ -273,84 +163,17 @@ KCM.ScrollViewKCM {
             // Load settings page
             graphIndex = index;
             graphName = name;
-            contentItem.setSource(source, {
+            contentLoader.setSource(source, {
                 item
             });
-        }
-    }
-
-    // Add dialog
-    Kirigami.Dialog {
-        id: addDialog
-        width: graphsView.width - Kirigami.Units.gridUnit * 4
-        height: graphsView.height - Kirigami.Units.gridUnit * 4
-
-        title: i18nc("@title:window", "Add graph")
-
-        property bool needSave: false
-        onClosed: needSave && root.saveGraphs()
-
-        ListView {
-            id: addGraphView
-            clip: true
-            reuseItems: true
-            model: availableGraphs
-            currentIndex: -1
-
-            section {
-                property: "section"
-                delegate: Kirigami.ListSectionHeader {
-                    required property string section
-                    width: addGraphView.width
-                    text: section
-                }
-            }
-
-            delegate: Item {
-                width: addGraphView.width
-                implicitHeight: item.implicitHeight
-
-                QQC2.ItemDelegate {
-                    id: item
-                    width: addGraphView.width
-
-                    // Disable when graph is already present
-                    enabled: !root.graphExist(model.type, model.device)
-
-                    onClicked: {
-                        addGraph(model.type, model.device);
-                        addDialog.needSave = true;
-                    }
-
-                    contentItem: RowLayout {
-                        spacing: Kirigami.Units.smallSpacing
-
-                        // Content
-                        Kirigami.Icon {
-                            source: model.icon
-                            fallback: model.fallbackIcon
-                            width: Kirigami.Units.iconSizes.medium
-                            height: width
-                        }
-                        QQC2.Label {
-                            Layout.fillWidth: true
-                            text: model.name
-                            textFormat: Text.PlainText
-                            elide: Text.ElideRight
-
-                            opacity: enabled ? 1 : 0.6
-                        }
-                    }
-                }
-            }
         }
     }
 
     // Fix dialog
     Kirigami.Dialog {
         id: fixDialog
-        width: graphsView.width - Kirigami.Units.gridUnit * 4
-        height: graphsView.height
+        // width: graphsView.width - Kirigami.Units.gridUnit * 4
+        // height: graphsView.height
 
         title: i18nc("@title:window", "Edit graph: %1", graphName)
         standardButtons: Kirigami.Dialog.Ok | Kirigami.Dialog.Cancel
@@ -366,17 +189,19 @@ KCM.ScrollViewKCM {
                 type: newGraph.type,
                 device: newGraph.device
             });
-            saveGraphs();
+            root.updateGraphsSetting();
         }
 
-        Kirigami.FormLayout {
-            QQC2.ComboBox {
-                id: newGpuIndexes
-                Layout.fillWidth: true
-                Kirigami.FormData.label: i18n("New GPU:")
+        Kirigami.Page {
+            Kirigami.FormLayout {
+                QQC2.ComboBox {
+                    id: newGpuIndexes
+                    Layout.fillWidth: true
+                    Kirigami.FormData.label: i18n("New GPU:")
 
-                textRole: "name"
-                valueRole: "device"
+                    textRole: "name"
+                    valueRole: "device"
+                }
             }
         }
 
@@ -416,65 +241,40 @@ KCM.ScrollViewKCM {
                 text: i18n("Delete")
                 icon.name: "edit-delete"
                 onTriggered: {
-                    graphsView.model.remove(removePrompt.graphIndex, 1);
+                    root.removeItem(removePrompt.graphIndex);
                     root.graphs.splice(removePrompt.graphIndex, 1);
-                    root.saveGraphs();
+                    root.updateGraphsSetting();
                     removePrompt.close();
                 }
             }
         ]
-    }
 
-    // Action button
-    component DelegateButton: QQC2.ToolButton {
-        display: QQC2.AbstractButton.IconOnly
-        QQC2.ToolTip.text: text
-        QQC2.ToolTip.visible: hovered
-    }
-
-    // Apply changes when upgraded
-    Timer {
-        running: true
-        interval: 1
-
-        onTriggered: {
-            graphsUpgraded = graphs[0]?._changed ?? false;
-            if (graphsUpgraded) {
-                saveGraphs();
-            }
+        /**
+         * Open edit modal for specific graph
+         * @param {number} index The graph index
+         * @param {string} name The graph name
+         */
+        function openFor(index, name) {
+            // Load settings page
+            graphIndex = index;
+            graphName = name;
+            removePrompt.open();
         }
     }
 
-    // utils functions
-    /**
-     * Save graph changes
+    /*
+     * utils functions
      */
-    function saveGraphs() {
+
+    /**
+     * Update graphs setting from js array
+     */
+    function updateGraphsSetting() {
         cfg_graphs = GraphFns.stringify(graphs);
     }
 
     /**
-     * Check if graph of an specified device exist
-     * @param {string} type The graph type want to be added
-     * @param {string} device The graph device (device = type when not GPU or disk) want to be checked
-     * @returns {boolean} The graph already exist or not
-     */
-    function graphExist(type, device) {
-        // Text can be added multiple time
-        if (type == "text") {
-            return false;
-        }
-
-        for (let i = 0; i < graphsView.count; i++) {
-            if (graphsView.model.get(i).type === type && graphsView.model.get(i).device === device) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Add an new graph
+     * Add an new element
      * @param {string} type The graph type want to be added
      * @param {string} [device] The device want to be added (eg. gpu0)
      */
@@ -492,9 +292,8 @@ KCM.ScrollViewKCM {
 
         // Add graph to lists
         graphs.push(item);
-        graphsView.model.append({
-            type,
-            device: device ?? type
-        });
+        graphs = graphs;
+        root.addItem(item, availableGraphs.find(item.type, item.device ?? item.type));
+        updateGraphsSetting();
     }
 }

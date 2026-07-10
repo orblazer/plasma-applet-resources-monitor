@@ -37,17 +37,8 @@ BaseForm {
             }
         }
 
-        QQC2.CheckBox {
-            text: i18n("Show icons (%1 / %2)", i18nc("Disk graph icon : Read", "R"), i18nc("Disk graph icon : Write", "W"))
-            checked: root.item.icons
-            onClicked: {
-                root.item.icons = checked;
-                root.changed();
-            }
-        }
-
         // Transfer speed
-        Item {
+        Kirigami.Separator {
             Kirigami.FormData.label: i18n("Maximum transfer speed")
             Kirigami.FormData.isSection: true
         }
@@ -99,6 +90,17 @@ BaseForm {
                 stepSize: 1
                 realFrom: 0.001
                 suffix: " M" + root.unit.symbol
+            }
+        }
+    }
+
+    appearanceProperties: Kirigami.FormLayout {
+        QQC2.CheckBox {
+            text: i18n("Show icons (%1 / %2)", i18nc("Disk graph icon : Read", "R"), i18nc("Disk graph icon : Write", "W"))
+            checked: root.item.icons
+            onClicked: {
+                root.item.icons = checked;
+                root.changed();
             }
         }
     }

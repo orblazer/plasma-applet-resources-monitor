@@ -5,9 +5,12 @@ import "../code/graphs.js" as GraphFns
 ListModel {
     id: root
 
+    signal initialized()
+
     Component.onCompleted: {
         // Add constant graphs (GPU and disks added with "_privateModel")
         ["text", "cpu", "cpuText", "memory", "memoryText", "network", "networkText"].forEach(type => append(GraphFns.getDisplayInfo(type, i18nc)));
+        initialized()
     }
 
     function find(type, device) {

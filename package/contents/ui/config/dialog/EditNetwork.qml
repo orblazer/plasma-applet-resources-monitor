@@ -64,15 +64,6 @@ BaseForm {
             }
         }
 
-        QQC2.CheckBox {
-            text: i18n("Show icons (%1 / %2)", "↓", "↑")
-            checked: root.item.icons
-            onClicked: {
-                root.item.icons = checked;
-                root.changed();
-            }
-        }
-
         QQC2.ComboBox {
             Layout.fillWidth: true
             Kirigami.FormData.label: i18n("Unit:")
@@ -132,7 +123,7 @@ BaseForm {
         }
 
         // Transfer speed
-        Item {
+        Kirigami.Separator {
             Kirigami.FormData.label: i18n("Maximum transfer speed")
             Kirigami.FormData.isSection: true
         }
@@ -186,6 +177,9 @@ BaseForm {
                 suffix: " M" + root.unit.symbol
             }
         }
+    }
+
+    appearanceProperties: Kirigami.FormLayout {
     }
 
     // Utils function

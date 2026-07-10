@@ -105,7 +105,7 @@ KCM.SimpleKCM {
     // Application dialog
     RMControls.AppSelectorDialog {
         id: applicationDialog
-        model: availableApplications
+        sourceModel: availableApplications
 
         width: root.width - Kirigami.Units.gridUnit * 4
         height: root.height - Kirigami.Units.gridUnit * 4
