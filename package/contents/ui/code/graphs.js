@@ -4,7 +4,7 @@
  * Version of graphs
  * @constant
  */
-const VERSION = 3; //? Bump when some settings changes in graphs structure
+const VERSION = 4; //? Bump when some settings changes in graphs structure
 
 /**
  * @typedef {object} CpuGraph
@@ -23,7 +23,7 @@ const VERSION = 3; //? Bump when some settings changes in graphs structure
  * @property {"memory"} type The graph type
  * @property {[number, number]} sizes The graph size ([width, height], -1 = automatic)
  * @property {[string, string]} colors The graph colors (ref: color, swap)
- * @property {[("physical"|"physical-percent"|"application"|"application-percent"), ("none"|"swap"|"swap-percent"|"memory-percent")]} sensorsType The sensors type (ref: memory, swap)
+ * @property {[("physical"|"physical-percent"|"application"|"application-percent"|"swap"|"swap-percent"), ("none"|"swap"|"swap-percent"|"physical-percent"|"application-percent")]} sensorsType The sensors type (ref: memory, swap)
  * @property {[number, number]} thresholds The usage thresholds
  */
 /**
@@ -151,6 +151,16 @@ const migrations = {
     if (graph.type === "text" && typeof graph.size !== "undefined") {
       graph.fontSize = graph.size;
       delete graph.size;
+    }
+  },
+
+  // V3 -> V4: Improve flexibility
+  // - Memory: Change "memory-percent" to independent type (application/physical)
+  3: (graph) => {
+    // Memory
+    if (graph.type === "memory" && graph.sensorsType[1] === "memory-percent") {
+      const [type] = graph.sensorsType[0].split("-");
+      graph.sensorsType = [graph.sensorsType[0], type + "-percent"];
     }
   },
 };
@@ -300,7 +310,12 @@ function create(type, device, fontSize) {
   }
 
   // Fill device
-  if (type === "gpu" || type === "gpuText" || type === "disk" || type === "diskText") {
+  if (
+    type === "gpu" ||
+    type === "gpuText" ||
+    type === "disk" ||
+    type === "diskText"
+  ) {
     if (!device?.trim()) {
       throw new Error(`Device is required for ${type} graph`);
     }
@@ -324,7 +339,7 @@ function getDisplayInfo(
   i18nc = (_ = "", def = "") => def,
   section = "",
   device = type,
-  deviceName = device
+  deviceName = device,
 ) {
   /** @type {GraphInfo} */
   let result = {
@@ -349,7 +364,7 @@ function getDisplayInfo(
       result.fallbackIcon = "memory";
       break;
     case "memoryText":
-      result.name = i18nc("Chart name", "Memory usage (text)");
+      result.name = i18nc("Chart name", "Memory (text)");
       result.icon = "memory-symbolic";
       result.fallbackIcon = "memory";
       break;

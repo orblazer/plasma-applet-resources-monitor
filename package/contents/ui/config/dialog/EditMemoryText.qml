@@ -35,7 +35,15 @@ BaseForm {
                 {
                     "label": i18n("Application memory (%)"),
                     "value": "application-percent"
-                }
+                },
+                {
+                    "label": i18n("Swap (B)"),
+                    "value": "swap"
+                },
+                {
+                    "label": i18n("Swap (%)"),
+                    "value": "swap-percent"
+                },
             ]
 
             Component.onCompleted: currentIndex = indexOfValue(root.item.sensorsType[0])

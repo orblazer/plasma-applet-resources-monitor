@@ -26,13 +26,7 @@ RMBaseGraph.TwoSensorsGraph {
     }
 
     // Graph options
-    sensorsModel.sensors: {
-        let sensors = [`gpu/${device}/usage`, `gpu/${device}/usedVram`];
-        if (showTemp) {
-            sensors.push(`gpu/${device}/temperature`);
-        }
-        return sensors;
-    }
+    sensorSlots: [`gpu/${device}/usage`, `gpu/${device}/usedVram`, showTemp ? `gpu/${device}/temperature` : null]
     secondChartVisible: sensorsType[0] !== "none"
 
     // Override methods, for handle memory in percent

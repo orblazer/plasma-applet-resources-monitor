@@ -34,7 +34,15 @@ BaseForm {
                 {
                     "label": i18n("Application memory (%)"),
                     "value": "application-percent"
-                }
+                },
+                {
+                    "label": i18n("Swap (B)"),
+                    "value": "swap"
+                },
+                {
+                    "label": i18n("Swap (%)"),
+                    "value": "swap-percent"
+                },
             ]
 
             Component.onCompleted: currentIndex = indexOfValue(root.item.sensorsType[0])
@@ -63,8 +71,12 @@ BaseForm {
                     "value": "swap-percent"
                 },
                 {
-                    "label": i18n("Memory (%)"),
-                    "value": "memory-percent"
+                    "label": i18n("Physical memory (%)"),
+                    "value": "physical-percent"
+                },
+                {
+                    "label": i18n("Application memory (%)"),
+                    "value": "application-percent"
                 }
             ]
 
@@ -94,8 +106,8 @@ BaseForm {
             decimals: 1
             stepSize: 1
             realFrom: 0.1
-            realTo: 120
-            suffix: " °C"
+            realTo: 100
+            suffix: "%"
         }
     }
 }

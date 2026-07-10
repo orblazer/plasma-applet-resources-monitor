@@ -7,42 +7,38 @@ import "./base" as RMBaseGraph
 RMBaseGraph.TwoSensorsGraph {
     id: root
     objectName: "MemoryGraph"
-    readonly property int minimumWidth: textContainer.enabled ? Formatter.Formatter.maximumLength(fieldInPercent ? Formatter.Units.UnitPercent : Formatter.Units.UnitMegaHertz, textContainer.font) : 0
+    readonly property int minimumWidth: textContainer.enabled ? Math.max(_maxValueLength(0), _maxValueLength(1)) : 0
 
     // Config shortcut
-    property bool showSwap: sensorsType[1].startsWith("swap")
-    property var fieldInPercent: [sensorsType[0].endsWith("-percent"), sensorsType[1] === "swap-percent"]
+    property bool firstIsSwap: sensorsType[0].startsWith("swap")
+    property bool secondIsSwap: sensorsType[1].startsWith("swap")
+    property var fieldInPercent: [sensorsType[0].endsWith("-percent"), sensorsType[1].endsWith("-percent")]
 
     // Labels
     textContainer {
-        valueColors: [undefined, root.showSwap ? root.colors[1] : undefined, undefined]
-        labelsVisibleWhenZero: [true, false, true]
-        thresholdIndex: 0
-        thresholds: [root.realUplimits[0] * (root.thresholds[0] / 100.0), root.realUplimits[0] * (root.thresholds[1] / 100.0)]
+        valueColors: [root.firstIsSwap ? root.colors[0] : undefined, root.secondIsSwap ? root.colors[1] : undefined, undefined]
+        labelsVisibleWhenZero: [!firstIsSwap, !secondIsSwap, true]
+        thresholdIndex: firstIsSwap ? (secondIsSwap ? -1 : 1) : 0
+        thresholds: {
+            const index = firstIsSwap ? 1 : 0;
+            return [root.realUplimits[index] * (root.thresholds[0] / 100.0), root.realUplimits[index] * (root.thresholds[1] / 100.0)];
+        }
 
-        hints: ["RAM", root.showSwap ? "Swap" : (root.sensorsType[1] === "memory-percent" ? i18nc("Graph label", "Percent.") : ""), ""]
+        hints: [(firstIsSwap ? "Swap" : "RAM"), (sensorsType[1] != "none" ? (secondIsSwap ? "Swap" : "RAM") : ""), ""]
     }
 
     // Graph options
-    sensorsModel.sensors: {
-        const info = sensorsType[0].split("-");
-        const type = info[0] === "physical" ? "used" : "application";
-
-        // Define sensors
-        let sensors = ["memory/physical/" + type];
-        if (showSwap) {
-            sensors.push("memory/swap/used");
-        } else if (sensorsType[1] === "memory-percent") {
-            sensors.push("memory/physical/" + type + "Percent");
-        }
-        return sensors;
-    }
-    secondChartVisible: showSwap
+    sensorSlots: [_toSensor(sensorsType[0]), _toSensor(sensorsType[1])]
+    secondChartVisible: !firstIsSwap && secondIsSwap
 
     // Override methods, for handle memory in percent
     _formatValue: (index, value) => {
         if (fieldInPercent[index]) {
-            return i18nc("Percent unit", "%1%", Math.round((value / root.realUplimits[index]) * 1000) / 10); // This is for round to 1 decimal
+            if (sensorSlots[index].endsWith("Percent")) {
+                return i18nc("Percent unit", "%1%", Math.round(value * 10) / 10); // This is for round to 1 decimal
+            } else {
+                return i18nc("Percent unit", "%1%", Math.round((value / root.realUplimits[index]) * 1000) / 10); // This is for round to 1 decimal
+            }
         }
         return _defaultFormatValue(index, value);
     }
@@ -50,7 +46,14 @@ RMBaseGraph.TwoSensorsGraph {
     // Initialize limits and threshold
     Sensors.SensorDataModel {
         id: maxQueryModel
-        sensors: ["memory/physical/total", "memory/swap/total"]
+        sensors: {
+            const values = [firstIsSwap ? "memory/swap/total" : "memory/physical/total"];
+            const secondValue = secondIsSwap ? "memory/swap/total" : "memory/physical/total";
+            if (!values.includes(secondValue)) {
+                values.push(secondValue);
+            }
+            return values;
+        }
         enabled: true
         property var maxMemory: [-1, -1]
 
@@ -63,10 +66,31 @@ RMBaseGraph.TwoSensorsGraph {
             maxMemory[topLeft.column] = value;
 
             // Update graph Y range and sensors
-            if (maxMemory[0] > 0 && maxMemory[1] >= 0) {
+            if (sensors.length == 1) {
+                enabled = false;
+                maxMemory = [maxMemory[0], maxMemory[0]];
+                root.realUplimits = maxMemory;
+            } else if (maxMemory[0] > 0 && maxMemory[1] >= 0) {
                 enabled = false;
                 root.realUplimits = maxMemory;
             }
         }
+    }
+
+    function _toSensor(value) {
+        const [type, percent] = value.split("-");
+        switch (type) {
+        case "physical":
+            return "memory/physical/used";
+        case "application":
+            return "memory/physical/application";
+        case "swap":
+            return "memory/swap/used";
+        default:
+            return null;
+        }
+    }
+    function _maxValueLength(index) {
+        return Formatter.Formatter.maximumLength(fieldInPercent[index] ? Formatter.Units.UnitPercent : Formatter.Units.UnitMegaHertz, textContainer.font)
     }
 }

@@ -10,14 +10,21 @@ RMBase.BaseSensorText {
     readonly property int minimumWidth: textContainer.enabled ? Formatter.Formatter.maximumLength(fieldInPercent ? Formatter.Units.UnitPercent : Formatter.Units.UnitMegaHertz, textContainer.font) : 0
 
     // Config shortcut
+    property bool isSwap: sensorsType[0].startsWith("swap")
     property var fieldInPercent: sensorsType[0].endsWith("-percent")
 
     // Value options
     sensor.sensorId: {
-        const info = sensorsType[0].split("-");
-        const type = info[0] === "physical" ? "used" : "application";
+        const [type, percent] = sensorsType[0].split("-");
 
-        return "memory/physical/" + type;
+        switch (type) {
+        case "physical":
+            return "memory/physical/used";
+        case "application":
+            return "memory/physical/application";
+        case "swap":
+            return "memory/swap/used";
+        }
     }
 
     // Text options
@@ -26,7 +33,7 @@ RMBase.BaseSensorText {
         valueColors: root.colors
 
         Component.onCompleted: {
-            textContainer.getLabel(0).valueText = "RAM"
+            textContainer.getLabel(0).valueText = isSwap ? "Swap" : "RAM";
         }
     }
 
@@ -41,7 +48,7 @@ RMBase.BaseSensorText {
     // Initialize limits and threshold
     Sensors.Sensor {
         id: maxQuery
-        sensorId: "memory/physical/total"
+        sensorId: isSwap ? "memory/swap/total" : "memory/physical/total"
         enabled: true
         property var maxMemory: -1
 

@@ -28,9 +28,22 @@ Item {
     }
 
     // Retrieve data from sensors, and update labels
+    property var sensorSlots: []
     Sensors.SensorDataModel {
         id: sensorsModel
         updateRateLimit: -1
+
+        // Sensors (handle multiple same sensor)
+        sensors: {
+            const unique = [];
+            for (const sensor of root.sensorSlots) {
+                if (sensor !== null && !unique.includes(sensor)) {
+                    unique.push(sensor);
+                }
+            }
+            return unique;
+        }
+        property var sensorIndexMap: root.sensorSlots.map(sensor => sensor === null ? -1 : sensors.indexOf(sensor))
 
         /**
          * Get the value and sensor ID from sensor
@@ -67,8 +80,8 @@ Item {
 
     property var _update: _defaultUpdate
     function _defaultUpdate() {
-        for (let i = 0; i < sensorsModel.sensors.length; i++) {
-            const value = sensorsModel.getData(i);
+        for (let i = 0; i < sensorsModel.sensorIndexMap.length; i++) {
+            const value = sensorsModel.getData(sensorsModel.sensorIndexMap[i]);
             // Skip not founded sensor
             if (typeof value === 'undefined') {
                 continue;
@@ -84,7 +97,7 @@ Item {
 
     property var _formatValue: _defaultFormatValue
     function _defaultFormatValue(index, value) {
-        return Formatter.Formatter.formatValueShowNull(value, sensorsModel.getData(index, Sensors.SensorDataModel.Unit));
+        return Formatter.Formatter.formatValueShowNull(value, sensorsModel.getData(sensorsModel.sensorIndexMap[index], Sensors.SensorDataModel.Unit));
     }
 
     /**

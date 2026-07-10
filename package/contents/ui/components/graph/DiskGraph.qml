@@ -29,7 +29,7 @@ RMBaseGraph.TwoSensorsGraph {
 
     // Graph options
     realUplimits: [uplimits[0] * unit.multiplier, uplimits[1] * unit.multiplier]
-    sensorsModel.sensors: sensorsType[0] ? [`disk/${device}/write`, `disk/${device}/read`] : [`disk/${device}/read`, `disk/${device}/write`]
+    sensorSlots: sensorsType[0] ? [`disk/${device}/write`, `disk/${device}/read`] : [`disk/${device}/read`, `disk/${device}/write`]
 
     // Override methods to handle icons
     _formatValue: (index, value) => {

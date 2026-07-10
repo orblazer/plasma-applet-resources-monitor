@@ -23,7 +23,7 @@ RMBaseGraph.SensorGraph {
     property bool showTemperature: sensorsType[2]
 
     // Graph options
-    sensorsModel.sensors: ["cpu/all/" + sensorsType[0], "cpu/cpu0/frequency", "cpu/all/maximumTemperature"]
+    sensorSlots: ["cpu/all/" + sensorsType[0], "cpu/cpu0/frequency", "cpu/all/maximumTemperature"]
 
     // Text options
     textContainer {
