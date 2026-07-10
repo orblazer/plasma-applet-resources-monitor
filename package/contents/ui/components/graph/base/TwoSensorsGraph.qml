@@ -15,6 +15,7 @@ BaseSensorGraph {
     Charts.LineChart {
         id: secondChart
         anchors.fill: parent
+        enabled: visible
         visible: enableHistory && secondChartVisible
 
         direction: Charts.XYChart.ZeroAtEnd
@@ -36,6 +37,7 @@ BaseSensorGraph {
     Charts.LineChart {
         id: firstChart
         anchors.fill: parent
+        enabled: visible
         visible: enableHistory
 
         direction: Charts.XYChart.ZeroAtEnd
@@ -56,9 +58,9 @@ BaseSensorGraph {
     }
 
     _insertChartData: (column, value) => {
-        if (column == 0) {
+        if (column == 0 && firstChart.enabled) {
             firstChartData.insertValue(value);
-        } else if (column == 1) {
+        } else if (column == 1 && secondChart.enabled) {
             secondChartData.insertValue(value);
         }
     }

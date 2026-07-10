@@ -12,6 +12,7 @@ BaseSensorGraph {
     Charts.LineChart {
         id: chart
         anchors.fill: parent
+        enabled: visible
         visible: Plasmoid.configuration.historyAmount > 0
 
         direction: Charts.XYChart.ZeroAtEnd
@@ -32,7 +33,7 @@ BaseSensorGraph {
     }
 
     _insertChartData: (column, value) => {
-        if (column == 0) {
+        if (column == 0 && chart.enabled) {
             chartData.insertValue(value);
         }
     }
