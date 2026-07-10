@@ -139,7 +139,6 @@ Item {
         // Hide can't be zero label
         if (!labelsVisibleWhenZero[index] && value === 0) {
             label.valueText = '';
-            label.visible = false;
             return;
         } else if (index === thresholdIndex && thresholds.length > 0) {
             // Handle threshold value
@@ -154,7 +153,6 @@ Item {
 
         // Show value on label
         label.valueText = formattedValue;
-        label.visible = true;
     }
 
     /**
