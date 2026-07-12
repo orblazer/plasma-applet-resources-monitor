@@ -33,19 +33,19 @@ BaseForm {
             valueRole: "value"
             model: [
                 {
-                    "label": i18n("Disk usage (B)"),
+                    "label": i18n("Usage (B)"),
                     "value": "used"
                 },
                 {
-                    "label": i18n("Disk usage (%)"),
+                    "label": i18n("Usage (%)"),
                     "value": "used-percent"
                 },
                 {
-                    "label": i18n("Disk I/O (R/W)"),
+                    "label": i18n("I/O (R/W)"),
                     "value": "io"
                 },
                 {
-                    "label": i18n("Disk I/O inverted (W/R)"),
+                    "label": i18n("I/O inverted (W/R)"),
                     "value": "io-reverse"
                 }
             ]
