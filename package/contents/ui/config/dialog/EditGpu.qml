@@ -16,6 +16,34 @@ BaseForm {
     properties: Kirigami.FormLayout {
         QQC2.ComboBox {
             Layout.fillWidth: true
+            Kirigami.FormData.label: i18n("First Line:")
+
+            currentIndex: -1
+            textRole: "label"
+            valueRole: "value"
+            model: [
+                {
+                    "label": i18n("Usage (%)"),
+                    "value": "usage"
+                },
+                {
+                    "label": i18n("Memory (B)"),
+                    "value": "memory"
+                },
+                {
+                    "label": i18n("Memory (%)"),
+                    "value": "memory-percent"
+                }
+            ]
+
+            Component.onCompleted: currentIndex = indexOfValue(root.item.sensorsType[0])
+            onActivated: {
+                root.item.sensorsType[0] = currentValue;
+                root.changed();
+            }
+        }
+        QQC2.ComboBox {
+            Layout.fillWidth: true
             Kirigami.FormData.label: i18n("Second Line:")
 
             currentIndex: -1
@@ -36,9 +64,9 @@ BaseForm {
                 }
             ]
 
-            Component.onCompleted: currentIndex = indexOfValue(root.item.sensorsType[0])
+            Component.onCompleted: currentIndex = indexOfValue(root.item.sensorsType[1])
             onActivated: {
-                root.item.sensorsType[0] = currentValue;
+                root.item.sensorsType[1] = currentValue;
                 root.changed();
             }
         }
@@ -59,9 +87,9 @@ BaseForm {
                 }
             ]
 
-            Component.onCompleted: currentIndex = indexOfValue(root.item.sensorsType[1])
+            Component.onCompleted: currentIndex = indexOfValue(root.item.sensorsType[2])
             onActivated: {
-                root.item.sensorsType[1] = currentValue;
+                root.item.sensorsType[2] = currentValue;
                 root.changed();
             }
         }

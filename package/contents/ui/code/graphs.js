@@ -32,7 +32,7 @@ const VERSION = 4; //? Bump when some settings changes in graphs structure
  * @property {"gpu"} type The graph type
  * @property {[number, number]} sizes The graph size ([width, height], -1 = automatic)
  * @property {[string, string, string]} colors The graph colors (ref: usage, memory, temperature)
- * @property {[("none"|"memory"|"memory-percent"), boolean]} sensorsType The sensors type (ref: memory, temperature)
+ * @property {[("usage"|"memory"|"memory-percent"),("none"|"memory"|"memory-percent"), boolean]} sensorsType The sensors type (ref: usage/memory, memory, temperature)
  * @property {[number, number]} thresholds The temperature thresholds
  * @property {string} device The device index (eg. gpu0, gpu1)
  */
@@ -81,7 +81,7 @@ const VERSION = 4; //? Bump when some settings changes in graphs structure
  * @property {"gpuText"} type The graph type
  * @property {[number, number]} sizes The graph size ([width, height], -1 = automatic)
  * @property {[string, string]} colors The graph colors (ref: label, usage)
- * @property {[("none"|"memory"|"memory-percent")]} sensorsType The sensors type (ref: memory)
+ * @property {[("usage"|"memory"|"memory-percent")]} sensorsType The sensors type (ref: usage/memory)
  * @property {string} device The device index (eg. gpu0, gpu1)
  */
 /**
@@ -154,13 +154,23 @@ const migrations = {
     }
   },
 
-  // V3 -> V4: Improve flexibility
-  // - Memory: Change "memory-percent" to independent type (application/physical)
+  /*
+   * V3 -> V4: Improve flexibility
+   * Memory: Change "memory-percent" to independent type (application/physical)
+   * GPU: Add customization for first line
+   */
   3: (graph) => {
     // Memory
     if (graph.type === "memory" && graph.sensorsType[1] === "memory-percent") {
       const [type] = graph.sensorsType[0].split("-");
       graph.sensorsType = [graph.sensorsType[0], type + "-percent"];
+    }
+    // GPU
+    if (graph.type === "gpu" && graph.sensorsType.length < 3) {
+      graph.sensorsType = ["usage", graph.sensorsType[0], graph.sensorsType[1]];
+    }
+    if (graph.type === "gpuText" && typeof graph.sensorsType !== "undefined") {
+      graph.sensorsType = ["usage"];
     }
   },
 };
@@ -275,6 +285,7 @@ function create(type, device, fontSize) {
       break;
     case "gpuText":
       item.colors = ["textColor", "highlightColor"];
+      item.sensorsType = ["usage"];
       break;
     case "network":
       item.colors = ["highlightColor", "positiveTextColor"];
@@ -375,7 +386,7 @@ function getDisplayInfo(
       result.deviceName = deviceName;
       break;
     case "gpuText":
-      result.name = i18nc("Chart name", "GPU usage (text) [%1]", deviceName);
+      result.name = i18nc("Chart name", "GPU (text) [%1]", deviceName);
       result.icon = "freon-gpu-temperature-symbolic";
       result.fallbackIcon = "preferences-desktop-display";
       break;

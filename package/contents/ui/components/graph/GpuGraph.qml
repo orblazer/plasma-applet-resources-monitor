@@ -12,10 +12,10 @@ RMBaseGraph.TwoSensorsGraph {
     property string device: "gpu0" // Device index (eg: gpu0, gpu1)
 
     // Config shortcut
-    property bool memoryInPercent: sensorsType[0].endsWith("-percent")
-    property bool showTemp: sensorsType[1] && device !== "all"
+    readonly property bool showTemp: sensorsType[2] && device !== "all"
+    readonly property var fieldInPercent: [(sensorsType[0] == "usage" || sensorsType[0].endsWith("-percent")), sensorsType[1].endsWith("-percent")]
 
-    sensorsFormat: [(memoryInPercent ? Formatter.Units.UnitPercent : Formatter.Units.UnitByte), (showTemp ? Formatter.Units.UnitCelsius : null)]
+    sensorsFormat: [(fieldInPercent[0] ? Formatter.Units.UnitPercent : Formatter.Units.UnitByte), (fieldInPercent[1] ? Formatter.Units.UnitPercent : Formatter.Units.UnitByte, Formatter.Units.UnitCelsius)]
 
     // Labels
     textContainer {
@@ -23,17 +23,23 @@ RMBaseGraph.TwoSensorsGraph {
         thresholdIndex: 2
         thresholds: root.thresholds // No change needed, simply map it
 
-        hints: ["GPU", (secondChartVisible ? "VRAM" : ""), (showTemp ? i18nc("Graph label", "Temp.") : "")]
+        hints: [(sensorsType[0].includes("memory") ? "VRAM" : "GPU"), (secondChartVisible ? "VRAM" : ""), (showTemp ? i18nc("Graph label", "Temp.") : "")]
     }
 
     // Graph options
-    sensorSlots: [`gpu/${device}/usage`, `gpu/${device}/usedVram`, showTemp ? `gpu/${device}/temperature` : null]
-    secondChartVisible: sensorsType[0] !== "none"
+    secondChartVisible: sensorsType[1] !== "none"
+    sensorSlots: [
+        // First
+        sensorsType[0].includes("memory") ? `gpu/${device}/usedVram` : `gpu/${device}/usage`,
+        // Second
+        secondChartVisible ? `gpu/${device}/usedVram` : null,
+        // Third
+        showTemp ? `gpu/${device}/temperature` : null]
 
     // Override methods, for handle memory in percent
     _formatValue: (index, value) => {
-        if (index === 1 && memoryInPercent) {
-            return i18nc("Percent unit", "%1%", Math.round((value / root.realUplimits[1]) * 1000) / 10); // This is for round to 1 decimal
+        if (fieldInPercent[index]) {
+            return i18nc("Percent unit", "%1%", Math.round((value / root.realUplimits[index]) * 1000) / 10); // This is for round to 1 decimal
         }
         return _defaultFormatValue(index, value);
     }
@@ -51,8 +57,15 @@ RMBaseGraph.TwoSensorsGraph {
             if (isNaN(valueVar) || valueVar <= 0) {
                 return;
             }
+
             enabled = false;
-            root.realUplimits = [100, valueVar]
+            if (sensorsType[0].includes("memory")) {
+                maxMemory[0] = valueVar;
+            }
+            if (sensorsType[1].includes("memory")) {
+                maxMemory[1] = valueVar;
+            }
+            root.realUplimits = maxMemory;
         }
     }
 }
