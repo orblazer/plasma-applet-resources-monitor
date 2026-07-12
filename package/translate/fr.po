@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: resources-monitor\n"
 "Report-Msgid-Bugs-To: https://github.com/orblazer/plasma-applet-resources-monitor\n"
-"POT-Creation-Date: 2026-06-20 13:59+0200\n"
-"PO-Revision-Date: 2026-06-20 13:59+0200\n"
+"POT-Creation-Date: 2026-07-12 23:36+0200\n"
+"PO-Revision-Date: 2026-07-12 23:36+0200\n"
 "Last-Translator: orblazer\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.4.2\n"
 
-#: ../contents/config/config.qml:6 ../contents/ui/config/ConfigAppearance.qml:59
+#: ../contents/config/config.qml:6 ../contents/ui/config/ConfigAppearance.qml:90
 msgctxt "Config header"
 msgid "Graphs"
 msgstr "Graphiques"
 
-#: ../contents/config/config.qml:11
+#: ../contents/config/config.qml:11 ../contents/ui/config/dialog/BaseForm.qml:40
 msgctxt "Config header"
 msgid "Appearance"
 msgstr "Apparence"
@@ -33,72 +33,72 @@ msgctxt "Config header"
 msgid "Misc"
 msgstr "Divers"
 
-#: ../contents/ui/code/formatter.js:24
+#: ../contents/ui/code/formatter.js:25
 msgctxt "Bytes per second unit symbol"
 msgid "Bps"
 msgstr "ops"
 
-#: ../contents/ui/code/formatter.js:33
+#: ../contents/ui/code/formatter.js:34
 msgctxt "Bits per second unit symbol"
 msgid "bps"
 msgstr "bps"
 
-#: ../contents/ui/code/formatter.js:42
+#: ../contents/ui/code/formatter.js:43
 msgctxt "Bytes per second unit symbol"
 msgid "iB/s"
 msgstr "io/s"
 
-#: ../contents/ui/code/graphs.js:338
+#: ../contents/ui/code/graphs.js:421
 msgctxt "Chart name"
 msgid "CPU"
 msgstr "CPU"
 
-#: ../contents/ui/code/graphs.js:343
+#: ../contents/ui/code/graphs.js:426
 msgctxt "Chart name"
-msgid "CPU usage (text)"
-msgstr "Utilisation du CPU (texte)"
+msgid "CPU (text)"
+msgstr "CPU (texte)"
 
-#: ../contents/ui/code/graphs.js:348
+#: ../contents/ui/code/graphs.js:431
 msgctxt "Chart name"
 msgid "Memory"
 msgstr "Mémoire"
 
-#: ../contents/ui/code/graphs.js:353
+#: ../contents/ui/code/graphs.js:436
 msgctxt "Chart name"
-msgid "Memory usage (text)"
-msgstr "Utilisation de la mémoire (texte)"
+msgid "Memory (text)"
+msgstr "Mémoire (texte)"
 
-#: ../contents/ui/code/graphs.js:358
+#: ../contents/ui/code/graphs.js:441
 msgctxt "Chart name"
 msgid "GPU [%1]"
 msgstr "GPU [%1]"
 
-#: ../contents/ui/code/graphs.js:364
+#: ../contents/ui/code/graphs.js:446
 msgctxt "Chart name"
-msgid "GPU usage (text) [%1]"
-msgstr "Utilisation du GPU (texte) [%1]"
+msgid "GPU (text) [%1]"
+msgstr "GPU (texte) [%1]"
 
-#: ../contents/ui/code/graphs.js:369
+#: ../contents/ui/code/graphs.js:451
 msgctxt "Chart name"
 msgid "Network"
 msgstr "Réseau"
 
-#: ../contents/ui/code/graphs.js:374
+#: ../contents/ui/code/graphs.js:456
 msgctxt "Chart name"
 msgid "Network (text)"
 msgstr "Réseau (texte)"
 
-#: ../contents/ui/code/graphs.js:379
+#: ../contents/ui/code/graphs.js:461
 msgctxt "Chart name"
 msgid "Disk I/O [%1]"
 msgstr "Disque E/S [%1]"
 
-#: ../contents/ui/code/graphs.js:384
+#: ../contents/ui/code/graphs.js:466
 msgctxt "Chart name"
-msgid "Disk usage (text) [%1]"
-msgstr "Utilisation du disque (texte) [%1]"
+msgid "Disk (text) [%1]"
+msgstr "Disque (texte) [%1]"
 
-#: ../contents/ui/code/graphs.js:389
+#: ../contents/ui/code/graphs.js:471
 msgctxt "Chart name"
 msgid "Text"
 msgstr "Texte"
@@ -113,322 +113,280 @@ msgctxt "Graph label"
 msgid "Temp."
 msgstr "Temp."
 
-#: ../contents/ui/components/graph/DiskGraph.qml:24
+#: ../contents/ui/components/graph/DiskGraph.qml:23 ../contents/ui/components/text/DiskText.qml:37
 msgctxt "Graph label"
 msgid "Read"
 msgstr "Lecture"
 
-#: ../contents/ui/components/graph/DiskGraph.qml:25
+#: ../contents/ui/components/graph/DiskGraph.qml:24 ../contents/ui/components/text/DiskText.qml:38
 msgctxt "Graph label"
 msgid "Write"
 msgstr "Écriture"
 
-#: ../contents/ui/components/graph/DiskGraph.qml:40 ../contents/ui/config/dialog/EditDisk.qml:41
+#: ../contents/ui/components/graph/DiskGraph.qml:39 ../contents/ui/components/text/DiskText.qml:54
+#: ../contents/ui/config/dialog/EditDisk.qml:99 ../contents/ui/config/dialog/EditDiskText.qml:94
 msgctxt "Disk graph icon : Read"
 msgid "R"
 msgstr "L"
 
-#: ../contents/ui/components/graph/DiskGraph.qml:42 ../contents/ui/config/dialog/EditDisk.qml:41
+#: ../contents/ui/components/graph/DiskGraph.qml:41 ../contents/ui/components/text/DiskText.qml:56
+#: ../contents/ui/config/dialog/EditDisk.qml:99 ../contents/ui/config/dialog/EditDiskText.qml:94
 msgctxt "Disk graph icon : Write"
 msgid "W"
 msgstr "E"
 
-#: ../contents/ui/components/graph/GpuGraph.qml:41 ../contents/ui/components/graph/MemoryGraph.qml:45
-#: ../contents/ui/components/text/DiskText.qml:52 ../contents/ui/components/text/MemoryText.qml:36
+#: ../contents/ui/components/graph/GpuGraph.qml:41 ../contents/ui/components/graph/MemoryGraph.qml:38
+#: ../contents/ui/components/graph/MemoryGraph.qml:40 ../contents/ui/components/text/DiskText.qml:75
+#: ../contents/ui/components/text/GpuText.qml:23 ../contents/ui/components/text/MemoryText.qml:32
 msgctxt "Percent unit"
 msgid "%1%"
 msgstr "%1%"
 
-#: ../contents/ui/components/graph/MemoryGraph.qml:23
-msgctxt "Graph label"
-msgid "Percent."
-msgstr "Pourcent."
-
-#: ../contents/ui/components/graph/NetworkGraph.qml:27 ../contents/ui/components/text/NetworkText.qml:27
+#: ../contents/ui/components/graph/NetworkGraph.qml:26 ../contents/ui/components/text/NetworkText.qml:27
 msgctxt "Graph label"
 msgid "Receiving"
 msgstr "Réception"
 
-#: ../contents/ui/components/graph/NetworkGraph.qml:28 ../contents/ui/components/text/NetworkText.qml:28
+#: ../contents/ui/components/graph/NetworkGraph.qml:27 ../contents/ui/components/text/NetworkText.qml:28
 msgctxt "Graph label"
 msgid "Sending"
 msgstr "Envoi"
 
-#: ../contents/ui/config/AvailableGraphProxy.qml:190
+#: ../contents/ui/config/AvailableGraphProxy.qml:193
 msgid "All"
 msgstr "Tous"
 
-#: ../contents/ui/config/ConfigAppearance.qml:64
+#: ../contents/ui/config/ConfigAppearance.qml:58
+msgctxt "Config header"
+msgid "Global"
+msgstr "Globale"
+
+#: ../contents/ui/config/ConfigAppearance.qml:63
 msgctxt "Config header"
 msgid "Text"
 msgstr "Texte"
 
-#: ../contents/ui/config/ConfigAppearance.qml:69
+#: ../contents/ui/config/ConfigAppearance.qml:68
 msgctxt "Config header"
 msgid "Colors"
 msgstr "Couleurs"
 
-#: ../contents/ui/config/ConfigAppearance.qml:84
+#: ../contents/ui/config/ConfigAppearance.qml:83
 msgid "Fill panel?"
 msgstr "Remplir le panneau ?"
 
-#: ../contents/ui/config/ConfigAppearance.qml:87
+#: ../contents/ui/config/ConfigAppearance.qml:86
 msgctxt "@info:tooltip"
 msgid "This allow graphs to take all panel width/height"
 msgstr "Cela permet aux graphiques de prendre toute la largeur/hauteur du panneau."
 
-#: ../contents/ui/config/ConfigAppearance.qml:92
+#: ../contents/ui/config/ConfigAppearance.qml:96
 msgid "History amount:"
 msgstr "Quantité d'histoire :"
 
-#: ../contents/ui/config/ConfigAppearance.qml:101 ../contents/ui/config/controls/ColorSelector.qml:26
+#: ../contents/ui/config/ConfigAppearance.qml:105 ../contents/ui/config/controls/ColorSelector.qml:26
 #: ../contents/ui/config/dialog/EditDisk.qml:18 ../contents/ui/config/dialog/EditNetwork.qml:20
 msgid "Custom"
 msgstr "Personnalisée"
 
-#: ../contents/ui/config/ConfigAppearance.qml:105 ../contents/ui/config/ConfigMisc.qml:61
-#: ../contents/ui/config/dialog/EditCpu.qml:52 ../contents/ui/config/dialog/EditGpu.qml:26
-#: ../contents/ui/config/dialog/EditMemory.qml:55
+#: ../contents/ui/config/ConfigAppearance.qml:109 ../contents/ui/config/ConfigMisc.qml:69
+#: ../contents/ui/config/dialog/EditCpu.qml:50 ../contents/ui/config/dialog/EditCpu.qml:77
+#: ../contents/ui/config/dialog/EditGpu.qml:54 ../contents/ui/config/dialog/EditGpu.qml:81
+#: ../contents/ui/config/dialog/EditMemory.qml:62
 msgid "Disabled"
 msgstr "Désactivé"
 
-#: ../contents/ui/config/ConfigAppearance.qml:139
+#: ../contents/ui/config/ConfigAppearance.qml:143
 msgid "Spacing:"
 msgstr "Espacement :"
 
-#: ../contents/ui/config/ConfigAppearance.qml:147
+#: ../contents/ui/config/ConfigAppearance.qml:151
 msgid "Fill opacity:"
 msgstr "Opacité du remplissage :"
 
-#: ../contents/ui/config/ConfigAppearance.qml:159
+#: ../contents/ui/config/ConfigAppearance.qml:163
+msgid "Truncate unit?"
+msgstr "Abrégé les unités ?"
+
+#: ../contents/ui/config/ConfigAppearance.qml:166
+msgctxt "@info:tooltip"
+msgid "This truncate unit symbols (eg. KiB/s -> K)"
+msgstr "Ceci retire les symbole unitaire (ex. KiB/s -> K)"
+
+#: ../contents/ui/config/ConfigAppearance.qml:170
 msgid "Display outline?"
 msgstr "Afficher un countout ?"
 
-#: ../contents/ui/config/ConfigAppearance.qml:168
+#: ../contents/ui/config/ConfigAppearance.qml:179
 msgctxt "@label:group"
 msgid "Text display:"
 msgstr "Affichage du texte :"
 
-#: ../contents/ui/config/ConfigAppearance.qml:173
+#: ../contents/ui/config/ConfigAppearance.qml:184
 msgctxt "@option:radio"
 msgid "Automatic"
 msgstr "Automatique"
 
-#: ../contents/ui/config/ConfigAppearance.qml:181
+#: ../contents/ui/config/ConfigAppearance.qml:192
 msgctxt "@label"
 msgid "Text will follow the system font and expand to fill the available space."
 msgstr "Le texte suivra la police du système et s'étendra pour remplir l'espace disponible."
 
-#: ../contents/ui/config/ConfigAppearance.qml:194
+#: ../contents/ui/config/ConfigAppearance.qml:205
 msgctxt "@option:radio setting for manually configuring the font settings"
 msgid "Manual"
 msgstr "Manuel"
 
-#: ../contents/ui/config/ConfigAppearance.qml:204
+#: ../contents/ui/config/ConfigAppearance.qml:215
 msgctxt "@action:button"
 msgid "Choose Style…"
 msgstr "Choisir un style…"
 
-#: ../contents/ui/config/ConfigAppearance.qml:219
+#: ../contents/ui/config/ConfigAppearance.qml:230
 msgctxt "@info %1 is the font size, %2 is the font family"
 msgid "%1pt %2"
 msgstr "%1pt %2"
 
-#: ../contents/ui/config/ConfigAppearance.qml:226
+#: ../contents/ui/config/ConfigAppearance.qml:237
 msgid "Keep specified font size"
 msgstr "Garder la taille de police spécifiée"
 
-#: ../contents/ui/config/ConfigAppearance.qml:232
+#: ../contents/ui/config/ConfigAppearance.qml:243
 msgctxt "@info"
 msgid "Note: size may be reduced if the panel is not thick enough."
 msgstr "Note : la taille peut être réduite si le panneau n'est pas assez épais."
 
-#: ../contents/ui/config/ConfigAppearance.qml:240
+#: ../contents/ui/config/ConfigAppearance.qml:251
 msgid "Text display:"
 msgstr "Affichage du texte :"
 
-#: ../contents/ui/config/ConfigAppearance.qml:248
+#: ../contents/ui/config/ConfigAppearance.qml:259 ../contents/ui/config/dialog/EditCpuText.qml:71
+#: ../contents/ui/config/dialog/EditDiskText.qml:73 ../contents/ui/config/dialog/EditGpuText.qml:72
+#: ../contents/ui/config/dialog/EditMemoryText.qml:79
 msgctxt "Text display"
 msgid "Always"
 msgstr "Toujours"
 
-#: ../contents/ui/config/ConfigAppearance.qml:252
+#: ../contents/ui/config/ConfigAppearance.qml:263
 msgctxt "Text display"
 msgid "On hover"
 msgstr "Au survol"
 
-#: ../contents/ui/config/ConfigAppearance.qml:256
+#: ../contents/ui/config/ConfigAppearance.qml:267 ../contents/ui/config/dialog/EditCpuText.qml:75
+#: ../contents/ui/config/dialog/EditDiskText.qml:77 ../contents/ui/config/dialog/EditGpuText.qml:76
+#: ../contents/ui/config/dialog/EditMemoryText.qml:83
 msgctxt "Text display"
 msgid "Hints when hover"
 msgstr "Indices au survol"
 
-#: ../contents/ui/config/ConfigAppearance.qml:260
+#: ../contents/ui/config/ConfigAppearance.qml:271 ../contents/ui/config/dialog/EditCpuText.qml:79
+#: ../contents/ui/config/dialog/EditDiskText.qml:81 ../contents/ui/config/dialog/EditGpuText.qml:80
+#: ../contents/ui/config/dialog/EditMemoryText.qml:87
 msgctxt "Text display"
 msgid "Never"
 msgstr "Jamais"
 
-#: ../contents/ui/config/ConfigAppearance.qml:271 ../contents/ui/config/dialog/EditText.qml:29
+#: ../contents/ui/config/ConfigAppearance.qml:282 ../contents/ui/config/dialog/EditText.qml:30
 msgid "Placement:"
 msgstr "Placement :"
 
-#: ../contents/ui/config/ConfigAppearance.qml:279 ../contents/ui/config/dialog/EditText.qml:37
+#: ../contents/ui/config/ConfigAppearance.qml:290 ../contents/ui/config/dialog/EditText.qml:38
 msgctxt "Text placement"
 msgid "Top left"
 msgstr "En haut à gauche"
 
-#: ../contents/ui/config/ConfigAppearance.qml:283 ../contents/ui/config/dialog/EditText.qml:41
+#: ../contents/ui/config/ConfigAppearance.qml:294 ../contents/ui/config/dialog/EditText.qml:42
 msgctxt "Text placement"
 msgid "Top right"
 msgstr "En haut à droite"
 
-#: ../contents/ui/config/ConfigAppearance.qml:287 ../contents/ui/config/dialog/EditText.qml:45
+#: ../contents/ui/config/ConfigAppearance.qml:298 ../contents/ui/config/dialog/EditText.qml:46
 msgctxt "Text placement"
 msgid "Bottom left"
 msgstr "En bas à gauche"
 
-#: ../contents/ui/config/ConfigAppearance.qml:291 ../contents/ui/config/dialog/EditText.qml:49
+#: ../contents/ui/config/ConfigAppearance.qml:302 ../contents/ui/config/dialog/EditText.qml:50
 msgctxt "Text placement"
 msgid "Bottom right"
 msgstr "En bas à droite"
 
-#: ../contents/ui/config/ConfigAppearance.qml:305
+#: ../contents/ui/config/ConfigAppearance.qml:316
 msgid "Default color:"
 msgstr "Couleur par défaut :"
 
-#: ../contents/ui/config/ConfigAppearance.qml:306 ../contents/ui/config/ConfigAppearance.qml:318
-#: ../contents/ui/config/ConfigAppearance.qml:323 ../contents/ui/config/dialog/BaseForm.qml:15
+#: ../contents/ui/config/ConfigAppearance.qml:317 ../contents/ui/config/ConfigAppearance.qml:329
+#: ../contents/ui/config/ConfigAppearance.qml:334 ../contents/ui/config/dialog/BaseForm.qml:24
 msgctxt "Chart color"
 msgid "Choose text color"
 msgstr "Choisir la couleur du texte"
 
-#: ../contents/ui/config/ConfigAppearance.qml:311
+#: ../contents/ui/config/ConfigAppearance.qml:322
 msgid "Threshold text colors"
 msgstr "Couleurs des seuils d'alerte"
 
-#: ../contents/ui/config/ConfigAppearance.qml:317
+#: ../contents/ui/config/ConfigAppearance.qml:328
 msgid "Warning:"
 msgstr "Avertissement :"
 
-#: ../contents/ui/config/ConfigAppearance.qml:322
+#: ../contents/ui/config/ConfigAppearance.qml:333
 msgid "Critical:"
 msgstr "Critique :"
 
-#: ../contents/ui/config/ConfigGraph.qml:80
-msgid "The graphs as been upgraded to new version, please save it."
-msgstr "Les graphiques ont été mis à jour, veuillez les sauvegarder."
-
-#: ../contents/ui/config/ConfigGraph.qml:109
-msgctxt "Chart name"
-msgid "Text [%1]"
-msgstr "Texte [%1]"
-
-#: ../contents/ui/config/ConfigGraph.qml:162
-msgid "Fix..."
-msgstr "Fixer..."
-
-#: ../contents/ui/config/ConfigGraph.qml:163 ../contents/ui/config/ConfigGraph.qml:172
-msgctxt "@info:tooltip"
-msgid "Edit \"%1\" graph"
-msgstr "Modifier le graphique \"%1\""
-
-#: ../contents/ui/config/ConfigGraph.qml:180
-msgctxt "@info:tooltip"
-msgid "Delete \"%1\" graph"
-msgstr "Supprimer le graphique \"%1\""
-
-#: ../contents/ui/config/ConfigGraph.qml:206
-msgid "No graph selected"
-msgstr "Aucun graphique sélectionné"
-
-#: ../contents/ui/config/ConfigGraph.qml:207
-msgctxt "@info"
-msgid "Click <i>%1</i> to get started"
-msgstr "Cliquez sur <i>%1</i> pour commencer"
-
-#: ../contents/ui/config/ConfigGraph.qml:219
-msgid "Add graph…"
-msgstr "Ajouter un graphique..."
-
-#: ../contents/ui/config/ConfigGraph.qml:231 ../contents/ui/config/ConfigGraph.qml:356
+#: ../contents/ui/config/ConfigGraph.qml:121 ../contents/ui/config/ConfigGraph.qml:177
 msgctxt "@title:window"
 msgid "Edit graph: %1"
 msgstr "Édition du graphique : %1"
 
-#: ../contents/ui/config/ConfigGraph.qml:289
-msgctxt "@title:window"
-msgid "Add graph"
-msgstr "Ajout d'un graphique"
-
-#: ../contents/ui/config/ConfigGraph.qml:377
+#: ../contents/ui/config/ConfigGraph.qml:199
 msgid "New GPU:"
 msgstr "Nouveau GPU :"
 
-#: ../contents/ui/config/ConfigGraph.qml:411
+#: ../contents/ui/config/ConfigGraph.qml:234
 msgctxt "@title:window"
 msgid "Remove graph"
 msgstr "Suppression du graphique"
 
-#: ../contents/ui/config/ConfigGraph.qml:412
+#: ../contents/ui/config/ConfigGraph.qml:235
 msgctxt "%1 is an graph name"
 msgid "Do you want remove graph \"%1\" ?"
 msgstr "Voulez-vous supprimer le graphique \"%1\" ?"
 
-#: ../contents/ui/config/ConfigGraph.qml:417
+#: ../contents/ui/config/ConfigGraph.qml:240
 msgid "Delete"
 msgstr "Supprimer"
 
-#: ../contents/ui/config/ConfigMisc.qml:36
+#: ../contents/ui/config/ConfigMisc.qml:48
 msgid "Update interval:"
 msgstr "Intervalle d'actualisation :"
 
-#: ../contents/ui/config/ConfigMisc.qml:44
+#: ../contents/ui/config/ConfigMisc.qml:56
 msgid "%1 seconds"
 msgstr "%1 secondes"
 
-#: ../contents/ui/config/ConfigMisc.qml:49
+#: ../contents/ui/config/ConfigMisc.qml:61
 msgid "Click action"
 msgstr "Action du clique"
 
-#: ../contents/ui/config/ConfigMisc.qml:55
+#: ../contents/ui/config/ConfigMisc.qml:67
 msgctxt "Chart config"
 msgid "Type:"
 msgstr "Type:"
 
-#: ../contents/ui/config/ConfigMisc.qml:65
+#: ../contents/ui/config/ConfigMisc.qml:69
 msgid "Application"
 msgstr "Application"
 
-#: ../contents/ui/config/ConfigMisc.qml:69
-msgid "Shell command"
-msgstr "Commande shell"
-
-#: ../contents/ui/config/ConfigMisc.qml:82
+#: ../contents/ui/config/ConfigMisc.qml:92
 msgctxt "Chart config"
 msgid "Application:"
 msgstr "Application :"
 
-#: ../contents/ui/config/ConfigMisc.qml:97
-msgid "The package <i>plasma-addons</i> is required to run an application."
-msgstr "Le paquet <i>plasma-addons</i> est nécessaire pour exécuter une application."
-
-#: ../contents/ui/config/ConfigMisc.qml:106
-msgctxt "Chart config"
-msgid "Command:"
-msgstr "Commande:"
-
-#: ../contents/ui/config/ConfigMisc.qml:111
-msgid ""
-"Command will be executed, but may have some limitations like \"<code>kioclient exec</code>\" or other similar command "
-"not work."
-msgstr ""
-"La commande sera exécutée, mais il peut y avoir certaines limitations comme \"<code>kioclient exec</code>\" ou "
-"d'autres commandes similaires qui ne fonctionnent pas."
-
-#: ../contents/ui/config/controls/AppSelector.qml:13
+#: ../contents/ui/config/ConfigMisc.qml:97 ../contents/ui/config/controls/AppSelectorDialog.qml:12
+msgctxt "@title:window"
 msgid "Choose application..."
 msgstr "Choisir l'application..."
 
-#: ../contents/ui/config/controls/AppSelector.qml:17
+#: ../contents/ui/config/ConfigMisc.qml:101
 msgctxt "@info:tooltip"
 msgid "Click to select another application"
 msgstr "Cliquez pour sélectionner une autre application"
@@ -488,6 +446,10 @@ msgctxt "@info:tooltip"
 msgid "Check the box to customize"
 msgstr "Cochez la case pour personnaliser"
 
+#: ../contents/ui/config/controls/SearchDialog.qml:112
+msgid "No result found."
+msgstr "Pas de résultat trouvé."
+
 #: ../contents/ui/config/controls/Thresholds.qml:32
 msgctxt "@info:tooltip"
 msgid "Warning threshold"
@@ -498,86 +460,120 @@ msgctxt "@info:tooltip"
 msgid "Critical threshold"
 msgstr "Seuil critique"
 
-#: ../contents/ui/config/dialog/BaseForm.qml:14
+#: ../contents/ui/config/dialog/AddDialog.qml:10
+msgctxt "@title:window"
+msgid "Add graph"
+msgstr "Ajout d'un graphique"
+
+#: ../contents/ui/config/dialog/BaseForm.qml:23
 msgctxt "Chart color"
 msgid "Choose series color"
 msgstr "Choisir la couleur de la série"
 
-#: ../contents/ui/config/dialog/BaseForm.qml:28
+#: ../contents/ui/config/dialog/BaseForm.qml:35
+msgctxt "Config header"
+msgid "Settings"
+msgstr "Paramètres"
+
+#: ../contents/ui/config/dialog/BaseForm.qml:99
 msgid "Size"
 msgstr "Taille"
 
-#: ../contents/ui/config/dialog/BaseForm.qml:33
+#: ../contents/ui/config/dialog/BaseForm.qml:104
 msgid "Width:"
 msgstr "Largeur :"
 
-#: ../contents/ui/config/dialog/BaseForm.qml:69
+#: ../contents/ui/config/dialog/BaseForm.qml:140
 msgid "Height:"
 msgstr "Hauteur :"
 
-#: ../contents/ui/config/dialog/BaseForm.qml:105
+#: ../contents/ui/config/dialog/BaseForm.qml:176
+msgid "Font size:"
+msgstr "Taille de la police :"
+
+#: ../contents/ui/config/dialog/BaseForm.qml:182
+msgid "Global"
+msgstr "Globale"
+
+#: ../contents/ui/config/dialog/BaseForm.qml:199
 msgid "Colors"
 msgstr "Couleurs"
 
-#: ../contents/ui/config/dialog/BaseForm.qml:110 ../contents/ui/config/dialog/EditCpu.qml:17
-#: ../contents/ui/config/dialog/EditCpuText.qml:16 ../contents/ui/config/dialog/EditDiskText.qml:17
-#: ../contents/ui/config/dialog/EditMemory.qml:17 ../contents/ui/config/dialog/EditMemoryText.qml:17
+#: ../contents/ui/config/dialog/BaseForm.qml:204 ../contents/ui/config/dialog/EditCpu.qml:17
+#: ../contents/ui/config/dialog/EditCpuText.qml:29 ../contents/ui/config/dialog/EditDiskText.qml:30
+#: ../contents/ui/config/dialog/EditMemory.qml:17 ../contents/ui/config/dialog/EditMemoryText.qml:29
 msgid "First line:"
 msgstr "Première ligne :"
 
-#: ../contents/ui/config/dialog/BaseForm.qml:129 ../contents/ui/config/dialog/EditCpu.qml:46
-#: ../contents/ui/config/dialog/EditGpu.qml:19
+#: ../contents/ui/config/dialog/BaseForm.qml:223 ../contents/ui/config/dialog/EditGpu.qml:47
 msgid "Second Line:"
 msgstr "Deuxième ligne :"
 
-#: ../contents/ui/config/dialog/BaseForm.qml:143
+#: ../contents/ui/config/dialog/BaseForm.qml:237
 msgid "Third Line:"
 msgstr "Troisième ligne :"
 
-#: ../contents/ui/config/dialog/EditCpu.qml:23 ../contents/ui/config/dialog/EditCpuText.qml:22
+#: ../contents/ui/config/dialog/EditCpu.qml:23 ../contents/ui/config/dialog/EditCpuText.qml:35
 msgid "Total usage"
 msgstr "Utilisation total"
 
-#: ../contents/ui/config/dialog/EditCpu.qml:27 ../contents/ui/config/dialog/EditCpuText.qml:26
+#: ../contents/ui/config/dialog/EditCpu.qml:27 ../contents/ui/config/dialog/EditCpuText.qml:39
 msgid "System usage"
 msgstr "Utilisation du système"
 
-#: ../contents/ui/config/dialog/EditCpu.qml:31 ../contents/ui/config/dialog/EditCpuText.qml:30
+#: ../contents/ui/config/dialog/EditCpu.qml:31 ../contents/ui/config/dialog/EditCpuText.qml:43
 msgid "User usage"
 msgstr "Utilisation de l'Utilisateur"
 
-#: ../contents/ui/config/dialog/EditCpu.qml:56
+#: ../contents/ui/config/dialog/EditCpu.qml:44 ../contents/ui/config/dialog/EditMemory.qml:56
+msgid "Second line:"
+msgstr "Deuxième ligne:"
+
+#: ../contents/ui/config/dialog/EditCpu.qml:54
 msgid "Classic/P-cores clock frequency"
 msgstr "Fréquence d'horloge (classique/P-cores)"
 
-#: ../contents/ui/config/dialog/EditCpu.qml:60
+#: ../contents/ui/config/dialog/EditCpu.qml:58
 msgid "E-cores clock frequency"
 msgstr "Fréquence d'horloge des E-cores"
 
-#: ../contents/ui/config/dialog/EditCpu.qml:73
+#: ../contents/ui/config/dialog/EditCpu.qml:71 ../contents/ui/config/dialog/EditGpu.qml:75
+msgid "Third line:"
+msgstr "Troisième ligne"
+
+#: ../contents/ui/config/dialog/EditCpu.qml:81 ../contents/ui/config/dialog/EditCpuText.qml:47
+#: ../contents/ui/config/dialog/EditGpu.qml:85 ../contents/ui/config/dialog/EditGpuText.qml:48
+msgid "Temperature"
+msgstr "Temperature"
+
+#: ../contents/ui/config/dialog/EditCpu.qml:95
+msgid "Clock"
+msgstr "Horloge"
+
+#: ../contents/ui/config/dialog/EditCpu.qml:100
 msgid "Clock aggregator:"
 msgstr "Agrégateur pour l'horloge :"
 
-#: ../contents/ui/config/dialog/EditCpu.qml:79
+#: ../contents/ui/config/dialog/EditCpu.qml:106
 msgctxt "Aggregator"
 msgid "Average"
 msgstr "Moyenne"
 
-#: ../contents/ui/config/dialog/EditCpu.qml:83
+#: ../contents/ui/config/dialog/EditCpu.qml:110
 msgctxt "Aggregator"
 msgid "Minimum"
 msgstr "Minimum"
 
-#: ../contents/ui/config/dialog/EditCpu.qml:87
+#: ../contents/ui/config/dialog/EditCpu.qml:114
 msgctxt "Aggregator"
 msgid "Maximum"
 msgstr "Maximum"
 
-#: ../contents/ui/config/dialog/EditCpu.qml:103
+#: ../contents/ui/config/dialog/EditCpu.qml:130
 msgid "E-cores"
 msgstr "E-cores"
 
-#: ../contents/ui/config/dialog/EditCpu.qml:113
+#: ../contents/ui/config/dialog/EditCpu.qml:140
 msgctxt "@info:tooltip"
 msgid ""
 "<b>For Intel gen 12+ only</b><br>Number of E-Cores your CPU have, it's for separate it from P-Cores in clock "
@@ -586,134 +582,192 @@ msgstr ""
 "<b>Pour Intel gen 12+ uniquement</b><br>Nombre de E-Cores que votre CPU possède, c'est pour le séparer des P-Cores "
 "dans le calcul de la fréquence d'horloge moyenne."
 
-#: ../contents/ui/config/dialog/EditCpu.qml:118 ../contents/ui/config/dialog/EditGpu.qml:48
-msgid "Show temperature"
-msgstr "Afficher la température"
+#: ../contents/ui/config/dialog/EditCpu.qml:147 ../contents/ui/config/dialog/EditGpu.qml:100
+#: ../contents/ui/config/dialog/EditMemory.qml:93
+msgid "Threshold"
+msgstr "Seuil"
 
-#: ../contents/ui/config/dialog/EditCpu.qml:128 ../contents/ui/config/dialog/EditGpu.qml:60
-msgid "Temperature threshold:"
-msgstr "Seuil de température :"
+#: ../contents/ui/config/dialog/EditCpu.qml:152 ../contents/ui/config/dialog/EditGpu.qml:105
+msgid "Temperature:"
+msgstr "Température :"
+
+#: ../contents/ui/config/dialog/EditCpuText.qml:18 ../contents/ui/config/dialog/EditDiskText.qml:18
+#: ../contents/ui/config/dialog/EditGpuText.qml:18 ../contents/ui/config/dialog/EditMemoryText.qml:18
+msgid "Title:"
+msgstr "Titre :"
+
+#: ../contents/ui/config/dialog/EditCpuText.qml:63 ../contents/ui/config/dialog/EditDiskText.qml:65
+#: ../contents/ui/config/dialog/EditGpuText.qml:64 ../contents/ui/config/dialog/EditMemoryText.qml:71
+msgid "Title when:"
+msgstr "Titre quand :"
 
 #: ../contents/ui/config/dialog/EditDisk.qml:22 ../contents/ui/config/dialog/EditNetwork.qml:24
 msgid "Automatic"
 msgstr "Automatique"
 
 #: ../contents/ui/config/dialog/EditDisk.qml:32 ../contents/ui/config/dialog/EditNetwork.qml:59
-#: ../contents/ui/config/dialog/EditNetworkText.qml:42
+#: ../contents/ui/config/dialog/EditNetworkText.qml:41
 msgid "Swap first and second line"
 msgstr "Échanger la première et la deuxième ligne"
 
-#: ../contents/ui/config/dialog/EditDisk.qml:41 ../contents/ui/config/dialog/EditNetwork.qml:68
-#: ../contents/ui/config/dialog/EditNetworkText.qml:51
-msgid "Show icons (%1 / %2)"
-msgstr "Afficher les icônes (%1 / %2)"
-
-#: ../contents/ui/config/dialog/EditDisk.qml:51 ../contents/ui/config/dialog/EditNetwork.qml:136
+#: ../contents/ui/config/dialog/EditDisk.qml:42 ../contents/ui/config/dialog/EditNetwork.qml:127
 msgid "Maximum transfer speed"
 msgstr "Vitesse de transfert maximale"
 
-#: ../contents/ui/config/dialog/EditDisk.qml:57
+#: ../contents/ui/config/dialog/EditDisk.qml:48
 msgctxt "Chart config"
 msgid "Read:"
 msgstr "Lecture :"
 
-#: ../contents/ui/config/dialog/EditDisk.qml:82
+#: ../contents/ui/config/dialog/EditDisk.qml:73
 msgctxt "Chart config"
 msgid "Write:"
 msgstr "Écriture :"
 
-#: ../contents/ui/config/dialog/EditDiskText.qml:23
-msgid "Disk usage (B)"
-msgstr "Utilisation du disque (B)"
+#: ../contents/ui/config/dialog/EditDisk.qml:99 ../contents/ui/config/dialog/EditDiskText.qml:94
+#: ../contents/ui/config/dialog/EditNetworkText.qml:110
+msgid "Show icons (%1 / %2)"
+msgstr "Afficher les icônes (%1 / %2)"
 
-#: ../contents/ui/config/dialog/EditDiskText.qml:27
-msgid "Disk usage (%)"
-msgstr "Utilisation du disque (%)"
+#: ../contents/ui/config/dialog/EditDiskText.qml:36
+msgid "Usage (B)"
+msgstr "Utilisation (B)"
 
-#: ../contents/ui/config/dialog/EditGpu.qml:30
+#: ../contents/ui/config/dialog/EditDiskText.qml:40 ../contents/ui/config/dialog/EditGpu.qml:26
+#: ../contents/ui/config/dialog/EditGpuText.qml:36
+msgid "Usage (%)"
+msgstr "Utilisation (%)"
+
+#: ../contents/ui/config/dialog/EditDiskText.qml:44
+msgid "I/O (R/W)"
+msgstr "E/S (L/E)"
+
+#: ../contents/ui/config/dialog/EditDiskText.qml:48
+msgid "I/O inverted (W/R)"
+msgstr "E/S inversé (E/L)"
+
+#: ../contents/ui/config/dialog/EditGpu.qml:19 ../contents/ui/config/dialog/EditGpuText.qml:29
+msgid "First Line:"
+msgstr "Première ligne"
+
+#: ../contents/ui/config/dialog/EditGpu.qml:30 ../contents/ui/config/dialog/EditGpu.qml:58
+#: ../contents/ui/config/dialog/EditGpuText.qml:40
 msgid "Memory (B)"
 msgstr "Mémoire (o)"
 
-#: ../contents/ui/config/dialog/EditGpu.qml:34 ../contents/ui/config/dialog/EditMemory.qml:67
+#: ../contents/ui/config/dialog/EditGpu.qml:34 ../contents/ui/config/dialog/EditGpu.qml:62
+#: ../contents/ui/config/dialog/EditGpuText.qml:44
 msgid "Memory (%)"
 msgstr "Mémoire (%)"
 
-#: ../contents/ui/config/dialog/EditMemory.qml:23 ../contents/ui/config/dialog/EditMemoryText.qml:23
+#: ../contents/ui/config/dialog/EditMemory.qml:23 ../contents/ui/config/dialog/EditMemoryText.qml:35
 msgid "Physical memory (B)"
 msgstr "Mémoire Physique (o)"
 
-#: ../contents/ui/config/dialog/EditMemory.qml:27 ../contents/ui/config/dialog/EditMemoryText.qml:27
+#: ../contents/ui/config/dialog/EditMemory.qml:27 ../contents/ui/config/dialog/EditMemory.qml:74
+#: ../contents/ui/config/dialog/EditMemoryText.qml:39
 msgid "Physical memory (%)"
 msgstr "Mémoire Physique (%)"
 
-#: ../contents/ui/config/dialog/EditMemory.qml:31 ../contents/ui/config/dialog/EditMemoryText.qml:31
+#: ../contents/ui/config/dialog/EditMemory.qml:31 ../contents/ui/config/dialog/EditMemoryText.qml:43
 msgid "Application memory (B)"
 msgstr "Mémoire Applicative (o)"
 
-#: ../contents/ui/config/dialog/EditMemory.qml:35 ../contents/ui/config/dialog/EditMemoryText.qml:35
+#: ../contents/ui/config/dialog/EditMemory.qml:35 ../contents/ui/config/dialog/EditMemory.qml:78
+#: ../contents/ui/config/dialog/EditMemoryText.qml:47
 msgid "Application memory (%)"
 msgstr "Mémoire Applicative (%)"
 
-#: ../contents/ui/config/dialog/EditMemory.qml:49
-msgid "Second line:"
-msgstr "Deuxième ligne:"
+#: ../contents/ui/config/dialog/EditMemory.qml:39 ../contents/ui/config/dialog/EditMemory.qml:66
+#: ../contents/ui/config/dialog/EditMemoryText.qml:51
+msgid "Swap (B)"
+msgstr "Swap (B)"
 
-#: ../contents/ui/config/dialog/EditMemory.qml:59
-msgid "Swap"
-msgstr "Swap"
-
-#: ../contents/ui/config/dialog/EditMemory.qml:63
+#: ../contents/ui/config/dialog/EditMemory.qml:43 ../contents/ui/config/dialog/EditMemory.qml:70
+#: ../contents/ui/config/dialog/EditMemoryText.qml:55
 msgid "Swap (%)"
 msgstr "Swap (%)"
 
-#: ../contents/ui/config/dialog/EditMemory.qml:81
-msgid "Usage threshold:"
-msgstr "Seuil d'utilisation :"
+#: ../contents/ui/config/dialog/EditMemory.qml:98
+msgid "Memory usage:"
+msgstr "Utilisation de la mémoire :"
 
-#: ../contents/ui/config/dialog/EditNetwork.qml:78 ../contents/ui/config/dialog/EditNetworkText.qml:61
+#: ../contents/ui/config/dialog/EditNetwork.qml:69 ../contents/ui/config/dialog/EditNetworkText.qml:51
 msgid "Unit:"
 msgstr "Unité :"
 
-#: ../contents/ui/config/dialog/EditNetwork.qml:84 ../contents/ui/config/dialog/EditNetworkText.qml:67
+#: ../contents/ui/config/dialog/EditNetwork.qml:75 ../contents/ui/config/dialog/EditNetworkText.qml:57
 msgid "kibibyte (KiB/s)"
 msgstr "kibioctet (Kio/s)"
 
-#: ../contents/ui/config/dialog/EditNetwork.qml:88 ../contents/ui/config/dialog/EditNetworkText.qml:71
+#: ../contents/ui/config/dialog/EditNetwork.qml:79 ../contents/ui/config/dialog/EditNetworkText.qml:61
 msgid "kilobit (Kbps)"
 msgstr "kilobit (Kbps)"
 
-#: ../contents/ui/config/dialog/EditNetwork.qml:92 ../contents/ui/config/dialog/EditNetworkText.qml:75
+#: ../contents/ui/config/dialog/EditNetwork.qml:83 ../contents/ui/config/dialog/EditNetworkText.qml:65
 msgid "kilobyte (KBps)"
 msgstr "kiloctet (Kops)"
 
-#: ../contents/ui/config/dialog/EditNetwork.qml:107 ../contents/ui/config/dialog/EditNetworkText.qml:90
+#: ../contents/ui/config/dialog/EditNetwork.qml:98 ../contents/ui/config/dialog/EditNetworkText.qml:80
 msgid "Network interfaces:"
 msgstr "Interfaces réseau :"
 
-#: ../contents/ui/config/dialog/EditNetwork.qml:142
+#: ../contents/ui/config/dialog/EditNetwork.qml:133
 msgctxt "Chart config"
 msgid "Receiving:"
 msgstr "Réception :"
 
-#: ../contents/ui/config/dialog/EditNetwork.qml:167
+#: ../contents/ui/config/dialog/EditNetwork.qml:158
 msgctxt "Chart config"
 msgid "Sending:"
 msgstr "Envoi :"
 
-#: ../contents/ui/config/dialog/EditText.qml:19
+#: ../contents/ui/config/dialog/EditText.qml:18
 msgid "Value:"
 msgstr "Valeur :"
 
-#: ../contents/ui/config/dialog/EditText.qml:53
+#: ../contents/ui/config/dialog/EditText.qml:54
 msgctxt "Text placement"
 msgid "Middle left"
 msgstr "Milieu gauche"
 
-#: ../contents/ui/config/dialog/EditText.qml:57
+#: ../contents/ui/config/dialog/EditText.qml:58
 msgctxt "Text placement"
 msgid "Middle right"
 msgstr "Milieu droite"
 
-#: ../contents/ui/config/dialog/EditText.qml:68
-msgid "Font size:"
-msgstr "Taille de la police :"
+#: ../contents/ui/config/GraphListPage.qml:20
+msgid "The graphs as been upgraded to new version, please save it."
+msgstr "Les graphiques ont été mis à jour, veuillez les sauvegarder."
+
+#: ../contents/ui/config/GraphListPage.qml:84
+msgid "Fix..."
+msgstr "Fixer..."
+
+#: ../contents/ui/config/GraphListPage.qml:85 ../contents/ui/config/GraphListPage.qml:95
+msgctxt "@info:tooltip"
+msgid "Edit \"%1\" graph"
+msgstr "Modifier le graphique \"%1\""
+
+#: ../contents/ui/config/GraphListPage.qml:104
+msgctxt "@info:tooltip"
+msgid "Delete \"%1\" graph"
+msgstr "Supprimer le graphique \"%1\""
+
+#: ../contents/ui/config/GraphListPage.qml:129
+msgid "No graph selected"
+msgstr "Aucun graphique sélectionné"
+
+#: ../contents/ui/config/GraphListPage.qml:130
+msgctxt "@info"
+msgid "Click <i>%1</i> to get started"
+msgstr "Cliquez sur <i>%1</i> pour commencer"
+
+#: ../contents/ui/config/GraphListPage.qml:140
+msgid "Add graph…"
+msgstr "Ajouter un graphique..."
+
+#: ../contents/ui/config/GraphListPage.qml:217
+msgctxt "Chart name"
+msgid "Text [%1]"
+msgstr "Texte [%1]"
