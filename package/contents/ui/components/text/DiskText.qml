@@ -28,7 +28,7 @@ RMBase.BaseSensorText {
         }
     }
 
-    // Initialize limits and threshold
+    // Initialize limits
     Sensors.Sensor {
         id: totalQuery
         sensorId: `disk/${device}/total`

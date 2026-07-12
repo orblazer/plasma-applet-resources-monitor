@@ -100,7 +100,7 @@ const VERSION = 4; //? Bump when some settings changes in graphs structure
  * @property {"diskText"} type The graph type
  * @property {[number, number]} sizes The graph size ([width, height], -1 = automatic)
  * @property {[string, string]} colors The graph colors (ref: label, usage)
- * @property {("used"|"used-percent")} sensorsType The sensors type (ref: usage format)
+ * @property {("used"|"used-percent")} sensorsType The sensors type (ref: usage)
  * @property {string} device The disk id (eg. sda, sdc), it also could be `all`
  */
 /**
@@ -158,6 +158,7 @@ const migrations = {
    * V3 -> V4: Improve flexibility
    * Memory: Change "memory-percent" to independent type (application/physical)
    * GPU: Add customization for first line
+   * DiskText: allow used in percent
    */
   3: (graph) => {
     // Memory
