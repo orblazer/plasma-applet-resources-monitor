@@ -4,7 +4,6 @@ import org.kde.plasma.plasmoid
 import org.kde.plasma.core as PlasmaCore
 import org.kde.kirigami as Kirigami
 import "./code/graphs.js" as GraphFns
-import "./components" as RMComponents
 
 PlasmoidItem {
     id: root

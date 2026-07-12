@@ -2,7 +2,6 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls as QQC2
 import org.kde.kirigami as Kirigami
-import "../components" as RMComponents
 import "./dialog" as RMDialogs
 import "../code/graphs.js" as GraphFns
 

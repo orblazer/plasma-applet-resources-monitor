@@ -1,7 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls as QQC2
-import QtQuick.Dialogs as Dialogs
 import Qt.labs.platform as Platform
 import org.kde.kirigami as Kirigami
 import org.kde.kcmutils as KCM

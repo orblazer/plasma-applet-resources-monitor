@@ -1,6 +1,4 @@
 import QtQuick
-import org.kde.plasma.plasmoid
-import org.kde.ksysguard.formatter as Formatter
 import "./base" as RMBaseGraph
 import "../sensors" as RMSensors
 import "../../code/formatter.js" as RMFormatter

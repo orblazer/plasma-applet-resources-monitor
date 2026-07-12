@@ -3,7 +3,6 @@ import QtQuick.Layouts
 import QtQuick.Controls as QQC2
 import org.kde.kirigami as Kirigami
 import org.kde.plasma.plasma5support as Plasma5Support
-import "../controls" as RMControls
 import "../../code/formatter.js" as Formatter
 import "../../code/network.js" as NetworkUtils
 

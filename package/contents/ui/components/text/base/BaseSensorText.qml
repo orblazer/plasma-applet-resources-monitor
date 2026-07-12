@@ -1,5 +1,4 @@
 import QtQuick
-import org.kde.plasma.plasmoid
 import org.kde.ksysguard.sensors as Sensors
 import org.kde.ksysguard.formatter as Formatter
 import org.kde.kirigami as Kirigami
