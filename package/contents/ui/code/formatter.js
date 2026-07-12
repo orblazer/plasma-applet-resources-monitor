@@ -83,5 +83,5 @@ function formatValue(value, unit, locale) {
       unitSymbol
     );
   }
-  return Number(value).toLocaleString(locale, "f", 1) + " " + unitSymbol;
+  return Number(value).toLocaleString(locale, "f", 1) + "\u2009" + unitSymbol;
 }
