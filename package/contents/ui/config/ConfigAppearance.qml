@@ -53,9 +53,9 @@ KCM.AbstractKCM {
         id: bar
 
         PlasmaComponents.TabButton {
-            icon.name: "office-chart-line-stacked"
+            icon.name: "display-symbolic"
             icon.height: Kirigami.Units.iconSizes.smallMedium
-            text: i18nc("Config header", "Graphs")
+            text: i18nc("Config header", "Global")
         }
         PlasmaComponents.TabButton {
             icon.name: "dialog-text-and-font"
@@ -84,6 +84,11 @@ KCM.AbstractKCM {
 
                     QQC2.ToolTip.visible: hovered
                     QQC2.ToolTip.text: i18nc("@info:tooltip", "This allow graphs to take all panel width/height")
+                }
+
+                Kirigami.Separator {
+                    Kirigami.FormData.label: i18nc("Config header", "Graphs")
+                    Kirigami.FormData.isSection: true
                 }
 
                 RMControls.PredefinedSpinBox {
