@@ -15,6 +15,7 @@ KCM.AbstractKCM {
 
     // Chart
     property alias cfg_fillPanel: fillPanel.checked
+    property alias cfg_abbreviate: abbreviate.checked
     property alias cfg_historyAmount: historyAmount.realValue
     property alias cfg_graphSpacing: graphSpacing.value
     property alias cfg_graphFillOpacity: graphFillOpacity.value
@@ -153,6 +154,13 @@ KCM.AbstractKCM {
             // Text
             Kirigami.FormLayout {
                 QQC2.CheckBox {
+                    id: abbreviate
+                    text: i18n("Truncate unit?")
+
+                    QQC2.ToolTip.visible: hovered
+                    QQC2.ToolTip.text: i18nc("@info:tooltip", "This truncate unit symbols (eg. KiB/s -> K)")
+                }
+                QQC2.CheckBox {
                     id: enableShadows
                     text: i18n("Display outline?")
                 }
@@ -171,7 +179,7 @@ KCM.AbstractKCM {
                         text: i18nc("@option:radio", "Automatic")
 
                         onCheckedChanged: {
-                            keepFontSize.checked = false
+                            keepFontSize.checked = false;
                         }
                     }
 
@@ -193,7 +201,7 @@ KCM.AbstractKCM {
                         checked: !cfg_autoFontAndSize
                         onClicked: {
                             if (cfg_fontFamily === "") {
-                                fontDialog.fontChosen = Kirigami.Theme.defaultFont
+                                fontDialog.fontChosen = Kirigami.Theme.defaultFont;
                             }
                         }
                     }
@@ -203,8 +211,8 @@ KCM.AbstractKCM {
                         icon.name: "settings-configure"
                         enabled: manualFontAndSizeRadioButton.checked
                         onClicked: {
-                            fontDialog.open()
-                            fontDialog.currentFont = fontDialog.fontChosen
+                            fontDialog.open();
+                            fontDialog.currentFont = fontDialog.fontChosen;
                         }
                     }
                 }
@@ -332,7 +340,7 @@ KCM.AbstractKCM {
 
         property font fontChosen: null
         onAccepted: {
-            fontChosen = font
+            fontChosen = font;
         }
     }
 }

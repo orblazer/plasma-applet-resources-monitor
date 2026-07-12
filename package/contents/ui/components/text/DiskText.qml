@@ -1,7 +1,9 @@
 import QtQuick
+import org.kde.plasma.plasmoid
 import org.kde.ksysguard.sensors as Sensors
 import org.kde.ksysguard.formatter as Formatter
 import "./base" as RMBase
+import "../../code/formatter.js" as RMFormatter
 
 RMBase.BaseSensorText {
     id: root
@@ -56,7 +58,14 @@ RMBase.BaseSensorText {
                 }
 
                 const value = maxQueryModel.getData(index)
-                textContainer.setValue(index, value, Formatter.Formatter.formatValueShowNull(value, Formatter.Units.UnitByteRate) + icon);
+                let formattedValue
+                if (Plasmoid.configuration.abbreviate) {
+                    formattedValue = RMFormatter.formatInAbbreviate(value, Formatter.Units.UnitByteRate, Qt.locale());
+                } else {
+                    formattedValue = Formatter.Formatter.formatValueShowNull(value, Formatter.Units.UnitByteRate);
+                }
+
+                textContainer.setValue(index, value, formattedValue + icon);
             }
         } else {
             const value = sensor.getValue();

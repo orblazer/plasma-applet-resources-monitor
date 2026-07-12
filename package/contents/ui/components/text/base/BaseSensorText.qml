@@ -1,8 +1,10 @@
 import QtQuick
+import org.kde.plasma.plasmoid
 import org.kde.ksysguard.sensors as Sensors
 import org.kde.ksysguard.formatter as Formatter
 import org.kde.kirigami as Kirigami
 import "../../" as RMComponents
+import "../../../code/formatter.js" as RMFormatter
 
 Item {
     id: root
@@ -81,6 +83,10 @@ Item {
 
     property var _formatValue: _defaultFormatValue
     function _defaultFormatValue(index, value) {
-        return Formatter.Formatter.formatValueShowNull(value, sensor.unit);
+        if (Plasmoid.configuration.abbreviate) {
+            return RMFormatter.formatInAbbreviate(value, sensor.unit, Qt.locale());
+        } else {
+            return Formatter.Formatter.formatValueShowNull(value, sensor.unit);
+        }
     }
 }

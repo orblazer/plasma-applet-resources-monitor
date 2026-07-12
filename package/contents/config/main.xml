@@ -23,6 +23,9 @@
         <entry name="fillPanel" type="Bool">
             <default>false</default>
         </entry>
+        <entry name="abbreviate" type="Bool">
+            <default>false</default>
+        </entry>
 
         <entry name="historyAmount" type="Int">
             <default>10</default>

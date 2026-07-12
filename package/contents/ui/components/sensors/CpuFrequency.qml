@@ -1,6 +1,8 @@
 import QtQuick
+import org.kde.plasma.plasmoid
 import org.kde.ksysguard.sensors as Sensors
 import org.kde.ksysguard.formatter as Formatter
+import "../../code/formatter.js" as RMFormatter
 
 Sensors.SensorDataModel {
     id: root
@@ -14,7 +16,12 @@ Sensors.SensorDataModel {
     signal ready
 
     function getFormattedValue(eCores = false) {
-        return Formatter.Formatter.formatValueShowNull(getValue(eCores), Formatter.Units.UnitMegaHertz);
+        const value = getValue(eCores)
+        if (Plasmoid.configuration.abbreviate) {
+            return RMFormatter.formatInAbbreviate(value, Formatter.Units.UnitMegaHertz, Qt.locale());
+        } else {
+            return Formatter.Formatter.formatValueShowNull(value, Formatter.Units.UnitMegaHertz);
+        }
     }
 
     function getValue(eCores = false) {
@@ -69,7 +76,7 @@ Sensors.SensorDataModel {
             _initialize.running = false;
 
             // Fill sensors with all cores
-            _coreCount = valueVar
+            _coreCount = valueVar;
             const sensors = [];
             for (let i = 0; i < _coreCount; i++) {
                 sensors[i] = "cpu/cpu" + i + "/frequency";
