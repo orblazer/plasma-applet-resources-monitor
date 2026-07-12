@@ -17,16 +17,6 @@ RMBase.BaseSensorText {
     readonly property bool isMemory: sensorsType[0].includes("memory")
     readonly property bool fieldInPercent: sensorsType[0] == "usage" || isMemory
 
-    // Text options
-    textContainer {
-        displayment: "always"
-        valueColors: root.colors
-
-        Component.onCompleted: {
-            textContainer.getLabel(0).valueText = isMemory ? "VRAM" : "GPU"
-        }
-    }
-
     // Override methods, for handle memory in percent
     _formatValue: (index, value) => {
         if (sensorsType[0] == "memory-percent") {

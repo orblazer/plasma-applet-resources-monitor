@@ -12,6 +12,19 @@ BaseForm {
     colorsType: ["text", "text", false]
 
     properties: Kirigami.FormLayout {
+        QQC2.TextField {
+            id: textField
+            text: root.item.title
+            Layout.fillWidth: true
+            Kirigami.FormData.label: i18n("Title:")
+
+            onTextChanged: {
+                root.item.title = text;
+                root.changed();
+            }
+        }
+
+        // First line
         QQC2.ComboBox {
             Layout.fillWidth: true
             Kirigami.FormData.label: i18n("First Line:")
@@ -37,6 +50,38 @@ BaseForm {
             Component.onCompleted: currentIndex = indexOfValue(root.item.sensorsType[0])
             onActivated: {
                 root.item.sensorsType[0] = currentValue;
+                root.changed();
+            }
+        }
+    }
+
+    appearanceProperties: Kirigami.FormLayout {
+        QQC2.ComboBox {
+            id: displayment
+            Kirigami.FormData.label: i18n("Title when:")
+            Layout.fillWidth: true
+
+            currentIndex: -1
+            textRole: "label"
+            valueRole: "name"
+            model: [
+                {
+                    "label": i18nc("Text display", "Always"),
+                    "name": "always"
+                },
+                {
+                    "label": i18nc("Text display", "Hints when hover"),
+                    "name": "hints"
+                },
+                {
+                    "label": i18nc("Text display", "Never"),
+                    "name": "never"
+                }
+            ]
+
+            Component.onCompleted: currentIndex = indexOfValue(root.item.titleWhen)
+            onActivated: {
+                root.item.titleWhen = currentValue;
                 root.changed();
             }
         }

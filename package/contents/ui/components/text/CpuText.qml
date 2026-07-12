@@ -8,14 +8,4 @@ RMBase.BaseSensorText {
     objectName: "CpuText"
     sensor.sensorId: "cpu/all/" + sensorsType[0]
     sensorsFormat: [Formatter.Units.UnitPercent]
-
-    // Text options
-    textContainer {
-        displayment: "always"
-        valueColors: root.colors
-
-        Component.onCompleted: {
-            textContainer.getLabel(0).valueText = "CPU"
-        }
-    }
 }

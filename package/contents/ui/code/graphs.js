@@ -66,6 +66,8 @@ const VERSION = 4; //? Bump when some settings changes in graphs structure
  * @property {[number, number]} sizes The graph size ([width, height], -1 = automatic)
  * @property {[string, string]} colors The graph colors (ref: label, usage)
  * @property {("usage"|"system"|"user")} sensorsType The sensors type (ref: usage)
+ * @property {string} title The title of graph
+ * @property {("always"|"hints"|"never")} titleWhen The option when title is displayed
  */
 /**
  * @typedef {object} MemoryText
@@ -74,6 +76,8 @@ const VERSION = 4; //? Bump when some settings changes in graphs structure
  * @property {[number, number]} sizes The graph size ([width, height], -1 = automatic)
  * @property {[string, string]} colors The graph colors (ref: label, usage)
  * @property {("physical"|"physical-percent"|"application"|"application-percent")} sensorsType The sensors type (ref: usage)
+ * @property {string} title The title of graph
+ * @property {("always"|"hints"|"never")} titleWhen The option when title is displayed
  */
 /**
  * @typedef {object} GpuText
@@ -83,6 +87,8 @@ const VERSION = 4; //? Bump when some settings changes in graphs structure
  * @property {[string, string]} colors The graph colors (ref: label, usage)
  * @property {[("usage"|"memory"|"memory-percent")]} sensorsType The sensors type (ref: usage/memory)
  * @property {string} device The device index (eg. gpu0, gpu1)
+ * @property {string} title The title of graph
+ * @property {("always"|"hints"|"never")} titleWhen The option when title is displayed
  */
 /**
  * @typedef {object} NetworkText
@@ -93,6 +99,8 @@ const VERSION = 4; //? Bump when some settings changes in graphs structure
  * @property {[boolean, ("kibibyte"|"kilobit|"kilobyte")]} sensorsType The sensors type (ref: swap Rx/Tx, unit)
  * @property {string[]} ignoredInterfaces The ignored network interfaces
  * @property {boolean} icons Show labels icons (↓ / ↑)
+ * @property {string} title The title of graph
+ * @property {("always"|"hints"|"never")} titleWhen The option when title is displayed
  */
 /**
  * @typedef {object} DiskText
@@ -102,6 +110,8 @@ const VERSION = 4; //? Bump when some settings changes in graphs structure
  * @property {[string, string]} colors The graph colors (ref: label, usage)
  * @property {("used"|"used-percent")} sensorsType The sensors type (ref: usage)
  * @property {string} device The disk id (eg. sda, sdc), it also could be `all`
+ * @property {string} title The title of graph
+ * @property {("always"|"hints"|"never")} titleWhen The option when title is displayed
  */
 /**
  * @typedef {object} Text
@@ -159,6 +169,7 @@ const migrations = {
    * Memory: Change "memory-percent" to independent type (application/physical)
    * GPU: Add customization for first line
    * DiskText: allow used in percent
+   * [all]Text: allow customize and behavior on how title is show
    */
   3: (graph) => {
     // Memory
@@ -166,12 +177,31 @@ const migrations = {
       const [type] = graph.sensorsType[0].split("-");
       graph.sensorsType = [graph.sensorsType[0], type + "-percent"];
     }
+
     // GPU
     if (graph.type === "gpu" && graph.sensorsType.length < 3) {
       graph.sensorsType = ["usage", graph.sensorsType[0], graph.sensorsType[1]];
     }
     if (graph.type === "gpuText" && typeof graph.sensorsType !== "undefined") {
       graph.sensorsType = ["usage"];
+    }
+
+    // [all]Text
+    if (graph.type === "cpuText" && typeof graph.title === "undefined") {
+      graph.title = "CPU";
+      graph.titleWhen = "always";
+    }
+    if (graph.type === "memoryText" && typeof graph.title === "undefined") {
+      graph.title = "RAM";
+      graph.titleWhen = "always";
+    }
+    if (graph.type === "gpuText" && typeof graph.title === "undefined") {
+      graph.title = "GPU";
+      graph.titleWhen = "always";
+    }
+    if (graph.type === "diskText" && typeof graph.title === "undefined") {
+      graph.title = "Disk";
+      graph.titleWhen = "always";
     }
   },
 };
@@ -269,6 +299,8 @@ function create(type, device, fontSize) {
     case "cpuText":
       item.colors = ["textColor", "highlightColor"];
       item.sensorsType = ["usage"];
+      item.title = "CPU";
+      item.titleWhen = "always";
       break;
     case "memory":
       item.colors = ["highlightColor", "negativeTextColor"];
@@ -278,6 +310,8 @@ function create(type, device, fontSize) {
     case "memoryText":
       item.colors = ["textColor", "highlightColor"];
       item.sensorsType = ["physical-percent"];
+      item.title = "RAM";
+      item.titleWhen = "always";
       break;
     case "gpu":
       item.colors = ["highlightColor", "positiveTextColor", "textColor"];
@@ -287,6 +321,8 @@ function create(type, device, fontSize) {
     case "gpuText":
       item.colors = ["textColor", "highlightColor"];
       item.sensorsType = ["usage"];
+      item.title = "GPU";
+      item.titleWhen = "always";
       break;
     case "network":
       item.colors = ["highlightColor", "positiveTextColor"];
@@ -310,6 +346,8 @@ function create(type, device, fontSize) {
     case "diskText":
       item.colors = ["textColor", "highlightColor"];
       item.sensorsType = ["used-percent"];
+      item.title = "Disk";
+      item.titleWhen = "always";
       break;
     case "text":
       item.color = "textColor";

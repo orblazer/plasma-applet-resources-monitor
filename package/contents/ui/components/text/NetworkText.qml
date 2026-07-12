@@ -23,6 +23,8 @@ RMBase.BaseSensorText {
 
     // Text options
     textContainer {
+        displayment: "hover-hints"
+
         hints: {
             const receiving = i18nc("Graph label", "Receiving");
             const sending = i18nc("Graph label", "Sending");
@@ -72,15 +74,15 @@ RMBase.BaseSensorText {
     }
 
     function _updateData(index, value) {
-        let icon = ""
+        let icon = "";
         if (root.icons) {
             if (index == downloadIndex) {
-                icon = "↓\u2009"
+                icon = "↓\u2009";
             } else if (index == uploadIndex) {
-                icon = "↑\u2009"
+                icon = "↑\u2009";
             }
         }
 
-        textContainer.setValue(index, value, icon + RMFormatter.formatValue(value, unit, Qt.locale()))
+        textContainer.setValue(index, value, icon + RMFormatter.formatValue(value, unit, Qt.locale()));
     }
 }

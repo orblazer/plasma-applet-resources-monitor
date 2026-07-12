@@ -18,16 +18,6 @@ RMBase.BaseSensorText {
     // Value options - use used sensor to get disk usage
     sensor.sensorId: `disk/${device}/used`
 
-    // Text options
-    textContainer {
-        displayment: "always"
-        valueColors: root.colors
-
-        Component.onCompleted: {
-            textContainer.getLabel(0).valueText = "Disk"
-        }
-    }
-
     // Initialize limits
     Sensors.Sensor {
         id: totalQuery

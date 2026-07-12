@@ -13,6 +13,8 @@ Item {
     readonly property alias sensor: sensor
 
     // Text properties
+    property string title: ""
+    property string titleWhen: "always" // values: always, hints, never
     property var colors: [undefined, undefined, undefined] // Common graph settings
     property var sensorsType: [] // Present because is graph settings
 
@@ -39,13 +41,23 @@ Item {
     }
 
     // Labels
+    readonly property bool alwaysTitle: titleWhen === "always"
     RMComponents.TextContainer {
         id: textContainer
         z: 1
         hintColors: root.colors
-        hints: [" ", " ", ""]
-        lineCount: 2
+        hints: alwaysTitle ? [" ", " ", ""] : [title, "", ""]
+        lineCount: alwaysTitle ? 2 : 1
         placement: "center"
+
+        displayment: titleWhen == "hints" ? "hover-hints" : "always"
+        valueColors: root.colors
+
+        Component.onCompleted: {
+            if (alwaysTitle) {
+                getLabel(0).valueText = title;
+            }
+        }
     }
 
     // Retrieve data from sensors, and update labels
@@ -65,8 +77,8 @@ Item {
     // Process functions
     property var _update: _defaultUpdate
     function _defaultUpdate() {
-        const value = sensor.getValue()
-        textContainer.setValue(1, value, _formatValue(1, value))
+        const value = sensor.getValue();
+        textContainer.setValue(alwaysTitle ? 1 : 0, value, _formatValue(1, value));
     }
 
     property var _formatValue: _defaultFormatValue

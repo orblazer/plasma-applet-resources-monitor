@@ -27,16 +27,6 @@ RMBase.BaseSensorText {
         }
     }
 
-    // Text options
-    textContainer {
-        displayment: "always"
-        valueColors: root.colors
-
-        Component.onCompleted: {
-            textContainer.getLabel(0).valueText = isSwap ? "Swap" : "RAM";
-        }
-    }
-
     // Override methods, for handle memory in percent
     _formatValue: (index, value) => {
         if (fieldInPercent) {
