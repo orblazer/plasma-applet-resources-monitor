@@ -42,6 +42,10 @@ BaseForm {
                 {
                     "label": i18n("User usage"),
                     "value": "user"
+                },
+                {
+                    "label": i18n("Temperature"),
+                    "value": "temperature"
                 }
             ]
 

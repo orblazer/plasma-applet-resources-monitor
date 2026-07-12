@@ -7,13 +7,14 @@ RMBase.BaseSensorText {
     id: root
     objectName: "GpuText"
 
-    sensor.sensorId: isMemory ? `gpu/${device}/usedVram` : `gpu/${device}/usage`
+    sensor.sensorId: isTemperature ? `gpu/${device}/temperature` : (isMemory ? `gpu/${device}/usedVram` : `gpu/${device}/usage`)
     sensorsFormat: [fieldInPercent ? Formatter.Units.UnitPercent : Formatter.Units.UnitByte]
 
     // Settings
     property string device: "gpu0" // Device index (eg: gpu0, gpu1)
 
     readonly property bool isMemory: sensorsType[0].includes("memory")
+    readonly property bool isTemperature: sensorsType[0] === "temperature"
     readonly property bool fieldInPercent: sensorsType[0] == "usage" || isMemory
 
     // Override methods, for handle memory in percent

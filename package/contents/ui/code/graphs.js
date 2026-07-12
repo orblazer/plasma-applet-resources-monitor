@@ -70,7 +70,7 @@ const VERSION = 4; //? Bump when some settings changes in graphs structure
  * @property {"cpuText"} type The graph type
  * @property {[number, number]} sizes The graph size ([width, height], -1 = automatic)
  * @property {[string, string]} colors The graph colors (ref: label, usage)
- * @property {("usage"|"system"|"user")} sensorsType The sensors type (ref: usage)
+ * @property {("usage"|"system"|"user"|"temperature")} sensorsType The sensors type (ref: usage)
  * @property {string} title The title of graph
  * @property {("always"|"hints"|"never")} titleWhen The option when title is displayed
  * @property {number} fontSize The font size
@@ -92,7 +92,7 @@ const VERSION = 4; //? Bump when some settings changes in graphs structure
  * @property {"gpuText"} type The graph type
  * @property {[number, number]} sizes The graph size ([width, height], -1 = automatic)
  * @property {[string, string]} colors The graph colors (ref: label, usage)
- * @property {[("usage"|"memory"|"memory-percent")]} sensorsType The sensors type (ref: usage/memory)
+ * @property {[("usage"|"memory"|"memory-percent"|"temperature")]} sensorsType The sensors type (ref: usage/memory)
  * @property {string} device The device index (eg. gpu0, gpu1)
  * @property {string} title The title of graph
  * @property {("always"|"hints"|"never")} titleWhen The option when title is displayed
@@ -423,7 +423,7 @@ function getDisplayInfo(
       result.fallbackIcon = "cpu";
       break;
     case "cpuText":
-      result.name = i18nc("Chart name", "CPU usage (text)");
+      result.name = i18nc("Chart name", "CPU (text)");
       result.icon = "cpu-symbolic";
       result.fallbackIcon = "cpu";
       break;

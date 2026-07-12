@@ -43,6 +43,10 @@ BaseForm {
                 {
                     "label": i18n("Memory (%)"),
                     "value": "memory-percent"
+                },
+                {
+                    "label": i18n("Temperature"),
+                    "value": "temperature"
                 }
             ]
 
