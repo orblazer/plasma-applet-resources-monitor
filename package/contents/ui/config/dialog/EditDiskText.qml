@@ -16,6 +16,7 @@ BaseForm {
             text: root.item.title
             Layout.fillWidth: true
             Kirigami.FormData.label: i18n("Title:")
+            enabled: !root.item.sensorsType[0].includes("io")
 
             onTextChanged: {
                 root.item.title = text;
@@ -38,12 +39,21 @@ BaseForm {
                 {
                     "label": i18n("Disk usage (%)"),
                     "value": "used-percent"
+                },
+                {
+                    "label": i18n("Disk I/O (R/W)"),
+                    "value": "io"
+                },
+                {
+                    "label": i18n("Disk I/O inverted (W/R)"),
+                    "value": "io-reverse"
                 }
             ]
 
             Component.onCompleted: currentIndex = indexOfValue(root.item.sensorsType[0])
             onActivated: {
-                root.item.sensorsType[0] = currentValue;
+                root.item.sensorsType[0] = currentValue
+                textField.enabled = !currentValue.includes("io")
                 root.changed();
             }
         }
@@ -76,6 +86,15 @@ BaseForm {
             Component.onCompleted: currentIndex = indexOfValue(root.item.titleWhen)
             onActivated: {
                 root.item.titleWhen = currentValue;
+                root.changed();
+            }
+        }
+
+        QQC2.CheckBox {
+            text: i18n("Show icons (%1 / %2)", i18nc("Disk graph icon : Read", "R"), i18nc("Disk graph icon : Write", "W"))
+            checked: root.item.icons
+            onClicked: {
+                root.item.icons = checked;
                 root.changed();
             }
         }

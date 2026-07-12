@@ -119,6 +119,7 @@ const VERSION = 4; //? Bump when some settings changes in graphs structure
  * @property {[string, string]} colors The graph colors (ref: label, usage)
  * @property {("used"|"used-percent")} sensorsType The sensors type (ref: usage)
  * @property {string} device The disk id (eg. sda, sdc), it also could be `all`
+ * @property {boolean} icons Show labels icons (R / W)
  * @property {string} title The title of graph
  * @property {("always"|"hints"|"never")} titleWhen The option when title is displayed
  * @property {number} fontSize The font size
@@ -363,6 +364,7 @@ function create(type, device, fontSize) {
     case "diskText":
       item.colors = ["textColor", "highlightColor"];
       item.sensorsType = ["used-percent"];
+      item.icons = false;
       item.title = "Disk";
       item.titleWhen = "always";
       break;
@@ -461,7 +463,7 @@ function getDisplayInfo(
       result.fallbackIcon = "drive-harddisk";
       break;
     case "diskText":
-      result.name = i18nc("Chart name", "Disk usage (text) [%1]", deviceName);
+      result.name = i18nc("Chart name", "Disk (text) [%1]", deviceName);
       result.icon = "drive-harddisk-symbolic";
       result.fallbackIcon = "drive-harddisk";
       break;

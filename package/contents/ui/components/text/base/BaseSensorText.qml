@@ -38,7 +38,7 @@ Item {
     }
 
     // Labels
-    readonly property bool alwaysTitle: titleWhen === "always"
+    property bool alwaysTitle: titleWhen === "always"
     RMComponents.TextContainer {
         id: textContainer
         z: 1
