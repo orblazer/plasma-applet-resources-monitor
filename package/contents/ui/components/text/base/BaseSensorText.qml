@@ -17,9 +17,7 @@ Item {
     property string titleWhen: "always" // values: always, hints, never
     property var colors: [undefined, undefined, undefined] // Common graph settings
     property var sensorsType: [] // Present because is graph settings
-
-    // Thresholds properties
-    property var thresholds: [] // ONLY USED FOR CONFIG (graph settings)! | See "textContainer.thresholds"
+    property int fontSize: -1 // Present because is graph settings | See "textContainer.fontSize"
 
     // Minimum width of widget
     required property var sensorsFormat
@@ -45,13 +43,14 @@ Item {
     RMComponents.TextContainer {
         id: textContainer
         z: 1
+        valueColors: root.colors
         hintColors: root.colors
         hints: alwaysTitle ? [" ", " ", ""] : [title, "", ""]
         lineCount: alwaysTitle ? 2 : 1
         placement: "center"
+        fontSize: root.fontSize
 
         displayment: titleWhen == "hints" ? "hover-hints" : "always"
-        valueColors: root.colors
 
         Component.onCompleted: {
             if (alwaysTitle) {

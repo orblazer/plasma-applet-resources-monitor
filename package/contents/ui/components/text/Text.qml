@@ -27,7 +27,7 @@ Item {
         font.family: (Plasmoid.configuration.autoFontAndSize || Plasmoid.configuration.fontFamily.length === 0) ? Kirigami.Theme.defaultFont.family : Plasmoid.configuration.fontFamily
         font.weight: Plasmoid.configuration.autoFontAndSize ? Kirigami.Theme.defaultFont.weight : Plasmoid.configuration.fontWeight
         font.italic: Plasmoid.configuration.autoFontAndSize ? Kirigami.Theme.defaultFont.italic : Plasmoid.configuration.italicText
-        font.pixelSize: _pointToPixel(fontSize)
+        font.pixelSize: fontSize == -1 ? (Plasmoid.configuration.autoFontAndSize ? 3 * Kirigami.Theme.defaultFont.pixelSize : _pointToPixel(Plasmoid.configuration.fontSize)) : _pointToPixel(fontSize)
         text: root.device
     }
 

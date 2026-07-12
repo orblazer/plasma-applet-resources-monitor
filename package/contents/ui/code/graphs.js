@@ -16,6 +16,7 @@ const VERSION = 4; //? Bump when some settings changes in graphs structure
  * @property {[number, number]} thresholds The temperature thresholds
  * @property {"average"|"minimum"|"maximum"} clockAggregator The clock aggregator
  * @property {number} eCoresCount The e-cores count
+ * @property {number} fontSize The font size
  */
 /**
  * @typedef {object} MemoryGraph
@@ -25,6 +26,7 @@ const VERSION = 4; //? Bump when some settings changes in graphs structure
  * @property {[string, string]} colors The graph colors (ref: color, swap)
  * @property {[("physical"|"physical-percent"|"application"|"application-percent"|"swap"|"swap-percent"), ("none"|"swap"|"swap-percent"|"physical-percent"|"application-percent")]} sensorsType The sensors type (ref: memory, swap)
  * @property {[number, number]} thresholds The usage thresholds
+ * @property {number} fontSize The font size
  */
 /**
  * @typedef {object} GpuGraph
@@ -35,6 +37,7 @@ const VERSION = 4; //? Bump when some settings changes in graphs structure
  * @property {[("usage"|"memory"|"memory-percent"),("none"|"memory"|"memory-percent"), boolean]} sensorsType The sensors type (ref: usage/memory, memory, temperature)
  * @property {[number, number]} thresholds The temperature thresholds
  * @property {string} device The device index (eg. gpu0, gpu1)
+ * @property {number} fontSize The font size
  */
 /**
  * @typedef {object} NetworkGraph
@@ -46,6 +49,7 @@ const VERSION = 4; //? Bump when some settings changes in graphs structure
  * @property {[number, number]} uplimits The uplimit (ref: chart1, chart2)
  * @property {string[]} ignoredInterfaces The ignored network interfaces
  * @property {boolean} icons Show labels icons (↓ / ↑)
+ * @property {number} fontSize The font size
  */
 /**
  * @typedef {object} DiskGraph
@@ -57,6 +61,7 @@ const VERSION = 4; //? Bump when some settings changes in graphs structure
  * @property {[number, number]} uplimits The uplimit (ref: chart1, chart2)
  * @property {string} device The disk id (eg. sda, sdc), it also could be `all`
  * @property {boolean} icons Show labels icons (R / W)
+ * @property {number} fontSize The font size
  */
 
 /**
@@ -68,6 +73,7 @@ const VERSION = 4; //? Bump when some settings changes in graphs structure
  * @property {("usage"|"system"|"user")} sensorsType The sensors type (ref: usage)
  * @property {string} title The title of graph
  * @property {("always"|"hints"|"never")} titleWhen The option when title is displayed
+ * @property {number} fontSize The font size
  */
 /**
  * @typedef {object} MemoryText
@@ -78,6 +84,7 @@ const VERSION = 4; //? Bump when some settings changes in graphs structure
  * @property {("physical"|"physical-percent"|"application"|"application-percent")} sensorsType The sensors type (ref: usage)
  * @property {string} title The title of graph
  * @property {("always"|"hints"|"never")} titleWhen The option when title is displayed
+ * @property {number} fontSize The font size
  */
 /**
  * @typedef {object} GpuText
@@ -89,6 +96,7 @@ const VERSION = 4; //? Bump when some settings changes in graphs structure
  * @property {string} device The device index (eg. gpu0, gpu1)
  * @property {string} title The title of graph
  * @property {("always"|"hints"|"never")} titleWhen The option when title is displayed
+ * @property {number} fontSize The font size
  */
 /**
  * @typedef {object} NetworkText
@@ -101,6 +109,7 @@ const VERSION = 4; //? Bump when some settings changes in graphs structure
  * @property {boolean} icons Show labels icons (↓ / ↑)
  * @property {string} title The title of graph
  * @property {("always"|"hints"|"never")} titleWhen The option when title is displayed
+ * @property {number} fontSize The font size
  */
 /**
  * @typedef {object} DiskText
@@ -112,6 +121,7 @@ const VERSION = 4; //? Bump when some settings changes in graphs structure
  * @property {string} device The disk id (eg. sda, sdc), it also could be `all`
  * @property {string} title The title of graph
  * @property {("always"|"hints"|"never")} titleWhen The option when title is displayed
+ * @property {number} fontSize The font size
  */
 /**
  * @typedef {object} Text
@@ -170,6 +180,7 @@ const migrations = {
    * GPU: Add customization for first line
    * DiskText: allow used in percent
    * [all]Text: allow customize and behavior on how title is show
+   * [all]: allow customize font size
    */
   3: (graph) => {
     // Memory
@@ -202,6 +213,11 @@ const migrations = {
     if (graph.type === "diskText" && typeof graph.title === "undefined") {
       graph.title = "Disk";
       graph.titleWhen = "always";
+    }
+
+    // All
+    if (typeof graph.fontSize === "undefined") {
+      graph.fontSize = -1;
     }
   },
 };
@@ -285,6 +301,7 @@ function create(type, device, fontSize) {
     _v: VERSION,
     type,
     sizes: [-1, -1],
+    fontSize: -1,
   };
 
   // Fill default value

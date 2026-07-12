@@ -1,42 +1,42 @@
 # CPU
-[{"_v":4,"type":"cpu","sizes":[-1,-1],"colors":["highlightColor","textColor","textColor"],"sensorsType":["usage","classic",true],"thresholds":[85,105],"clockAggregator":"average","eCoresCount":0}]
+[{"_v":4,"type":"cpu","sizes":[-1,-1],"colors":["highlightColor","textColor","textColor"],"sensorsType":["usage","classic",true],"thresholds":[85,105],"clockAggregator":"average","eCoresCount":0,"fontSize":-1}]
 
 # Memory
-[{"_v":4,"type":"memory","sizes":[-1,-1],"colors":["highlightColor","negativeTextColor"],"sensorsType":["physical","swap"],"thresholds":[70,90]}]
+[{"_v":4,"type":"memory","sizes":[-1,-1],"colors":["highlightColor","negativeTextColor"],"sensorsType":["physical","swap"],"thresholds":[70,90],"fontSize":-1}]
 
 # GPU
-[{"_v":4,"type":"gpu","sizes":[-1,-1],"colors":["highlightColor","positiveTextColor","textColor"],"sensorsType":["usage","memory",true],"thresholds":[80,90],"device":"gpu1"}]
+[{"_v":4,"type":"gpu","sizes":[-1,-1],"colors":["highlightColor","positiveTextColor","textColor"],"sensorsType":["usage","memory",true],"thresholds":[80,90],"device":"gpu1","fontSize":-1}]
 
 # Network
-[{"_v":4,"type":"network","sizes":[-1,-1],"colors":["highlightColor","positiveTextColor"],"sensorsType":[false,"kibibyte"],"uplimits":[100000,100000],"ignoredInterfaces":[],"icons":true}]
+[{"_v":4,"type":"network","sizes":[-1,-1],"colors":["highlightColor","positiveTextColor"],"sensorsType":[false,"kibibyte"],"uplimits":[100000,100000],"ignoredInterfaces":[],"icons":true,"fontSize":-1}]
 
 # Disk
-[{"_v":4,"type":"disk","sizes":[-1,-1],"colors":["highlightColor","positiveTextColor"],"sensorsType":[false],"uplimits":[200000,200000],"device":"all","icons":true}]
+[{"_v":4,"type":"disk","sizes":[-1,-1],"colors":["highlightColor","positiveTextColor"],"sensorsType":[false],"uplimits":[200000,200000],"device":"all","icons":true,"fontSize":-1}]
 
 # CpuText
-[{"_v":4,"type":"cpuText","sizes":[-1,-1],"colors":["textColor","highlightColor"],"sensorsType":["usage"],"title":"CPU","titleWhen":"always"}]
+[{"_v":4,"type":"cpuText","sizes":[-1,-1],"colors":["textColor","highlightColor"],"sensorsType":["usage"],"title":"CPU","titleWhen":"always","fontSize":-1}]
 
 # MemoryText
-[{"_v":4,"type":"memoryText","sizes":[-1,-1],"colors":["textColor","highlightColor"],"sensorsType":["physical-percent"],"title":"RAM","titleWhen":"always"}]
+[{"_v":4,"type":"memoryText","sizes":[-1,-1],"colors":["textColor","highlightColor"],"sensorsType":["physical-percent"],"title":"RAM","titleWhen":"always","fontSize":-1}]
 
 # GPUText
-[{"_v":4,"type":"gpuText","sizes":[-1,-1],"colors":["textColor","highlightColor"],"sensorsType":["usage"],"device":"gpu1","title":"GPU","titleWhen":"always"}]
+[{"_v":4,"type":"gpuText","sizes":[-1,-1],"colors":["textColor","highlightColor"],"sensorsType":["usage"],"device":"gpu1","title":"GPU","titleWhen":"always","fontSize":-1}]
 
 # NetworkText
-[{"_v":4,"type":"networkText","sizes":[-1,-1],"colors":["highlightColor","positiveTextColor"],"sensorsType":[false,"kibibyte"],"ignoredInterfaces":[],"icons":true}]
+[{"_v":4,"type":"networkText","sizes":[-1,-1],"colors":["highlightColor","positiveTextColor"],"sensorsType":[false,"kibibyte"],"ignoredInterfaces":[],"icons":true,"fontSize":-1}]
 
 # DiskTex
-[{"_v":4,"type":"diskText","sizes":[-1,-1],"colors":["textColor","highlightColor"],"sensorsType":["used-percent"],"device":"all","title":"Disk","titleWhen":"always"}]
+[{"_v":4,"type":"diskText","sizes":[-1,-1],"colors":["textColor","highlightColor"],"sensorsType":["used-percent"],"device":"all","title":"Disk","titleWhen":"always","fontSize":-1}]
 
 # Text
 [{"_v":4,"type":"text","sizes":[-1,-1],"color":"textColor","device":"Text","placement":"middle-right","fontSize":24}]
 
 
 # All graph
-[{"_v":4,"type":"cpu","sizes":[-1,-1],"colors":["highlightColor","textColor","textColor"],"sensorsType":["usage","classic",true],"thresholds":[85,105],"clockAggregator":"average","eCoresCount":0},{"_v":4,"type":"memory","sizes":[-1,-1],"colors":["highlightColor","negativeTextColor"],"sensorsType":["physical","swap"],"thresholds":[70,90]},{"_v":4,"type":"gpu","sizes":[-1,-1],"colors":["highlightColor","positiveTextColor","textColor"],"sensorsType":["usage","memory",true],"thresholds":[80,90],"device":"gpu1"},{"_v":4,"type":"network","sizes":[-1,-1],"colors":["highlightColor","positiveTextColor"],"sensorsType":[false,"kibibyte"],"uplimits":[100000,100000],"ignoredInterfaces":[],"icons":true},{"_v":4,"type":"disk","sizes":[-1,-1],"colors":["highlightColor","positiveTextColor"],"sensorsType":[false],"uplimits":[200000,200000],"device":"all","icons":true}]
+[{"_v":4,"type":"cpu","sizes":[-1,-1],"colors":["highlightColor","textColor","textColor"],"sensorsType":["usage","classic",true],"thresholds":[85,105],"clockAggregator":"average","eCoresCount":0,"fontSize":-1},{"_v":4,"type":"memory","sizes":[-1,-1],"colors":["highlightColor","negativeTextColor"],"sensorsType":["physical","swap"],"thresholds":[70,90],"fontSize":-1},{"_v":4,"type":"gpu","sizes":[-1,-1],"colors":["highlightColor","positiveTextColor","textColor"],"sensorsType":["usage","memory",true],"thresholds":[80,90],"device":"gpu1","fontSize":-1},{"_v":4,"type":"network","sizes":[-1,-1],"colors":["highlightColor","positiveTextColor"],"sensorsType":[false,"kibibyte"],"uplimits":[100000,100000],"ignoredInterfaces":[],"icons":true,"fontSize":-1},{"_v":4,"type":"disk","sizes":[-1,-1],"colors":["highlightColor","positiveTextColor"],"sensorsType":[false],"uplimits":[200000,200000],"device":"all","icons":true,"fontSize":-1}]
 
 # All text
-[{"_v":4,"type":"cpuText","sizes":[-1,-1],"colors":["textColor","highlightColor"],"sensorsType":["usage"],"title":"CPU","titleWhen":"always"},{"_v":4,"type":"memoryText","sizes":[-1,-1],"colors":["textColor","highlightColor"],"sensorsType":["physical-percent"],"title":"RAM","titleWhen":"always"},{"_v":4,"type":"gpuText","sizes":[-1,-1],"colors":["textColor","highlightColor"],"sensorsType":["usage"],"device":"gpu1","title":"GPU","titleWhen":"always"},{"_v":4,"type":"networkText","sizes":[-1,-1],"colors":["highlightColor","positiveTextColor"],"sensorsType":[false,"kibibyte"],"ignoredInterfaces":[],"icons":true},{"_v":4,"type":"diskText","sizes":[-1,-1],"colors":["textColor","highlightColor"],"sensorsType":["used-percent"],"device":"all","title":"Disk","titleWhen":"always"},{"_v":4,"type":"text","sizes":[-1,-1],"color":"textColor","device":"Text","placement":"middle-right","fontSize":24}]
+[{"_v":4,"type":"cpuText","sizes":[-1,-1],"colors":["textColor","highlightColor"],"sensorsType":["usage"],"title":"CPU","titleWhen":"always","fontSize":-1},{"_v":4,"type":"memoryText","sizes":[-1,-1],"colors":["textColor","highlightColor"],"sensorsType":["physical-percent"],"title":"RAM","titleWhen":"always","fontSize":-1},{"_v":4,"type":"gpuText","sizes":[-1,-1],"colors":["textColor","highlightColor"],"sensorsType":["usage"],"device":"gpu1","title":"GPU","titleWhen":"always","fontSize":-1},{"_v":4,"type":"networkText","sizes":[-1,-1],"colors":["highlightColor","positiveTextColor"],"sensorsType":[false,"kibibyte"],"ignoredInterfaces":[],"icons":true,"fontSize":-1},{"_v":4,"type":"diskText","sizes":[-1,-1],"colors":["textColor","highlightColor"],"sensorsType":["used-percent"],"device":"all","title":"Disk","titleWhen":"always","fontSize":-1},{"_v":4,"type":"text","sizes":[-1,-1],"color":"textColor","device":"Text","placement":"middle-right","fontSize":24}]
 
 # Full
-[{"_v":4,"type":"cpu","sizes":[-1,-1],"colors":["highlightColor","textColor","textColor"],"sensorsType":["usage","classic",true],"thresholds":[85,105],"clockAggregator":"average","eCoresCount":0},{"_v":4,"type":"memory","sizes":[-1,-1],"colors":["highlightColor","negativeTextColor"],"sensorsType":["physical","swap"],"thresholds":[70,90]},{"_v":4,"type":"gpu","sizes":[-1,-1],"colors":["highlightColor","positiveTextColor","textColor"],"sensorsType":["usage","memory",true],"thresholds":[80,90],"device":"gpu1"},{"_v":4,"type":"network","sizes":[-1,-1],"colors":["highlightColor","positiveTextColor"],"sensorsType":[false,"kibibyte"],"uplimits":[100000,100000],"ignoredInterfaces":[],"icons":true},{"_v":4,"type":"disk","sizes":[-1,-1],"colors":["highlightColor","positiveTextColor"],"sensorsType":[false],"uplimits":[200000,200000],"device":"all","icons":true},{"_v":4,"type":"cpuText","sizes":[-1,-1],"colors":["textColor","highlightColor"],"sensorsType":["usage"],"title":"CPU","titleWhen":"always"},{"_v":4,"type":"memoryText","sizes":[-1,-1],"colors":["textColor","highlightColor"],"sensorsType":["physical-percent"],"title":"RAM","titleWhen":"always"},{"_v":4,"type":"gpuText","sizes":[-1,-1],"colors":["textColor","highlightColor"],"sensorsType":["usage"],"device":"gpu1","title":"GPU","titleWhen":"always"},{"_v":4,"type":"networkText","sizes":[-1,-1],"colors":["highlightColor","positiveTextColor"],"sensorsType":[false,"kibibyte"],"ignoredInterfaces":[],"icons":true},{"_v":4,"type":"diskText","sizes":[-1,-1],"colors":["textColor","highlightColor"],"sensorsType":["used-percent"],"device":"all","title":"Disk","titleWhen":"always"},{"_v":4,"type":"text","sizes":[-1,-1],"color":"textColor","device":"Text","placement":"middle-right","fontSize":24}]
+[{"_v":4,"type":"cpu","sizes":[-1,-1],"colors":["highlightColor","textColor","textColor"],"sensorsType":["usage","classic",true],"thresholds":[85,105],"clockAggregator":"average","eCoresCount":0,"fontSize":-1},{"_v":4,"type":"memory","sizes":[-1,-1],"colors":["highlightColor","negativeTextColor"],"sensorsType":["physical","swap"],"thresholds":[70,90],"fontSize":-1},{"_v":4,"type":"gpu","sizes":[-1,-1],"colors":["highlightColor","positiveTextColor","textColor"],"sensorsType":["usage","memory",true],"thresholds":[80,90],"device":"gpu1","fontSize":-1},{"_v":4,"type":"network","sizes":[-1,-1],"colors":["highlightColor","positiveTextColor"],"sensorsType":[false,"kibibyte"],"uplimits":[100000,100000],"ignoredInterfaces":[],"icons":true,"fontSize":-1},{"_v":4,"type":"disk","sizes":[-1,-1],"colors":["highlightColor","positiveTextColor"],"sensorsType":[false],"uplimits":[200000,200000],"device":"all","icons":true,"fontSize":-1},{"_v":4,"type":"cpuText","sizes":[-1,-1],"colors":["textColor","highlightColor"],"sensorsType":["usage"],"title":"CPU","titleWhen":"always","fontSize":-1},{"_v":4,"type":"memoryText","sizes":[-1,-1],"colors":["textColor","highlightColor"],"sensorsType":["physical-percent"],"title":"RAM","titleWhen":"always","fontSize":-1},{"_v":4,"type":"gpuText","sizes":[-1,-1],"colors":["textColor","highlightColor"],"sensorsType":["usage"],"device":"gpu1","title":"GPU","titleWhen":"always","fontSize":-1},{"_v":4,"type":"networkText","sizes":[-1,-1],"colors":["highlightColor","positiveTextColor"],"sensorsType":[false,"kibibyte"],"ignoredInterfaces":[],"icons":true,"fontSize":-1},{"_v":4,"type":"diskText","sizes":[-1,-1],"colors":["textColor","highlightColor"],"sensorsType":["used-percent"],"device":"all","title":"Disk","titleWhen":"always","fontSize":-1},{"_v":4,"type":"text","sizes":[-1,-1],"color":"textColor","device":"Text","placement":"middle-right","fontSize":24}]

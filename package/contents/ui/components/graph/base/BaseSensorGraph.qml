@@ -15,6 +15,7 @@ Item {
     // Graph properties
     property var colors: [undefined, undefined, undefined] // Common graph settings
     property var sensorsType: [] // Present because is graph settings
+    property int fontSize: -1 // Present because is graph settings | See "textContainer.fontSize"
 
     // Thresholds properties
     property var thresholds: [] // ONLY USED FOR CONFIG (graph settings)! | See "textContainer.thresholds"
@@ -44,6 +45,7 @@ Item {
         enabled: Plasmoid.configuration.displayment != 'never'
         z: 1
         hintColors: root.colors
+        fontSize: root.fontSize
     }
 
     // Retrieve data from sensors, and update labels

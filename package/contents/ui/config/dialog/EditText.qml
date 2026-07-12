@@ -64,18 +64,5 @@ BaseForm {
             onActivated: root.item.placement = currentValue
             Component.onCompleted: currentIndex = indexOfValue(root.item.placement)
         }
-
-        QQC2.ComboBox {
-            Layout.fillWidth: true
-            Kirigami.FormData.label: i18n("Font size:")
-
-            model: [6, 7, 8, 9, 10, 11, 12, 14, 16, 18, 20, 22, 24, 26, 28, 36, 48, 72]
-
-            Component.onCompleted: currentIndex = indexOfValue(root.item.fontSize)
-            onActivated: {
-                root.item.fontSize = currentValue;
-                root.changed();
-            }
-        }
     }
 }

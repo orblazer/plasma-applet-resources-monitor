@@ -22,6 +22,7 @@ Item {
     property var labelsVisibleWhenZero: [true, true, true]
     property int thresholdIndex: -1 // Sensor index used for threshold
     property var thresholds: [] // format: [warning, critical]
+    property int fontSize: -1 // Font size
 
     // Config aliases
     property string displayment: Plasmoid.configuration.displayment // Values: always, hover, hover-hints, never
@@ -54,7 +55,7 @@ Item {
         font.family: (Plasmoid.configuration.autoFontAndSize || Plasmoid.configuration.fontFamily.length === 0) ? Kirigami.Theme.defaultFont.family : Plasmoid.configuration.fontFamily
         font.weight: Plasmoid.configuration.autoFontAndSize ? Kirigami.Theme.defaultFont.weight : Plasmoid.configuration.fontWeight
         font.italic: Plasmoid.configuration.autoFontAndSize ? Kirigami.Theme.defaultFont.italic : Plasmoid.configuration.italicText
-        font.pixelSize: Plasmoid.configuration.autoFontAndSize ? 3 * Kirigami.Theme.defaultFont.pixelSize : _pointToPixel(Plasmoid.configuration.fontSize)
+        font.pixelSize: fontSize == -1 ? (Plasmoid.configuration.autoFontAndSize ? 3 * Kirigami.Theme.defaultFont.pixelSize : _pointToPixel(Plasmoid.configuration.fontSize)) : _pointToPixel(fontSize)
 
         fontSizeMode: Plasmoid.configuration.keepFontSize ? Text.FixedSize : Text.VerticalFit
         minimumPixelSize: 1
