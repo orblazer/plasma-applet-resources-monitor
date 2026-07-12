@@ -7,7 +7,6 @@ import "../sensors" as RMSensors
 RMBaseGraph.SensorGraph {
     id: root
     objectName: "CpuGraph"
-    readonly property int minimumWidth: textContainer.enabled ? Formatter.Formatter.maximumLength(showClock ? Formatter.Units.UnitMegaHertz : showTemperature ? Formatter.Units.UnitCelsius : Formatter.Units.UnitPercent, textContainer.font) : 0
     _update: () => {
         root._defaultUpdate();
         cpuTemperature.update();
@@ -21,6 +20,8 @@ RMBaseGraph.SensorGraph {
     property bool showClock: sensorsType[1] !== "none"
     property bool clockIsECores: sensorsType[1] === "ecores"
     property bool showTemperature: sensorsType[2]
+
+    sensorsFormat: [Formatter.Units.UnitPercent, (showClock ? Formatter.Units.UnitMegaHertz : null), (showTemperature ? Formatter.Units.UnitCelsius : null)]
 
     // Graph options
     sensorSlots: ["cpu/all/" + sensorsType[0], "cpu/cpu0/frequency", "cpu/all/maximumTemperature"]

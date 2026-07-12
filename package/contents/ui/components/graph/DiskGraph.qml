@@ -7,7 +7,6 @@ import "../../code/formatter.js" as RMFormatter
 RMBaseGraph.TwoSensorsGraph {
     id: root
     objectName: "DiskGraph"
-    readonly property int minimumWidth: textContainer.enabled ? Formatter.Formatter.maximumLength(unit.id, textContainer.font) : 0
 
     // Settings
     property string device: "all" // Device ID (e.g.: "sda" or "sdc"); could be "all"
@@ -17,6 +16,8 @@ RMBaseGraph.TwoSensorsGraph {
     // Retrieve chart index and swap it if needed
     readonly property int readIndex: sensorsType[0] ? 1 : 0
     readonly property int writeIndex: sensorsType[0] ? 0 : 1
+
+    sensorsFormat: [unit.id]
 
     // Labels
     textContainer {

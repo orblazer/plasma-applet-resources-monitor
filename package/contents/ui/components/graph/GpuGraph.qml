@@ -7,7 +7,6 @@ import "./base" as RMBaseGraph
 RMBaseGraph.TwoSensorsGraph {
     id: root
     objectName: "GpuGraph"
-    readonly property int minimumWidth: textContainer.enabled ? Formatter.Formatter.maximumLength(!memoryInPercent ? Formatter.Units.UnitMegaHertz : showTemp ? Formatter.Units.UnitCelsius : Formatter.Units.UnitPercent, textContainer.font) : 0
 
     // Settings
     property string device: "gpu0" // Device index (eg: gpu0, gpu1)
@@ -15,6 +14,8 @@ RMBaseGraph.TwoSensorsGraph {
     // Config shortcut
     property bool memoryInPercent: sensorsType[0].endsWith("-percent")
     property bool showTemp: sensorsType[1] && device !== "all"
+
+    sensorsFormat: [(memoryInPercent ? Formatter.Units.UnitPercent : Formatter.Units.UnitByte), (showTemp ? Formatter.Units.UnitCelsius : null)]
 
     // Labels
     textContainer {

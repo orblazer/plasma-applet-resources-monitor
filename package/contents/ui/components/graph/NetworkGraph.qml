@@ -10,7 +10,6 @@ RMBaseGraph.TwoSensorsGraph {
     objectName: "NetworkGraph"
     sensorsModel.enabled: false // Disable base sensor due to use custom one
     _update: networkSpeed.execute
-    readonly property int minimumWidth: textContainer.enabled ? Formatter.Formatter.maximumLength(unit.id, textContainer.font) : 0
 
     // Settings
     property var ignoredInterfaces: []
@@ -20,6 +19,8 @@ RMBaseGraph.TwoSensorsGraph {
     // Retrieve chart index and swap it if needed
     readonly property int downloadIndex: sensorsType[0] ? 1 : 0
     readonly property int uploadIndex: sensorsType[0] ? 0 : 1
+
+    sensorsFormat: [unit.id]
 
     // Labels config
     textContainer {

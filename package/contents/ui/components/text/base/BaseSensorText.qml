@@ -19,6 +19,25 @@ Item {
     // Thresholds properties
     property var thresholds: [] // ONLY USED FOR CONFIG (graph settings)! | See "textContainer.thresholds"
 
+    // Minimum width of widget
+    required property var sensorsFormat
+    readonly property int minimumWidth: {
+        if (!textContainer.enabled) {
+            return 0;
+        }
+
+        let maxLength = 0;
+        for (const index in sensorsType) {
+            if (sensorsFormat[index] && sensorsType[index] != "none") {
+                const length = Formatter.Formatter.maximumLength(sensorsFormat[index], textContainer.font);
+                if (length > maxLength) {
+                    maxLength = length;
+                }
+            }
+        }
+        return maxLength;
+    }
+
     // Labels
     RMComponents.TextContainer {
         id: textContainer

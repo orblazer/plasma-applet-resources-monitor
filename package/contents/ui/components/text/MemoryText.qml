@@ -7,7 +7,7 @@ import "./base" as RMBase
 RMBase.BaseSensorText {
     id: root
     objectName: "MemoryText"
-    readonly property int minimumWidth: textContainer.enabled ? Formatter.Formatter.maximumLength(fieldInPercent ? Formatter.Units.UnitPercent : Formatter.Units.UnitMegaHertz, textContainer.font) : 0
+    sensorsFormat: [fieldInPercent ? Formatter.Units.UnitPercent : Formatter.Units.UnitByte]
 
     // Config shortcut
     property bool isSwap: sensorsType[0].startsWith("swap")

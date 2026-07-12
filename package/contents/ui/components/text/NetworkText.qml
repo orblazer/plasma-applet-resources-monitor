@@ -10,7 +10,7 @@ RMBase.BaseSensorText {
     objectName: "NetworkText"
     sensor.enabled: false // Disable base sensor due to use custom one
     _update: networkSpeed.execute
-    readonly property int minimumWidth: textContainer.enabled ? Formatter.Formatter.maximumLength(unit.id, textContainer.font) : 0
+    sensorsFormat: [unit.id]
 
     // Settings
     property var ignoredInterfaces: []

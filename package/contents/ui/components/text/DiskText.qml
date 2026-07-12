@@ -7,7 +7,7 @@ import "./base" as RMBase
 RMBase.BaseSensorText {
     id: root
     objectName: "DiskText"
-    readonly property int minimumWidth: textContainer.enabled ? Formatter.Formatter.maximumLength(fieldInPercent ? Formatter.Units.UnitPercent : Formatter.Units.UnitByte, textContainer.font) : 0
+    sensorsFormat: [fieldInPercent ? Formatter.Units.UnitPercent : Formatter.Units.UnitByte]
 
     // Settings
     property string device: "all" // Device ID (e.g.: "sda" or "sdc"); could be "all"

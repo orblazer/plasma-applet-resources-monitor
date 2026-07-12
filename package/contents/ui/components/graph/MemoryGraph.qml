@@ -7,12 +7,13 @@ import "./base" as RMBaseGraph
 RMBaseGraph.TwoSensorsGraph {
     id: root
     objectName: "MemoryGraph"
-    readonly property int minimumWidth: textContainer.enabled ? Math.max(_maxValueLength(0), _maxValueLength(1)) : 0
 
     // Config shortcut
     property bool firstIsSwap: sensorsType[0].startsWith("swap")
     property bool secondIsSwap: sensorsType[1].startsWith("swap")
     property var fieldInPercent: [sensorsType[0].endsWith("-percent"), sensorsType[1].endsWith("-percent")]
+
+    sensorsFormat: [(fieldInPercent[0] ? Formatter.Units.UnitPercent : Formatter.Units.UnitByte), (fieldInPercent[1] ? Formatter.Units.UnitByte : null)]
 
     // Labels
     textContainer {
@@ -89,8 +90,5 @@ RMBaseGraph.TwoSensorsGraph {
         default:
             return null;
         }
-    }
-    function _maxValueLength(index) {
-        return Formatter.Formatter.maximumLength(fieldInPercent[index] ? Formatter.Units.UnitPercent : Formatter.Units.UnitMegaHertz, textContainer.font)
     }
 }
