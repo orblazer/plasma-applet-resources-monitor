@@ -7,23 +7,27 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: resources-monitor\n"
-"Report-Msgid-Bugs-To: https://github.com/orblazer/plasma-applet-resources-monitor\n"
+"Report-Msgid-Bugs-To: https://github.com/orblazer/plasma-applet-resources-"
+"monitor\n"
 "POT-Creation-Date: 2026-07-13 04:11+0200\n"
-"PO-Revision-Date: 2026-07-12 23:45+0200\n"
-"Last-Translator: orblazer\n"
+"PO-Revision-Date: 2026-07-13 12:53+0200\n"
+"Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
+"Language-Team: \n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.9\n"
 
-#: ../contents/config/config.qml:6 ../contents/ui/config/ConfigAppearance.qml:84
+#: ../contents/config/config.qml:6
+#: ../contents/ui/config/ConfigAppearance.qml:84
 msgctxt "Config header"
 msgid "Graphs"
 msgstr "Grafieken"
 
-#: ../contents/config/config.qml:11 ../contents/ui/config/dialog/BaseForm.qml:40
+#: ../contents/config/config.qml:11
+#: ../contents/ui/config/dialog/BaseForm.qml:40
 msgctxt "Config header"
 msgid "Appearance"
 msgstr "Vormgeving"
@@ -56,7 +60,7 @@ msgstr "Cpu"
 #: ../contents/ui/code/graphs.js:426
 msgctxt "Chart name"
 msgid "CPU (text)"
-msgstr ""
+msgstr "Cpu (tekst)"
 
 #: ../contents/ui/code/graphs.js:431
 msgctxt "Chart name"
@@ -66,7 +70,7 @@ msgstr "Geheugen"
 #: ../contents/ui/code/graphs.js:436
 msgctxt "Chart name"
 msgid "Memory (text)"
-msgstr ""
+msgstr "Geheugen (tekst)"
 
 #: ../contents/ui/code/graphs.js:441
 msgctxt "Chart name"
@@ -76,7 +80,7 @@ msgstr "Gpu [%1]"
 #: ../contents/ui/code/graphs.js:446
 msgctxt "Chart name"
 msgid "GPU (text) [%1]"
-msgstr ""
+msgstr "Gpu (tekst) [%1]"
 
 #: ../contents/ui/code/graphs.js:451
 msgctxt "Chart name"
@@ -86,7 +90,7 @@ msgstr "Netwerk"
 #: ../contents/ui/code/graphs.js:456
 msgctxt "Chart name"
 msgid "Network (text)"
-msgstr ""
+msgstr "Netwerk (tekst)"
 
 #: ../contents/ui/code/graphs.js:461
 msgctxt "Chart name"
@@ -96,58 +100,70 @@ msgstr "Schijven - I/O [‘%1’]"
 #: ../contents/ui/code/graphs.js:466
 msgctxt "Chart name"
 msgid "Disk (text) [%1]"
-msgstr ""
+msgstr "Schijf (tekst) [%1]"
 
 #: ../contents/ui/code/graphs.js:471
 msgctxt "Chart name"
 msgid "Text"
-msgstr ""
+msgstr "Tekst"
 
 #: ../contents/ui/components/graph/CpuGraph.qml:34
 msgctxt "Graph label"
 msgid "Clock"
 msgstr "Kloksnelheid"
 
-#: ../contents/ui/components/graph/CpuGraph.qml:34 ../contents/ui/components/graph/GpuGraph.qml:25
+#: ../contents/ui/components/graph/CpuGraph.qml:34
+#: ../contents/ui/components/graph/GpuGraph.qml:25
 msgctxt "Graph label"
 msgid "Temp."
 msgstr "Temp."
 
-#: ../contents/ui/components/graph/DiskGraph.qml:23 ../contents/ui/components/text/DiskText.qml:37
+#: ../contents/ui/components/graph/DiskGraph.qml:23
+#: ../contents/ui/components/text/DiskText.qml:37
 msgctxt "Graph label"
 msgid "Read"
 msgstr "Uitgelezen"
 
-#: ../contents/ui/components/graph/DiskGraph.qml:24 ../contents/ui/components/text/DiskText.qml:38
+#: ../contents/ui/components/graph/DiskGraph.qml:24
+#: ../contents/ui/components/text/DiskText.qml:38
 msgctxt "Graph label"
 msgid "Write"
 msgstr "Weggeschreven"
 
-#: ../contents/ui/components/graph/DiskGraph.qml:39 ../contents/ui/components/text/DiskText.qml:54
-#: ../contents/ui/config/dialog/EditDisk.qml:99 ../contents/ui/config/dialog/EditDiskText.qml:94
+#: ../contents/ui/components/graph/DiskGraph.qml:39
+#: ../contents/ui/components/text/DiskText.qml:54
+#: ../contents/ui/config/dialog/EditDisk.qml:99
+#: ../contents/ui/config/dialog/EditDiskText.qml:94
 msgctxt "Disk graph icon : Read"
 msgid "R"
 msgstr "U"
 
-#: ../contents/ui/components/graph/DiskGraph.qml:41 ../contents/ui/components/text/DiskText.qml:56
-#: ../contents/ui/config/dialog/EditDisk.qml:99 ../contents/ui/config/dialog/EditDiskText.qml:94
+#: ../contents/ui/components/graph/DiskGraph.qml:41
+#: ../contents/ui/components/text/DiskText.qml:56
+#: ../contents/ui/config/dialog/EditDisk.qml:99
+#: ../contents/ui/config/dialog/EditDiskText.qml:94
 msgctxt "Disk graph icon : Write"
 msgid "W"
 msgstr "W"
 
-#: ../contents/ui/components/graph/GpuGraph.qml:41 ../contents/ui/components/graph/MemoryGraph.qml:38
-#: ../contents/ui/components/graph/MemoryGraph.qml:40 ../contents/ui/components/text/DiskText.qml:75
-#: ../contents/ui/components/text/GpuText.qml:23 ../contents/ui/components/text/MemoryText.qml:32
+#: ../contents/ui/components/graph/GpuGraph.qml:41
+#: ../contents/ui/components/graph/MemoryGraph.qml:38
+#: ../contents/ui/components/graph/MemoryGraph.qml:40
+#: ../contents/ui/components/text/DiskText.qml:75
+#: ../contents/ui/components/text/GpuText.qml:23
+#: ../contents/ui/components/text/MemoryText.qml:32
 msgctxt "Percent unit"
 msgid "%1%"
 msgstr "%1%"
 
-#: ../contents/ui/components/graph/NetworkGraph.qml:26 ../contents/ui/components/text/NetworkText.qml:27
+#: ../contents/ui/components/graph/NetworkGraph.qml:26
+#: ../contents/ui/components/text/NetworkText.qml:27
 msgctxt "Graph label"
 msgid "Receiving"
 msgstr "Ontvangen"
 
-#: ../contents/ui/components/graph/NetworkGraph.qml:27 ../contents/ui/components/text/NetworkText.qml:28
+#: ../contents/ui/components/graph/NetworkGraph.qml:27
+#: ../contents/ui/components/text/NetworkText.qml:28
 msgctxt "Graph label"
 msgid "Sending"
 msgstr "Verstuurd"
@@ -159,7 +175,7 @@ msgstr "Alles"
 #: ../contents/ui/config/ConfigAppearance.qml:52
 msgctxt "Config header"
 msgid "Global"
-msgstr ""
+msgstr "Globaal"
 
 #: ../contents/ui/config/ConfigAppearance.qml:57
 msgctxt "Config header"
@@ -178,20 +194,27 @@ msgstr "Paneel opvullen?"
 #: ../contents/ui/config/ConfigAppearance.qml:80
 msgctxt "@info:tooltip"
 msgid "This allow graphs to take all panel width/height"
-msgstr "Hiermee kunnen grafieken gebruikmaken van de volledige paneelbreedte en - hoogte"
+msgstr ""
+"Hiermee kunnen grafieken gebruikmaken van de volledige paneelbreedte en "
+"-hoogte"
 
 #: ../contents/ui/config/ConfigAppearance.qml:90
 msgid "History amount:"
 msgstr "Aantal geschiedenisitems:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:99 ../contents/ui/config/controls/ColorSelector.qml:26
-#: ../contents/ui/config/dialog/EditDisk.qml:18 ../contents/ui/config/dialog/EditNetwork.qml:20
+#: ../contents/ui/config/ConfigAppearance.qml:99
+#: ../contents/ui/config/controls/ColorSelector.qml:26
+#: ../contents/ui/config/dialog/EditDisk.qml:18
+#: ../contents/ui/config/dialog/EditNetwork.qml:20
 msgid "Custom"
 msgstr "Aangepast"
 
-#: ../contents/ui/config/ConfigAppearance.qml:103 ../contents/ui/config/ConfigMisc.qml:51
-#: ../contents/ui/config/dialog/EditCpu.qml:50 ../contents/ui/config/dialog/EditCpu.qml:77
-#: ../contents/ui/config/dialog/EditGpu.qml:54 ../contents/ui/config/dialog/EditGpu.qml:81
+#: ../contents/ui/config/ConfigAppearance.qml:103
+#: ../contents/ui/config/ConfigMisc.qml:51
+#: ../contents/ui/config/dialog/EditCpu.qml:50
+#: ../contents/ui/config/dialog/EditCpu.qml:77
+#: ../contents/ui/config/dialog/EditGpu.qml:54
+#: ../contents/ui/config/dialog/EditGpu.qml:81
 #: ../contents/ui/config/dialog/EditMemory.qml:62
 msgid "Disabled"
 msgstr "Uitgeschakeld"
@@ -206,12 +229,12 @@ msgstr "Ondoorzichtigheid opvullen:"
 
 #: ../contents/ui/config/ConfigAppearance.qml:157
 msgid "Truncate unit?"
-msgstr ""
+msgstr "Eenheden inkorten?"
 
 #: ../contents/ui/config/ConfigAppearance.qml:160
 msgctxt "@info:tooltip"
 msgid "This truncate unit symbols (eg. KiB/s -> K)"
-msgstr ""
+msgstr "Hierdoor worden eenheden ingekort (bijv. KiB/s → K)"
 
 #: ../contents/ui/config/ConfigAppearance.qml:164
 msgid "Display outline?"
@@ -220,48 +243,53 @@ msgstr "Contour tonen?"
 #: ../contents/ui/config/ConfigAppearance.qml:173
 msgctxt "@label:group"
 msgid "Text display:"
-msgstr ""
+msgstr "Tekstweergave:"
 
 #: ../contents/ui/config/ConfigAppearance.qml:178
 msgctxt "@option:radio"
 msgid "Automatic"
-msgstr ""
+msgstr "Automatisch"
 
 #: ../contents/ui/config/ConfigAppearance.qml:186
 msgctxt "@label"
-msgid "Text will follow the system font and expand to fill the available space."
+msgid ""
+"Text will follow the system font and expand to fill the available space."
 msgstr ""
+"Voor de tekst wordt gebruikgemaakt van het systeemlettertype en alle "
+"beschikbare ruimte."
 
 #: ../contents/ui/config/ConfigAppearance.qml:199
 msgctxt "@option:radio setting for manually configuring the font settings"
 msgid "Manual"
-msgstr ""
+msgstr "Handmatig"
 
 #: ../contents/ui/config/ConfigAppearance.qml:209
 msgctxt "@action:button"
 msgid "Choose Style…"
-msgstr ""
+msgstr "Stijl kiezen…"
 
 #: ../contents/ui/config/ConfigAppearance.qml:224
 msgctxt "@info %1 is the font size, %2 is the font family"
 msgid "%1pt %2"
-msgstr ""
+msgstr "%2: %1 pt"
 
 #: ../contents/ui/config/ConfigAppearance.qml:231
 msgid "Keep specified font size"
-msgstr ""
+msgstr "Opgegeven tekstgrootte gebruiken"
 
 #: ../contents/ui/config/ConfigAppearance.qml:237
 msgctxt "@info"
 msgid "Note: size may be reduced if the panel is not thick enough."
-msgstr ""
+msgstr "Let op: de grootte kan afwijken indien het paneel niet hoog genoeg is."
 
 #: ../contents/ui/config/ConfigAppearance.qml:245
 msgid "Text display:"
 msgstr "Tekst tonen:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:253 ../contents/ui/config/dialog/EditCpuText.qml:71
-#: ../contents/ui/config/dialog/EditDiskText.qml:73 ../contents/ui/config/dialog/EditGpuText.qml:72
+#: ../contents/ui/config/ConfigAppearance.qml:253
+#: ../contents/ui/config/dialog/EditCpuText.qml:71
+#: ../contents/ui/config/dialog/EditDiskText.qml:73
+#: ../contents/ui/config/dialog/EditGpuText.qml:72
 #: ../contents/ui/config/dialog/EditMemoryText.qml:79
 msgctxt "Text display"
 msgid "Always"
@@ -272,50 +300,61 @@ msgctxt "Text display"
 msgid "On hover"
 msgstr "Na aanwijzen"
 
-#: ../contents/ui/config/ConfigAppearance.qml:261 ../contents/ui/config/dialog/EditCpuText.qml:75
-#: ../contents/ui/config/dialog/EditDiskText.qml:77 ../contents/ui/config/dialog/EditGpuText.qml:76
+#: ../contents/ui/config/ConfigAppearance.qml:261
+#: ../contents/ui/config/dialog/EditCpuText.qml:75
+#: ../contents/ui/config/dialog/EditDiskText.qml:77
+#: ../contents/ui/config/dialog/EditGpuText.qml:76
 #: ../contents/ui/config/dialog/EditMemoryText.qml:83
 msgctxt "Text display"
 msgid "Hints when hover"
 msgstr "Tip tonen na aanwijzen met cursor"
 
-#: ../contents/ui/config/ConfigAppearance.qml:265 ../contents/ui/config/dialog/EditCpuText.qml:79
-#: ../contents/ui/config/dialog/EditDiskText.qml:81 ../contents/ui/config/dialog/EditGpuText.qml:80
+#: ../contents/ui/config/ConfigAppearance.qml:265
+#: ../contents/ui/config/dialog/EditCpuText.qml:79
+#: ../contents/ui/config/dialog/EditDiskText.qml:81
+#: ../contents/ui/config/dialog/EditGpuText.qml:80
 #: ../contents/ui/config/dialog/EditMemoryText.qml:87
 msgctxt "Text display"
 msgid "Never"
 msgstr "Nooit"
 
-#: ../contents/ui/config/ConfigAppearance.qml:276 ../contents/ui/config/dialog/EditText.qml:30
+#: ../contents/ui/config/ConfigAppearance.qml:276
+#: ../contents/ui/config/dialog/EditText.qml:30
 msgid "Placement:"
 msgstr "Locatie:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:284 ../contents/ui/config/dialog/EditText.qml:38
+#: ../contents/ui/config/ConfigAppearance.qml:284
+#: ../contents/ui/config/dialog/EditText.qml:38
 msgctxt "Text placement"
 msgid "Top left"
 msgstr "Linksboven"
 
-#: ../contents/ui/config/ConfigAppearance.qml:288 ../contents/ui/config/dialog/EditText.qml:42
+#: ../contents/ui/config/ConfigAppearance.qml:288
+#: ../contents/ui/config/dialog/EditText.qml:42
 msgctxt "Text placement"
 msgid "Top right"
 msgstr "Rechtboven"
 
-#: ../contents/ui/config/ConfigAppearance.qml:292 ../contents/ui/config/dialog/EditText.qml:46
+#: ../contents/ui/config/ConfigAppearance.qml:292
+#: ../contents/ui/config/dialog/EditText.qml:46
 msgctxt "Text placement"
 msgid "Bottom left"
 msgstr "Linksonder"
 
-#: ../contents/ui/config/ConfigAppearance.qml:296 ../contents/ui/config/dialog/EditText.qml:50
+#: ../contents/ui/config/ConfigAppearance.qml:296
+#: ../contents/ui/config/dialog/EditText.qml:50
 msgctxt "Text placement"
 msgid "Bottom right"
 msgstr "Rechtsonder"
 
 #: ../contents/ui/config/ConfigAppearance.qml:310
 msgid "Default color:"
-msgstr ""
+msgstr "Standaardkleur:"
 
-#: ../contents/ui/config/ConfigAppearance.qml:311 ../contents/ui/config/ConfigAppearance.qml:323
-#: ../contents/ui/config/ConfigAppearance.qml:328 ../contents/ui/config/dialog/BaseForm.qml:24
+#: ../contents/ui/config/ConfigAppearance.qml:311
+#: ../contents/ui/config/ConfigAppearance.qml:323
+#: ../contents/ui/config/ConfigAppearance.qml:328
+#: ../contents/ui/config/dialog/BaseForm.qml:24
 msgctxt "Chart color"
 msgid "Choose text color"
 msgstr "Kies de tekstkleur"
@@ -332,14 +371,15 @@ msgstr "Waarschuwing:"
 msgid "Critical:"
 msgstr "Kritisch:"
 
-#: ../contents/ui/config/ConfigGraph.qml:102 ../contents/ui/config/ConfigGraph.qml:158
+#: ../contents/ui/config/ConfigGraph.qml:102
+#: ../contents/ui/config/ConfigGraph.qml:158
 msgctxt "@title:window"
 msgid "Edit graph: %1"
 msgstr "Grafiek bewerken: ‘%1’"
 
 #: ../contents/ui/config/ConfigGraph.qml:180
 msgid "New GPU:"
-msgstr "Nieuwe GPU:"
+msgstr "Nieuwe gpu:"
 
 #: ../contents/ui/config/ConfigGraph.qml:215
 msgctxt "@title:window"
@@ -381,7 +421,8 @@ msgctxt "Chart config"
 msgid "Application:"
 msgstr "Programma:"
 
-#: ../contents/ui/config/ConfigMisc.qml:79 ../contents/ui/config/controls/AppSelectorDialog.qml:12
+#: ../contents/ui/config/ConfigMisc.qml:79
+#: ../contents/ui/config/controls/AppSelectorDialog.qml:12
 msgctxt "@title:window"
 msgid "Choose application..."
 msgstr "Kies een programma…"
@@ -389,7 +430,7 @@ msgstr "Kies een programma…"
 #: ../contents/ui/config/ConfigMisc.qml:83
 msgctxt "@info:tooltip"
 msgid "Click to select another application"
-msgstr "Klik om een andere programma te kiezen"
+msgstr "Klik om een ander programma te kiezen"
 
 #: ../contents/ui/config/controls/ColorSelector.qml:30
 msgctxt "Colors"
@@ -448,7 +489,7 @@ msgstr "Kruis aan om aan te passen"
 
 #: ../contents/ui/config/controls/SearchDialog.qml:112
 msgid "No result found."
-msgstr ""
+msgstr "Er zijn geen zoekresultaten."
 
 #: ../contents/ui/config/controls/Thresholds.qml:32
 msgctxt "@info:tooltip"
@@ -473,11 +514,11 @@ msgstr "Kies de seriekleur"
 #: ../contents/ui/config/dialog/BaseForm.qml:35
 msgctxt "Config header"
 msgid "Settings"
-msgstr ""
+msgstr "Instellingen"
 
 #: ../contents/ui/config/dialog/BaseForm.qml:99
 msgid "Size"
-msgstr ""
+msgstr "Grootte"
 
 #: ../contents/ui/config/dialog/BaseForm.qml:104
 msgid "Width:"
@@ -489,23 +530,27 @@ msgstr "Hoogte:"
 
 #: ../contents/ui/config/dialog/BaseForm.qml:176
 msgid "Font size:"
-msgstr ""
+msgstr "Tekstgrootte:"
 
 #: ../contents/ui/config/dialog/BaseForm.qml:182
 msgid "Global"
-msgstr ""
+msgstr "Globaal"
 
 #: ../contents/ui/config/dialog/BaseForm.qml:199
 msgid "Colors"
 msgstr "Kleuren"
 
-#: ../contents/ui/config/dialog/BaseForm.qml:204 ../contents/ui/config/dialog/EditCpu.qml:17
-#: ../contents/ui/config/dialog/EditCpuText.qml:29 ../contents/ui/config/dialog/EditDiskText.qml:30
-#: ../contents/ui/config/dialog/EditMemory.qml:17 ../contents/ui/config/dialog/EditMemoryText.qml:29
+#: ../contents/ui/config/dialog/BaseForm.qml:204
+#: ../contents/ui/config/dialog/EditCpu.qml:17
+#: ../contents/ui/config/dialog/EditCpuText.qml:29
+#: ../contents/ui/config/dialog/EditDiskText.qml:30
+#: ../contents/ui/config/dialog/EditMemory.qml:17
+#: ../contents/ui/config/dialog/EditMemoryText.qml:29
 msgid "First line:"
 msgstr "Eerste regel:"
 
-#: ../contents/ui/config/dialog/BaseForm.qml:223 ../contents/ui/config/dialog/EditGpu.qml:47
+#: ../contents/ui/config/dialog/BaseForm.qml:223
+#: ../contents/ui/config/dialog/EditGpu.qml:47
 msgid "Second Line:"
 msgstr "Tweede regel:"
 
@@ -513,19 +558,23 @@ msgstr "Tweede regel:"
 msgid "Third Line:"
 msgstr "Derde regel:"
 
-#: ../contents/ui/config/dialog/EditCpu.qml:23 ../contents/ui/config/dialog/EditCpuText.qml:35
+#: ../contents/ui/config/dialog/EditCpu.qml:23
+#: ../contents/ui/config/dialog/EditCpuText.qml:35
 msgid "Total usage"
 msgstr "Totaal gebruik"
 
-#: ../contents/ui/config/dialog/EditCpu.qml:27 ../contents/ui/config/dialog/EditCpuText.qml:39
+#: ../contents/ui/config/dialog/EditCpu.qml:27
+#: ../contents/ui/config/dialog/EditCpuText.qml:39
 msgid "System usage"
 msgstr "Systeemgebruik"
 
-#: ../contents/ui/config/dialog/EditCpu.qml:31 ../contents/ui/config/dialog/EditCpuText.qml:43
+#: ../contents/ui/config/dialog/EditCpu.qml:31
+#: ../contents/ui/config/dialog/EditCpuText.qml:43
 msgid "User usage"
 msgstr "Gebruikersgebruik"
 
-#: ../contents/ui/config/dialog/EditCpu.qml:44 ../contents/ui/config/dialog/EditMemory.qml:56
+#: ../contents/ui/config/dialog/EditCpu.qml:44
+#: ../contents/ui/config/dialog/EditMemory.qml:56
 msgid "Second line:"
 msgstr "Tweede regel:"
 
@@ -537,18 +586,21 @@ msgstr "Klokfrequentie van klassieke/p-kernen"
 msgid "E-cores clock frequency"
 msgstr "Klokfrequentie van e-kernen"
 
-#: ../contents/ui/config/dialog/EditCpu.qml:71 ../contents/ui/config/dialog/EditGpu.qml:75
+#: ../contents/ui/config/dialog/EditCpu.qml:71
+#: ../contents/ui/config/dialog/EditGpu.qml:75
 msgid "Third line:"
-msgstr ""
+msgstr "Derde regel:"
 
-#: ../contents/ui/config/dialog/EditCpu.qml:81 ../contents/ui/config/dialog/EditCpuText.qml:47
-#: ../contents/ui/config/dialog/EditGpu.qml:85 ../contents/ui/config/dialog/EditGpuText.qml:48
+#: ../contents/ui/config/dialog/EditCpu.qml:81
+#: ../contents/ui/config/dialog/EditCpuText.qml:47
+#: ../contents/ui/config/dialog/EditGpu.qml:85
+#: ../contents/ui/config/dialog/EditGpuText.qml:48
 msgid "Temperature"
 msgstr "Temperatuur"
 
 #: ../contents/ui/config/dialog/EditCpu.qml:95
 msgid "Clock"
-msgstr ""
+msgstr "Klok"
 
 #: ../contents/ui/config/dialog/EditCpu.qml:100
 msgid "Clock aggregator:"
@@ -576,41 +628,50 @@ msgstr "E-kernen"
 #: ../contents/ui/config/dialog/EditCpu.qml:140
 msgctxt "@info:tooltip"
 msgid ""
-"<b>For Intel gen 12+ only</b><br>Number of E-Cores your CPU have, it's for separate it from P-Cores in clock "
-"frequency average calculation."
+"<b>For Intel gen 12+ only</b><br>Number of E-Cores your CPU have, it's for "
+"separate it from P-Cores in clock frequency average calculation."
 msgstr ""
-"<b>Alleen voor Intel gen 12+</b><br>Het aantal e-kernen van je cpu staat los van het aantal p-kernen in de "
-"klokfrequentieberekening."
+"<b>Alleen voor Intel gen 12+</b><br>Het aantal e-kernen van je cpu staat los "
+"van het aantal p-kernen in de klokfrequentieberekening."
 
-#: ../contents/ui/config/dialog/EditCpu.qml:147 ../contents/ui/config/dialog/EditGpu.qml:100
+#: ../contents/ui/config/dialog/EditCpu.qml:147
+#: ../contents/ui/config/dialog/EditGpu.qml:100
 #: ../contents/ui/config/dialog/EditMemory.qml:93
 msgid "Threshold"
-msgstr ""
+msgstr "Drempelwaarde"
 
-#: ../contents/ui/config/dialog/EditCpu.qml:152 ../contents/ui/config/dialog/EditGpu.qml:105
+#: ../contents/ui/config/dialog/EditCpu.qml:152
+#: ../contents/ui/config/dialog/EditGpu.qml:105
 msgid "Temperature:"
 msgstr "Temperatuur:"
 
-#: ../contents/ui/config/dialog/EditCpuText.qml:18 ../contents/ui/config/dialog/EditDiskText.qml:18
-#: ../contents/ui/config/dialog/EditGpuText.qml:18 ../contents/ui/config/dialog/EditMemoryText.qml:18
+#: ../contents/ui/config/dialog/EditCpuText.qml:18
+#: ../contents/ui/config/dialog/EditDiskText.qml:18
+#: ../contents/ui/config/dialog/EditGpuText.qml:18
+#: ../contents/ui/config/dialog/EditMemoryText.qml:18
 msgid "Title:"
-msgstr ""
+msgstr "Titel:"
 
-#: ../contents/ui/config/dialog/EditCpuText.qml:63 ../contents/ui/config/dialog/EditDiskText.qml:65
-#: ../contents/ui/config/dialog/EditGpuText.qml:64 ../contents/ui/config/dialog/EditMemoryText.qml:71
+#: ../contents/ui/config/dialog/EditCpuText.qml:63
+#: ../contents/ui/config/dialog/EditDiskText.qml:65
+#: ../contents/ui/config/dialog/EditGpuText.qml:64
+#: ../contents/ui/config/dialog/EditMemoryText.qml:71
 msgid "Title when:"
-msgstr ""
+msgstr "Titel indien:"
 
-#: ../contents/ui/config/dialog/EditDisk.qml:22 ../contents/ui/config/dialog/EditNetwork.qml:24
+#: ../contents/ui/config/dialog/EditDisk.qml:22
+#: ../contents/ui/config/dialog/EditNetwork.qml:24
 msgid "Automatic"
 msgstr "Automatisch"
 
-#: ../contents/ui/config/dialog/EditDisk.qml:32 ../contents/ui/config/dialog/EditNetwork.qml:59
+#: ../contents/ui/config/dialog/EditDisk.qml:32
+#: ../contents/ui/config/dialog/EditNetwork.qml:59
 #: ../contents/ui/config/dialog/EditNetworkText.qml:41
 msgid "Swap first and second line"
 msgstr "Eerste en tweede regel verwisselen"
 
-#: ../contents/ui/config/dialog/EditDisk.qml:42 ../contents/ui/config/dialog/EditNetwork.qml:127
+#: ../contents/ui/config/dialog/EditDisk.qml:42
+#: ../contents/ui/config/dialog/EditNetwork.qml:127
 msgid "Maximum transfer speed"
 msgstr "Maximale overdrachtssnelheid"
 
@@ -624,91 +685,107 @@ msgctxt "Chart config"
 msgid "Write:"
 msgstr "Weggeschreven:"
 
-#: ../contents/ui/config/dialog/EditDisk.qml:99 ../contents/ui/config/dialog/EditDiskText.qml:94
+#: ../contents/ui/config/dialog/EditDisk.qml:99
+#: ../contents/ui/config/dialog/EditDiskText.qml:94
 #: ../contents/ui/config/dialog/EditNetworkText.qml:110
 msgid "Show icons (%1 / %2)"
 msgstr "Toon pictogrammen (%1 / %2)"
 
 #: ../contents/ui/config/dialog/EditDiskText.qml:36
 msgid "Usage (B)"
-msgstr ""
+msgstr "Gebruik (B)"
 
-#: ../contents/ui/config/dialog/EditDiskText.qml:40 ../contents/ui/config/dialog/EditGpu.qml:26
+#: ../contents/ui/config/dialog/EditDiskText.qml:40
+#: ../contents/ui/config/dialog/EditGpu.qml:26
 #: ../contents/ui/config/dialog/EditGpuText.qml:36
 msgid "Usage (%)"
-msgstr ""
+msgstr "Gebruik (%)"
 
 #: ../contents/ui/config/dialog/EditDiskText.qml:44
 msgid "I/O (R/W)"
-msgstr ""
+msgstr "I/O (R/W)"
 
 #: ../contents/ui/config/dialog/EditDiskText.qml:48
 msgid "I/O inverted (W/R)"
-msgstr ""
+msgstr "I/O, andersom (W/R)"
 
-#: ../contents/ui/config/dialog/EditGpu.qml:19 ../contents/ui/config/dialog/EditGpuText.qml:29
+#: ../contents/ui/config/dialog/EditGpu.qml:19
+#: ../contents/ui/config/dialog/EditGpuText.qml:29
 msgid "First Line:"
-msgstr ""
+msgstr "Eerste regel:"
 
-#: ../contents/ui/config/dialog/EditGpu.qml:30 ../contents/ui/config/dialog/EditGpu.qml:58
+#: ../contents/ui/config/dialog/EditGpu.qml:30
+#: ../contents/ui/config/dialog/EditGpu.qml:58
 #: ../contents/ui/config/dialog/EditGpuText.qml:40
 msgid "Memory (B)"
 msgstr "Geheugen (B)"
 
-#: ../contents/ui/config/dialog/EditGpu.qml:34 ../contents/ui/config/dialog/EditGpu.qml:62
+#: ../contents/ui/config/dialog/EditGpu.qml:34
+#: ../contents/ui/config/dialog/EditGpu.qml:62
 #: ../contents/ui/config/dialog/EditGpuText.qml:44
 msgid "Memory (%)"
 msgstr "Geheugen (%)"
 
-#: ../contents/ui/config/dialog/EditMemory.qml:23 ../contents/ui/config/dialog/EditMemoryText.qml:35
+#: ../contents/ui/config/dialog/EditMemory.qml:23
+#: ../contents/ui/config/dialog/EditMemoryText.qml:35
 msgid "Physical memory (B)"
 msgstr "Fysiek geheugen (B)"
 
-#: ../contents/ui/config/dialog/EditMemory.qml:27 ../contents/ui/config/dialog/EditMemory.qml:74
+#: ../contents/ui/config/dialog/EditMemory.qml:27
+#: ../contents/ui/config/dialog/EditMemory.qml:74
 #: ../contents/ui/config/dialog/EditMemoryText.qml:39
 msgid "Physical memory (%)"
 msgstr "Fysiek geheugen (%)"
 
-#: ../contents/ui/config/dialog/EditMemory.qml:31 ../contents/ui/config/dialog/EditMemoryText.qml:43
+#: ../contents/ui/config/dialog/EditMemory.qml:31
+#: ../contents/ui/config/dialog/EditMemoryText.qml:43
 msgid "Application memory (B)"
 msgstr "Programmageheugen (B)"
 
-#: ../contents/ui/config/dialog/EditMemory.qml:35 ../contents/ui/config/dialog/EditMemory.qml:78
+#: ../contents/ui/config/dialog/EditMemory.qml:35
+#: ../contents/ui/config/dialog/EditMemory.qml:78
 #: ../contents/ui/config/dialog/EditMemoryText.qml:47
 msgid "Application memory (%)"
 msgstr "Programmageheugen (%)"
 
-#: ../contents/ui/config/dialog/EditMemory.qml:39 ../contents/ui/config/dialog/EditMemory.qml:66
+#: ../contents/ui/config/dialog/EditMemory.qml:39
+#: ../contents/ui/config/dialog/EditMemory.qml:66
 #: ../contents/ui/config/dialog/EditMemoryText.qml:51
 msgid "Swap (B)"
 msgstr "Wisselgeheugen (B)"
 
-#: ../contents/ui/config/dialog/EditMemory.qml:43 ../contents/ui/config/dialog/EditMemory.qml:70
+#: ../contents/ui/config/dialog/EditMemory.qml:43
+#: ../contents/ui/config/dialog/EditMemory.qml:70
 #: ../contents/ui/config/dialog/EditMemoryText.qml:55
 msgid "Swap (%)"
 msgstr "Wisselgeheugen (%)"
 
 #: ../contents/ui/config/dialog/EditMemory.qml:98
 msgid "Memory usage:"
-msgstr ""
+msgstr "Geheugengebruik:"
 
-#: ../contents/ui/config/dialog/EditNetwork.qml:69 ../contents/ui/config/dialog/EditNetworkText.qml:51
+#: ../contents/ui/config/dialog/EditNetwork.qml:69
+#: ../contents/ui/config/dialog/EditNetworkText.qml:51
 msgid "Unit:"
 msgstr "Eenheid:"
 
-#: ../contents/ui/config/dialog/EditNetwork.qml:75 ../contents/ui/config/dialog/EditNetworkText.qml:57
+#: ../contents/ui/config/dialog/EditNetwork.qml:75
+#: ../contents/ui/config/dialog/EditNetworkText.qml:57
 msgid "kibibyte (KiB/s)"
 msgstr "kibibyte (KiB/s)"
 
-#: ../contents/ui/config/dialog/EditNetwork.qml:79 ../contents/ui/config/dialog/EditNetworkText.qml:61
+#: ../contents/ui/config/dialog/EditNetwork.qml:79
+#: ../contents/ui/config/dialog/EditNetworkText.qml:61
 msgid "kilobit (Kbps)"
 msgstr "kilobit (Kbps)"
 
-#: ../contents/ui/config/dialog/EditNetwork.qml:83 ../contents/ui/config/dialog/EditNetworkText.qml:65
+#: ../contents/ui/config/dialog/EditNetwork.qml:83
+#: ../contents/ui/config/dialog/EditNetworkText.qml:65
 msgid "kilobyte (KBps)"
 msgstr "kilobyte (KBps)"
 
-#: ../contents/ui/config/dialog/EditNetwork.qml:98 ../contents/ui/config/dialog/EditNetworkText.qml:80
+#: ../contents/ui/config/dialog/EditNetwork.qml:98
+#: ../contents/ui/config/dialog/EditNetworkText.qml:80
 msgid "Network interfaces:"
 msgstr "Netwerkkaarten:"
 
@@ -724,17 +801,17 @@ msgstr "Verstuurd:"
 
 #: ../contents/ui/config/dialog/EditText.qml:18
 msgid "Value:"
-msgstr ""
+msgstr "Waarde:"
 
 #: ../contents/ui/config/dialog/EditText.qml:54
 msgctxt "Text placement"
 msgid "Middle left"
-msgstr ""
+msgstr "Links, midden"
 
 #: ../contents/ui/config/dialog/EditText.qml:58
 msgctxt "Text placement"
 msgid "Middle right"
-msgstr ""
+msgstr "Rechts, midden"
 
 #: ../contents/ui/config/GraphListPage.qml:20
 msgid "The graphs as been upgraded to new version, please save it."
@@ -744,7 +821,8 @@ msgstr "De grafiek is bijgewerkt naar een nieuwe versie. Bewaar de versie."
 msgid "Fix..."
 msgstr "Fix..."
 
-#: ../contents/ui/config/GraphListPage.qml:85 ../contents/ui/config/GraphListPage.qml:95
+#: ../contents/ui/config/GraphListPage.qml:85
+#: ../contents/ui/config/GraphListPage.qml:95
 msgctxt "@info:tooltip"
 msgid "Edit \"%1\" graph"
 msgstr "‘%1’ bewerken"
@@ -770,4 +848,4 @@ msgstr "Grafiek toevoegen…"
 #: ../contents/ui/config/GraphListPage.qml:217
 msgctxt "Chart name"
 msgid "Text [%1]"
-msgstr ""
+msgstr "Tekst (%1)"
