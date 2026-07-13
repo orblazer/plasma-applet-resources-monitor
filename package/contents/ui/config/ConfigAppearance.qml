@@ -42,12 +42,6 @@ KCM.AbstractKCM {
     property alias cfg_warningColor: warningColor.value
     property alias cfg_criticalColor: criticalColor.value
 
-    //#region // HACK: Present to suppress errors (https://bugs.kde.org/show_bug.cgi?id=484541)
-    property var cfg_graphs
-    property var cfg_updateInterval
-    property var cfg_clickApplication
-    //#endregion
-
     // Tab bar
     header: PlasmaComponents.TabBar {
         id: bar
@@ -348,4 +342,32 @@ KCM.AbstractKCM {
             fontChosen = font;
         }
     }
+
+    //#region // HACK: Present to suppress errors (https://bugs.kde.org/show_bug.cgi?id=494417 / https://invent.kde.org/plasma/plasma-desktop/-/merge_requests/2913)
+    property var cfg_abbreviateDefault
+    property var cfg_autoFontAndSizeDefault
+    property var cfg_boldTextDefault
+    property var cfg_clickApplication
+    property var cfg_clickApplicationDefault
+    property var cfg_criticalColorDefault
+    property var cfg_displaymentDefault
+    property var cfg_enableShadowsDefault
+    property var cfg_fillPanelDefault
+    property var cfg_fontFamilyDefault
+    property var cfg_fontSizeDefault
+    property var cfg_fontStyleNameDefault
+    property var cfg_fontWeightDefault
+    property var cfg_graphFillOpacityDefault
+    property var cfg_graphSpacingDefault
+    property var cfg_graphs
+    property var cfg_graphsDefault
+    property var cfg_historyAmountDefault
+    property var cfg_italicTextDefault
+    property var cfg_keepFontSizeDefault
+    property var cfg_placementDefault
+    property var cfg_textColorDefault
+    property var cfg_updateInterval
+    property var cfg_updateIntervalDefault
+    property var cfg_warningColorDefault
+    //#endregion
 }

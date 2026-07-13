@@ -14,25 +14,6 @@ GraphListPage {
     property var cfg_graphs: "[]"
     property var graphs: []
 
-    //#region // HACK: Present to suppress errors (https://bugs.kde.org/show_bug.cgi?id=484541)
-    property var cfg_fillPanel
-    property var cfg_historyAmount
-    property var cfg_customGraphWidth
-    property var cfg_graphWidth
-    property var cfg_customGraphHeight
-    property var cfg_graphHeight
-    property var cfg_graphSpacing
-    property var cfg_graphFillOpacity
-    property var cfg_enableShadows
-    property var cfg_fontScale
-    property var cfg_placement
-    property var cfg_displayment
-    property var cfg_warningColor
-    property var cfg_criticalColor
-    property var cfg_updateInterval
-    property var cfg_clickApplication
-    //#endregion
-
     // Remove upgrade message after saved
     function saveConfig() {
         graphsUpgraded = false;
@@ -295,4 +276,51 @@ GraphListPage {
         root.addItem(item, availableGraphs.find(item.type, item.device ?? item.type));
         updateGraphsSetting();
     }
+
+
+    //#region // HACK: Present to suppress errors (https://bugs.kde.org/show_bug.cgi?id=494417 / https://invent.kde.org/plasma/plasma-desktop/-/merge_requests/2913)
+    property var cfg_abbreviate
+    property var cfg_abbreviateDefault
+    property var cfg_autoFontAndSize
+    property var cfg_autoFontAndSizeDefault
+    property var cfg_boldText
+    property var cfg_boldTextDefault
+    property var cfg_clickApplication
+    property var cfg_clickApplicationDefault
+    property var cfg_criticalColor
+    property var cfg_criticalColorDefault
+    property var cfg_displayment
+    property var cfg_displaymentDefault
+    property var cfg_enableShadows
+    property var cfg_enableShadowsDefault
+    property var cfg_fillPanel
+    property var cfg_fillPanelDefault
+    property var cfg_fontFamily
+    property var cfg_fontFamilyDefault
+    property var cfg_fontSize
+    property var cfg_fontSizeDefault
+    property var cfg_fontStyleName
+    property var cfg_fontStyleNameDefault
+    property var cfg_fontWeight
+    property var cfg_fontWeightDefault
+    property var cfg_graphFillOpacity
+    property var cfg_graphFillOpacityDefault
+    property var cfg_graphSpacing
+    property var cfg_graphSpacingDefault
+    property var cfg_graphsDefault
+    property var cfg_historyAmount
+    property var cfg_historyAmountDefault
+    property var cfg_italicText
+    property var cfg_italicTextDefault
+    property var cfg_keepFontSize
+    property var cfg_keepFontSizeDefault
+    property var cfg_placement
+    property var cfg_placementDefault
+    property var cfg_textColor
+    property var cfg_textColorDefault
+    property var cfg_updateInterval
+    property var cfg_updateIntervalDefault
+    property var cfg_warningColor
+    property var cfg_warningColorDefault
+    //#endregion
 }
