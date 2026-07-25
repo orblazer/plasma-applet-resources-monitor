@@ -2,9 +2,6 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls as QQC2
 import org.kde.kirigami as Kirigami
-import org.kde.kirigami.platform as Platform
-import org.kde.kirigami.controls as KirigamiControls
-import org.kde.kirigami.primitives as Primitives
 
 Kirigami.Dialog {
     id: root
@@ -30,14 +27,14 @@ Kirigami.Dialog {
     contentItem: ColumnLayout {
         spacing: 0
 
-        KirigamiControls.SearchField {
+        Kirigami.SearchField {
             id: searchField
 
             Layout.fillWidth: true
 
             background: null
 
-            Layout.margins: Platform.Units.smallSpacing
+            Layout.margins: Kirigami.Units.smallSpacing
 
             Keys.onDownPressed: {
                 const listViewHadFocus = listView.activeFocus;
@@ -79,7 +76,7 @@ Kirigami.Dialog {
             autoAccept: false
         }
 
-        Primitives.Separator {
+        Kirigami.Separator {
             Layout.fillWidth: true
         }
 
@@ -89,7 +86,7 @@ Kirigami.Dialog {
             Keys.forwardTo: searchField
 
             background: Rectangle {
-                color: Platform.Theme.alternateBackgroundColor
+                color: Kirigami.Theme.alternateBackgroundColor
             }
 
             ListView {
@@ -103,10 +100,10 @@ Kirigami.Dialog {
 
                 cacheBuffer: 10000
 
-                KirigamiControls.PlaceholderMessage {
+                Kirigami.PlaceholderMessage {
                     id: placeholder
                     anchors.centerIn: parent
-                    width: parent.width - Platform.Units.gridUnit * 4
+                    width: parent.width - Kirigami.Units.gridUnit * 4
                     icon.name: 'system-search-symbolic'
                     visible: listView.count === 0 && text.length > 0
                     text: i18n("No result found.")

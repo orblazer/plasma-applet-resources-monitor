@@ -2,8 +2,6 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls as QQC2
 import org.kde.kirigami as Kirigami
-import org.kde.kirigami.platform as Platform
-import org.kde.kirigami.primitives as Primitives
 import org.kde.plasma.components as PlasmaComponents
 import "../controls" as RMControls
 
@@ -41,7 +39,7 @@ ColumnLayout {
         }
     }
 
-    Primitives.Separator {
+    Kirigami.Separator {
         Layout.fillWidth: true
     }
 
@@ -51,7 +49,7 @@ ColumnLayout {
         Layout.fillHeight: true
 
         background: Rectangle {
-            color: Platform.Theme.alternateBackgroundColor
+            color: Kirigami.Theme.alternateBackgroundColor
         }
 
         StackLayout {
@@ -66,7 +64,7 @@ ColumnLayout {
                 Loader {
                     id: propertiesLoader
                     Layout.fillWidth: true
-                    Layout.margins: Platform.Units.gridUnit
+                    Layout.margins: Kirigami.Units.gridUnit
                 }
             }
 
@@ -76,9 +74,9 @@ ColumnLayout {
 
                 Loader {
                     id: appearancePropsLoader
-                    Layout.topMargin: Platform.Units.gridUnit
-                    Layout.leftMargin: Platform.Units.gridUnit
-                    Layout.rightMargin: Platform.Units.gridUnit
+                    Layout.topMargin: Kirigami.Units.gridUnit
+                    Layout.leftMargin: Kirigami.Units.gridUnit
+                    Layout.rightMargin: Kirigami.Units.gridUnit
 
                     Layout.fillWidth: true
                     onLoaded: {
@@ -90,9 +88,9 @@ ColumnLayout {
 
                 Kirigami.FormLayout {
                     id: appearance
-                    Layout.bottomMargin: Platform.Units.gridUnit
-                    Layout.leftMargin: Platform.Units.gridUnit
-                    Layout.rightMargin: Platform.Units.gridUnit
+                    Layout.bottomMargin: Kirigami.Units.gridUnit
+                    Layout.leftMargin: Kirigami.Units.gridUnit
+                    Layout.rightMargin: Kirigami.Units.gridUnit
 
                     // Sizes
                     Kirigami.Separator {
