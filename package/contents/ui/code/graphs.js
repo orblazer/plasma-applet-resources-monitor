@@ -24,7 +24,7 @@ const VERSION = 4; //? Bump when some settings changes in graphs structure
  * @property {"memory"} type The graph type
  * @property {[number, number]} sizes The graph size ([width, height], -1 = automatic)
  * @property {[string, string]} colors The graph colors (ref: color, swap)
- * @property {[("physical"|"physical-percent"|"application"|"application-percent"|"swap"|"swap-percent"), ("none"|"swap"|"swap-percent"|"physical-percent"|"application-percent")]} sensorsType The sensors type (ref: memory, swap)
+ * @property {[("physical"|"physical-percent"|"application"|"application-percent"|"swap"|"swap-percent"), ("none"|"physical"|"physical-percent"|"application"|"application-percent"|"swap"|"swap-percent")]} sensorsType The sensors type (ref: memory, swap)
  * @property {[number, number]} thresholds The usage thresholds
  * @property {number} fontSize The font size
  */

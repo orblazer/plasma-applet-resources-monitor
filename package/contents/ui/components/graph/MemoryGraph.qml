@@ -29,7 +29,7 @@ RMBaseGraph.TwoSensorsGraph {
 
     // Graph options
     sensorSlots: [_toSensor(sensorsType[0]), _toSensor(sensorsType[1])]
-    secondChartVisible: !firstIsSwap && secondIsSwap
+    secondChartVisible: secondIsSwap || !fieldInPercent[1]
 
     // Override methods, for handle memory in percent
     _formatValue: (index, value) => {

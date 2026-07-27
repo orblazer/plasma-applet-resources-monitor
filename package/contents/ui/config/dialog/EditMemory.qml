@@ -63,6 +63,22 @@ BaseForm {
                     "value": "none"
                 },
                 {
+                    "label": i18n("Physical memory (B)"),
+                    "value": "physical"
+                },
+                {
+                    "label": i18n("Physical memory (%)"),
+                    "value": "physical-percent"
+                },
+                {
+                    "label": i18n("Application memory (B)"),
+                    "value": "application"
+                },
+                {
+                    "label": i18n("Application memory (%)"),
+                    "value": "application-percent"
+                },
+                {
                     "label": i18n("Swap (B)"),
                     "value": "swap"
                 },
@@ -70,14 +86,6 @@ BaseForm {
                     "label": i18n("Swap (%)"),
                     "value": "swap-percent"
                 },
-                {
-                    "label": i18n("Physical memory (%)"),
-                    "value": "physical-percent"
-                },
-                {
-                    "label": i18n("Application memory (%)"),
-                    "value": "application-percent"
-                }
             ]
 
             Component.onCompleted: currentIndex = indexOfValue(root.item.sensorsType[1])
