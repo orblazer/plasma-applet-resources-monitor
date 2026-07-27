@@ -5,12 +5,12 @@ import "../code/graphs.js" as GraphFns
 ListModel {
     id: root
 
-    signal initialized()
+    signal initialized
 
     Component.onCompleted: {
         // Add constant graphs (GPU and disks added with "_privateModel")
         ["text", "cpu", "cpuText", "memory", "memoryText", "network", "networkText"].forEach(type => append(GraphFns.getDisplayInfo(type, i18nc)));
-        initialized()
+        initialized();
     }
 
     function find(type, device) {
@@ -120,9 +120,11 @@ ListModel {
         }
 
         onModelReset: () => {
+            let sensors = Object.entries(foundedSensors);
+
             // Check if disks have duplicated name and put the display name in sensors list
             const disksNameCount = {};
-            for (const [sensorId, sensorData] of Object.entries(foundedSensors)) {
+            for (const [sensorId, sensorData] of sensors) {
                 if (sensorData.type === "disk" && sensorData.device !== "all") {
                     const deviceName = data(sensorData.index.parent, Qt.DisplayRole);
                     disksNameCount[deviceName] = (disksNameCount[deviceName] ?? 0) + 1;
@@ -131,50 +133,7 @@ ListModel {
             }
 
             // Sort sensors to group by type and sort devices
-            const sensors = Object.entries(foundedSensors).sort((a, b) => {
-                if (a[1].type === b[1].type) {
-                    // Put "all" device in first position
-                    if (a[1].device === "all" && b[1].device !== "all") {
-                        return -1;
-                    } else if (a[1].device !== "all" && b[1].device === "all") {
-                        return 1;
-                    }
-
-                    // Special case for disks, this put NVMEs first, then disk, then partions, and sort on device name
-                    if (a[1].type === "disk") {
-                        if (a[1].device.startsWith("nvme") && !b[1].device.startsWith("nvme")) {
-                            return -1;
-                        } else if (!a[1].device.startsWith("nvme") && b[1].device.startsWith("nvme")) {
-                            return 1;
-                        }
-                        if (a[1].device.startsWith("sd") && !b[1].device.startsWith("sd")) {
-                            return -1;
-                        } else if (!a[1].device.startsWith("sd") && b[1].device.startsWith("sd")) {
-                            return 1;
-                        }
-
-                        // Sort devices name
-                        if (a[1].deviceName < b[1].deviceName) {
-                            return -1;
-                        } else if (a[1].deviceName > b[1].deviceName) {
-                            return 1;
-                        }
-                    }
-
-                    // Sort devices
-                    if (a[1].device < b[1].device) {
-                        return -1;
-                    } else if (a[1].device > b[1].device) {
-                        return 1;
-                    }
-                } else if (a[1].type === "gpu" && b[1].type !== "gpu") {
-                    return -1;
-                } else if (a[1].type !== "gpu" && b[1].type === "gpu") {
-                    return 1;
-                }
-
-                return 0;
-            });
+            sensors = sortEntries(sensors);
 
             // Process sensors list
             for (const [sensorId, sensorData] of sensors) {
@@ -214,6 +173,55 @@ ListModel {
             }
         }
 
+        function sortEntries(entries) {
+            const typeOrder = {
+                gpu: 0,
+                disk: 1
+            };
+            const compareOptions = {
+                numeric: true,
+                sensitivity: "base"
+            };
+
+            function diskRank(device) {
+                if (device === "all")
+                    return 0;
+                if (device.startsWith("nvme"))
+                    return 1;
+                if (/^(sd[a-z]|hd[a-z]|vd[a-z]|xvd[a-z]|fd[a-z])(\d+)?$/i.test(device))
+                    return 2;
+                return 3;
+            }
+
+            return entries.sort((rA, rB) => {
+                const [, a] = rA;
+                const [, b] = rB;
+
+                const typeCmp = (typeOrder[a.type] ?? 99) - (typeOrder[b.type] ?? 99);
+                if (typeCmp !== 0)
+                    return typeCmp;
+
+                if (a.type === "gpu") {
+                    if (a.device === "all" && b.device !== "all")
+                        return -1;
+                    if (b.device === "all" && a.device !== "all")
+                        return 1;
+                    return a.device.localeCompare(b.device, undefined, compareOptions);
+                }
+
+                if (a.type === "disk") {
+                    const ra = diskRank(a.device);
+                    const rb = diskRank(b.device);
+                    if (ra !== rb)
+                        return ra - rb;
+
+                    return a.device.localeCompare(b.device, undefined, compareOptions);
+                }
+
+                return 0;
+            });
+        }
+
         function test([type, device, sensor]) {
             // Skip "all" pattern sensors
             if (device === "(?!all).*") {
@@ -231,6 +239,7 @@ ListModel {
                 }
                 return sensor === "name";
             }
+
             return false;
         }
     }
