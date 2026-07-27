@@ -147,27 +147,31 @@ ListModel {
                 const section = data(categoryIndex, Qt.DisplayRole);
 
                 // Retrieve device name
+                let type = sensorData.type;
                 let deviceName = sensorData.device;
                 if (sensorData.device === "all") {
                     deviceName = i18n("All");
-                } else if (sensorData.type === "disk") {
+                } else if (type === "disk") {
                     deviceName = sensorData.deviceName;
 
                     // Add partition ID if name is duplicated
                     if (disksNameCount[deviceName] > 1) {
                         deviceName += ` (${sensorData.device})`;
                     }
+                } else if (type === "power") {
+                    type = "batteryText"; // Change type cause only text variant exist and is only for battery
+                    deviceName = data(sensorData.index.parent, Qt.DisplayRole);
                 }
 
                 // Add graphs
-                root.append(GraphFns.getDisplayInfo(sensorData.type, i18nc, section, sensorData.device, deviceName));
+                root.append(GraphFns.getDisplayInfo(type, i18nc, section, sensorData.device, deviceName));
                 // Add text variant
-                if (sensorData.type === "gpu" || sensorData.type === "disk") {
-                    root.append(GraphFns.getDisplayInfo(sensorData.type + "Text", i18nc, section, sensorData.device, deviceName));
+                if (type === "gpu" || type === "disk") {
+                    root.append(GraphFns.getDisplayInfo(type + "Text", i18nc, section, sensorData.device, deviceName));
                 }
 
                 // Query GPU name from sensor
-                if (sensorData.type === "gpu" && sensorData.device !== "all") {
+                if (type === "gpu" && sensorData.device !== "all") {
                     root._gpuNameFetcher.fetch(sensorId, root.count - 2, section, sensorData.device);
                 }
             }
@@ -175,8 +179,9 @@ ListModel {
 
         function sortEntries(entries) {
             const typeOrder = {
-                gpu: 0,
-                disk: 1
+                power: 0,
+                gpu: 1,
+                disk: 2
             };
             const compareOptions = {
                 numeric: true,
@@ -206,7 +211,6 @@ ListModel {
                         return -1;
                     if (b.device === "all" && a.device !== "all")
                         return 1;
-                    return a.device.localeCompare(b.device, undefined, compareOptions);
                 }
 
                 if (a.type === "disk") {
@@ -214,11 +218,9 @@ ListModel {
                     const rb = diskRank(b.device);
                     if (ra !== rb)
                         return ra - rb;
-
-                    return a.device.localeCompare(b.device, undefined, compareOptions);
                 }
 
-                return 0;
+                return a.device.localeCompare(b.device, undefined, compareOptions);
             });
         }
 
@@ -239,6 +241,8 @@ ListModel {
                 if (device === "all") {
                     return sensor === "used";
                 }
+                return sensor === "name";
+            case "power":
                 return sensor === "name";
             }
 

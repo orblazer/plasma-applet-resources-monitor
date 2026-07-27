@@ -3,6 +3,7 @@ import QtQuick.Layouts
 import QtQuick.Controls as QQC2
 import org.kde.kirigami as Kirigami
 import org.kde.kcmutils as KCMUtils
+import "../code/graphs.js" as GraphFns
 
 KCMUtils.ScrollViewKCM {
     id: root
@@ -200,18 +201,23 @@ KCMUtils.ScrollViewKCM {
      */
     function _toElement(graph, info) {
         if (typeof info === "undefined") {
-            // Fallback info
-            return {
-                type: graph.type,
-                name: `[${graph.type}${graph.device ? `:${graph.device}` : ""}]`,
-                icon: "unknown",
-                fallbackIcon: "unknown",
-                section: "unknown",
-                device: graph.device ?? graph.type,
-                needFix: (graph.type === "gpu" || graph.type === "gpuText") && graph.device !== "all"
-            };
+            if (graph.type === "batteryText") {
+                // Keep info for battery, in case of disconnected devices
+                info = GraphFns.getDisplayInfo(graph.type, i18nc, "", graph.device, "? " + graph.device + " ?");
+            } else {
+                // Fallback info
+                return {
+                    type: graph.type,
+                    name: `[${graph.type}${graph.device ? `:${graph.device}` : ""}]`,
+                    icon: "unknown",
+                    fallbackIcon: "unknown",
+                    section: "unknown",
+                    device: graph.device ?? graph.type,
+                    needFix: (graph.type === "gpu" || graph.type === "gpuText") && graph.device !== "all"
+                };
+            }
         }
-        if (graph.type == "text") {
+        if (graph.type === "text") {
             return Object.assign({}, info, {
                 type: graph.type,
                 name: i18nc("Chart name", "Text [%1]", graph.device),

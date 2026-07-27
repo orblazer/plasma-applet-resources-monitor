@@ -22,6 +22,7 @@ Item {
     property var labelsVisibleWhenZero: [true, true, true]
     property int thresholdIndex: -1 // Sensor index used for threshold
     property var thresholds: [] // format: [warning, critical]
+    property bool thresholdInverted: false // Use threshold as below value instead above
     property int fontSize: -1 // Font size
 
     // Config aliases
@@ -143,12 +144,22 @@ Item {
             return;
         } else if (index === thresholdIndex && thresholds.length > 0) {
             // Handle threshold value
-            if (value >= thresholds[1]) {
-                label.overrideColor(thresholdCriticalColor);
-            } else if (value >= thresholds[0]) {
-                label.overrideColor(thresholdWarningColor);
+            if (thresholdInverted) {
+                if (value <= thresholds[1]) {
+                    label.overrideColor(thresholdCriticalColor);
+                } else if (value <= thresholds[0]) {
+                    label.overrideColor(thresholdWarningColor);
+                } else {
+                    label.resetColor();
+                }
             } else {
-                label.resetColor();
+                if (value >= thresholds[1]) {
+                    label.overrideColor(thresholdCriticalColor);
+                } else if (value >= thresholds[0]) {
+                    label.overrideColor(thresholdWarningColor);
+                } else {
+                    label.resetColor();
+                }
             }
         }
 

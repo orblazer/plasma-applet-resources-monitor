@@ -125,6 +125,19 @@ const VERSION = 4; //? Bump when some settings changes in graphs structure
  * @property {number} fontSize The font size
  */
 /**
+ * @typedef {object} BatteryText
+ * @property {number} _v The version of graph
+ * @property {"batteryText"} type The graph type
+ * @property {[number, number]} sizes The graph size ([width, height], -1 = automatic)
+ * @property {[string, string]} colors The graph colors (ref: label, usage)
+ * @property {[("percentage"|"energy-rate"|"time"), boolean]} sensorsType The sensors type (ref: type, hideWhenAbsent)
+ * @property {string} device The device ID (eg. battery_BAT0)
+ * @property {[number, number]} thresholds The battery percentage thresholds
+ * @property {string} title The title of graph
+ * @property {("always"|"hints"|"never")} titleWhen The option when title is displayed
+ * @property {number} fontSize The font size
+ */
+/**
  * @typedef {object} Text
  * @property {number} _v The version of graph
  * @property {"text"} type The graph type
@@ -135,7 +148,7 @@ const VERSION = 4; //? Bump when some settings changes in graphs structure
  * @property {number} fontSize The font size
  */
 
-/** @typedef {CpuGraph|CpuText|MemoryGraph|MemoryText|GpuGraph|NetworkGraph|NetworkText|DiskGraph|DiskText|Text} Graph */
+/** @typedef {CpuGraph|CpuText|MemoryGraph|MemoryText|GpuGraph|NetworkGraph|NetworkText|DiskGraph|DiskText|BatteryText|Text} Graph */
 /**
  * @typedef {object} GraphInfo
  * @property {Graph["type"]} type
@@ -368,6 +381,13 @@ function create(type, device, fontSize) {
       item.title = "Disk";
       item.titleWhen = "always";
       break;
+    case "batteryText":
+      item.colors = ["textColor", "highlightColor"];
+      item.sensorsType = ["percentage", true];
+      item.thresholds = [15, 5];
+      item.title = "Battery";
+      item.titleWhen = "always";
+      break;
     case "text":
       item.color = "textColor";
       item.device = "Text";
@@ -383,7 +403,8 @@ function create(type, device, fontSize) {
     type === "gpu" ||
     type === "gpuText" ||
     type === "disk" ||
-    type === "diskText"
+    type === "diskText" ||
+    type === "batteryText"
   ) {
     if (!device?.trim()) {
       throw new Error(`Device is required for ${type} graph`);
@@ -466,6 +487,11 @@ function getDisplayInfo(
       result.name = i18nc("Chart name", "Disk (text) [%1]", deviceName);
       result.icon = "drive-harddisk-symbolic";
       result.fallbackIcon = "drive-harddisk";
+      break;
+    case "batteryText":
+      result.name = i18nc("Chart name", "Battery (text) [%1]", deviceName);
+      result.icon = "battery-symbolic";
+      result.fallbackIcon = "battery";
       break;
     case "text":
       result.name = i18nc("Chart name", "Text");

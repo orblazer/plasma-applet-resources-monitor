@@ -22,6 +22,7 @@ Item {
 
     // Minimum width of widget
     required property var sensorsFormat
+    property var customWidth: 0
     readonly property int minimumWidth: {
         if (!textContainer.enabled) {
             return 0;
@@ -30,7 +31,7 @@ Item {
         let maxLength = 0;
         for (const index in sensorsType) {
             if (sensorsFormat[index] && sensorsType[index] != "none") {
-                const length = Formatter.Formatter.maximumLength(sensorsFormat[index], textContainer.font);
+                const length = sensorsFormat[index] == -1 ? customWidth : Formatter.Formatter.maximumLength(sensorsFormat[index], textContainer.font);
                 if (length > maxLength) {
                     maxLength = length;
                 }

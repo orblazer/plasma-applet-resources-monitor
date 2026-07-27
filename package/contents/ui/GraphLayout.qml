@@ -22,14 +22,25 @@ Flow {
             required property var modelData
 
             width: {
-                if (modelData.sizes[0] !== -1) return modelData.sizes[0]
-                if (root.isVertical) return root.parentWidth
-                if (modelData.type.endsWith("Text"))  {
-                    return Math.max(item?.minimumWidth ?? 0, root.parentHeight)
-                }
-                return Math.max(item?.minimumWidth ?? 0, Math.round(root.parentHeight * root.widthRatio))
+                if (!item?.visible)
+                    return 0;
+                if (modelData.sizes[0] !== -1)
+                    return modelData.sizes[0];
+                if (root.isVertical)
+                    return root.parentWidth;
+                if (modelData.type.endsWith("Text"))
+                    return Math.max(item?.minimumWidth ?? 0, root.parentHeight);
+
+                return Math.max(item?.minimumWidth ?? 0, Math.round(root.parentHeight * root.widthRatio));
             }
-            height: modelData.sizes[1] === -1 ? (root.isVertical ? root.parentWidth : root.parentHeight) : modelData.sizes[1]
+            height: {
+                if (!item?.visible)
+                    return 0;
+                if (modelData.sizes[1] !== -1)
+                    return modelData.sizes[1];
+
+                return root.isVertical ? root.parentWidth : root.parentHeight;
+            }
 
             Component.onCompleted: {
                 const typeCapitalized = modelData.type.charAt(0).toUpperCase() + modelData.type.slice(1);
