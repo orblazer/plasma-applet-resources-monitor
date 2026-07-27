@@ -12,7 +12,7 @@ RMBaseGraph.TwoSensorsGraph {
     property bool secondIsSwap: sensorsType[1].startsWith("swap")
     property var fieldInPercent: [sensorsType[0].endsWith("-percent"), sensorsType[1].endsWith("-percent")]
 
-    sensorsFormat: [(fieldInPercent[0] ? Formatter.Units.UnitPercent : Formatter.Units.UnitByte), (fieldInPercent[1] ? Formatter.Units.UnitByte : null)]
+    sensorsFormat: [(fieldInPercent[0] ? Formatter.Units.UnitPercent : Formatter.Units.UnitByte), (sensorsType[1] == "none" ? null : (fieldInPercent[1] ? Formatter.Units.UnitPercent : Formatter.Units.UnitByte))]
 
     // Labels
     textContainer {
