@@ -231,6 +231,8 @@ ListModel {
             case "gpu":
                 if (device === "all") {
                     return sensor === "usage";
+                } else if (device === "gpu\\d+") { // Ignore invalid device
+                    return false;
                 }
                 return sensor === "name";
             case "disk":
