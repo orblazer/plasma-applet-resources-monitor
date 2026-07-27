@@ -63,17 +63,11 @@ RMControls.SearchDialog {
 
         width: ListView.view.width
 
-        // Disable when graph is already present
-        enabled: !root.exist(model.type, model.device)
         checked: root.isSelected(model.type, model.device)
         text: model.name
         icon.source: model.icon
 
-        onClicked: {
-            if (enabled) {
-                root.toggleSelection(model.type, model.device);
-            }
-        }
+        onClicked: root.toggleSelection(model.type, model.device)
 
         contentItem: RowLayout {
             spacing: Kirigami.Units.smallSpacing
@@ -104,25 +98,5 @@ RMControls.SearchDialog {
     function toggleSelection(type, device) {
         const key = itemKey(type, device);
         selectedItems[key] = !selectedItems[key] ?? true;
-    }
-
-    /**
-     * Check if element of an specified device exist
-     * @param {string} type The graph type want to be added
-     * @param {string} device The graph device (device = type when not GPU or disk) want to be checked
-     * @returns {boolean} The graph already exist or not
-     */
-    function exist(type, device) {
-        // Text can be added multiple time
-        if (type == "text") {
-            return false;
-        }
-
-        for (const item of graphs) {
-            if (item.type == type && (item.device ?? item.type) == device) {
-                return true;
-            }
-        }
-        return false;
     }
 }
