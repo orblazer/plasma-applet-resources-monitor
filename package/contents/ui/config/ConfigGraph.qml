@@ -11,7 +11,7 @@ GraphListPage {
     property bool graphsUpgraded: false
 
     // Config properties
-    property var cfg_graphs: "[]"
+    property string cfg_graphs
     property var graphs: []
 
     // Remove upgrade message after saved
@@ -28,7 +28,7 @@ GraphListPage {
             Object.values(root.graphs).forEach(v => root.addItem(v, find(v.type, v.device ?? v.type)));
             root.graphsUpgraded = root.graphs[0]?._changed ?? false;
             if (root.graphsUpgraded) {
-                root.updateGraphsSetting();
+                Qt.callLater(() => root.updateGraphsSetting());
             }
 
             // Uncomment for development
@@ -75,6 +75,12 @@ GraphListPage {
             removePrompt.openFor(payload.index, payload.name);
             break;
         }
+    }
+
+    header: Kirigami.InlineMessage {
+        visible: graphsUpgraded
+        Layout.fillWidth: true
+        text: i18n("The graphs as been upgraded to new version, please save it.")
     }
 
     // Add dialog

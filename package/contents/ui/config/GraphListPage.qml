@@ -10,16 +10,8 @@ KCMUtils.ScrollViewKCM {
     // HACK: Provides footer separator
     extraFooterTopPadding: true
 
-    property bool graphsUpgraded: false
-
     // Type = add | move{oldIndex:number,newIndex:number} | save | fix{index:number,name:string} | edit{index:number,name:string} | remove{index:number,name:string}
     signal action(string type, var payload)
-
-    header: Kirigami.InlineMessage {
-        visible: graphsUpgraded
-        Layout.fillWidth: true
-        text: i18n("The graphs as been upgraded to new version, please save it.")
-    }
 
     view: ListView {
         id: graphsView
