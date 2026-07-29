@@ -12,6 +12,8 @@ KCM.SimpleKCM {
     property alias cfg_updateInterval: updateInterval.realValue
     property alias cfg_clickApplication: applicationDialog.currentUrl
 
+    readonly property string defaultApplicationUrl: "file:///usr/share/applications/org.kde.plasma-systemmonitor.desktop"
+
     // Retrieve available applications
     AvailableApplicationsProxy {
         id: availableApplications
@@ -59,7 +61,11 @@ KCM.SimpleKCM {
             }
             onActivated: {
                 if (currentIndex == 1) {
-                    cfg_clickApplication = "file:///usr/share/applications/org.kde.plasma-systemmonitor.desktop"
+                    const index = availableApplications.findByUrl(defaultApplicationUrl);
+                    if (index !== -1) {
+                        appSelector.application = availableApplications.get(index);
+                        cfg_clickApplication = defaultApplicationUrl
+                    }
                 } else {
                     cfg_clickApplication = ""
                 }
