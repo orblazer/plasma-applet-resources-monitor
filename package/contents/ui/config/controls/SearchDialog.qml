@@ -72,7 +72,7 @@ Kirigami.Dialog {
             }
 
             focusSequence: ""
-            focusSequences: []
+            // focusSequences: [] // since kirigami 6.18  (plasma 6.4.5)
             autoAccept: false
         }
 
