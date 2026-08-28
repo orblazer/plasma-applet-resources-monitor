@@ -180,6 +180,14 @@ BaseForm {
     }
 
     appearanceProperties: Kirigami.FormLayout {
+        QQC2.CheckBox {
+            text: i18n("Show icons (%1 / %2)", "↓", "↑")
+            checked: root.item.icons
+            onClicked: {
+                root.item.icons = checked;
+                root.changed();
+            }
+        }
     }
 
     // Utils function
