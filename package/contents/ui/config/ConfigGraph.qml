@@ -24,9 +24,10 @@ GraphListPage {
         id: availableGraphs
 
         onInitialized: {
-            root.graphs = GraphFns.parse(root.cfg_graphs, true) || [];
+            const parse = GraphFns.parse(root.cfg_graphs, true)
+            root.graphs = parse.graphs || [];
             Object.values(root.graphs).forEach(v => root.addItem(v, find(v.type, v.device ?? v.type)));
-            root.graphsUpgraded = root.graphs[0]?._changed ?? false;
+            root.graphsUpgraded = parse.changed ?? false;
             if (root.graphsUpgraded) {
                 Qt.callLater(() => root.updateGraphsSetting());
             }

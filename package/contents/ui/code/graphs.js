@@ -240,12 +240,12 @@ const migrations = {
  * Parse json string to graph array
  * @param {string} raw The raw graphs value (in json string)
  * @param {boolean} update Update the outdated entries or not
- * @returns {Graph[]} The parsed graph
+ * @returns {{graphs: Graph[], changed: boolean}} The parsed graph
  */
 function parse(raw, update = false) {
   /** @type {Graph[]} */
   const graphs = JSON.parse(raw || "[]");
-  if (graphs.length === 0) return [];
+  if (graphs.length === 0) return { graphs: [], changed: false };
 
   const result = [];
   let anyChanged = false;
@@ -281,12 +281,10 @@ function parse(raw, update = false) {
     result.push(graph);
   }
 
-  // Mark only first as changed if anything was migrated
-  if (anyChanged && result.length > 0) {
-    result[0]._changed = true;
-  }
-
-  return result;
+  return {
+    graphs: result,
+    changed: anyChanged && result.length > 0,
+  };
 }
 
 /**
@@ -295,10 +293,6 @@ function parse(raw, update = false) {
  * @returns {string} The stringified array
  */
 function stringify(graphs) {
-  if (graphs.length > 0 && graphs[0]._changed) {
-    delete graphs[0]._changed;
-  }
-
   return JSON.stringify(graphs);
 }
 

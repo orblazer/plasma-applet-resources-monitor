@@ -27,7 +27,7 @@ PlasmoidItem {
     }
 
     // Settings properties
-    property var graphsModel: GraphFns.parse(Plasmoid.configuration.graphs)
+    property var graphsModel: GraphFns.parse(Plasmoid.configuration.graphs).graphs
     property string clickApplication: Plasmoid.configuration.clickApplication
 
     // Plasma configuration
