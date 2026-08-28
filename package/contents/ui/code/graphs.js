@@ -1,4 +1,8 @@
 .pragma library
+// @ts-check
+/**
+ * @import {GraphTypes, Graph, GraphDefaultsMap, DisplayInfoTemplate, DisplayInfo} from "./graphs.d.ts"
+ */
 
 /**
  * Version of graphs
@@ -7,162 +11,190 @@
 const VERSION = 4; //? Bump when some settings changes in graphs structure
 
 /**
- * @typedef {object} CpuGraph
- * @property {number} _v The version of graph
- * @property {"cpu"} type The graph type
- * @property {[number, number]} sizes The graph size ([width, height], -1 = automatic)
- * @property {[string, string, string]} colors The graph colors (ref: usage, clock, temperature)
- * @property {[("usage"|"system"|"user"), ("none"|"classic"|"ecores"), boolean]} sensorsType The sensors type (ref: usage, clock, temperature)
- * @property {[number, number]} thresholds The temperature thresholds
- * @property {"average"|"minimum"|"maximum"} clockAggregator The clock aggregator
- * @property {number} eCoresCount The e-cores count
- * @property {number} fontSize The font size
+ * Note: Field "_v", "type", "sizes", "fontSize" is filled by {@link #create} function
+ * @type {GraphDefaultsMap}
+ * @constant
  */
-/**
- * @typedef {object} MemoryGraph
- * @property {number} _v The version of graph
- * @property {"memory"} type The graph type
- * @property {[number, number]} sizes The graph size ([width, height], -1 = automatic)
- * @property {[string, string]} colors The graph colors (ref: color, swap)
- * @property {[("physical"|"physical-percent"|"application"|"application-percent"|"swap"|"swap-percent"), ("none"|"physical"|"physical-percent"|"application"|"application-percent"|"swap"|"swap-percent")]} sensorsType The sensors type (ref: memory, swap)
- * @property {[number, number]} thresholds The usage thresholds
- * @property {number} fontSize The font size
- */
-/**
- * @typedef {object} GpuGraph
- * @property {number} _v The version of graph
- * @property {"gpu"} type The graph type
- * @property {[number, number]} sizes The graph size ([width, height], -1 = automatic)
- * @property {[string, string, string]} colors The graph colors (ref: usage, memory, temperature)
- * @property {[("usage"|"memory"|"memory-percent"),("none"|"memory"|"memory-percent"), boolean]} sensorsType The sensors type (ref: usage/memory, memory, temperature)
- * @property {[number, number]} thresholds The temperature thresholds
- * @property {string} device The device index (eg. gpu0, gpu1)
- * @property {number} fontSize The font size
- */
-/**
- * @typedef {object} NetworkGraph
- * @property {number} _v The version of graph
- * @property {"network"} type The graph type
- * @property {[number, number]} sizes The graph size ([width, height], -1 = automatic)
- * @property {[string, string]} colors The graph colors (ref: receiving, sending)
- * @property {[boolean, ("kibibyte"|"kilobit|"kilobyte")]} sensorsType The sensors type (ref: swap Rx/Tx, unit)
- * @property {[number, number]} uplimits The uplimit (ref: chart1, chart2)
- * @property {string[]} ignoredInterfaces The ignored network interfaces
- * @property {boolean} icons Show labels icons (↓ / ↑)
- * @property {number} fontSize The font size
- */
-/**
- * @typedef {object} DiskGraph
- * @property {number} _v The version of graph
- * @property {"disk"} type The graph type
- * @property {[number, number]} sizes The graph size ([width, height], -1 = automatic)
- * @property {[string, string]} colors The graph colors (ref: read, write)
- * @property {[boolean]} sensorsType The sensors type (ref: swap r/w)
- * @property {[number, number]} uplimits The uplimit (ref: chart1, chart2)
- * @property {string} device The disk id (eg. sda, sdc), it also could be `all`
- * @property {boolean} icons Show labels icons (R / W)
- * @property {number} fontSize The font size
- */
+const GRAPH_DEFAULTS = {
+  // CPU
+  cpu: {
+    colors: ["highlightColor", "textColor", "textColor"],
+    sensorsType: ["usage", "classic", false],
+    thresholds: [85, 105],
+    clockAggregator: "average",
+    eCoresCount: 0,
+  },
+  cpuText: {
+    colors: ["textColor", "highlightColor"],
+    sensorsType: ["usage"],
+    title: "CPU",
+    titleWhen: "always",
+  },
+
+  // Memory
+  memory: {
+    colors: ["highlightColor", "negativeTextColor"],
+    sensorsType: ["physical", "swap"],
+    thresholds: [70, 90],
+  },
+  memoryText: {
+    colors: ["textColor", "highlightColor"],
+    sensorsType: ["physical-percent"],
+    title: "RAM",
+    titleWhen: "always",
+  },
+
+  // GPU
+  gpu: {
+    colors: ["highlightColor", "positiveTextColor", "textColor"],
+    sensorsType: ["usage", "memory", false],
+    thresholds: [80, 90],
+  },
+  gpuText: {
+    colors: ["textColor", "highlightColor"],
+    sensorsType: ["usage"],
+    title: "GPU",
+    titleWhen: "always",
+  },
+
+  // Network
+  network: {
+    colors: ["highlightColor", "positiveTextColor"],
+    sensorsType: [false, "kibibyte"],
+    uplimits: [100000, 100000],
+    ignoredInterfaces: [],
+    icons: false,
+  },
+  networkText: {
+    colors: ["highlightColor", "positiveTextColor"],
+    sensorsType: [false, "kibibyte"],
+    ignoredInterfaces: [],
+    icons: true,
+  },
+
+  // Disk
+  disk: {
+    colors: ["highlightColor", "positiveTextColor"],
+    sensorsType: [false],
+    uplimits: [200000, 200000],
+    icons: false,
+  },
+  diskText: {
+    colors: ["textColor", "highlightColor"],
+    sensorsType: ["used-percent"],
+    icons: false,
+    title: "Disk",
+    titleWhen: "always",
+  },
+
+  // Battery
+  batteryText: {
+    colors: ["textColor", "highlightColor"],
+    sensorsType: ["percentage", true],
+    thresholds: [15, 5],
+    title: "Battery",
+    titleWhen: "always",
+  },
+
+  // Text
+  text: {
+    color: "textColor",
+    device: "Text",
+    placement: "middle-right",
+    fontSize: 10, // WARN: This is fallback value,  default came from argument of {@link  #create} function
+  },
+};
 
 /**
- * @typedef {object} CpuText
- * @property {number} _v The version of graph
- * @property {"cpuText"} type The graph type
- * @property {[number, number]} sizes The graph size ([width, height], -1 = automatic)
- * @property {[string, string]} colors The graph colors (ref: label, usage)
- * @property {("usage"|"system"|"user"|"temperature")} sensorsType The sensors type (ref: usage)
- * @property {string} title The title of graph
- * @property {("always"|"hints"|"never")} titleWhen The option when title is displayed
- * @property {number} fontSize The font size
+ * The list of graph types need an device
+ * @type {Set<GraphTypes>}
+ * @constant
  */
-/**
- * @typedef {object} MemoryText
- * @property {number} _v The version of graph
- * @property {"memoryText"} type The graph type
- * @property {[number, number]} sizes The graph size ([width, height], -1 = automatic)
- * @property {[string, string]} colors The graph colors (ref: label, usage)
- * @property {("physical"|"physical-percent"|"application"|"application-percent")} sensorsType The sensors type (ref: usage)
- * @property {string} title The title of graph
- * @property {("always"|"hints"|"never")} titleWhen The option when title is displayed
- * @property {number} fontSize The font size
- */
-/**
- * @typedef {object} GpuText
- * @property {number} _v The version of graph
- * @property {"gpuText"} type The graph type
- * @property {[number, number]} sizes The graph size ([width, height], -1 = automatic)
- * @property {[string, string]} colors The graph colors (ref: label, usage)
- * @property {[("usage"|"memory"|"memory-percent"|"temperature")]} sensorsType The sensors type (ref: usage/memory)
- * @property {string} device The device index (eg. gpu0, gpu1)
- * @property {string} title The title of graph
- * @property {("always"|"hints"|"never")} titleWhen The option when title is displayed
- * @property {number} fontSize The font size
- */
-/**
- * @typedef {object} NetworkText
- * @property {number} _v The version of graph
- * @property {"network"} type The graph type
- * @property {[number, number]} sizes The graph size ([width, height], -1 = automatic)
- * @property {[string, string]} colors The graph colors (ref: receiving, sending)
- * @property {[boolean, ("kibibyte"|"kilobit|"kilobyte")]} sensorsType The sensors type (ref: swap Rx/Tx, unit)
- * @property {string[]} ignoredInterfaces The ignored network interfaces
- * @property {boolean} icons Show labels icons (↓ / ↑)
- * @property {string} title The title of graph
- * @property {("always"|"hints"|"never")} titleWhen The option when title is displayed
- * @property {number} fontSize The font size
- */
-/**
- * @typedef {object} DiskText
- * @property {number} _v The version of graph
- * @property {"diskText"} type The graph type
- * @property {[number, number]} sizes The graph size ([width, height], -1 = automatic)
- * @property {[string, string]} colors The graph colors (ref: label, usage)
- * @property {("used"|"used-percent")} sensorsType The sensors type (ref: usage)
- * @property {string} device The disk id (eg. sda, sdc), it also could be `all`
- * @property {boolean} icons Show labels icons (R / W)
- * @property {string} title The title of graph
- * @property {("always"|"hints"|"never")} titleWhen The option when title is displayed
- * @property {number} fontSize The font size
- */
-/**
- * @typedef {object} BatteryText
- * @property {number} _v The version of graph
- * @property {"batteryText"} type The graph type
- * @property {[number, number]} sizes The graph size ([width, height], -1 = automatic)
- * @property {[string, string]} colors The graph colors (ref: label, usage)
- * @property {[("percentage"|"energy-rate"|"time"), boolean]} sensorsType The sensors type (ref: type, hideWhenAbsent)
- * @property {string} device The device ID (eg. battery_BAT0)
- * @property {[number, number]} thresholds The battery percentage thresholds
- * @property {string} title The title of graph
- * @property {("always"|"hints"|"never")} titleWhen The option when title is displayed
- * @property {number} fontSize The font size
- */
-/**
- * @typedef {object} Text
- * @property {number} _v The version of graph
- * @property {"text"} type The graph type
- * @property {[number, number]} sizes The graph size ([width, height], -1 = automatic)
- * @property {string} color The text color
- * @property {string} device The text value
- * @property {string} placement The text placement
- * @property {number} fontSize The font size
- */
+const DEVICE_REQUIRED_TYPES = new Set([
+  "gpu",
+  "gpuText",
+  "disk",
+  "diskText",
+  "batteryText",
+]);
 
-/** @typedef {CpuGraph|CpuText|MemoryGraph|MemoryText|GpuGraph|NetworkGraph|NetworkText|DiskGraph|DiskText|BatteryText|Text} Graph */
 /**
- * @typedef {object} GraphInfo
- * @property {Graph["type"]} type
- * @property {string} name The graph name
- * @property {string} icon The graph icon
- * @property {string} fallbackIcon The fallback of graph icon
- * @property {string} section The graph section
- * @property {string} device The graph device (set to {@link type} if is not "gpu" or "disk" type)
+ * @type {Record<GraphTypes, DisplayInfoTemplate>}
+ * @constant
  */
+const GRAPH_DISPLAY = {
+  cpu: {
+    name: ["Chart name", "CPU"],
+    icon: "cpu-symbolic",
+    fallbackIcon: "cpu",
+  },
+  cpuText: {
+    name: ["Chart name", "CPU (text)"],
+    icon: "cpu-symbolic",
+    fallbackIcon: "cpu",
+  },
+  memory: {
+    name: ["Chart name", "Memory"],
+    icon: "memory-symbolic",
+    fallbackIcon: "memory",
+  },
+  memoryText: {
+    name: ["Chart name", "Memory (text)"],
+    icon: "memory-symbolic",
+    fallbackIcon: "memory",
+  },
+  gpu: {
+    name: ["Chart name", "GPU [%1]"],
+    icon: "freon-gpu-temperature-symbolic",
+    fallbackIcon: "preferences-desktop-display",
+    withDeviceName: true,
+  },
+  gpuText: {
+    name: ["Chart name", "GPU (text) [%1]"],
+    icon: "freon-gpu-temperature-symbolic",
+    fallbackIcon: "preferences-desktop-display",
+    withDeviceName: true,
+  },
+  network: {
+    name: ["Chart name", "Network"],
+    icon: "network-wired-symbolic",
+    fallbackIcon: "network-wired",
+  },
+  networkText: {
+    name: ["Chart name", "Network (text)"],
+    icon: "network-wired-symbolic",
+    fallbackIcon: "network-wired",
+  },
+  disk: {
+    name: ["Chart name", "Disk I/O [%1]"],
+    icon: "drive-harddisk-symbolic",
+    fallbackIcon: "drive-harddisk",
+    withDeviceName: true,
+  },
+  diskText: {
+    name: ["Chart name", "Disk (text) [%1]"],
+    icon: "drive-harddisk-symbolic",
+    fallbackIcon: "drive-harddisk",
+    withDeviceName: true,
+  },
+  batteryText: {
+    name: ["Chart name", "Battery (text) [%1]"],
+    icon: "battery-symbolic",
+    fallbackIcon: "battery",
+    withDeviceName: true,
+  },
+  text: {
+    name: ["Chart name", "Text"],
+    icon: "dialog-text-and-font",
+    fallbackIcon: "draw-text",
+  },
+};
 
 /**
  * Migration registry: version number → migration function
  * Each function receives a graph and mutates it in place
  * @type {Record<number, (graph: Graph) => void>}
+ * @constant
  */
 const migrations = {
   // V1 -> V2: Add icons to network/disk graphs
@@ -298,202 +330,83 @@ function stringify(graphs) {
 
 /**
  * Create new graph with given type and device
- * @param {Graph["type"]} type The graph type
+ * @param {GraphTypes} type The graph type
  * @param {string} [device] The device
  * @param {number} [fontSize] The default font size
  * @returns {Graph} The created graph
  */
 function create(type, device, fontSize) {
-  /** @type {Graph} */
-  let item = {
-    _v: VERSION,
-    type,
-    sizes: [-1, -1],
-    fontSize: -1,
-  };
+  const defaults = GRAPH_DEFAULTS[type];
+  if (!defaults) throw new Error(`${type} is not valid graph type`);
 
-  // Fill default value
-  switch (type) {
-    case "cpu":
-      item.colors = ["highlightColor", "textColor", "textColor"];
-      item.sensorsType = ["usage", "clock", false];
-      item.thresholds = [85, 105];
-      item.clockAggregator = "average";
-      item.eCoresCount = "";
-      break;
-    case "cpuText":
-      item.colors = ["textColor", "highlightColor"];
-      item.sensorsType = ["usage"];
-      item.title = "CPU";
-      item.titleWhen = "always";
-      break;
-    case "memory":
-      item.colors = ["highlightColor", "negativeTextColor"];
-      item.sensorsType = ["physical", "swap"];
-      item.thresholds = [70, 90];
-      break;
-    case "memoryText":
-      item.colors = ["textColor", "highlightColor"];
-      item.sensorsType = ["physical-percent"];
-      item.title = "RAM";
-      item.titleWhen = "always";
-      break;
-    case "gpu":
-      item.colors = ["highlightColor", "positiveTextColor", "textColor"];
-      item.sensorsType = ["usage", "memory", false];
-      item.thresholds = [80, 90];
-      break;
-    case "gpuText":
-      item.colors = ["textColor", "highlightColor"];
-      item.sensorsType = ["usage"];
-      item.title = "GPU";
-      item.titleWhen = "always";
-      break;
-    case "network":
-      item.colors = ["highlightColor", "positiveTextColor"];
-      item.sensorsType = [false, "kibibyte"];
-      item.uplimits = [100000, 100000];
-      item.ignoredInterfaces = [];
-      item.icons = false;
-      break;
-    case "networkText":
-      item.colors = ["highlightColor", "positiveTextColor"];
-      item.sensorsType = [false, "kibibyte"];
-      item.ignoredInterfaces = [];
-      item.icons = true;
-      break;
-    case "disk":
-      item.colors = ["highlightColor", "positiveTextColor"];
-      item.sensorsType = [false];
-      item.uplimits = [200000, 200000];
-      item.icons = false;
-      break;
-    case "diskText":
-      item.colors = ["textColor", "highlightColor"];
-      item.sensorsType = ["used-percent"];
-      item.icons = false;
-      item.title = "Disk";
-      item.titleWhen = "always";
-      break;
-    case "batteryText":
-      item.colors = ["textColor", "highlightColor"];
-      item.sensorsType = ["percentage", true];
-      item.thresholds = [15, 5];
-      item.title = "Battery";
-      item.titleWhen = "always";
-      break;
-    case "text":
-      item.color = "textColor";
-      item.device = "Text";
-      item.placement = "middle-right";
-      item.fontSize = fontSize ?? 10;
-      break;
-    default:
-      throw new Error(`${type} is not valid graph type`);
-  }
+  const item = Object.assign(
+    {
+      _v: VERSION,
+      type,
+      sizes: [-1, -1],
+      fontSize: -1,
+    },
+    _cloneDefaults(defaults),
+  );
 
-  // Fill device
-  if (
-    type === "gpu" ||
-    type === "gpuText" ||
-    type === "disk" ||
-    type === "diskText" ||
-    type === "batteryText"
-  ) {
-    if (!device?.trim()) {
+  if (DEVICE_REQUIRED_TYPES.has(type)) {
+    if (!device?.trim())
       throw new Error(`Device is required for ${type} graph`);
-    }
-    item.device = device;
+    /** @type {any} */ (item).device = device;
   }
 
-  return item;
+  // Default text font size
+  if (type === "text")
+    item.fontSize =
+      fontSize ?? /** @type {{fontSize: number}} */ (defaults).fontSize;
+
+  return /** @type {Graph} */ (item);
+}
+/**
+ * Shallow-clone an object, cloning array properties one level deep
+ * @template {object} T
+ * @param {T} obj The object to clone
+ * @returns {T} The cloned object
+ */
+function _cloneDefaults(obj) {
+  const out = /** @type {T} */ ({});
+  for (const key in obj) {
+    out[key] = Array.isArray(obj[key])
+      ? /** @type {any} */ ([...obj[key]])
+      : obj[key];
+  }
+  return out;
 }
 
 /**
  * Retrieve graph display informations (name and icon)
  * @param {Graph["type"]} type The graph type
- * @param {function} i18nc The "i18nc" function //? bypass QML limitation
- * @param {string} section The section name
- * @param {string} device The device identifier
- * @param {string} deviceName The device name
+ * @param {(context: string, source: string, arg?: string) => string} i18nc The "i18nc" function //? bypass QML limitation
+ * @param {string} [section] The section name
+ * @param {string} [device] The device identifier
+ * @param {string} [deviceName] The device name
  * @returns {GraphInfo} The display informations
  */
 function getDisplayInfo(
   type,
-  i18nc = (_ = "", def = "") => def,
+  i18nc = (_context, source) => source,
   section = "",
   device = type,
   deviceName = device,
 ) {
-  /** @type {GraphInfo} */
-  let result = {
+  const template = GRAPH_DISPLAY[type];
+  if (!template) throw new Error(`${type} is not valid graph type`);
+
+  const [context, source] = template.name;
+
+  return {
     type,
     section,
     device,
+    name: template.withDeviceName
+      ? i18nc(context, source, deviceName)
+      : i18nc(context, source),
+    icon: template.icon,
+    fallbackIcon: template.fallbackIcon,
   };
-  switch (type) {
-    case "cpu":
-      result.name = i18nc("Chart name", "CPU");
-      result.icon = "cpu-symbolic";
-      result.fallbackIcon = "cpu";
-      break;
-    case "cpuText":
-      result.name = i18nc("Chart name", "CPU (text)");
-      result.icon = "cpu-symbolic";
-      result.fallbackIcon = "cpu";
-      break;
-    case "memory":
-      result.name = i18nc("Chart name", "Memory");
-      result.icon = "memory-symbolic";
-      result.fallbackIcon = "memory";
-      break;
-    case "memoryText":
-      result.name = i18nc("Chart name", "Memory (text)");
-      result.icon = "memory-symbolic";
-      result.fallbackIcon = "memory";
-      break;
-    case "gpu":
-      result.name = i18nc("Chart name", "GPU [%1]", deviceName);
-      result.icon = "freon-gpu-temperature-symbolic";
-      result.fallbackIcon = "preferences-desktop-display";
-      break;
-    case "gpuText":
-      result.name = i18nc("Chart name", "GPU (text) [%1]", deviceName);
-      result.icon = "freon-gpu-temperature-symbolic";
-      result.fallbackIcon = "preferences-desktop-display";
-      break;
-    case "network":
-      result.name = i18nc("Chart name", "Network");
-      result.icon = "network-wired-symbolic";
-      result.fallbackIcon = "network-wired";
-      break;
-    case "networkText":
-      result.name = i18nc("Chart name", "Network (text)");
-      result.icon = "network-wired-symbolic";
-      result.fallbackIcon = "network-wired";
-      break;
-    case "disk":
-      result.name = i18nc("Chart name", "Disk I/O [%1]", deviceName);
-      result.icon = "drive-harddisk-symbolic";
-      result.fallbackIcon = "drive-harddisk";
-      break;
-    case "diskText":
-      result.name = i18nc("Chart name", "Disk (text) [%1]", deviceName);
-      result.icon = "drive-harddisk-symbolic";
-      result.fallbackIcon = "drive-harddisk";
-      break;
-    case "batteryText":
-      result.name = i18nc("Chart name", "Battery (text) [%1]", deviceName);
-      result.icon = "battery-symbolic";
-      result.fallbackIcon = "battery";
-      break;
-    case "text":
-      result.name = i18nc("Chart name", "Text");
-      result.icon = "dialog-text-and-font";
-      result.fallbackIcon = "draw-text";
-      break;
-    default:
-      throw new Error(`${type} is not valid graph type`);
-  }
-  return result;
 }
