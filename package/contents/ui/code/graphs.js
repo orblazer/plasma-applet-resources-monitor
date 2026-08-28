@@ -346,7 +346,7 @@ function create(type, device, fontSize) {
       break;
     case "gpu":
       item.colors = ["highlightColor", "positiveTextColor", "textColor"];
-      item.sensorsType = ["memory", false];
+      item.sensorsType = ["usage", "memory", false];
       item.thresholds = [80, 90];
       break;
     case "gpuText":
