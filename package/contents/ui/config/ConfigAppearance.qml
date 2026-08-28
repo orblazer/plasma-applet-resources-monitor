@@ -191,6 +191,7 @@ KCM.AbstractKCM {
                         font: Kirigami.Theme.smallFont
                     }
                 }
+
                 RowLayout {
                     spacing: Kirigami.Units.smallSpacing
 
@@ -215,25 +216,24 @@ KCM.AbstractKCM {
                         }
                     }
                 }
+                QQC2.Label {
+                    visible: manualFontAndSizeRadioButton.checked
+                    Layout.leftMargin: manualFontAndSizeRadioButton.indicator.width + manualFontAndSizeRadioButton.spacing
+                    text: i18nc("@info %1 is the font size, %2 is the font family", "%1pt %2", cfg_fontSize, fontDialog.fontChosen.family)
+                    textFormat: Text.PlainText
+                    font: fontDialog.fontChosen
+                }
+
                 ColumnLayout {
                     spacing: Kirigami.Units.smallSpacing
 
-                    QQC2.Label {
-                        visible: manualFontAndSizeRadioButton.checked
-                        Layout.leftMargin: manualFontAndSizeRadioButton.indicator.width + manualFontAndSizeRadioButton.spacing
-                        text: i18nc("@info %1 is the font size, %2 is the font family", "%1pt %2", cfg_fontSize, fontDialog.fontChosen.family)
-                        textFormat: Text.PlainText
-                        font: fontDialog.fontChosen
-                    }
                     QQC2.CheckBox {
                         id: keepFontSize
-                        visible: manualFontAndSizeRadioButton.checked
                         text: i18n("Keep specified font size")
                         font: Kirigami.Theme.smallFont
                     }
                     QQC2.Label {
-                        visible: manualFontAndSizeRadioButton.checked && !keepFontSize.checked
-                        Layout.leftMargin: manualFontAndSizeRadioButton.indicator.width + manualFontAndSizeRadioButton.spacing
+                        visible: !keepFontSize.checked
                         text: i18nc("@info", "Note: size may be reduced if the panel is not thick enough.")
                         textFormat: Text.PlainText
                         font: Kirigami.Theme.smallFont
