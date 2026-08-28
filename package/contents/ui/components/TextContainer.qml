@@ -51,7 +51,7 @@ Item {
         id: fontHelper
         anchors.fill: parent
         visible: false
-        text: "\n\n\n"
+        text: (root.lineCount === 3 ? "\n\n\n" : (root.lineCount === 2 ? "\n\n" : "\n"))
 
         font.family: (Plasmoid.configuration.autoFontAndSize || Plasmoid.configuration.fontFamily.length === 0) ? Kirigami.Theme.defaultFont.family : Plasmoid.configuration.fontFamily
         font.weight: Plasmoid.configuration.autoFontAndSize ? Kirigami.Theme.defaultFont.weight : Plasmoid.configuration.fontWeight
