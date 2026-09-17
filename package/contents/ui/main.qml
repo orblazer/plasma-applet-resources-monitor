@@ -25,6 +25,16 @@ PlasmoidItem {
             return false;
         }
     }
+    property bool graphsIsVertical: {
+        switch (Plasmoid.configuration.graphsDirection) {
+        case "horizontal":
+            return false;
+        case "vertical":
+            return true;
+        default:
+            return root.isVertical;
+        }
+    }
 
     // Settings properties
     property var graphsModel: GraphFns.parse(Plasmoid.configuration.graphs).graphs
@@ -53,8 +63,8 @@ PlasmoidItem {
         acceptedButtons: clickApplication !== "" ? Qt.LeftButton : Qt.NoButton
 
         // Propagate child size to parent
-        Layout.preferredWidth: isVertical ? Kirigami.Units.iconSizes.small : graphView.implicitWidth + Kirigami.Units.smallSpacing
-        Layout.preferredHeight: isVertical ? graphView.implicitHeight + Kirigami.Units.smallSpacing : Kirigami.Units.iconSizes.small
+        Layout.preferredWidth: graphsIsVertical ? Kirigami.Units.iconSizes.small : graphView.implicitWidth + Kirigami.Units.smallSpacing
+        Layout.preferredHeight: graphsIsVertical ? graphView.implicitHeight + Kirigami.Units.smallSpacing : Kirigami.Units.iconSizes.small
 
         // Click action
         Loader {
@@ -79,7 +89,7 @@ PlasmoidItem {
             updateInterval: Plasmoid.configuration.updateInterval * 1000
 
             spacing: Plasmoid.configuration.graphSpacing
-            isVertical: root.isVertical
+            isVertical: root.graphsIsVertical
 
             parentWidth: parent.width
             parentHeight: parent.height

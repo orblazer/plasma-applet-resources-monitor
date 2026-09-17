@@ -33,6 +33,9 @@
         <entry name="graphSpacing" type="Int">
             <default>10</default>
         </entry>
+        <entry name="graphsDirection" type="String">
+            <default>auto</default>
+        </entry>
         <entry name="graphFillOpacity" type="Int">
             <default>25</default>
         </entry>

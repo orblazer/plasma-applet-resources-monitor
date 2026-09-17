@@ -8,10 +8,36 @@ Flow {
     property alias updateInterval: updater.interval
 
     property bool isVertical: false
-    property double widthRatio: 1.4
 
     property int parentWidth: 0
     property int parentHeight: 0
+
+    // Width left to share between items without an explicit width, so the row fills parentWidth
+    property real autoWidth: {
+        if (isVertical)
+            return 0;
+
+        let fixedWidth = 0;
+        let autoCount = 0;
+        let visibleCount = 0;
+        for (let i = 0; i < repeater.count; i++) {
+            const loaderItem = repeater.itemAt(i);
+            if (!loaderItem?.item?.visible)
+                continue;
+
+            visibleCount++;
+            if (loaderItem.modelData.sizes[0] !== -1) {
+                fixedWidth += loaderItem.modelData.sizes[0];
+            } else {
+                autoCount++;
+            }
+        }
+        if (autoCount === 0)
+            return 0;
+
+        const remaining = root.parentWidth - fixedWidth - root.spacing * Math.max(visibleCount - 1, 0);
+        return Math.max(0, remaining / autoCount);
+    }
 
     flow: isVertical ? GridLayout.TopToBottom : GridLayout.LeftToRight
 
@@ -28,10 +54,8 @@ Flow {
                     return modelData.sizes[0];
                 if (root.isVertical)
                     return root.parentWidth;
-                if (modelData.type.endsWith("Text"))
-                    return Math.max(item?.minimumWidth ?? 0, root.parentHeight);
 
-                return Math.max(item?.minimumWidth ?? 0, Math.round(root.parentHeight * root.widthRatio));
+                return Math.max(item?.minimumWidth ?? 0, root.autoWidth);
             }
             height: {
                 if (!item?.visible)
