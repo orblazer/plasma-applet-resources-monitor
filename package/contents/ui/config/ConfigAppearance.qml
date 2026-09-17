@@ -19,6 +19,7 @@ KCM.AbstractKCM {
     property alias cfg_historyAmount: historyAmount.realValue
     property alias cfg_graphSpacing: graphSpacing.value
     property alias cfg_graphFillOpacity: graphFillOpacity.value
+    property string cfg_graphsDirection
 
     // Text
     property alias cfg_enableShadows: enableShadows.checked
@@ -139,6 +140,35 @@ KCM.AbstractKCM {
                     from: 1
                     to: 1000
                     suffix: " px"
+                }
+                QQC2.ComboBox {
+                    id: graphsDirection
+                    Kirigami.FormData.label: i18n("Direction:")
+                    Layout.fillWidth: true
+
+                    currentIndex: -1
+                    textRole: "label"
+                    valueRole: "name"
+                    model: [
+                        {
+                            "label": i18nc("Graphs direction", "Automatic"),
+                            "name": "auto"
+                        },
+                        {
+                            "label": i18nc("Graphs direction", "Horizontal"),
+                            "name": "horizontal"
+                        },
+                        {
+                            "label": i18nc("Graphs direction", "Vertical"),
+                            "name": "vertical"
+                        }
+                    ]
+
+                    onActivated: cfg_graphsDirection = currentValue
+                    Component.onCompleted: currentIndex = indexOfValue(cfg_graphsDirection)
+
+                    QQC2.ToolTip.visible: hovered
+                    QQC2.ToolTip.text: i18nc("@info:tooltip", "Automatic follows the panel orientation")
                 }
                 RMControls.SpinBox {
                     id: graphFillOpacity

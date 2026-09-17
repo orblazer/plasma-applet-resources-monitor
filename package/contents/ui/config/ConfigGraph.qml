@@ -315,6 +315,8 @@ GraphListPage {
     property var cfg_graphSpacing
     property var cfg_graphSpacingDefault
     property var cfg_graphsDefault
+    property var cfg_graphsDirection
+    property var cfg_graphsDirectionDefault
     property var cfg_historyAmount
     property var cfg_historyAmountDefault
     property var cfg_italicText
