@@ -29,6 +29,7 @@ RowLayout {
             id: ma
             anchors.fill: parent
             hoverEnabled: true
+            acceptedButtons: Qt.NoButton
         }
     }
 }
